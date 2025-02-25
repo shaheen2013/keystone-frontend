@@ -87,6 +87,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
     },
+    container: {
+      center: true,
+    },
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
