@@ -1,16 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { forwardRef } from "react";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { forwardRef, useState } from "react";
+import { Dialog, DialogPanel } from "@headlessui/react";
 
+import { cn } from "@/lib/utils";
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/shadcn/drawer";
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/shadcn/accordion";
 
 import {
   NavigationMenu,
@@ -21,30 +23,30 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/shadcn/navigation-menu";
-
-import { cn } from "@/lib/utils";
 import { menuOptions } from "@/static/header";
 import { Button } from "@/components/shadcn/button";
 
 export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <header className="border-b">
+    <header className="border-b sticky top-0 bg-white">
       <div className="container flex h-24 items-center justify-between px-4 md:px-6">
         {/* Left - Brand */}
         <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center gap-2 font-bold">
+          <Link href="/">
             <Image
               src="/icons/brand-logo.svg"
               alt="logo"
-              width={50}
-              height={50}
-              className="h-12 w-[110px]"
+              width={100}
+              height={100}
+              className="h-12 w-[110px] flex-1"
             />
           </Link>
         </div>
 
-        {/* Center - Content (hidden on mobile) */}
-        <nav className="hidden md:flex items-center gap-6">
+        {/* Center - Content (hidden on tablet) */}
+        <nav className="hidden lg:flex items-center gap-6">
           <NavigationMenu>
             <NavigationMenuList>
               {menuOptions.map((menu, index) => {
@@ -88,61 +90,81 @@ export default function Header() {
 
         {/* Right - Login Button */}
         <div className="flex items-center">
-          <Button asChild variant="link">
-            <Link href="/login" className="hidden sm:flex">
+          <Button asChild variant="link" className="hidden lg:flex">
+            <Link href="/login" className="">
               Login
             </Link>
           </Button>
 
-          <Button asChild className=" bg-secondary-6">
+          <Button asChild className=" bg-secondary-6 hidden lg:flex">
             <Link href="/signup">Signup</Link>
           </Button>
 
           {/* Mobile Menu */}
-          <Drawer>
-            <DrawerTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
-                <Menu className="size-4" />
-                <span className="sr-only">Toggle menu</span>
-              </Button>
-            </DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader>
-                <DrawerTitle>Navigation</DrawerTitle>
-              </DrawerHeader>
-              <div className="flex flex-col gap-2 p-4">
-                <Link
-                  href="#"
-                  className="py-2 text-sm font-medium hover:underline underline-offset-4"
-                >
-                  Home
-                </Link>
-                <Link
-                  href="#"
-                  className="py-2 text-sm font-medium hover:underline underline-offset-4"
-                >
-                  Features
-                </Link>
-                <Link
-                  href="#"
-                  className="py-2 text-sm font-medium hover:underline underline-offset-4"
-                >
-                  Pricing
-                </Link>
-                <Link
-                  href="#"
-                  className="py-2 text-sm font-medium hover:underline underline-offset-4"
-                >
-                  About
-                </Link>
-                <DrawerClose asChild>
-                  <Button className="mt-2">
-                    <Link href="/login">Login</Link>
-                  </Button>
-                </DrawerClose>
+          <Button asChild className=" bg-secondary-6 lg:hidden mr-4">
+            <Link href="/login">Login</Link>
+          </Button>
+
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className="lg:hidden bg-gray-2 rounded-xl p-[10px]"
+          >
+            {mobileMenuOpen ? <X size={30} /> : <Menu size={30} />}
+          </button>
+
+          <Dialog
+            open={mobileMenuOpen}
+            onClose={setMobileMenuOpen}
+            className="lg:hidden"
+          >
+            <div className="fixed inset-0 z-10" />
+            <DialogPanel className="fixed inset-y-0 right-0 z-10 top-[100px] w-full overflow-y-auto bg-white">
+              <div className="">
+                {menuOptions.map((menu, index) => {
+                  if (menu.href) {
+                    return (
+                      <Link
+                        href={menu.href}
+                        key={index}
+                        className="block py-3 px-6 text-md font-semibold border-b text-gray-9"
+                      >
+                        {menu.name}
+                      </Link>
+                    );
+                  }
+
+                  return (
+                    <Accordion type="single" collapsible key={index}>
+                      <AccordionItem value="item-1" className="">
+                        <AccordionTrigger className="text-md font-semibold px-6 py-3 text-gray-9">
+                          {menu?.name}
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          {menu.items &&
+                            menu.items.map((submenu, subIndex) => {
+                              console.log("submenu", submenu);
+                              return (
+                                <div
+                                  className="border-b first:border-t last:border-0"
+                                  key={subIndex}
+                                >
+                                  <Link
+                                    href={submenu.href}
+                                    className="block py-4 pl-10 text-base font-semibold text-gray-9"
+                                  >
+                                    {submenu.title}
+                                  </Link>
+                                </div>
+                              );
+                            })}
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  );
+                })}
               </div>
-            </DrawerContent>
-          </Drawer>
+            </DialogPanel>
+          </Dialog>
         </div>
       </div>
     </header>
