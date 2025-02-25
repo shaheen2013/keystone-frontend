@@ -7,9 +7,9 @@ import { Button } from "../shadcn/button";
 export default function Footer() {
   return (
     <footer className="text-gray-600 bg-primary-2">
-      <div className="container lg:py-24 py-12 mx-auto flex  lg:flex-row md:flex-nowrap flex-wrap flex-col lg:gap-12 gap-6">
+      <div className="container lg:py-24 py-12 mx-auto flex  lg:flex-row md:flex-nowrap flex-wrap flex-col gap-6">
         {/* left */}
-        <div className="lg:w-96 ">
+        <div className="xl:w-80 lg:w-60">
           <Link href="/" className="lg:mb-6 mb-5 block -ml-2">
             <Image
               src="/icons/brand-logo.svg"
@@ -67,8 +67,8 @@ export default function Footer() {
         </div>
 
         {/* middle */}
-        <div className="grid 2xl:grid-cols-3 xl:grid-cols-2 lg:grid-cols-1 flex-wrap flex-1">
-          <div className="flex-1">
+        <div className="grid lg:grid-cols-3 grid-cols-2 flex-wrap flex-1">
+          <div className="">
             <h2 className="font-bold text-gray-9 text-lg lg:mb-6 mb-4">
               Quick Links
             </h2>
@@ -87,7 +87,7 @@ export default function Footer() {
             </nav>
           </div>
 
-          <div className="flex-1">
+          <div className="">
             <h2 className="font-bold text-gray-9 text-lg lg:mb-6 mb-4">
               Support & Legal
             </h2>
@@ -106,7 +106,7 @@ export default function Footer() {
             </nav>
           </div>
 
-          <div className="flex-1">
+          <div className="lg:col-span-1 col-span-2">
             <h2 className="font-bold text-gray-9 text-lg lg:mb-6 mb-4">
               Get in Touch
             </h2>
@@ -148,7 +148,7 @@ export default function Footer() {
         </div>
 
         {/* right */}
-        <div className="lg:w-96">
+        <div className="xl:w-80 lg:w-60">
           <h2 className="font-bold text-gray-9 text-lg mb-6">Subscribe</h2>
 
           <p className="text-base text-gray-9 mb-6">
