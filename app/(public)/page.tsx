@@ -1,3 +1,6 @@
+import HeroSection from "@/components/core/Hero";
+import ServiceSection from "@/components/core/Service";
+import WhyKeystoneSection from "@/components/core/WhyKeystone";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,6 +13,9 @@ export default function Home() {
   return (
     <div>
       <div>Content</div>
+      <HeroSection />
+      <ServiceSection />
+      <WhyKeystoneSection />
     </div>
   );
 }
