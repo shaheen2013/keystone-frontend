@@ -31,7 +31,7 @@ export default function Header() {
 
   return (
     <header className="border-b sticky top-0 bg-white">
-      <div className="container flex h-24 items-center justify-between px-4 md:px-6">
+      <div className="container flex h-24 items-center justify-between">
         {/* Left - Brand */}
         <div className="flex items-center gap-2">
           <Link href="/">
@@ -41,6 +41,7 @@ export default function Header() {
               width={100}
               height={100}
               className="h-12 w-[110px] flex-1"
+              priority
             />
           </Link>
         </div>
@@ -96,12 +97,12 @@ export default function Header() {
             </Link>
           </Button>
 
-          <Button asChild className=" bg-secondary-6 hidden lg:flex">
+          <Button asChild className="hidden lg:flex" variant="secondary">
             <Link href="/signup">Signup</Link>
           </Button>
 
           {/* Mobile Menu */}
-          <Button asChild className=" bg-secondary-6 lg:hidden mr-4">
+          <Button asChild className="lg:hidden mr-4" variant="secondary">
             <Link href="/login">Login</Link>
           </Button>
 
@@ -118,7 +119,7 @@ export default function Header() {
             className="lg:hidden"
           >
             <div className="fixed inset-0 z-10" />
-            <DialogPanel className="fixed inset-y-0 right-0 z-10 top-[100px] w-full overflow-y-auto bg-white">
+            <DialogPanel className="fixed inset-y-0 right-0 z-10 top-[98px] w-full overflow-y-auto bg-white">
               <div className="">
                 {menuOptions.map((menu, index) => {
                   if (menu.href) {
@@ -142,7 +143,6 @@ export default function Header() {
                         <AccordionContent>
                           {menu.items &&
                             menu.items.map((submenu, subIndex) => {
-                              console.log("submenu", submenu);
                               return (
                                 <div
                                   className="border-b first:border-t last:border-0"
