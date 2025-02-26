@@ -48,7 +48,7 @@ export default function Accessibility() {
         </SheetTrigger>
 
         <SheetContent
-          className="flex flex-col overflow-y-scroll min-w-[460px] p-8 dev"
+          className="flex flex-col overflow-y-scroll min-w-[460px] p-8"
           aria-describedby={undefined}
         >
           {/* todo: ignore this component */}
@@ -189,7 +189,7 @@ export default function Accessibility() {
                           Text Size
                         </span>
 
-                        <div className="relative w-full dev">
+                        <div className="relative w-full">
                           <Slider min={1} max={7} step={1} />
 
                           {/* slider steps */}
