@@ -30,7 +30,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="border-b sticky top-0 bg-white">
+    <header className="border-b sticky top-0 bg-white z-10">
       <div className="container flex h-24 items-center justify-between">
         {/* Left - Brand */}
         <div className="flex items-center gap-2">
