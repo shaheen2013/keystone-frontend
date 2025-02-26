@@ -333,7 +333,7 @@ const CarouselDots = React.forwardRef<HTMLDivElement, CarouselDotsProps>(
             <Button
               key={i}
               className={cn(
-                "mx-4 w-16 h-4 rounded-full p-0 transition-all duration-300 ease-in-out",
+                "mx-4 w-12 md:w-16 h-4 rounded-full p-0 transition-all duration-300 ease-in-out",
                 props.btnClass,
                 i === currentSlide
                   ? "bg-secondary-6 hover:bg-secondary-6"

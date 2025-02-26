@@ -38,7 +38,7 @@ const InsightsAndStories = () => {
       >
         <CarouselContent>
           {articles.map((article, index) => (
-            <CarouselItem key={index} className="basis-1 md:basis-1/3">
+            <CarouselItem key={index} className="basis-full md:basis-1/3">
               <div className="bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-4 md:gap-6 items-start">
                 <div className="relative">
                   <Image

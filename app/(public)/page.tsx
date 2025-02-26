@@ -22,9 +22,9 @@ export default function Home() {
       <WhyKeystoneSection />
       <UpComingEvents />
       <KeyStoneAbilitySupport />
+      <Testimonials />
       <InsightsAndStories />
       <Support />
-      <Testimonials />
     </>
   );
 }
