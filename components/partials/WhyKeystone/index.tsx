@@ -4,6 +4,7 @@ import { WhyKeystoneData } from "./constants";
 import { Play } from "@/components/icons";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
@@ -36,7 +37,9 @@ const WhyKeystoneSection = () => {
             {title}
           </h3>
           <p className="mb-8 md:mb-12 text-base md:text-xl">{description}</p>
-          <Button>{cta.text}</Button>
+          <Button variant="secondary" size="lg" asChild>
+            <Link href={cta.link}>{cta.text}</Link>
+          </Button>
         </div>
       </div>
     </section>

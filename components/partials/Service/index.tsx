@@ -1,8 +1,9 @@
 import { Button } from "@/components/shadcn/button";
 import { serviceData } from "./constant";
+import Link from "next/link";
 
 const ServiceSection = () => {
-  const { title, subtitle, services } = serviceData;
+  const { title, subtitle, services, cta } = serviceData;
   return (
     <section className="container my-12 md:my-28 flex flex-col items-center">
       <h2 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9 text-center">
@@ -33,7 +34,9 @@ const ServiceSection = () => {
           </div>
         ))}
       </div>
-      <Button>Explore All</Button>
+      <Button variant="secondary" size="lg" asChild>
+        <Link href={cta.url}>{cta.text}</Link>
+      </Button>
     </section>
   );
 };

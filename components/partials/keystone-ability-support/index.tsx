@@ -1,5 +1,6 @@
 import { Button } from "@/components/shadcn/button";
 import { keystoneAbilitySupportData } from "./constant";
+import Link from "next/link";
 
 const KeyStoneAbilitySupport = () => {
   const { title, description, cta, features } = keystoneAbilitySupportData;
@@ -14,7 +15,9 @@ const KeyStoneAbilitySupport = () => {
           <p className="mb-8 md:mb-12 text-base md:text-xl text-gray-8">
             {description}
           </p>
-          <Button>{cta.text}</Button>
+          <Button variant="secondary" size="lg" asChild>
+            <Link href={cta.link}>{cta.text}</Link>
+          </Button>
         </div>
         <div className="flex flex-col gap-4 md:gap-6">
           {features.map((feature, index) => (

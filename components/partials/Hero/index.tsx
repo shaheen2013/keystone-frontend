@@ -1,5 +1,6 @@
 import { heroData } from "@/components/partials/Hero/constant";
 import { Button } from "@/components/shadcn/button";
+import Link from "next/link";
 
 export default function HeroSection() {
   const { title, description, backgroundImage } = heroData;
@@ -23,7 +24,14 @@ export default function HeroSection() {
           <p className="mt-5 md:mt-6 text-base md:text-xl font-medium ">
             {description}
           </p>
-          <Button className="mt-8 md:mt-12"> Join an Event </Button>
+          <Button
+            variant="secondary"
+            size="lg"
+            className="mt-8 md:mt-12"
+            asChild
+          >
+            <Link href={heroData.cta.link}>{heroData.cta.text}</Link>
+          </Button>
         </div>
       </div>
     </section>
