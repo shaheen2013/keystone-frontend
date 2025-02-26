@@ -8,6 +8,7 @@ import UpComingEvents from "@/components/partials/upcoming-events";
 import WhyKeystoneSection from "@/components/partials/WhyKeystone";
 import InsightsAndStories from "@/components/partials/insights-and-stories";
 import KeyStoneAbilitySupport from "@/components/partials/keystone-ability-support";
+import Testimonials from "@/components/partials/testimonials";
 
 export const metadata: Metadata = {
   title: "Homepage | Keystone",
@@ -24,6 +25,7 @@ export default function Home() {
       <UpComingEvents />
       <KeyStoneAbilitySupport />
       <OurImpact />
+      <Testimonials />
       <InsightsAndStories />
       <Support />
     </>

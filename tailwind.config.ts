@@ -37,6 +37,7 @@ export default {
         "gray-7": "#454545",
         "gray-8": "#3D3D3D",
         "gray-9": "#2B2B2B",
+        'warning-4': '#FDB022',
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
