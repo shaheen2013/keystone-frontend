@@ -6,7 +6,7 @@ const KeyStoneAbilitySupport = () => {
 
   return (
     <section className="py-12 md:py-28 bg-primary-2">
-      <div className="max-w-[1600px] mx-auto px-5 grid grid-cols-1 md:grid-cols-2 items-start gap-6 md:gap-12">
+      <div className="max-w-[1600px] md:mx-auto mx-5 grid grid-cols-1 md:grid-cols-2 items-start gap-6 md:gap-12">
         <div className="flex flex-col items-start justify-center ">
           <h3 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9">
             {title}

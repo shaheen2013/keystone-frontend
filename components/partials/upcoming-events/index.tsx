@@ -6,7 +6,7 @@ import Image from "next/image";
 const UpComingEvents = () => {
   const { title, cta, events } = upcomingEventsData;
   return (
-    <section className="max-w-[1600px] px-5 mx-auto my-12 md:my-28 flex flex-col gap-6 md:gap-12">
+    <section className="max-w-[1600px] mx-5 md:mx-auto my-12 md:my-28 flex flex-col gap-6 md:gap-12">
       <div className="flex gap-6 justify-between items-center md:items-start">
         <h3 className="text-2xl md:text-5xl font-bold text-gray-9 grow">
           {title}
