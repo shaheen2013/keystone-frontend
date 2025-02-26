@@ -31,6 +31,28 @@ export const upcomingEventsData = {
        "Learn practical strategies to support your child's growth and development. Learn practical strategies to support your child's growth and development.",
      image: img3,
    },
+   {
+    time: "6:00 PM, 6th Feb 2025",
+    title: "Parent Training Workshop",
+    description:
+      "Learn practical strategies to support your child's growth and development. Learn practical strategies to support your child's growth and development.",
+    image: img1,
+  },
+  {
+    time: "6:00 PM, 6th Feb 2025",
+    title: "Parent Training Workshop",
+    description:
+      "Learn practical strategies to support your child's growth and development. Learn practical strategies to support your child's growth and development.",
+    image: img2,
+  },
+  {
+    time: "6:00 PM, 6th Feb 2025",
+    title: "Parent Training Workshop",
+    description:
+      "Learn practical strategies to support your child's growth and development. Learn practical strategies to support your child's growth and development.",
+    image: img3,
+  },
+
  ],
  // pagination: {
  //   current: 1,
