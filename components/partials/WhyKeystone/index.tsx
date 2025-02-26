@@ -1,9 +1,11 @@
 "use client";
 import { Button } from "@/components/shadcn/button";
 import { WhyKeystoneData } from "./constants";
-import ReactPlayer from "react-player";
 import { Play } from "@/components/icons";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 const WhyKeystoneSection = () => {
   const { thumbnail, url, title, description, cta } = WhyKeystoneData;
