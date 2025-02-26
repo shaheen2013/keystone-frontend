@@ -13,6 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/shadcn/accordion";
+import { menuOptions } from "@/static/header";
 
 import {
   NavigationMenu,
@@ -23,7 +24,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/shadcn/navigation-menu";
-import { menuOptions } from "@/static/header";
 import { Button } from "@/components/shadcn/button";
 
 export default function Header() {
