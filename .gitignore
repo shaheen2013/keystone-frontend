@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 yarn.lock
+
+# exclude .env.example
+!.env.example
