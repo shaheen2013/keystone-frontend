@@ -1,4 +1,4 @@
-import { heroData } from "@/components/core/Hero/constant";
+import { heroData } from "@/components/partials/Hero/constant";
 import { Button } from "@/components/shadcn/button";
 
 export default function HeroSection() {

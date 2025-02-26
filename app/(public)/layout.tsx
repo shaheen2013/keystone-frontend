@@ -1,8 +1,8 @@
 import React from "react";
 import { ReactNode } from "react";
 
-import Footer from "@/components/core/Footer";
-import Header from "@/components/core/Header";
+import Footer from "@/components/partials/Footer";
+import Header from "@/components/partials/Header";
 
 export default function PublicLayout({ children }: { children: ReactNode }) {
   return (

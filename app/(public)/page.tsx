@@ -1,6 +1,6 @@
-import HeroSection from "@/components/core/Hero";
-import ServiceSection from "@/components/core/Service";
-import WhyKeystoneSection from "@/components/core/WhyKeystone";
+import HeroSection from "@/components/partials/Hero";
+import ServiceSection from "@/components/partials/Service";
+import WhyKeystoneSection from "@/components/partials/WhyKeystone";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
