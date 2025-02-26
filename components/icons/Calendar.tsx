@@ -7,7 +7,7 @@ const Calendar = ({ className }: { className?: string }) => (
     fill="none"
     className={className}
   >
-    <g clip-path="url(#clip0_1210_6697)">
+    <g clipPath="url(#clip0_1210_6697)">
       <path
         d="M13.3333 1.87492C13.3333 1.29962 12.867 0.833252 12.2917 0.833252C11.7164 0.833252 11.25 1.29962 11.25 1.87492V3.12492C11.25 3.70022 11.7164 4.16659 12.2917 4.16659C12.867 4.16659 13.3333 3.70022 13.3333 3.12492V1.87492Z"
         fill="currentColor"
