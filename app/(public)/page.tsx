@@ -1,6 +1,8 @@
 import HeroSection from "@/components/partials/Hero";
 import ServiceSection from "@/components/partials/Service";
 import WhyKeystoneSection from "@/components/partials/WhyKeystone";
+import KeyStoneAbilitySupport from "@/components/partials/keystone-ability-support";
+import UpComingEvents from "@/components/partials/upcoming-events";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,6 +17,8 @@ export default function Home() {
       <HeroSection />
       <ServiceSection />
       <WhyKeystoneSection />
+      <UpComingEvents />
+      <KeyStoneAbilitySupport />
     </>
   );
 }
