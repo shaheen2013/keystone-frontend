@@ -4,6 +4,7 @@ import WhyKeystoneSection from "@/components/partials/WhyKeystone";
 import InsightsAndStories from "@/components/partials/insights-and-stories";
 import KeyStoneAbilitySupport from "@/components/partials/keystone-ability-support";
 import Support from "@/components/partials/support";
+import Testimonials from "@/components/partials/testimonials";
 import UpComingEvents from "@/components/partials/upcoming-events";
 import { Metadata } from "next";
 
@@ -23,6 +24,7 @@ export default function Home() {
       <KeyStoneAbilitySupport />
       <InsightsAndStories />
       <Support />
+      <Testimonials />
     </>
   );
 }

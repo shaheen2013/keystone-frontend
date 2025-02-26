@@ -4,3 +4,4 @@ export { default as ResourceCoordination } from "./ResourceCoordination";
 export { default as Play } from "./Play";
 export { default as Calendar } from "./Calendar";
 export { default as Heart } from "./Heart";
+export { default as Quote } from "./Quote";
