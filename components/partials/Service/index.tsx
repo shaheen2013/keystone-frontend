@@ -4,7 +4,7 @@ import { serviceData } from "./constant";
 const ServiceSection = () => {
   const { title, subtitle, services } = serviceData;
   return (
-    <section className="max-w-[1600px] px-5 mx-auto my-12 md:my-28 flex flex-col items-center">
+    <section className="max-w-[1600px] mx-5 md:mx-auto my-12 md:my-28 flex flex-col items-center">
       <h2 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9 text-center">
         {title}
       </h2>
