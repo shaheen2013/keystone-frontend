@@ -15,7 +15,7 @@ export default function HeroSection() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="max-w-[1600px] w-full px-5 mx-auto">
+      <div className="container">
         <div className="max-w-4xl text-white">
           <h1 className="text-4xl lg:text-7xl font-bold !leading-[1.2]">
             {title}

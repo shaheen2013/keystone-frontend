@@ -17,7 +17,7 @@ const Testimonials = () => {
   const { title, subtitle, testimonials } = testimonialsData;
   return (
     <section className="py-12 md:py-28 bg-primary-2">
-      <div className="max-w-[1600px] md:mx-auto mx-5">
+      <div className="container">
         <h2 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9 text-center">
           {title}
         </h2>
