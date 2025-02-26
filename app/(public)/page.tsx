@@ -1,11 +1,13 @@
+import { Metadata } from "next";
+
+import Support from "@/components/partials/support";
 import HeroSection from "@/components/partials/Hero";
+import OurImpact from "@/components/partials/OurImpact";
 import ServiceSection from "@/components/partials/Service";
+import UpComingEvents from "@/components/partials/upcoming-events";
 import WhyKeystoneSection from "@/components/partials/WhyKeystone";
 import InsightsAndStories from "@/components/partials/insights-and-stories";
 import KeyStoneAbilitySupport from "@/components/partials/keystone-ability-support";
-import Support from "@/components/partials/support";
-import UpComingEvents from "@/components/partials/upcoming-events";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Homepage | Keystone",
@@ -21,6 +23,7 @@ export default function Home() {
       <WhyKeystoneSection />
       <UpComingEvents />
       <KeyStoneAbilitySupport />
+      <OurImpact />
       <InsightsAndStories />
       <Support />
     </>
