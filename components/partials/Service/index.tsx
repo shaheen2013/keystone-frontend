@@ -1,6 +1,7 @@
 import { Button } from "@/components/shadcn/button";
 import { serviceData } from "./constant";
 import Link from "next/link";
+import { ArrowRight } from "@/components/icons";
 
 const ServiceSection = () => {
   const { title, subtitle, services, cta } = serviceData;
@@ -30,7 +31,12 @@ const ServiceSection = () => {
                 {service.description}
               </p>
             </div>
-            <Button>{service.linkText}</Button>
+            <Button variant="link" size="md" asChild>
+              <Link href={service.linkUrl}>
+                {service.linkText}
+                <ArrowRight className="text-secondary-6" />
+              </Link>
+            </Button>
           </div>
         ))}
       </div>
