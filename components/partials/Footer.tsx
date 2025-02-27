@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../shadcn/button";
+import { Input } from "../shadcn/input";
 
 export default function Footer() {
   return (
@@ -156,12 +157,14 @@ export default function Footer() {
           </p>
 
           <div className="flex gap-3">
-            <input
-              type="text"
-              className="rounded-lg w-full px-3 outline-none"
+            <Input
+              type="email"
+              className="bg-white"
               placeholder="Enter your email"
             />
-            <Button variant="secondary">Sign Up</Button>
+            <Button variant="secondary" size="sm" className="h-12">
+              Sign Up
+            </Button>
           </div>
         </div>
       </div>
