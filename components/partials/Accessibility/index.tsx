@@ -38,6 +38,7 @@ import { Button } from "@/components/shadcn/button";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Switch } from "@/components/shadcn/switch";
 import { Slider } from "@/components/shadcn/slider";
+import { languageOptions } from "@/static/accessibility";
 
 export default function Accessibility() {
   const handleReset = () => {
@@ -285,15 +286,22 @@ export default function Accessibility() {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectItem value="apple">Apple</SelectItem>
-                              <SelectItem value="banana">Banana</SelectItem>
-                              <SelectItem value="blueberry">
-                                Blueberry
-                              </SelectItem>
-                              <SelectItem value="grapes">Grapes</SelectItem>
-                              <SelectItem value="pineapple">
-                                Pineapple
-                              </SelectItem>
+                              {languageOptions.map((option, index) => {
+                                return (
+                                  <SelectItem value={option.slug} key={index}>
+                                    <div className="flex items-center gap-3">
+                                      <Image
+                                        src={option.icon}
+                                        width={20}
+                                        height={20}
+                                        alt={option.name}
+                                        className="w-5 h-4 rounded"
+                                      />
+                                      {option.name}
+                                    </div>
+                                  </SelectItem>
+                                );
+                              })}
                             </SelectGroup>
                           </SelectContent>
                         </Select>
