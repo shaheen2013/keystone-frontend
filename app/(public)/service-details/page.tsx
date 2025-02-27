@@ -1,8 +1,14 @@
 import HeroSection from "@/components/partials/Hero";
 import { Metadata } from "next";
-import { heroData, keyBenefitsData, ourServiceData } from "./constant";
+import {
+  heroData,
+  keyBenefitsData,
+  ourServiceData,
+  whyChooseKeystoneAbilitySupportData,
+} from "./constant";
 import AboutOurService from "./components/about-our-service";
 import KeyBenefits from "./components/key-benefits";
+import WhyChooseKeystoneAbilitySupport from "./components/why-choose-keystone-ability-support";
 
 export const metadata: Metadata = {
   title: "Service Details | Keystone",
@@ -16,6 +22,9 @@ export default function ServiceDetails() {
       <HeroSection data={heroData} />
       <AboutOurService data={ourServiceData} />
       <KeyBenefits data={keyBenefitsData} />
+      <WhyChooseKeystoneAbilitySupport
+        data={whyChooseKeystoneAbilitySupportData}
+      />
     </>
   );
 }

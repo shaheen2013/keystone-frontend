@@ -1,6 +1,7 @@
 import { Collaboration, EducationAdvocacy, Guidance, Support, SupportPlan } from "@/components/icons";
 import bgImage from "@/public/assets/home/hero/special-education-advocacy-support.png"
 import thumbnail from "@/public/assets/home/why-keystone/thumbnail.png";
+import whyChooseKeystoneAbilitySupportImage from "@/public/assets/service-details/why-choose-keystone-ability-support/image.png";
 
 export const heroData = {
  title: "Special Education Advocacy and Support",
@@ -61,4 +62,33 @@ export const keyBenefitsData = {
    },
  ],
 };
+
+export const whyChooseKeystoneAbilitySupportData = {
+  title: "Why Choose Keystone Ability Support?",
+  reasons: [
+    {
+      title: "Experienced Advocates",
+      description:
+        "Our team has years of experience in special education advocacy, ensuring families receive informed and effective support.",
+    },
+    {
+      title: "Personalized Approach",
+      description:
+        "We understand that every child is unique, and we tailor our advocacy to fit their specific needs.",
+    },
+    {
+      title: "Holistic Support",
+      description:
+        "Beyond education, we help families connect with therapy services, community programs, and legal resources.",
+    },
+    {
+      title: "Compassionate Guidance",
+      description:
+        "We care deeply about the success of your child and work tirelessly to ensure they receive the education they deserve.",
+    },
+  ],
+  image: whyChooseKeystoneAbilitySupportImage,
+};
+
+
 
