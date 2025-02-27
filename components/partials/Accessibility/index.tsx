@@ -68,7 +68,7 @@ export default function Accessibility() {
             </p>
 
             <div>
-              {/* Color Accesibility */}
+              {/* color Accesibility accordion*/}
               <div className="border-primary-2 border rounded-xl mb-4">
                 <Accordion
                   type="single"
@@ -141,7 +141,7 @@ export default function Accessibility() {
                 </Accordion>
               </div>
 
-              {/* Display & text size  */}
+              {/* display & text size accordion */}
               <div className="border-primary-2 border rounded-xl mb-4">
                 <Accordion
                   type="single"
@@ -166,6 +166,7 @@ export default function Accessibility() {
                     </AccordionTrigger>
 
                     <AccordionContent className="border-t border-primary-2 px-4 py-4">
+                      {/* bold text */}
                       <div className="mb-4 border-b border-primary-2 pb-3">
                         <label className="flex items-center justify-between">
                           <span className="text-gray-9 font-medium text-base">
@@ -175,6 +176,7 @@ export default function Accessibility() {
                         </label>
                       </div>
 
+                      {/* big cursor */}
                       <div className="mb-4 border-b border-primary-2 pb-3">
                         <label className="flex items-center justify-between">
                           <span className="text-gray-9 font-medium text-base">
@@ -184,20 +186,39 @@ export default function Accessibility() {
                         </label>
                       </div>
 
-                      <div className="mb-5 flex">
-                        <span className="text-gray-9 font-medium text-base flex-1">
+                      {/* increase contrast */}
+                      <div className="mb-4 border-b border-primary-2 pb-3">
+                        <label className="flex items-center justify-between">
+                          <span className="text-gray-9 font-medium text-base">
+                            Increase Contrast
+                          </span>
+                          <Switch id="airplane-mode" />
+                        </label>
+                      </div>
+
+                      {/* text size */}
+                      <div className="flex items-center">
+                        <div className="text-gray-9 font-medium text-base basis-4/12">
                           Text Size
-                        </span>
+                        </div>
 
-                        <div className="relative w-full">
-                          <Slider min={1} max={7} step={1} />
+                        <div className="relative w-full flex basis-8/12 justify-center gap-3">
+                          <div>A</div>
+                          <div className="w-full flex flex-col justify-center relative">
+                            <Slider min={1} max={7} step={1} />
 
-                          {/* slider steps */}
-                          <div>
-                            <div className="absolute right-[-2px] top-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
-                            <div className="absolute left-[1px] top-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
-                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
+                            {/* slider steps */}
+                            <div className="flex justify-between text-gray-7 text-sm -mt-2">
+                              <div className="h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
+                              <div className=" h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
+                              <div className=" h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
+                              <div className=" h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
+                              <div className=" h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
+                              <div className=" h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
+                              <div className=" h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
+                            </div>
                           </div>
+                          <div>A</div>
                         </div>
                       </div>
                     </AccordionContent>
