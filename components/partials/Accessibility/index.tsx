@@ -40,10 +40,6 @@ export default function Accessibility() {
     googleTranslate: "",
   });
 
-  const handleReset = () => {
-    console.log("Resetting accessibility options");
-  };
-
   useEffect(() => {
     console.log("Accessibility component mounted", document);
 
@@ -51,6 +47,10 @@ export default function Accessibility() {
       console.log("Accessibility component  unmounted");
     };
   }, []);
+
+  const handleReset = () => {
+    console.log("Resetting accessibility options");
+  };
 
   const handleAccessibilityRender = (event: any) => {
     if (!event) {
