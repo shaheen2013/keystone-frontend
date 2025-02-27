@@ -1,6 +1,7 @@
 import HeroSection from "@/components/partials/Hero";
 import { Metadata } from "next";
 import {
+  exploreOtherServicesData,
   heroData,
   keyBenefitsData,
   ourProcessData,
@@ -15,6 +16,7 @@ import Testimonials from "@/components/partials/testimonials";
 import GetTouch from "@/components/partials/get-touch";
 import { contactInfo } from "@/static/shared";
 import OurProcess from "./components/our-process";
+// import ExploreOtherServices from "./components/explore-other-services";
 
 export const metadata: Metadata = {
   title: "Service Details | Keystone",
@@ -36,6 +38,7 @@ export default function ServiceDetails() {
         data={testimonialsData}
         classes={{ root: "bg-white", card: "bg-primary-1" }}
       />
+      {/* <ExploreOtherServices data={exploreOtherServicesData} /> */}
       <GetTouch data={contactInfo} />
     </>
   );
