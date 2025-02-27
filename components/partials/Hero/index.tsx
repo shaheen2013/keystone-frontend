@@ -29,7 +29,7 @@ export default function HeroSection({ data }: { data: any }) {
             className="mt-8 md:mt-12"
             asChild
           >
-            <Link href={heroData.cta.link}>{heroData.cta.text}</Link>
+            <Link href={data.cta.link}>{data.cta.text}</Link>
           </Button>
         </div>
       </div>
