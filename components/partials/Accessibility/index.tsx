@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { Input, Label } from "@headlessui/react";
 
@@ -33,6 +33,10 @@ export default function Accessibility() {
   const handleReset = () => {
     console.log("Resetting accessibility options");
   };
+
+  useEffect(() => {
+    console.log("Accessibility component mounted");
+  }, []);
 
   return (
     <div className="fixed right-5 top-[450px] z-20">
@@ -70,12 +74,7 @@ export default function Accessibility() {
             <div>
               {/* color Accesibility accordion*/}
               <div className="border-primary-2 border rounded-xl mb-4">
-                <Accordion
-                  type="single"
-                  collapsible
-                  className="w-full"
-                  value="item-1"
-                >
+                <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value={`item-1`} className="last:border-b-0">
                     <AccordionTrigger className="px-3 py-3">
                       <div className="flex items-center justify-between gap-3">
@@ -143,12 +142,7 @@ export default function Accessibility() {
 
               {/* display & text size accordion */}
               <div className="border-primary-2 border rounded-xl mb-4">
-                <Accordion
-                  type="single"
-                  collapsible
-                  className="w-full"
-                  value="item-1"
-                >
+                <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value={`item-1`} className="last:border-b-0">
                     <AccordionTrigger className="px-3 py-3">
                       <div className="flex items-center justify-between gap-3">
@@ -202,8 +196,8 @@ export default function Accessibility() {
                           Text Size
                         </div>
 
-                        <div className="relative w-full flex basis-8/12 justify-center gap-3">
-                          <div>A</div>
+                        <div className="relative w-full flex basis-8/12 justify-center items-center gap-2">
+                          <div className="text-xs">A</div>
                           <div className="w-full flex flex-col justify-center relative">
                             <Slider min={1} max={7} step={1} />
 
@@ -218,8 +212,104 @@ export default function Accessibility() {
                               <div className=" h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
                             </div>
                           </div>
-                          <div>A</div>
+                          <div className="text-lg">A</div>
                         </div>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+
+              {/* magnification */}
+              <div className="border-primary-2 border rounded-xl mb-4">
+                <div className="p-3 flex justify-between items-center">
+                  <div className="flex items-center gap-3">
+                    <Image
+                      src="/icons/color.svg"
+                      width={20}
+                      height={20}
+                      alt="Accessibility"
+                      className="w-10 h-10"
+                    />
+
+                    <span className="font-semibold text-gray-9 text-base">
+                      Magnification
+                    </span>
+                  </div>
+
+                  <div>
+                    <Switch id="airplane-mode" />
+                  </div>
+                </div>
+              </div>
+
+              {/* color Accesibility accordion*/}
+              <div className="border-primary-2 border rounded-xl mb-4">
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="w-full"
+                  value="item-1"
+                >
+                  <AccordionItem value={`item-1`} className="last:border-b-0">
+                    <AccordionTrigger className="px-3 py-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <Image
+                          src="/icons/color.svg"
+                          width={20}
+                          height={20}
+                          alt="Accessibility"
+                          className="w-10 h-10"
+                        />
+                        <span className="font-semibold text-gray-9 text-base">
+                          Color
+                        </span>
+                      </div>
+                    </AccordionTrigger>
+
+                    <AccordionContent className="border-t border-primary-2 px-4 py-4">
+                      <div className="mb-4 border-b border-primary-2 pb-3">
+                        <label className="flex items-center justify-between">
+                          <span className="text-gray-9 font-medium text-base">
+                            Color Blind
+                          </span>
+                          <Switch id="airplane-mode" />
+                        </label>
+                      </div>
+
+                      <div className="mb-4 border-b border-primary-2 pb-3">
+                        <label className="flex items-center justify-between">
+                          <span className="text-gray-9 font-medium text-base">
+                            Low Vision
+                          </span>
+                          <Switch id="airplane-mode" />
+                        </label>
+                      </div>
+
+                      <div className="mb-5">
+                        <label className="flex items-center justify-between">
+                          <span className="text-gray-9 font-medium text-base">
+                            Saturation
+                          </span>
+                          <Switch id="airplane-mode" />
+                        </label>
+                      </div>
+
+                      <div className="relative">
+                        <Slider min={1} max={3} step={1} />
+
+                        {/* slider steps */}
+                        <div>
+                          <div className="absolute right-[-2px] top-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
+                          <div className="absolute left-[1px] top-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
+                          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-between text-gray-7 text-sm mt-3">
+                        <span>Low</span>
+                        <span>Medium</span>
+                        <span>High</span>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
