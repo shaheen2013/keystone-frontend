@@ -1,7 +1,6 @@
 "use client";
 
 import { Quote } from "@/components/icons";
-import { testimonialsData } from "./constant";
 import Image from "next/image";
 import { Star } from "lucide-react";
 
@@ -13,8 +12,8 @@ import {
 } from "@/components/shadcn/Carousel";
 import Autoplay from "embla-carousel-autoplay";
 
-const Testimonials = () => {
-  const { title, subtitle, testimonials } = testimonialsData;
+const Testimonials = ({ data }: { data: any }) => {
+  const { title, subtitle, testimonials } = data;
   return (
     <section className="py-12 md:py-28 bg-primary-2">
       <div className="container">

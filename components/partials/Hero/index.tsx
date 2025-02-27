@@ -1,9 +1,8 @@
-import { heroData } from "@/components/partials/Hero/constant";
 import { Button } from "@/components/shadcn/button";
 import Link from "next/link";
 
-export default function HeroSection() {
-  const { title, description, backgroundImage } = heroData;
+export default function HeroSection({ data }: { data: any }) {
+  const { title, description, backgroundImage } = data;
 
   return (
     <section

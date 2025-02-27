@@ -1,24 +1,24 @@
-import { Button } from "@/components/shadcn/button";
-import Link from "next/link";
+import { KeystoneAbilitySupportDataType } from "./types";
 
-const KeyStoneAbilitySupport = ({ data }: { data: any }) => {
-  const { title, description, cta, features } = data;
+const KeyStoneAbilitySupport = ({
+  data,
+}: {
+  data: KeystoneAbilitySupportDataType;
+}) => {
+  const { title, description, features } = data;
 
   return (
     <section className="py-12 md:py-28 bg-primary-2">
-      <div className="container grid grid-cols-1 md:grid-cols-2 items-start gap-6 md:gap-12">
-        <div className="flex flex-col items-start justify-center ">
-          <h3 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9">
+      <div className="container flex flex-col gap-6 md:gap-12">
+        <div className="flex flex-col items-center justify-center">
+          <h3 className="text-center mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9">
             {title}
           </h3>
-          <p className="mb-8 md:mb-12 text-base md:text-xl text-gray-8">
+          <p className="max-w-[960px] mx-auto text-center text-base md:text-xl text-gray-8">
             {description}
           </p>
-          <Button variant="secondary" size="lg" asChild>
-            <Link href={cta.link}>{cta.text}</Link>
-          </Button>
         </div>
-        <div className="flex flex-col gap-4 md:gap-6">
+        <div className="grid  grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {features.map((feature, index) => (
             <div
               key={index}

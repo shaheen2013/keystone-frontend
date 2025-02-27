@@ -2,7 +2,6 @@
 
 import { Calendar } from "@/components/icons";
 import { Button } from "@/components/shadcn/button";
-import { upcomingEventsData } from "./constant";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import {
@@ -13,8 +12,8 @@ import {
 } from "@/components/shadcn/Carousel";
 import Link from "next/link";
 
-const UpComingEvents = () => {
-  const { title, cta, events } = upcomingEventsData;
+const UpComingEvents = ({ data }: { data: any }) => {
+  const { title, cta, events } = data;
   return (
     <section className="container my-12 md:my-28 flex flex-col gap-6 md:gap-12">
       <div className="flex gap-6 justify-between items-center md:items-start">

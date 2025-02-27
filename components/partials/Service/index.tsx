@@ -1,10 +1,10 @@
 import { Button } from "@/components/shadcn/button";
-import { serviceData } from "./constant";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons";
+import { ServiceDataType } from "./types";
 
-const ServiceSection = () => {
-  const { title, subtitle, services, cta } = serviceData;
+const ServiceSection = ({ data }: { data: ServiceDataType }) => {
+  const { title, subtitle, services, cta } = data;
   return (
     <section className="container my-12 md:my-28 flex flex-col items-center">
       <h2 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9 text-center">

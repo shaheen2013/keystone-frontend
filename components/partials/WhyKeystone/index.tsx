@@ -1,6 +1,6 @@
 "use client";
+
 import { Button } from "@/components/shadcn/button";
-import { WhyKeystoneData } from "./constants";
 import { Play } from "@/components/icons";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -8,8 +8,8 @@ import Link from "next/link";
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
-const WhyKeystoneSection = () => {
-  const { thumbnail, url, title, description, cta } = WhyKeystoneData;
+const WhyKeystoneSection = ({ data }: { data: any }) => {
+  const { thumbnail, url, title, description, cta } = data;
   return (
     <section className="py-12 md:py-28 bg-primary-2">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">

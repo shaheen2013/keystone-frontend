@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { insightsAndStoriesData } from "./constant";
 import { Button } from "@/components/shadcn/button";
 import { Heart } from "@/components/icons";
 import {
@@ -13,8 +12,8 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
 
-const InsightsAndStories = () => {
-  const { title, cta, articles } = insightsAndStoriesData;
+const InsightsAndStories = ({ data }: { data: any }) => {
+  const { title, cta, articles } = data;
   return (
     <section className="container my-12 md:my-28 flex flex-col gap-6 md:gap-12">
       <div className="flex gap-6 justify-between items-center md:items-start">
