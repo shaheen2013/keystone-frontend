@@ -30,7 +30,8 @@ export default function Accessibility() {
   const [options, setOptions] = useState({
     colorBlind: false,
     lowVision: false,
-    saturation: false,
+    saturationStatus: false,
+    saturation: [1],
     boldText: false,
     bigCursor: false,
     increaseContrast: false,
@@ -39,13 +40,17 @@ export default function Accessibility() {
     googleTranslate: "",
   });
 
+  useEffect(() => {
+    console.log("Accessibility component mounted", document);
+
+    return () => {
+      console.log("Accessibility component  unmounted");
+    };
+  }, []);
+
   const handleReset = () => {
     console.log("Resetting accessibility options");
   };
-
-  useEffect(() => {
-    console.log("Accessibility component mounted");
-  }, []);
 
   const handleAccessibilityRender = (event: any) => {
     if (!event) {
@@ -59,24 +64,49 @@ export default function Accessibility() {
     setOptions({ ...options, colorBlind: e });
 
     document.getElementById("root")?.classList.toggle("grayscale");
-    document
-      .getElementById("accessibility-menu")
-      ?.classList.toggle("grayscale");
   };
 
   const handleLowVision = (e: any) => {
     setOptions({ ...options, lowVision: e });
 
     document.getElementById("root")?.classList.toggle("contrast-75");
-    document
-      .getElementById("accessibility-menu")
-      ?.classList.toggle("contrast-75");
   };
 
-  const handleSaturation = (e: any) => {};
+  const handleSaturationStatus = (event: any) => {
+    setOptions({ ...options, saturationStatus: event });
+
+    const root = document.getElementById("root") as HTMLElement;
+    if (options.saturationStatus) {
+      // remove saturation
+      root.classList.remove("saturate-50", "saturate-150", "saturate-100");
+    }
+  };
+
+  const handleSaturation = (value: number[]) => {
+    if (!options.saturationStatus) return;
+
+    setOptions({ ...options, saturation: value });
+
+    const root = document.getElementById("root") as HTMLElement;
+
+    if (value[0] == 1) {
+      // low saturation
+      root.classList.add("saturate-50");
+    }
+
+    if (value[0] == 2) {
+      // high saturation
+      root.classList.add("saturate-150");
+    }
+
+    if (value[0] == 3) {
+      // desaturate
+      root.classList.add("saturate-100");
+    }
+  };
 
   return (
-    <div className="fixed right-5 top-[450px] z-20 dev">
+    <div className="fixed right-5 top-[450px] z-20">
       <Sheet onOpenChange={handleAccessibilityRender}>
         <SheetTrigger asChild>
           <Image
@@ -110,7 +140,7 @@ export default function Accessibility() {
             </p>
 
             <div>
-              {/* color Accesibility accordion*/}
+              {/* color accordion*/}
               <div className="border-primary-2 border rounded-xl mb-4">
                 <Accordion
                   type="single"
@@ -168,12 +198,22 @@ export default function Accessibility() {
                           <span className="text-gray-9 font-medium text-base">
                             Saturation
                           </span>
-                          <Switch id="airplane-mode" />
+                          <Switch
+                            id="airplane-mode"
+                            checked={options.saturationStatus}
+                            onCheckedChange={handleSaturationStatus}
+                          />
                         </label>
                       </div>
 
                       <div className="relative">
-                        <Slider min={1} max={3} step={1} />
+                        <Slider
+                          min={1}
+                          max={3}
+                          step={1}
+                          onValueChange={handleSaturation}
+                          value={options.saturation}
+                        />
 
                         {/* slider steps */}
                         <div>
@@ -184,9 +224,9 @@ export default function Accessibility() {
                       </div>
 
                       <div className="flex justify-between text-gray-7 text-sm mt-3">
-                        <span>Low</span>
-                        <span>Medium</span>
-                        <span>High</span>
+                        <span className="flex-1">Low</span>
+                        <span className="flex-1 text-center">High</span>
+                        <span className="flex-1 text-right">Desaturate</span>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
