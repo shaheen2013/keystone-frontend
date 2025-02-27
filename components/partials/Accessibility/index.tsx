@@ -24,6 +24,16 @@ import {
   AccordionTrigger,
 } from "@/components/shadcn/accordion";
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/shadcn/select";
+
 import { Button } from "@/components/shadcn/button";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Switch } from "@/components/shadcn/switch";
@@ -237,13 +247,13 @@ export default function Accessibility() {
                     </span>
                   </div>
 
-                  <div>
+                  <div className="mr-[2px]">
                     <Switch id="airplane-mode" />
                   </div>
                 </div>
               </div>
 
-              {/* color Accesibility accordion*/}
+              {/* google translate*/}
               <div className="border-primary-2 border rounded-xl mb-4">
                 <Accordion
                   type="single"
@@ -255,61 +265,38 @@ export default function Accessibility() {
                     <AccordionTrigger className="px-3 py-3">
                       <div className="flex items-center justify-between gap-3">
                         <Image
-                          src="/icons/color.svg"
+                          src="/icons/translate-box.svg"
                           width={20}
                           height={20}
                           alt="Accessibility"
                           className="w-10 h-10"
                         />
                         <span className="font-semibold text-gray-9 text-base">
-                          Color
+                          Google Translate
                         </span>
                       </div>
                     </AccordionTrigger>
 
                     <AccordionContent className="border-t border-primary-2 px-4 py-4">
-                      <div className="mb-4 border-b border-primary-2 pb-3">
-                        <label className="flex items-center justify-between">
-                          <span className="text-gray-9 font-medium text-base">
-                            Color Blind
-                          </span>
-                          <Switch id="airplane-mode" />
-                        </label>
-                      </div>
-
-                      <div className="mb-4 border-b border-primary-2 pb-3">
-                        <label className="flex items-center justify-between">
-                          <span className="text-gray-9 font-medium text-base">
-                            Low Vision
-                          </span>
-                          <Switch id="airplane-mode" />
-                        </label>
-                      </div>
-
-                      <div className="mb-5">
-                        <label className="flex items-center justify-between">
-                          <span className="text-gray-9 font-medium text-base">
-                            Saturation
-                          </span>
-                          <Switch id="airplane-mode" />
-                        </label>
-                      </div>
-
-                      <div className="relative">
-                        <Slider min={1} max={3} step={1} />
-
-                        {/* slider steps */}
-                        <div>
-                          <div className="absolute right-[-2px] top-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
-                          <div className="absolute left-[1px] top-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
-                          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[12px] w-[3px] bg-gray-3 rounded-lg -z-10"></div>
-                        </div>
-                      </div>
-
-                      <div className="flex justify-between text-gray-7 text-sm mt-3">
-                        <span>Low</span>
-                        <span>Medium</span>
-                        <span>High</span>
+                      <div>
+                        <Select>
+                          <SelectTrigger className="">
+                            <SelectValue placeholder="Select Language" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectItem value="apple">Apple</SelectItem>
+                              <SelectItem value="banana">Banana</SelectItem>
+                              <SelectItem value="blueberry">
+                                Blueberry
+                              </SelectItem>
+                              <SelectItem value="grapes">Grapes</SelectItem>
+                              <SelectItem value="pineapple">
+                                Pineapple
+                              </SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
