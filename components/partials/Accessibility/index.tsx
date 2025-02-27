@@ -1,44 +1,30 @@
 "use client";
 
-import React, { useEffect } from "react";
 import Image from "next/image";
-import { Input, Label } from "@headlessui/react";
-
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/shadcn/popover";
-
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/shadcn/sheet";
+import { useEffect } from "react";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 import {
   Accordion,
-  AccordionContent,
   AccordionItem,
+  AccordionContent,
   AccordionTrigger,
 } from "@/components/shadcn/accordion";
 
 import {
   Select,
-  SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
-  SelectTrigger,
   SelectValue,
+  SelectGroup,
+  SelectTrigger,
+  SelectContent,
 } from "@/components/shadcn/select";
 
-import { Button } from "@/components/shadcn/button";
-import { DialogTitle } from "@radix-ui/react-dialog";
-import { Switch } from "@/components/shadcn/switch";
 import { Slider } from "@/components/shadcn/slider";
+import { Switch } from "@/components/shadcn/switch";
+import { Button } from "@/components/shadcn/button";
 import { languageOptions } from "@/static/accessibility";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/shadcn/sheet";
 
 export default function Accessibility() {
   const handleReset = () => {
@@ -293,7 +279,7 @@ export default function Accessibility() {
                                       <Image
                                         src={option.icon}
                                         width={20}
-                                        height={20}
+                                        height={16}
                                         alt={option.name}
                                         className="w-5 h-4 rounded"
                                       />
