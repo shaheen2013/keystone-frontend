@@ -76,7 +76,7 @@ export default function Accessibility() {
   const handleSaturation = (e: any) => {};
 
   return (
-    <div className="fixed right-5 top-[450px] z-20 dev">
+    <div className="fixed right-5 top-[450px] z-20">
       <Sheet onOpenChange={handleAccessibilityRender}>
         <SheetTrigger asChild>
           <Image

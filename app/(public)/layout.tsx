@@ -7,11 +7,14 @@ import Accessibility from "@/components/partials/Accessibility";
 
 export default function PublicLayout({ children }: { children: ReactNode }) {
   return (
-    <div>
-      <Header />
+    <>
+      <div id="root">
+        <Header />
+        {children}
+        <Footer />
+      </div>
+
       <Accessibility />
-      {children}
-      <Footer />
-    </div>
+    </>
   );
 }
