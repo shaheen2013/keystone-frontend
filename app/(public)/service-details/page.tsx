@@ -32,7 +32,10 @@ export default function ServiceDetails() {
         data={whyChooseKeystoneAbilitySupportData}
       />
       <OurProcess data={ourProcessData} />
-      <Testimonials data={testimonialsData} />
+      <Testimonials
+        data={testimonialsData}
+        classes={{ root: "bg-white", card: "bg-primary-1" }}
+      />
       <GetTouch data={contactInfo} />
     </>
   );
