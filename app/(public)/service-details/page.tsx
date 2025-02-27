@@ -3,12 +3,18 @@ import { Metadata } from "next";
 import {
   heroData,
   keyBenefitsData,
+  ourProcessData,
   ourServiceData,
+  testimonialsData,
   whyChooseKeystoneAbilitySupportData,
 } from "./constant";
 import AboutOurService from "./components/about-our-service";
 import KeyBenefits from "./components/key-benefits";
 import WhyChooseKeystoneAbilitySupport from "./components/why-choose-keystone-ability-support";
+import Testimonials from "@/components/partials/testimonials";
+import GetTouch from "@/components/partials/get-touch";
+import { contactInfo } from "@/static/shared";
+import OurProcess from "./components/our-process";
 
 export const metadata: Metadata = {
   title: "Service Details | Keystone",
@@ -25,6 +31,9 @@ export default function ServiceDetails() {
       <WhyChooseKeystoneAbilitySupport
         data={whyChooseKeystoneAbilitySupportData}
       />
+      <OurProcess data={ourProcessData} />
+      <Testimonials data={testimonialsData} />
+      <GetTouch data={contactInfo} />
     </>
   );
 }
