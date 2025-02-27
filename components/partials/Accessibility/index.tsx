@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
 
 import {
@@ -27,6 +27,18 @@ import { languageOptions } from "@/static/accessibility";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/shadcn/sheet";
 
 export default function Accessibility() {
+  const [options, setOptions] = useState({
+    colorBlind: false,
+    lowVision: false,
+    saturation: false,
+    boldText: false,
+    bigCursor: false,
+    increaseContrast: false,
+    textSize: 4,
+    magnification: false,
+    googleTranslate: "",
+  });
+
   const handleReset = () => {
     console.log("Resetting accessibility options");
   };
@@ -35,9 +47,37 @@ export default function Accessibility() {
     console.log("Accessibility component mounted");
   }, []);
 
+  const handleAccessibilityRender = (event: any) => {
+    if (!event) {
+      return;
+    }
+
+    console.log("Accessibility component rendered");
+  };
+
+  const handleColorBlind = (e: any) => {
+    setOptions({ ...options, colorBlind: e });
+
+    document.getElementById("root")?.classList.toggle("grayscale");
+    document
+      .getElementById("accessibility-menu")
+      ?.classList.toggle("grayscale");
+  };
+
+  const handleLowVision = (e: any) => {
+    setOptions({ ...options, lowVision: e });
+
+    document.getElementById("root")?.classList.toggle("contrast-75");
+    document
+      .getElementById("accessibility-menu")
+      ?.classList.toggle("contrast-75");
+  };
+
+  const handleSaturation = (e: any) => {};
+
   return (
-    <div className="fixed right-5 top-[450px] z-20">
-      <Sheet>
+    <div className="fixed right-5 top-[450px] z-20 dev">
+      <Sheet onOpenChange={handleAccessibilityRender}>
         <SheetTrigger asChild>
           <Image
             src="/icons/accessibility.svg"
@@ -51,6 +91,7 @@ export default function Accessibility() {
         <SheetContent
           className="flex flex-col overflow-y-scroll min-w-[460px] p-8"
           aria-describedby={undefined}
+          id="accessibility-menu"
         >
           {/* todo: ignore this component */}
           <DialogTitle>
@@ -71,7 +112,12 @@ export default function Accessibility() {
             <div>
               {/* color Accesibility accordion*/}
               <div className="border-primary-2 border rounded-xl mb-4">
-                <Accordion type="single" collapsible className="w-full">
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="w-full"
+                  value="item-1"
+                >
                   <AccordionItem value={`item-1`} className="last:border-b-0">
                     <AccordionTrigger className="px-3 py-3">
                       <div className="flex items-center justify-between gap-3">
@@ -89,24 +135,34 @@ export default function Accessibility() {
                     </AccordionTrigger>
 
                     <AccordionContent className="border-t border-primary-2 px-4 py-4">
+                      {/* color blind */}
                       <div className="mb-4 border-b border-primary-2 pb-3">
                         <label className="flex items-center justify-between">
                           <span className="text-gray-9 font-medium text-base">
                             Color Blind
                           </span>
-                          <Switch id="airplane-mode" />
+                          <Switch
+                            onCheckedChange={handleColorBlind}
+                            checked={options.colorBlind}
+                          />
                         </label>
                       </div>
 
+                      {/* low vision */}
                       <div className="mb-4 border-b border-primary-2 pb-3">
                         <label className="flex items-center justify-between">
                           <span className="text-gray-9 font-medium text-base">
                             Low Vision
                           </span>
-                          <Switch id="airplane-mode" />
+                          <Switch
+                            id="airplane-mode"
+                            checked={options.lowVision}
+                            onCheckedChange={handleLowVision}
+                          />
                         </label>
                       </div>
 
+                      {/* saturation */}
                       <div className="mb-5">
                         <label className="flex items-center justify-between">
                           <span className="text-gray-9 font-medium text-base">
@@ -242,12 +298,7 @@ export default function Accessibility() {
 
               {/* google translate*/}
               <div className="border-primary-2 border rounded-xl mb-4">
-                <Accordion
-                  type="single"
-                  collapsible
-                  className="w-full"
-                  value="item-1"
-                >
+                <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value={`item-1`} className="last:border-b-0">
                     <AccordionTrigger className="px-3 py-3">
                       <div className="flex items-center justify-between gap-3">
