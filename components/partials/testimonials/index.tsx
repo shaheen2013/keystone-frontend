@@ -11,11 +11,21 @@ import {
   CarouselItem,
 } from "@/components/shadcn/Carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { cn } from "@/lib/utils";
 
-const Testimonials = ({ data }: { data: any }) => {
+const Testimonials = ({
+  data,
+  classes = {},
+}: {
+  data: any;
+  classes?: {
+    root?: string;
+    card?: string;
+  };
+}) => {
   const { title, subtitle, testimonials } = data;
   return (
-    <section className="py-12 md:py-28 bg-primary-2">
+    <section className={cn("py-12 md:py-28 bg-primary-2", classes.root)}>
       <div className="container">
         <h2 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9 text-center">
           {title}
@@ -42,7 +52,10 @@ const Testimonials = ({ data }: { data: any }) => {
               <CarouselItem key={index} className="basis-full md:basis-1/3">
                 <div
                   key={index}
-                  className="p-4 md:p-8 bg-white rounded-2xl flex flex-col justify-center items-center"
+                  className={cn(
+                    "p-4 md:p-8 bg-white rounded-2xl flex flex-col justify-center items-center",
+                    classes.card
+                  )}
                 >
                   <Quote className="text-secondary-5 mb-4 size-10 md:size-16" />
                   <p className="text-center mb-6 md:mb-8 text-base text-gray-9 line-clamp-6 md:line-clamp-4 font-semibold">

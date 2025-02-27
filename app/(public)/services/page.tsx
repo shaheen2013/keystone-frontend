@@ -1,14 +1,10 @@
 import CenteredHero from "@/components/partials/Hero/centered-hero";
 import { Metadata } from "next";
-import {
-  contactInfo,
-  heroData,
-  keystoneAbilitySupportData,
-  serviceData,
-} from "./constant";
+import { heroData, keystoneAbilitySupportData, serviceData } from "./constant";
 import ServiceSection from "@/components/partials/Service";
 import KeyStoneAbilitySupport from "./components/keystone-ability-support";
 import GetTouch from "@/components/partials/get-touch";
+import { contactInfo } from "@/static/shared";
 
 export const metadata: Metadata = {
   title: "Services | Keystone",
