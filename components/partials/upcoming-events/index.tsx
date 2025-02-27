@@ -11,6 +11,7 @@ import {
   CarouselDots,
   CarouselItem,
 } from "@/components/shadcn/Carousel";
+import Link from "next/link";
 
 const UpComingEvents = () => {
   const { title, cta, events } = upcomingEventsData;
@@ -20,7 +21,9 @@ const UpComingEvents = () => {
         <h3 className="text-2xl md:text-5xl font-bold text-gray-9 grow">
           {title}
         </h3>
-        <Button className="shrink-0">{cta.text}</Button>
+        <Button className="shrink-0" asChild variant="secondary" size="lg">
+          <Link href={cta.link}>{cta.text}</Link>
+        </Button>
       </div>
       <Carousel
         opts={{
