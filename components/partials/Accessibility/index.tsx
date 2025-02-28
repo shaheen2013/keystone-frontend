@@ -105,6 +105,13 @@ export default function Accessibility() {
     }
   };
 
+  const handleBigCursor = (event: any) => {
+    setOptions({ ...options, bigCursor: event });
+
+    const root = document.getElementById("root") as HTMLElement;
+    root.classList.toggle("cursor-big");
+  };
+
   return (
     <div className="fixed right-5 top-[450px] z-20">
       <Sheet onOpenChange={handleAccessibilityRender}>
@@ -269,7 +276,11 @@ export default function Accessibility() {
                           <span className="text-gray-9 font-medium text-base">
                             Big Cursor
                           </span>
-                          <Switch id="airplane-mode" />
+                          <Switch
+                            id="airplane-mode"
+                            onCheckedChange={handleBigCursor}
+                            checked={options.bigCursor}
+                          />
                         </label>
                       </div>
 
