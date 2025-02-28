@@ -38,14 +38,18 @@ const ExploreOtherServices = ({ data }: { data: any }) => {
               <CarouselItem key={index} className="basis-full md:basis-1/3">
                 <div
                   key={index}
-                  className="bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start"
+                  className="bg-white p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start max-h-96 h-full"
                 >
-                  {/* <div className="p-4 rounded-xl bg-white text-secondary-6">
-                    <service.icon />
-                  </div> */}
+                  <div
+                    className="p-4 md:p-4 rounded-xl bg-secondary-2 size-12 md:size-[72px] text-secondary-6 flex items-center
+                    justify-center"
+                  >
+                    {/* <service.icon /> */}
+                    {index + 1}
+                  </div>
 
-                  <div className="flex flex-col gap-4">
-                    <h3 className="text-xl md:text-3xl font-bold text-gray-9">
+                  <div className="h-full flex flex-col gap-4 justify-between">
+                    <h3 className="text-xl md:text-3xl font-bold text-gray-9 line-clamp-2">
                       {service.title}
                     </h3>
                     <p className="text-sm md:text-lg text-gray-9 line-clamp-3">

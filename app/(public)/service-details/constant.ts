@@ -1,4 +1,4 @@
-import { Assessment, Collaboration, EducationAdvocacy, Guidance, ResourceCoordination, Support, SupportPlan } from "@/components/icons";
+import { Collaboration, EducationAdvocacy, Guidance,  Support, SupportPlan } from "@/components/icons";
 import bgImage from "@/public/assets/home/hero/special-education-advocacy-support.png"
 import thumbnail from "@/public/assets/home/why-keystone/thumbnail.png";
 import whyChooseKeystoneAbilitySupportImage from "@/public/assets/service-details/why-choose-keystone-ability-support/image.png";
@@ -198,7 +198,7 @@ export const exploreOtherServicesData = {
   title: "Explore Others Services",
   services: [
     {
-      icon: Guidance,
+      // icon: Guidance,
       title: "Special Education Advocacy and Support",
       description:
         "We help families navigate the complexities of the special education system with expert advocacy and guidance. We empower parents and caregivers to make informed decisions.",
@@ -208,7 +208,7 @@ export const exploreOtherServicesData = {
         },
     },
     {
-      icon: Guidance,
+      // icon: Guidance,
       title: "Individualized Needs Assessment",
       description:
         "Our team conducts thorough evaluations to assess your child’s educational, therapeutic, and social needs. Based on this, we develop a customized plan to meet their unique needs.",
@@ -218,7 +218,27 @@ export const exploreOtherServicesData = {
         },
     },
     {
-      icon: Guidance,
+      // icon: Guidance,
+      title: "Resource Coordination",
+      description:
+        "Navigating services for children with disabilities can be overwhelming. We help families connect with the right resources—whether it’s early intervention services, special education programs, or support groups.",
+        link: {
+          text: "View Details",
+          url: "#",
+        },
+    },
+    {
+      // icon: Guidance,
+      title: "Individualized Needs Assessment",
+      description:
+        "Our team conducts thorough evaluations to assess your child’s educational, therapeutic, and social needs. Based on this, we develop a customized plan to meet their unique needs.",
+        link: {
+          text: "View Details",
+          url: "#",
+        },
+    },
+    {
+      // icon: Guidance,
       title: "Resource Coordination",
       description:
         "Navigating services for children with disabilities can be overwhelming. We help families connect with the right resources—whether it’s early intervention services, special education programs, or support groups.",
