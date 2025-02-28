@@ -116,7 +116,7 @@ export default function Accessibility() {
   };
 
   const handleSaturation = (value: number[]) => {
-    if (!options.saturationStatus) return;
+    // if (!options.saturationStatus) return;
 
     setOptions({ ...options, saturation: value });
 
@@ -257,6 +257,7 @@ export default function Accessibility() {
                           step={1}
                           onValueChange={handleSaturation}
                           value={options.saturation}
+                          disabled={!options.saturationStatus}
                         />
 
                         {/* slider steps */}
