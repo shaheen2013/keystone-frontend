@@ -17,7 +17,6 @@ import GetTouch from "@/components/partials/get-touch";
 import { contactInfo } from "@/static/shared";
 import OurProcess from "./components/our-process";
 import ExploreOtherServices from "./components/explore-other-services";
-// import ExploreOtherServices from "./components/explore-other-services";
 
 export const metadata: Metadata = {
   title: "Service Details | Keystone",
