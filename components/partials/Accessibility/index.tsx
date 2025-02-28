@@ -25,6 +25,10 @@ import { Switch } from "@/components/shadcn/switch";
 import { Button } from "@/components/shadcn/button";
 import { languageOptions } from "@/static/accessibility";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/shadcn/sheet";
+import {
+  getAccessibilifySettings,
+  saveAccessibilifySetting,
+} from "@/lib/utils";
 
 export default function Accessibility() {
   const [options, setOptions] = useState({
@@ -40,17 +44,39 @@ export default function Accessibility() {
     googleTranslate: "",
   });
 
-  useEffect(() => {
-    console.log("Accessibility component mounted", document);
-
-    return () => {
-      console.log("Accessibility component  unmounted");
-    };
-  }, []);
-
-  const handleReset = () => {
-    console.log("Resetting accessibility options");
+  const accessibilityClasses = {
+    colorBlind: "grayscale",
+    lowVision: "contrast-75",
+    saturation: {
+      1: "saturate-50",
+      2: "saturate-150",
+      3: "saturate-100",
+    },
+    bigCursor: "cursor-big",
   };
+
+  console.log("options => ", options);
+
+  useEffect(() => {
+    const settings = getAccessibilifySettings();
+    const root = document.getElementById("root") as HTMLElement;
+
+    console.log("settings => ", settings);
+
+    setTimeout(() => {
+      // color blind initial settings
+      if (settings.colorBlind) {
+        setOptions((prev) => ({ ...prev, colorBlind: settings.colorBlind }));
+        root?.classList.add(accessibilityClasses.colorBlind);
+      }
+
+      // low vision initial settings
+      if (settings.lowVision) {
+        setOptions((prev) => ({ ...prev, lowVision: settings.lowVision }));
+        root?.classList.add(accessibilityClasses.lowVision);
+      }
+    }, 300);
+  }, []);
 
   const handleAccessibilityRender = (event: any) => {
     if (!event) {
@@ -60,16 +86,23 @@ export default function Accessibility() {
     console.log("Accessibility component rendered");
   };
 
-  const handleColorBlind = (e: any) => {
-    setOptions({ ...options, colorBlind: e });
+  // handle accessibility options
+  const handleColorBlind = (event: any) => {
+    setOptions({ ...options, colorBlind: event });
 
-    document.getElementById("root")?.classList.toggle("grayscale");
+    const root = document.getElementById("root") as HTMLElement;
+    root.classList.toggle(accessibilityClasses.colorBlind);
+
+    saveAccessibilifySetting("colorBlind", event);
   };
 
-  const handleLowVision = (e: any) => {
-    setOptions({ ...options, lowVision: e });
+  const handleLowVision = (event: any) => {
+    setOptions({ ...options, lowVision: event });
 
-    document.getElementById("root")?.classList.toggle("contrast-75");
+    document
+      .getElementById("root")
+      ?.classList.toggle(accessibilityClasses.lowVision);
+    saveAccessibilifySetting("lowVision", event);
   };
 
   const handleSaturationStatus = (event: any) => {
@@ -110,6 +143,10 @@ export default function Accessibility() {
 
     const root = document.getElementById("root") as HTMLElement;
     root.classList.toggle("cursor-big");
+  };
+
+  const handleReset = () => {
+    console.log("Resetting accessibility options");
   };
 
   return (
