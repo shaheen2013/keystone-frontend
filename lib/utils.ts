@@ -6,7 +6,12 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function saveAccessibilifySetting(
-  name: "colorBlind" | "lowVision" | "saturationStatus" | "saturation",
+  name:
+    | "colorBlind"
+    | "lowVision"
+    | "saturationStatus"
+    | "saturation"
+    | "boldText",
   value: string
 ) {
   try {

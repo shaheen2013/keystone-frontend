@@ -90,6 +90,18 @@ export default function Accessibility() {
         saturationStatus: settings.saturationStatus,
       }));
     }
+
+    if (settings.saturation) {
+      setOptions((prev) => ({ ...prev, saturation: settings.saturation }));
+      handleSaturation(settings.saturation);
+    }
+
+    if (settings.boldText) {
+      setOptions((prev) => ({ ...prev, boldText: settings.boldText }));
+      accessibilityClasses.boldText.split(" ").forEach((cls) => {
+        root?.classList.add(cls);
+      });
+    }
   }, []);
 
   const handleAccessibilityRender = (event: any) => {
@@ -166,6 +178,7 @@ export default function Accessibility() {
 
   const handleBoldText = (event: any) => {
     setOptions({ ...options, boldText: event });
+    saveAccessibilifySetting("boldText", event);
 
     const root = document.getElementById("root") as HTMLElement;
     accessibilityClasses.boldText.split(" ").forEach((cls) => {
