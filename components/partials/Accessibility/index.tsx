@@ -194,11 +194,10 @@ export default function Accessibility() {
 
   const handleBigCursor = (event: any) => {
     setOptions({ ...options, bigCursor: event });
+    saveAccessibilifySetting("bigCursor", event);
 
     const body = document.body as HTMLElement;
-
     body.classList.toggle(accessibilityClasses.bigCursor);
-    saveAccessibilifySetting("bigCursor", event);
   };
 
   const handleReset = () => {
