@@ -11,7 +11,8 @@ export function saveAccessibilifySetting(
     | "lowVision"
     | "saturationStatus"
     | "saturation"
-    | "boldText",
+    | "boldText"
+    | "bigCursor",
   value: string
 ) {
   try {

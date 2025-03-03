@@ -73,6 +73,7 @@ export default function Accessibility() {
   useEffect(() => {
     const settings: Options = getAccessibilifySettings();
     const root = document.getElementById("root") as HTMLElement;
+    const body = document.body as HTMLElement;
 
     if (settings.colorBlind) {
       setOptions((prev) => ({ ...prev, colorBlind: settings.colorBlind }));
@@ -101,6 +102,11 @@ export default function Accessibility() {
       accessibilityClasses.boldText.split(" ").forEach((cls) => {
         root?.classList.add(cls);
       });
+    }
+
+    if (settings.bigCursor) {
+      setOptions((prev) => ({ ...prev, bigCursor: settings.bigCursor }));
+      body?.classList.add(accessibilityClasses.bigCursor);
     }
   }, []);
 
@@ -189,15 +195,10 @@ export default function Accessibility() {
   const handleBigCursor = (event: any) => {
     setOptions({ ...options, bigCursor: event });
 
-    const root = document.getElementById("root") as HTMLElement;
-    const menu = document.getElementById("accessibility-menu") as HTMLElement;
     const body = document.body as HTMLElement;
 
-    // root.classList.toggle(accessibilityClasses.bigCursor);
-    // menu.classList.toggle(accessibilityClasses.bigCursor);
-
     body.classList.toggle(accessibilityClasses.bigCursor);
-    // saveAccessibilifySetting("bigCursor", event);
+    saveAccessibilifySetting("bigCursor", event);
   };
 
   const handleReset = () => {
