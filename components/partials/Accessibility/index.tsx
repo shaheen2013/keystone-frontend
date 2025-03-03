@@ -31,7 +31,20 @@ import {
 } from "@/lib/utils";
 
 export default function Accessibility() {
-  const [options, setOptions] = useState({
+  type Options = {
+    colorBlind: boolean;
+    lowVision: boolean;
+    saturationStatus: boolean;
+    saturation: number[];
+    boldText: boolean;
+    bigCursor: boolean;
+    increaseContrast: boolean;
+    textSize: number;
+    magnification: boolean;
+    googleTranslate: string;
+  };
+
+  const [options, setOptions] = useState<Options>({
     colorBlind: false,
     lowVision: false,
     saturationStatus: false,
@@ -56,19 +69,24 @@ export default function Accessibility() {
   };
 
   useEffect(() => {
-    const settings = getAccessibilifySettings();
+    const settings: Options = getAccessibilifySettings();
     const root = document.getElementById("root") as HTMLElement;
 
-    // color blind initial settings
     if (settings.colorBlind) {
       setOptions((prev) => ({ ...prev, colorBlind: settings.colorBlind }));
       root?.classList.add(accessibilityClasses.colorBlind);
     }
 
-    // low vision initial settings
     if (settings.lowVision) {
       setOptions((prev) => ({ ...prev, lowVision: settings.lowVision }));
       root?.classList.add(accessibilityClasses.lowVision);
+    }
+
+    if (settings.saturationStatus) {
+      setOptions((prev) => ({
+        ...prev,
+        saturationStatus: settings.saturationStatus,
+      }));
     }
   }, []);
 
@@ -100,6 +118,8 @@ export default function Accessibility() {
   };
 
   const handleSaturationStatus = (event: any) => {
+    saveAccessibilifySetting("saturationStatus", event);
+
     setOptions({
       ...options,
       saturationStatus: event,

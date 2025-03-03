@@ -5,7 +5,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function saveAccessibilifySetting(name: string, value: string) {
+export function saveAccessibilifySetting(
+  name: "colorBlind" | "lowVision" | "saturationStatus" | "saturation",
+  value: string
+) {
   try {
     const settings = localStorage.getItem("accessibilitySettings");
 
@@ -21,10 +24,10 @@ export function saveAccessibilifySetting(name: string, value: string) {
 
     localStorage.setItem(
       "accessibilitySettings",
-      JSON.stringify({ ...JSON.parse(settings || '{}'), [name]: value })
+      JSON.stringify({ ...JSON.parse(settings || "{}"), [name]: value })
     );
   } catch (e) {
-    console.error(e);
+    localStorage.removeItem("accessibilitySettings");
   }
 }
 
@@ -38,7 +41,7 @@ export function getAccessibilifySettings(name?: string) {
     const settings = localStorage.getItem("accessibilitySettings");
     return settings ? JSON.parse(settings) : {};
   } catch (error) {
-    console.error("Failed to get all settings:", error);
+    localStorage.removeItem("accessibilitySettings");
     return {};
   }
 }
