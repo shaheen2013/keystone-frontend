@@ -190,7 +190,14 @@ export default function Accessibility() {
     setOptions({ ...options, bigCursor: event });
 
     const root = document.getElementById("root") as HTMLElement;
-    root.classList.toggle("cursor-big");
+    const menu = document.getElementById("accessibility-menu") as HTMLElement;
+    const body = document.body as HTMLElement;
+
+    // root.classList.toggle(accessibilityClasses.bigCursor);
+    // menu.classList.toggle(accessibilityClasses.bigCursor);
+
+    body.classList.toggle(accessibilityClasses.bigCursor);
+    // saveAccessibilifySetting("bigCursor", event);
   };
 
   const handleReset = () => {
