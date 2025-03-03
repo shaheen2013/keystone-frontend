@@ -5,6 +5,11 @@ import { useEffect, useState } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
 
 import {
+  getAccessibilifySettings,
+  saveAccessibilifySetting,
+} from "@/lib/utils";
+
+import {
   Accordion,
   AccordionItem,
   AccordionContent,
@@ -25,10 +30,6 @@ import { Switch } from "@/components/shadcn/switch";
 import { Button } from "@/components/shadcn/button";
 import { languageOptions } from "@/static/accessibility";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/shadcn/sheet";
-import {
-  getAccessibilifySettings,
-  saveAccessibilifySetting,
-} from "@/lib/utils";
 
 export default function Accessibility() {
   type Options = {
@@ -65,6 +66,7 @@ export default function Accessibility() {
       2: "saturate-150",
       3: "saturate-100",
     },
+    boldText: "font-bold text-gray-900 bg-gray-100",
     bigCursor: "cursor-big",
   };
 
@@ -160,6 +162,15 @@ export default function Accessibility() {
       // desaturate
       root.classList.add(accessibilityClasses.saturation[3]);
     }
+  };
+
+  const handleBoldText = (event: any) => {
+    setOptions({ ...options, boldText: event });
+
+    const root = document.getElementById("root") as HTMLElement;
+    accessibilityClasses.boldText.split(" ").forEach((cls) => {
+      root.classList.toggle(cls);
+    });
   };
 
   const handleBigCursor = (event: any) => {
@@ -304,7 +315,12 @@ export default function Accessibility() {
 
               {/* display & text size accordion */}
               <div className="border-primary-2 border rounded-xl mb-4">
-                <Accordion type="single" collapsible className="w-full">
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="w-full"
+                  value="item-1"
+                >
                   <AccordionItem value={`item-1`} className="last:border-b-0">
                     <AccordionTrigger className="px-3 py-3">
                       <div className="flex items-center justify-between gap-3">
@@ -328,7 +344,10 @@ export default function Accessibility() {
                           <span className="text-gray-9 font-medium text-base">
                             Bold Text
                           </span>
-                          <Switch id="airplane-mode" />
+                          <Switch
+                            checked={options.boldText}
+                            onCheckedChange={handleBoldText}
+                          />
                         </label>
                       </div>
 
