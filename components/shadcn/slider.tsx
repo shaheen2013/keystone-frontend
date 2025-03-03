@@ -12,7 +12,7 @@ const Slider = React.forwardRef<
   <SliderPrimitive.Root
     ref={ref}
     className={cn(
-      "relative flex w-full touch-none select-none cursor-pointer items-center",
+      "relative flex w-full touch-none select-none cursor-pointer items-center data-[disabled]:cursor-not-allowed",
       className
     )}
     {...props}

@@ -55,27 +55,21 @@ export default function Accessibility() {
     bigCursor: "cursor-big",
   };
 
-  console.log("options => ", options);
-
   useEffect(() => {
     const settings = getAccessibilifySettings();
     const root = document.getElementById("root") as HTMLElement;
 
-    console.log("settings => ", settings);
+    // color blind initial settings
+    if (settings.colorBlind) {
+      setOptions((prev) => ({ ...prev, colorBlind: settings.colorBlind }));
+      root?.classList.add(accessibilityClasses.colorBlind);
+    }
 
-    setTimeout(() => {
-      // color blind initial settings
-      if (settings.colorBlind) {
-        setOptions((prev) => ({ ...prev, colorBlind: settings.colorBlind }));
-        root?.classList.add(accessibilityClasses.colorBlind);
-      }
-
-      // low vision initial settings
-      if (settings.lowVision) {
-        setOptions((prev) => ({ ...prev, lowVision: settings.lowVision }));
-        root?.classList.add(accessibilityClasses.lowVision);
-      }
-    }, 300);
+    // low vision initial settings
+    if (settings.lowVision) {
+      setOptions((prev) => ({ ...prev, lowVision: settings.lowVision }));
+      root?.classList.add(accessibilityClasses.lowVision);
+    }
   }, []);
 
   const handleAccessibilityRender = (event: any) => {
@@ -106,35 +100,45 @@ export default function Accessibility() {
   };
 
   const handleSaturationStatus = (event: any) => {
-    setOptions({ ...options, saturationStatus: event });
+    setOptions({
+      ...options,
+      saturationStatus: event,
+      ...(!event ? { saturation: [1] } : {}),
+    });
 
     const root = document.getElementById("root") as HTMLElement;
     if (options.saturationStatus) {
-      // remove saturation
-      root.classList.remove("saturate-50", "saturate-150", "saturate-100");
+      root.classList.remove(
+        accessibilityClasses.saturation[1],
+        accessibilityClasses.saturation[2],
+        accessibilityClasses.saturation[3]
+      );
+    } else {
     }
   };
 
   const handleSaturation = (value: number[]) => {
-    // if (!options.saturationStatus) return;
-
     setOptions({ ...options, saturation: value });
 
     const root = document.getElementById("root") as HTMLElement;
 
+    root.classList.remove(accessibilityClasses.saturation[1]);
+    root.classList.remove(accessibilityClasses.saturation[2]);
+    root.classList.remove(accessibilityClasses.saturation[3]);
+
     if (value[0] == 1) {
       // low saturation
-      root.classList.add("saturate-50");
+      root.classList.add(accessibilityClasses.saturation[1]);
     }
 
     if (value[0] == 2) {
       // high saturation
-      root.classList.add("saturate-150");
+      root.classList.add(accessibilityClasses.saturation[2]);
     }
 
     if (value[0] == 3) {
       // desaturate
-      root.classList.add("saturate-100");
+      root.classList.add(accessibilityClasses.saturation[3]);
     }
   };
 
