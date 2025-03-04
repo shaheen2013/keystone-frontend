@@ -69,6 +69,7 @@ export default function Accessibility() {
     boldText: "font-bold text-gray-900 bg-gray-100",
     bigCursor: "cursor-big",
     increaseContrast: "saturate-200",
+    magnification: "magnification",
   };
 
   useEffect(() => {
@@ -215,6 +216,14 @@ export default function Accessibility() {
 
     const root = document.getElementById("root") as HTMLElement;
     root.classList.toggle(accessibilityClasses.increaseContrast);
+  };
+
+  const handleMagnification = (event: any) => {
+    setOptions({ ...options, magnification: event });
+    saveAccessibilifySetting("magnification", event);
+
+    const root = document.getElementById("root") as HTMLElement;
+    root.classList.toggle(accessibilityClasses.magnification);
   };
 
   const handleReset = () => {
@@ -462,7 +471,10 @@ export default function Accessibility() {
                   </div>
 
                   <div className="mr-[2px]">
-                    <Switch id="airplane-mode" />
+                    <Switch
+                      checked={options.magnification}
+                      onCheckedChange={handleMagnification}
+                    />
                   </div>
                 </div>
               </div>

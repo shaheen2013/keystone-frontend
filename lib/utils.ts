@@ -13,7 +13,8 @@ export function saveAccessibilifySetting(
     | "saturation"
     | "boldText"
     | "bigCursor"
-    | "increaseContrast",
+    | "increaseContrast"
+    | "magnification",
   value: string
 ) {
   try {
