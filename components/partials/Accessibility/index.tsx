@@ -227,7 +227,17 @@ export default function Accessibility() {
   };
 
   const handleReset = () => {
-    console.log("Resetting accessibility options");
+    const root = document.getElementById("root") as HTMLElement;
+
+    console.log(accessibilityClasses);
+
+    Object.keys(accessibilityClasses).forEach((key) => {
+      console.log("key => ", key);
+      const value =
+        accessibilityClasses[key as keyof typeof accessibilityClasses];
+
+      console.log("value= > ", value);
+    });
   };
 
   return (
