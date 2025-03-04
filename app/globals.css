@@ -6,6 +6,10 @@
   border: 2px solid red !important;
 }
 
+.dev2 {
+  border: 2px solid blue !important;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
