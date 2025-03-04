@@ -12,7 +12,8 @@ export function saveAccessibilifySetting(
     | "saturationStatus"
     | "saturation"
     | "boldText"
-    | "bigCursor",
+    | "bigCursor"
+    | "increaseContrast",
   value: string
 ) {
   try {

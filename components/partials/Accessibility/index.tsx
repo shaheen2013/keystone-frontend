@@ -68,6 +68,7 @@ export default function Accessibility() {
     },
     boldText: "font-bold text-gray-900 bg-gray-100",
     bigCursor: "cursor-big",
+    increaseContrast: "saturate-200",
   };
 
   useEffect(() => {
@@ -198,6 +199,14 @@ export default function Accessibility() {
 
     const body = document.body as HTMLElement;
     body.classList.toggle(accessibilityClasses.bigCursor);
+  };
+
+  const handleIncreaseContrast = (event: any) => {
+    setOptions({ ...options, increaseContrast: event });
+    saveAccessibilifySetting("increaseContrast", event);
+
+    const root = document.getElementById("root") as HTMLElement;
+    root.classList.toggle(accessibilityClasses.increaseContrast);
   };
 
   const handleReset = () => {
@@ -378,7 +387,6 @@ export default function Accessibility() {
                             Big Cursor
                           </span>
                           <Switch
-                            id="airplane-mode"
                             onCheckedChange={handleBigCursor}
                             checked={options.bigCursor}
                           />
@@ -391,7 +399,10 @@ export default function Accessibility() {
                           <span className="text-gray-9 font-medium text-base">
                             Increase Contrast
                           </span>
-                          <Switch id="airplane-mode" />
+                          <Switch
+                            onCheckedChange={handleIncreaseContrast}
+                            checked={options.increaseContrast}
+                          />
                         </label>
                       </div>
 
