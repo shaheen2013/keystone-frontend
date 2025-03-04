@@ -109,6 +109,14 @@ export default function Accessibility() {
       setOptions((prev) => ({ ...prev, bigCursor: settings.bigCursor }));
       body?.classList.add(accessibilityClasses.bigCursor);
     }
+
+    if (settings.increaseContrast) {
+      setOptions((prev) => ({
+        ...prev,
+        increaseContrast: settings.increaseContrast,
+      }));
+      root?.classList.add(accessibilityClasses.increaseContrast);
+    }
   }, []);
 
   const handleAccessibilityRender = (event: any) => {
