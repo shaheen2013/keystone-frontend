@@ -1,18 +1,27 @@
 "use client";
 
+import Image from "next/image";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+
 import { Button } from "@/components/shadcn/button";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Input, InputPassword } from "@/components/shadcn/input";
-import Image from "next/image";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import Link from "next/link";
 
 export default function Login() {
   type FormValues = {
     email: string;
     password: string;
+    keepSigned: boolean;
   };
 
-  const { handleSubmit, control } = useForm<FormValues>();
+  const { handleSubmit, control } = useForm<FormValues>({
+    defaultValues: {
+      email: "",
+      password: "",
+      keepSigned: false,
+    },
+  });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
@@ -29,7 +38,8 @@ export default function Login() {
               alt="logo"
               width={150}
               height={65}
-              className="w-[150px] h-[65px] "
+              className="w-[150px] h-[65px]"
+              priority
             />
           </div>
 
@@ -46,32 +56,54 @@ export default function Login() {
 
           {/* form */}
           <form onSubmit={handleSubmit(onSubmit)}>
+            {/* email */}
             <div className="mb-4">
-              <Controller
-                control={control}
-                name="email"
-                render={({ field: { onChange, onBlur, value, ref } }) => (
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="text-base text-gray-9 mb-2"
-                    >
-                      Email
-                    </label>
+              <div>
+                <label htmlFor="email" className="text-base text-gray-9 mb-2">
+                  Email
+                </label>
+
+                <Controller
+                  control={control}
+                  name="email"
+                  rules={{
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: "Invalid email address",
+                    },
+                  }}
+                  render={({
+                    field: { onChange, value, onBlur },
+                    fieldState: { error },
+                  }) => (
                     <Input
                       className="bg-white"
                       placeholder="Enter email address"
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      value={value}
+                      errorText={error?.message}
                     />
-                  </div>
-                )}
-              />
+                  )}
+                />
+              </div>
             </div>
 
+            {/* password */}
             <div className="mb-3">
               <Controller
                 control={control}
                 name="password"
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                rules={{
+                  required: "Password is required",
+                  minLength: { value: 8, message: "Minimum length is 8" },
+                  maxLength: { value: 100, message: "Maximum length is 100" },
+                }}
+                render={({
+                  field: { onChange, value, onBlur },
+                  fieldState: { error },
+                }) => (
                   <div>
                     <label
                       htmlFor="password"
@@ -82,6 +114,10 @@ export default function Login() {
                     <InputPassword
                       className="bg-white"
                       placeholder="********"
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      value={value}
+                      errorText={error?.message}
                     />
                   </div>
                 )}
@@ -91,13 +127,35 @@ export default function Login() {
             {/* remember/forget password */}
             <div className="mb-8 flex justify-between">
               <div className="flex items-center gap-2">
-                <Checkbox id="keepSign" />
-                <label htmlFor="keepSign" className="text-base ">
+                <Controller
+                  control={control}
+                  name="keepSigned"
+                  render={({ field: { onChange, value, onBlur } }) => (
+                    <Checkbox
+                      id="keepSigned"
+                      variant="secondary"
+                      checked={value}
+                      onCheckedChange={onChange}
+                      onBlur={onBlur}
+                    />
+                  )}
+                />
+
+                <label htmlFor="keepSigned" className="text-base ">
                   Keep me signed in.
                 </label>
               </div>
 
-              <div>forgot password?</div>
+              <div>
+                <Button
+                  asChild
+                  size="none"
+                  variant="link-secondary"
+                  type="button"
+                >
+                  <Link href="/forgot-password">Forgot password</Link>
+                </Button>
+              </div>
             </div>
 
             {/* submit */}

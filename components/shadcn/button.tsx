@@ -21,7 +21,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
 
         link: "text-gray-8 underline-offset-4",
-        "link-secondary": "text-secondary-6 underline-offset-4",
+        "link-secondary": "text-secondary-6",
       },
       size: {
         default: "h-14 rounded-xl px-8 text-lg font-semibold",
@@ -29,6 +29,7 @@ const buttonVariants = cva(
         md: "h-7 text-lg font-semibold",
         lg: "h-14 rounded-xl px-8 text-lg font-semibold",
         icon: "h-9 w-9",
+        none: "",
       },
     },
     defaultVariants: {

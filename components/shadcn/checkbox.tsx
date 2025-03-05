@@ -6,10 +6,8 @@ import { Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-// 🔹 Define types at the top for clarity
-
 type CheckboxRef = React.ElementRef<typeof CheckboxPrimitive.Root>;
-type CheckboxVariants = "primary";
+type CheckboxVariants = "primary" | "secondary";
 
 interface CheckboxProps
   extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
@@ -18,19 +16,25 @@ interface CheckboxProps
 
 const Checkbox = React.forwardRef<CheckboxRef, CheckboxProps>(
   ({ className, variant, ...props }, ref) => {
+    // data-[state=checked]:text-primary-foreground
+    const variantClasses = {
+      primary: "bg-primary-5 text-primary-foreground",
+      secondary:
+        "data-[state=checked]:bg-secondary-6 data-[state=checked]:border-secondary-6",
+    };
+
+    const clx = cn(
+      "peer h-5 w-5 shrink-0 rounded-sm border-2 border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 overflow-hidden",
+      variant ? variantClasses[variant] : "",
+      className
+    );
+
+    const checkClx = cn("flex items-center justify-center");
+
     return (
-      <CheckboxPrimitive.Root
-        ref={ref}
-        className={cn(
-          "peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
-          className
-        )}
-        {...props}
-      >
-        <CheckboxPrimitive.Indicator
-          className={cn("flex items-center justify-center text-current")}
-        >
-          <Check className="h-4 w-4" strokeWidth={4} />
+      <CheckboxPrimitive.Root ref={ref} className={clx} {...props}>
+        <CheckboxPrimitive.Indicator className={checkClx}>
+          <Check className="h-4 w-4 text-white" strokeWidth={4} />
         </CheckboxPrimitive.Indicator>
       </CheckboxPrimitive.Root>
     );
