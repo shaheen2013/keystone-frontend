@@ -153,7 +153,9 @@ export default function Login() {
                   variant="link-secondary"
                   type="button"
                 >
-                  <Link href="/forgot-password">Forgot password</Link>
+                  <Link href="/forgot-password" className="font-semibold">
+                    Forgot password
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -163,6 +165,28 @@ export default function Login() {
               Login
             </Button>
           </form>
+
+          <div className="flex items-center gap-2 my-4">
+            <div className="flex-1 border-t border-primary-3"></div>
+            <div className="text-gray-500 text-sm font-medium">OR</div>
+            <div className="flex-1 border-t border-primary-3"></div>
+          </div>
+
+          <Button
+            className="w-full bg-white border border-primary-3 mb-4"
+            variant="ghost"
+          >
+            Sign in with Google
+          </Button>
+
+          <div className="flex justify-center">
+            <p>
+              Don't have an account?{" "}
+              <Link href="/signup" className="text-secondary-6 font-semibold">
+                Sign up
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
 
