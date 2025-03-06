@@ -12,7 +12,6 @@ import { Checkbox } from "@/components/shadcn/checkbox";
 import { Label } from "@/components/shadcn/label";
 import { Input } from "@/components/shadcn/input";
 import { Search } from "@/components/icons";
-import { root } from "postcss";
 
 const EventsCalender = () => {
   const handleEventClick = () => {};
@@ -116,20 +115,20 @@ const EventsCalender = () => {
               center: "title",
               right: "dayGridMonth,timeGridWeek,timeGridDay",
             }}
-            customButtons={{
-              prev: {
-                text: "Prev",
-                click: () => {
-                  handlePrevClick();
-                },
-              },
-              next: {
-                text: "Next",
-                click: () => {
-                  handleNextClick();
-                },
-              },
-            }}
+            // customButtons={{
+            //   prev: {
+            //     text: "Prev",
+            //     click: () => {
+            //       handlePrevClick();
+            //     },
+            //   },
+            //   next: {
+            //     text: "Next",
+            //     click: () => {
+            //       handleNextClick();
+            //     },
+            //   },
+            // }}
             height="700px"
             initialView="dayGridMonth"
             selectable={true}
