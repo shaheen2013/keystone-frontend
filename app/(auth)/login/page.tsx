@@ -161,7 +161,7 @@ export default function Login() {
             </div>
 
             {/* submit */}
-            <Button variant="secondary" className="w-full">
+            <Button variant="secondary" className="w-full" loading={false}>
               Login
             </Button>
           </form>
