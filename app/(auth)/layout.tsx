@@ -7,7 +7,7 @@ export default function AuthLayout({ children }: any) {
   return (
     <div className="grid grid-cols-12 h-screen">
       <LoginLeftSidebar className="dev lg:block hidden col-span-7" />
-      <div className="dev2 lg:col-span-5 col-span-12 relative">
+      <div className="lg:col-span-5 col-span-12 relative">
         {children}
 
         {/* <Image
