@@ -213,7 +213,7 @@ export default function LoginForm() {
 
             {/* submit */}
             <Button variant="secondary" className="w-full" loading={false}>
-              Login
+              Sign Up
             </Button>
           </form>
 
