@@ -2,6 +2,10 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 interface InputProps extends React.ComponentProps<"input"> {
+  classes?: {
+    root?: string;
+    input?: string;
+  };
   helperText?: string;
   errorText?: string;
   startIcon?: React.ReactNode;
@@ -10,13 +14,13 @@ interface InputProps extends React.ComponentProps<"input"> {
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
-    { className, type, helperText, errorText, startIcon, endIcon, ...props },
+    { classes, type, helperText, errorText, startIcon, endIcon, ...props },
     ref
   ) => {
     const hasError = Boolean(errorText);
 
     return (
-      <div className="w-full">
+      <div className={cn("w-full", classes.root)}>
         <div className="relative flex items-center">
           {startIcon && (
             <span className="absolute left-4 text-gray-500">{startIcon}</span>
@@ -30,7 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 : "border-gray-300  focus-visible:ring-secondary-5",
               startIcon && "pl-12",
               endIcon && "pr-12",
-              className
+              classes.input
             )}
             ref={ref}
             {...props}
