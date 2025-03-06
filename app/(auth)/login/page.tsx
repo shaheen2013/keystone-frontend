@@ -176,6 +176,13 @@ export default function Login() {
             className="w-full bg-white border border-primary-3 mb-4"
             variant="ghost"
           >
+            <Image
+              src="/assets/auth/google.svg"
+              alt="google"
+              width={24}
+              height={24}
+              className="h-6 w-6"
+            />
             Sign in with Google
           </Button>
 
