@@ -78,7 +78,7 @@ export default function Login() {
                     fieldState: { error },
                   }) => (
                     <Input
-                      classes={{ input: "bg-white" }}
+                      classNames={{ input: "bg-white" }}
                       placeholder="Enter email address"
                       onChange={onChange}
                       onBlur={onBlur}

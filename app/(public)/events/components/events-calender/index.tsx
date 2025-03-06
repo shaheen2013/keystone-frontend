@@ -27,7 +27,7 @@ const EventsCalender = () => {
           </h3>
           <Input
             placeholder="Search by event name"
-            classes={{ root: "w-full md:w-9/12 justify-self-end" }}
+            classNames={{ root: "w-full md:w-9/12 justify-self-end" }}
             endIcon={<Search className="text-gray-7" />}
           />
         </div>

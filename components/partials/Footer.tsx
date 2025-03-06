@@ -159,7 +159,7 @@ export default function Footer() {
           <div className="flex gap-3">
             <Input
               type="email"
-              classes={{ input: "bg-white" }}
+              classNames={{ input: "bg-white" }}
               placeholder="Enter your email"
             />
             <Button variant="secondary" size="sm" className="h-12">

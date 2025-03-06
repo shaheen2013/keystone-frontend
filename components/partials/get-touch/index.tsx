@@ -96,7 +96,7 @@ const GetTouch = ({ data }: { data: any }) => {
             <Input
               id="fname"
               type="text"
-              classes={{ input: "bg-white" }}
+              classNames={{ input: "bg-white" }}
               placeholder="Enter First Name"
             />
           </div>
@@ -105,7 +105,7 @@ const GetTouch = ({ data }: { data: any }) => {
             <Input
               id="lname"
               type="text"
-              classes={{ input: "bg-white" }}
+              classNames={{ input: "bg-white" }}
               placeholder="Enter Last Name"
             />
           </div>
@@ -114,7 +114,7 @@ const GetTouch = ({ data }: { data: any }) => {
             <Input
               id="email"
               type="text"
-              classes={{ input: "bg-white" }}
+              classNames={{ input: "bg-white" }}
               placeholder="Enter Email Address"
             />
           </div>
@@ -123,7 +123,7 @@ const GetTouch = ({ data }: { data: any }) => {
             <Input
               id="phone"
               type="text"
-              classes={{ input: "bg-white" }}
+              classNames={{ input: "bg-white" }}
               placeholder="Enter Phone Number"
             />
           </div>
@@ -132,7 +132,7 @@ const GetTouch = ({ data }: { data: any }) => {
             <Input
               id="subject"
               type="text"
-              classes={{ input: "bg-white" }}
+              classNames={{ input: "bg-white" }}
               placeholder="Enter Subject"
             />
           </div>
@@ -140,7 +140,7 @@ const GetTouch = ({ data }: { data: any }) => {
             <Label htmlFor="message">Message</Label>
             <Textarea
               id="message"
-              classes={{ input: "bg-white" }}
+              className="bg-white"
               placeholder="Enter Message"
               rows={4}
             />

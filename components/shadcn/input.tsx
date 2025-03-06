@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 interface InputProps extends React.ComponentProps<"input"> {
-  classes?: {
+  classNames?: {
     root?: string;
     input?: string;
   };
@@ -15,13 +15,13 @@ interface InputProps extends React.ComponentProps<"input"> {
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
-    { classes, type, helperText, errorText, startIcon, endIcon, ...props },
+    { classNames, type, helperText, errorText, startIcon, endIcon, ...props },
     ref
   ) => {
     const hasError = Boolean(errorText);
 
     return (
-      <div className={cn("w-full", classes.root)}>
+      <div className={cn("w-full", classNames?.root)}>
         <div className="relative flex items-center">
           {startIcon && (
             <span className="absolute left-4 text-gray-500">{startIcon}</span>
@@ -35,7 +35,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 : "border-gray-300  focus-visible:ring-secondary-5",
               startIcon && "pl-12",
               endIcon && "pr-12",
-              classes.input
+              classNames?.input
             )}
             ref={ref}
             {...props}
