@@ -1,5 +1,3 @@
-import { Metadata } from "next";
-
 import Support from "@/components/partials/support";
 import HeroSection from "@/components/partials/Hero";
 import OurImpact from "@/components/partials/OurImpact";

@@ -3,7 +3,7 @@ import classNames from "classnames";
 import Image from "next/image";
 
 export default function LoginLeftSidebar({ className }: { className: string }) {
-  const clx = classNames(className);
+  const clx = classNames("", className);
 
   return (
     <div className={clx}>

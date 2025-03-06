@@ -10,16 +10,18 @@ import { Input, InputPassword } from "@/components/shadcn/input";
 
 export default function LoginForm() {
   type FormValues = {
+    name: string;
     email: string;
     password: string;
-    keepSigned: boolean;
+    termsAndCondition: boolean;
   };
 
   const { handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
-      keepSigned: false,
+      termsAndCondition: false,
     },
   });
 
@@ -45,17 +47,49 @@ export default function LoginForm() {
 
           {/* title */}
           <h2 className="lg:text-3xl text-xl font-bold text-center mb-4">
-            Welcome Back to Keystone Ability Support
+            Join Keystone Ability Support
           </h2>
 
           {/* subtitle  */}
           <p className="text-gray-8 lg:text-base text-sm text-center lg:mb-8 mb-6">
-            Log in to access your personalized resources, upcoming events, saved
-            guides, and more.
+            Create an account to access expert guidance, support groups,
+            resources, & community connections.
           </p>
 
           {/* form */}
           <form onSubmit={handleSubmit(onSubmit)}>
+            {/* name */}
+            <div className="mb-4">
+              <div>
+                <label htmlFor="name" className="text-base text-gray-9 mb-2">
+                  Name
+                </label>
+
+                <Controller
+                  control={control}
+                  name="name"
+                  rules={{
+                    required: "Name is required",
+                    minLength: { value: 3, message: "Minimum length is 3" },
+                    maxLength: { value: 100, message: "Maximum length is 100" },
+                  }}
+                  render={({
+                    field: { onChange, value, onBlur },
+                    fieldState: { error },
+                  }) => (
+                    <Input
+                      classNames={{ input: "bg-white" }}
+                      placeholder="Enter full name"
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      value={value}
+                      errorText={error?.message}
+                    />
+                  )}
+                />
+              </div>
+            </div>
+
             {/* email */}
             <div className="mb-4">
               <div>
@@ -129,10 +163,10 @@ export default function LoginForm() {
               <div className="flex items-center gap-2">
                 <Controller
                   control={control}
-                  name="keepSigned"
+                  name="termsAndCondition"
                   render={({ field: { onChange, value, onBlur } }) => (
                     <Checkbox
-                      id="keepSigned"
+                      id="termsAndCondition"
                       variant="secondary"
                       checked={value}
                       onCheckedChange={onChange}
@@ -141,25 +175,39 @@ export default function LoginForm() {
                   )}
                 />
 
-                <label htmlFor="keepSigned" className="lg:text-base text-sm">
-                  Keep me signed in.
-                </label>
-              </div>
-
-              <div>
-                <Button
-                  asChild
-                  size="none"
-                  variant="link-secondary"
-                  type="button"
+                <label
+                  htmlFor="termsAndCondition"
+                  className="lg:text-base text-sm"
                 >
-                  <Link
-                    href="/forgot-password"
-                    className="font-semibold lg:text-base text-sm"
+                  Agree to{" "}
+                  <Button
+                    asChild
+                    size="none"
+                    variant="link-secondary"
+                    type="button"
                   >
-                    Forgot password
-                  </Link>
-                </Button>
+                    <Link
+                      href="/terms-and-conditions"
+                      className="font-semibold lg:text-base text-sm"
+                    >
+                      Terms
+                    </Link>
+                  </Button>{" "}
+                  &{" "}
+                  <Button
+                    asChild
+                    size="none"
+                    variant="link-secondary"
+                    type="button"
+                  >
+                    <Link
+                      href="/privacy-policy"
+                      className="font-semibold lg:text-base text-sm"
+                    >
+                      Privacy Policy
+                    </Link>
+                  </Button>
+                </label>
               </div>
             </div>
 
@@ -192,8 +240,8 @@ export default function LoginForm() {
           <div className="flex justify-center">
             <p className="lg:text-base text-sm">
               Don't have an account?{" "}
-              <Link href="/signup" className="text-secondary-6 font-semibold">
-                Sign up
+              <Link href="/login" className="text-secondary-6 font-semibold">
+                Login
               </Link>
             </p>
           </div>
