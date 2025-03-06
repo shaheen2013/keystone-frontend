@@ -1,6 +1,7 @@
 import React from "react";
 import Hero from "./components/hero";
-import { heroData } from "@/static/eventdetails";
+import { heroData, workshopAbout } from "@/static/eventdetails";
+import AboutWorkshop from "./components/about-workshop";
 
 export default async function EventDetails({
   params,
@@ -14,6 +15,7 @@ export default async function EventDetails({
   return (
     <>
       <Hero data={heroData} />
+      <AboutWorkshop data={workshopAbout} />
     </>
   );
 }

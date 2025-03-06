@@ -13,3 +13,15 @@ export const heroData = {
  type: "Live Webinar",
  backgroundImage: heroImage,
 };
+
+
+
+export  const workshopAbout = {
+  title: "About This Workshop",
+  description: "Are you a parent or caregiver seeking guidance on navigating the special education system? This interactive workshop is designed to demystify the process and equip you with actionable strategies to support your child. Whether you’re just starting or have years of experience, an expert will provide insights and tools to help you advocate effectively for your child’s needs.",
+  vedioUrl:"https://www.youtube.com/watch?v=2qIUYxUXEEE",
+  keyPoints: [
+    "Understand the basics of Individualized Education Plans (IEPs) and 504 Plans.",
+    "Learn how to collaborate with schools and professionals."
+  ]
+};
