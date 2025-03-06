@@ -20,12 +20,6 @@ import {
   WhyKeystoneData,
 } from "@/static/homepage";
 
-export const metadata: Metadata = {
-  title: "Homepage | Keystone",
-  description:
-    "A platform for online communities, the Disability Platform, and Atypical Advantage",
-};
-
 export default function Home() {
   return (
     <>
