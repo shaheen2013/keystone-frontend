@@ -1,4 +1,6 @@
 import React from "react";
+import Hero from "./components/hero";
+import { heroData } from "@/static/eventdetails";
 
 export default async function EventDetails({
   params,
@@ -9,5 +11,9 @@ export default async function EventDetails({
 
   console.log(slug);
 
-  return <div>EventDetails</div>;
+  return (
+    <>
+      <Hero data={heroData} />
+    </>
+  );
 }

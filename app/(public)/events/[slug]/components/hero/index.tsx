@@ -1,15 +1,9 @@
 import { Calendar, Category, Location } from "@/components/icons";
 import { Button } from "@/components/shadcn/button";
-import { CalendarClockIcon, Clock, LucideUser2, MapPin } from "lucide-react";
 
-export default function CenteredHero({ data }: { data: any }) {
-  const { title, description, backgroundImage } = data;
-
-  const eventDetails = {
-    dateTime: "6:00 PM, 6th Feb 2025",
-    location: "Virtual (Zoom)",
-    type: "Live Webinar",
-  };
+export default function Hero({ data }: { data: any }) {
+  const { title, description, backgroundImage, dateTime, location, type } =
+    data;
 
   return (
     <section
@@ -35,15 +29,15 @@ export default function CenteredHero({ data }: { data: any }) {
             <span className="text-white text-sm md:text-base font-medium inline-flex">
               {/* fill-rule isseues arise here  */}
               <Calendar className="mr-2 size-6" />
-              {eventDetails.dateTime}
+              {dateTime}
             </span>
             <span className="text-white text-sm md:text-base font-medium inline-flex">
               <Location className="mr-2 size-6" />
-              {eventDetails.location}
+              {location}
             </span>
             <span className="text-white text-sm md:text-base font-medium inline-flex">
               <Category className="mr-2 size-6 " />
-              {eventDetails.type}
+              {type}
             </span>
           </div>
           <Button variant="secondary" className="w-full md:w-fit">

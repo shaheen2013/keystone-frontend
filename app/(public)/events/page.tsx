@@ -7,7 +7,7 @@ import { allUpcomingEventsData, heroData } from "./constant";
 import GetTouch from "@/components/partials/get-touch";
 import EventsCalender from "./components/events-calender";
 import AllUpComingEvents from "./components/all-upcoming-events";
-import CenteredHero from "@/components/partials/Hero/centered-hero";
+import Hero from "./[slug]/components/hero";
 
 export const metadata: Metadata = {
   title: "Service Details | Keystone",
@@ -23,8 +23,7 @@ export default function ServiceDetails() {
 
   return (
     <>
-      {/* <CenteredHero data={heroData} /> */}
-      <HeroSection data={heroData} />
+      <Hero data={heroData} />
       <EventsCalender />
       <AllUpComingEvents data={allUpcomingEventsData} />
       <GetTouch data={contactInfo} />
