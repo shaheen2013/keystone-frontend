@@ -13,3 +13,5 @@ export { default as EmpowerMent } from "./EmpowerMent";
 export { default as SupportPlan } from "./SupportPlan";
 export { default as Support } from "./Support";
 export { default as Search } from "./Search";
+export { default as Category } from "./Category";
+export { default as Location } from "./Location";

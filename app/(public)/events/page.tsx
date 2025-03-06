@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { allUpcomingEventsData, heroData } from "./constant";
 import AllUpComingEvents from "./components/all-upcoming-events";
 import EventsCalender from "./components/events-calender";
+import HeroSection from "./components/hero";
 
 export const metadata: Metadata = {
   title: "Service Details | Keystone",
@@ -15,7 +16,8 @@ export const metadata: Metadata = {
 export default function ServiceDetails() {
   return (
     <>
-      <CenteredHero data={heroData} />
+      {/* <CenteredHero data={heroData} /> */}
+      <HeroSection data={heroData} />
       <EventsCalender />
       <AllUpComingEvents data={allUpcomingEventsData} />
       <GetTouch data={contactInfo} />
