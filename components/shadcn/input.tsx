@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 interface InputProps extends React.ComponentProps<"input"> {
   classes?: {
@@ -64,6 +65,10 @@ const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
     { className, type, helperText, errorText, startIcon, endIcon, ...props },
     ref
   ) => {
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const handleTogglePassword = () => setShowPassword((prev) => !prev);
+
     const hasError = Boolean(errorText);
 
     return (
@@ -73,7 +78,7 @@ const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
             <span className="absolute left-4 text-gray-500">{startIcon}</span>
           )}
           <input
-            type={type}
+            type={showPassword ? "text" : "password"}
             className={cn(
               "flex h-12 w-full rounded-xl border bg-transparent px-4 py-3 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-gray-6 focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50",
               hasError
@@ -89,6 +94,18 @@ const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
           {endIcon && (
             <span className="absolute right-4 text-gray-500">{endIcon}</span>
           )}
+
+          <button
+            type="button"
+            className="absolute right-4 text-gray-500"
+            onClick={handleTogglePassword}
+          >
+            {showPassword ? (
+              <EyeOffIcon className="w-6 h-6" />
+            ) : (
+              <EyeIcon className="w-6 h-6" />
+            )}
+          </button>
         </div>
 
         {/* Helper Text & Error Message */}

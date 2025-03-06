@@ -28,28 +28,28 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col  justify-between items-center h-full px-4">
+    <div className="flex flex-col justify-between items-center h-full px-4 lg:pt-5 pt-5 dev">
       <div className="h-full flex justify-center items-center">
-        <div className="max-w-[520px] w-full  bg-primary-2 rounded-2xl p-10">
+        <div className="max-w-[520px] w-full  bg-primary-2 rounded-2xl lg:p-10 p-5">
           {/* brand logo */}
-          <div className="flex items-center justify-center mb-8">
+          <div className="flex items-center justify-center lg:mb-8 mb-6">
             <Image
               src="/icons/brand-logo.svg"
               alt="logo"
               width={150}
               height={65}
-              className="w-[150px] h-[65px]"
+              className="lg:w-[150px] w-[120px] lg:h-[65px] h-[50px]"
               priority
             />
           </div>
 
           {/* title */}
-          <h2 className="text-3xl font-bold text-center mb-4">
+          <h2 className="lg:text-3xl text-xl font-bold text-center mb-4">
             Welcome Back to Keystone Ability Support
           </h2>
 
           {/* subtitle  */}
-          <p className="text-gray-8 text-base text-center mb-8">
+          <p className="text-gray-8 lg:text-base text-sm text-center lg:mb-8 mb-6">
             Log in to access your personalized resources, upcoming events, saved
             guides, and more.
           </p>
@@ -125,7 +125,7 @@ export default function Login() {
             </div>
 
             {/* remember/forget password */}
-            <div className="mb-8 flex justify-between">
+            <div className="lg:mb-8 mb-6 flex justify-between">
               <div className="flex items-center gap-2">
                 <Controller
                   control={control}
@@ -141,7 +141,7 @@ export default function Login() {
                   )}
                 />
 
-                <label htmlFor="keepSigned" className="text-base ">
+                <label htmlFor="keepSigned" className="lg:text-base text-sm">
                   Keep me signed in.
                 </label>
               </div>
@@ -153,7 +153,10 @@ export default function Login() {
                   variant="link-secondary"
                   type="button"
                 >
-                  <Link href="/forgot-password" className="font-semibold">
+                  <Link
+                    href="/forgot-password"
+                    className="font-semibold lg:text-base text-sm"
+                  >
                     Forgot password
                   </Link>
                 </Button>
@@ -161,7 +164,7 @@ export default function Login() {
             </div>
 
             {/* submit */}
-            <Button variant="secondary" className="w-full">
+            <Button variant="secondary" className="w-full" loading={false}>
               Login
             </Button>
           </form>
@@ -176,11 +179,18 @@ export default function Login() {
             className="w-full bg-white border border-primary-3 mb-4"
             variant="ghost"
           >
+            <Image
+              src="/assets/auth/google.svg"
+              alt="google"
+              width={24}
+              height={24}
+              className="h-6 w-6"
+            />
             Sign in with Google
           </Button>
 
           <div className="flex justify-center">
-            <p>
+            <p className="lg:text-base text-sm">
               Don't have an account?{" "}
               <Link href="/signup" className="text-secondary-6 font-semibold">
                 Sign up
@@ -190,7 +200,7 @@ export default function Login() {
         </div>
       </div>
 
-      <p className="text-gray-9 text-base font-medium py-6">
+      <p className="text-gray-9 lg:text-base text-xs font-medium py-6">
         © 2025 Keystone Ability Support. All Rights Reserved.
       </p>
     </div>
