@@ -30,7 +30,7 @@ export default function Login() {
   return (
     <div className="flex flex-col  justify-between items-center h-full px-4">
       <div className="h-full flex justify-center items-center">
-        <div className="w-[520px] bg-primary-2 rounded-2xl p-10">
+        <div className="max-w-[520px] w-full  bg-primary-2 rounded-2xl p-10">
           {/* brand logo */}
           <div className="flex items-center justify-center mb-8">
             <Image
