@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 
 import { contactInfo } from "@/static/shared";
 import { allUpcomingEventsData, heroData } from "./constant";
@@ -7,6 +6,7 @@ import { allUpcomingEventsData, heroData } from "./constant";
 import GetTouch from "@/components/partials/get-touch";
 import EventsCalender from "./components/events-calender";
 import AllUpComingEvents from "./components/all-upcoming-events";
+import Hero from "./[slug]/components/hero";
 import CenteredHero from "@/components/partials/Hero/centered-hero";
 
 export const metadata: Metadata = {
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 
 export default function ServiceDetails() {
   // if not found then throw Not Found
-  if (true) {
-    notFound();
-  }
+  // if (true) {
+  //   notFound();
+  // }
 
   return (
     <>

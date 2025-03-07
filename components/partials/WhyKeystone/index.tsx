@@ -2,32 +2,24 @@
 
 import { Button } from "@/components/shadcn/button";
 import { Play } from "@/components/icons";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 const WhyKeystoneSection = ({ data }: { data: any }) => {
-  const { thumbnail, url, title, description, cta } = data;
+  const { vedioUrl, title, description, cta } = data;
   return (
     <section className="py-12 md:py-28 bg-primary-2">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
         <div className="max-w-[776px] w-full">
           <ReactPlayer
-            url={url}
+            url={vedioUrl}
             muted
             loop
             playIcon={<Play />}
             controls
-            light={
-              <Image
-                src={thumbnail.src}
-                alt="Thumbnail"
-                width={776}
-                height={450}
-              />
-            }
+            light
             width="100%"
             height="100%"
           />
