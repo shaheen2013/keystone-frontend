@@ -1,5 +1,3 @@
-import { Metadata } from "next";
-
 import Support from "@/components/partials/support";
 import HeroSection from "@/components/partials/Hero";
 import OurImpact from "@/components/partials/OurImpact";
@@ -19,12 +17,6 @@ import {
   upcomingEventsData,
   WhyKeystoneData,
 } from "@/static/homepage";
-
-export const metadata: Metadata = {
-  title: "Homepage | Keystone",
-  description:
-    "A platform for online communities, the Disability Platform, and Atypical Advantage",
-};
 
 export default function Home() {
   return (

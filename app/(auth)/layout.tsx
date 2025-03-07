@@ -6,7 +6,15 @@ import LoginLeftSidebar from "@/components/partials/LoginLeftSidebar";
 export default function AuthLayout({ children }: any) {
   return (
     <div className="grid grid-cols-12 h-screen">
-      <LoginLeftSidebar className="dev lg:block hidden col-span-7" />
+      {/* left */}
+      <div className="lg:block hidden col-span-7 relative">
+        <div className="fixed top-0 left-0 w-[58.33%] h-full bg-gray-200">
+          {/* Content here */}
+          <LoginLeftSidebar className=" top-0 left-0 h-full" />
+        </div>
+      </div>
+
+      {/* right */}
       <div className="lg:col-span-5 col-span-12 relative">
         {children}
 

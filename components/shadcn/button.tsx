@@ -25,7 +25,7 @@ const buttonVariants = cva(
         "link-secondary": "text-secondary-6",
       },
       size: {
-        default: "h-14 rounded-xl px-8 text-lg font-semibold",
+        default: "h-12 rounded-xl px-8 text-lg font-semibold",
         sm: "h-6 rounded-xl px-6 text-base font-semibold",
         md: "h-7 text-lg font-semibold",
         lg: "h-14 rounded-xl px-8 text-lg font-semibold",
