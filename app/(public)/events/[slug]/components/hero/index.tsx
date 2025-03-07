@@ -1,5 +1,6 @@
 import { Calendar, Category, Location } from "@/components/icons";
 import { Button } from "@/components/shadcn/button";
+import EventConfirmation from "./EventConfirmation";
 
 export default function Hero({ data }: { data: any }) {
   const { title, description, backgroundImage, dateTime, location, type } =
@@ -40,9 +41,7 @@ export default function Hero({ data }: { data: any }) {
               {type}
             </span>
           </div>
-          <Button variant="secondary" className="w-full md:w-fit">
-            Attend This Event
-          </Button>
+          <EventConfirmation />
         </div>
       </div>
     </section>

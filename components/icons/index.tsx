@@ -15,3 +15,4 @@ export { default as Support } from "./Support";
 export { default as Search } from "./Search";
 export { default as Category } from "./Category";
 export { default as Location } from "./Location";
+export { default as Attend } from "./Attend";
