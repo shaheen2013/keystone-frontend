@@ -5,7 +5,7 @@ import {
   CarouselContent,
   CarouselDots,
   CarouselItem,
-} from "@/components/shadcn/Carousel";
+} from "@/components/shadcn/Carousel2";
 import EventCard from "@/components/shadcn/event-card";
 import Autoplay from "embla-carousel-autoplay";
 

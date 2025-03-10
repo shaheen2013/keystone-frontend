@@ -8,7 +8,7 @@ import {
   CarouselContent,
   CarouselDots,
   CarouselItem,
-} from "@/components/shadcn/Carousel";
+} from "@/components/shadcn/Carousel2";
 import Autoplay from "embla-carousel-autoplay";
 
 const RecommendService = ({ data }: { data: any }) => {
