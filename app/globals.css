@@ -83,6 +83,11 @@
     animation: rotation 1s linear infinite;
   }
 
+  .accessibility-1xl * {
+    /* font-size: 10px; */
+    /* font-weight: 200 !important; */
+  }
+
   @keyframes rotation {
     0% {
       transform: rotate(0deg);

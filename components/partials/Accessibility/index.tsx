@@ -96,10 +96,7 @@ export default function Accessibility() {
 
     if (settings.saturation) {
       setOptions((prev) => ({ ...prev, saturation: settings.saturation }));
-
       const root = document.getElementById("root") as HTMLElement;
-
-      console.log("hreer => ", settings.saturationStatus);
 
       if (settings.saturation[0] == 1 && settings.saturationStatus) {
         // low saturation
@@ -115,9 +112,6 @@ export default function Accessibility() {
         // desaturate
         root.classList.add(accessibilityClasses.saturation[3]);
       }
-
-      console.log("saturation => ", settings.saturation);
-      // handleSaturation(settings.saturation);
     }
 
     if (settings.boldText) {
