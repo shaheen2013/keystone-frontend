@@ -96,7 +96,28 @@ export default function Accessibility() {
 
     if (settings.saturation) {
       setOptions((prev) => ({ ...prev, saturation: settings.saturation }));
-      handleSaturation(settings.saturation);
+
+      const root = document.getElementById("root") as HTMLElement;
+
+      console.log("hreer => ", settings.saturationStatus);
+
+      if (settings.saturation[0] == 1 && settings.saturationStatus) {
+        // low saturation
+        root.classList.add(accessibilityClasses.saturation[1]);
+      }
+
+      if (settings.saturation[0] == 2 && settings.saturationStatus) {
+        // high saturation
+        root.classList.add(accessibilityClasses.saturation[2]);
+      }
+
+      if (settings.saturation[0] == 3 && settings.saturationStatus) {
+        // desaturate
+        root.classList.add(accessibilityClasses.saturation[3]);
+      }
+
+      console.log("saturation => ", settings.saturation);
+      // handleSaturation(settings.saturation);
     }
 
     if (settings.boldText) {
@@ -149,7 +170,6 @@ export default function Accessibility() {
 
   const handleSaturationStatus = (event: any) => {
     saveAccessibilifySetting("saturationStatus", event);
-
     setOptions({
       ...options,
       saturationStatus: event,
@@ -158,8 +178,6 @@ export default function Accessibility() {
 
     const root = document.getElementById("root") as HTMLElement;
 
-    console.log("saturation status => ", event);
-
     if (event) {
       root.classList.remove(accessibilityClasses.saturation[1]);
       root.classList.remove(accessibilityClasses.saturation[2]);
@@ -167,6 +185,8 @@ export default function Accessibility() {
 
       root.classList.add(accessibilityClasses.saturation[1]);
     } else {
+      saveAccessibilifySetting("saturation", [1]);
+
       root.classList.remove(accessibilityClasses.saturation[1]);
       root.classList.remove(accessibilityClasses.saturation[2]);
       root.classList.remove(accessibilityClasses.saturation[3]);
@@ -174,6 +194,7 @@ export default function Accessibility() {
   };
 
   const handleSaturation = (value: number[]) => {
+    saveAccessibilifySetting("saturation", value);
     setOptions({ ...options, saturation: value });
 
     const root = document.getElementById("root") as HTMLElement;
