@@ -319,8 +319,6 @@ export default function Accessibility() {
     if (value[0] === 8) {
       root.classList.add(accessibilityClasses.textSize[8]);
     }
-
-    console.log("value => ", value);
   };
 
   const handleMagnification = (event: any) => {
