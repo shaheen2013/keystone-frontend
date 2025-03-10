@@ -15,7 +15,7 @@ export function saveAccessibilifySetting(
     | "bigCursor"
     | "increaseContrast"
     | "magnification",
-  value: string
+  value: string | number[]
 ) {
   try {
     const settings = localStorage.getItem("accessibilitySettings");
