@@ -3,11 +3,16 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/shadcn/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Minus, Plus } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const Faqs = ({ data }: { data: any }) => {
   const { title, items } = data;
   const [isOpen, setOpen] = useState(data[items[0].key][0]);
+
+  const handleToggle = useCallback((faq: any) => {
+    setOpen((prev) => (prev === faq ? null : faq));
+  }, []);
+
   return (
     <section className="bg-white py-12 md:py-28">
       <div className="container flex flex-col items-center gap-6 md:gap-12">
@@ -31,13 +36,7 @@ const Faqs = ({ data }: { data: any }) => {
                   <div
                     key={index}
                     className="flex justify-between items-start gap-6 bg-gray-1 border border-gray-2 rounded-xl px-4 md:px-5 py-3 md:py-4 cursor-pointer"
-                    onClick={() => {
-                      if (isOpen === data[item.key][index]) {
-                        setOpen(null);
-                      } else {
-                        setOpen(data[item.key][index]);
-                      }
-                    }}
+                    onClick={() => handleToggle(data[item.key][index])}
                   >
                     <div className="flex flex-col gap-4">
                       <h4 className="text-base md:text-xl font-bold text-gray-9">
@@ -53,12 +52,18 @@ const Faqs = ({ data }: { data: any }) => {
                     {isOpen === data[item.key][index] ? (
                       <Minus
                         className="text-gray-9 size-6 cursor-pointer"
-                        onClick={() => setOpen(null)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setOpen(null);
+                        }}
                       />
                     ) : (
                       <Plus
                         className="text-gray-9 size-6 cursor-pointer"
-                        onClick={() => setOpen(data[item.key][index])}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setOpen(data[item.key][index]);
+                        }}
                       />
                     )}
                   </div>
