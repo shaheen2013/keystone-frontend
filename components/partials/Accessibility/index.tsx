@@ -157,13 +157,19 @@ export default function Accessibility() {
     });
 
     const root = document.getElementById("root") as HTMLElement;
-    if (options.saturationStatus) {
-      root.classList.remove(
-        accessibilityClasses.saturation[1],
-        accessibilityClasses.saturation[2],
-        accessibilityClasses.saturation[3]
-      );
+
+    console.log("saturation status => ", event);
+
+    if (event) {
+      root.classList.remove(accessibilityClasses.saturation[1]);
+      root.classList.remove(accessibilityClasses.saturation[2]);
+      root.classList.remove(accessibilityClasses.saturation[3]);
+
+      root.classList.add(accessibilityClasses.saturation[1]);
     } else {
+      root.classList.remove(accessibilityClasses.saturation[1]);
+      root.classList.remove(accessibilityClasses.saturation[2]);
+      root.classList.remove(accessibilityClasses.saturation[3]);
     }
   };
 
