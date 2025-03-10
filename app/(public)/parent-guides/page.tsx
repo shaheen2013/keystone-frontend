@@ -3,8 +3,9 @@ import { Metadata } from "next";
 
 import GetTouch from "@/components/partials/get-touch";
 import { contactInfo } from "@/static/shared";
-import { guides, heroData } from "./constant";
+import { educationPlans, guides, heroData } from "./constant";
 import Guides from "./components/guides";
+import EducationPlans from "./components/education-plans";
 
 export const metadata: Metadata = {
   title: "Service Details | Keystone",
@@ -17,6 +18,7 @@ export default function ParentGuides() {
     <>
       <HeroSection data={heroData} />
       <Guides data={guides} />
+      <EducationPlans data={educationPlans} />
 
       <GetTouch data={contactInfo} />
     </>

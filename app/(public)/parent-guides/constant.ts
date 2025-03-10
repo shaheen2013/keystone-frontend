@@ -1,4 +1,5 @@
 import bgImage from "@/public/assets/home/hero/parent-guides.png"
+import educationplansImage from "@/public/assets/parent-guides/education-plans/image.png";
 
 export const heroData = {
  title: "Empowering Parents Every Step of the Way",
@@ -33,3 +34,14 @@ export const guides = {
    }
  ]
 };
+
+export const educationPlans = {
+ title: "Education Plans",
+ description:
+   "Discover the educational pathways that align with your child's unique needs and aspirations.",
+   keyPoints: [
+    "Understand the basics of Individualized Education Plans (IEPs) and 504 Plans.",
+    "Learn how to collaborate with schools and professionals."
+  ]  ,
+  image : educationplansImage
+}
