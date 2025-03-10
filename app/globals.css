@@ -84,8 +84,27 @@
   }
 
   .accessibility-1xl * {
-    /* font-size: 10px; */
-    /* font-weight: 200 !important; */
+    font-weight: 200 !important;
+  }
+
+  .accessibility-2xl * {
+    font-weight: 300 !important;
+  }
+
+  .accessibility-3xl * {
+    font-weight: 400 !important;
+  }
+
+  .accessibility-5xl * {
+    font-weight: 600 !important;
+  }
+
+  .accessibility-6xl * {
+    font-weight: 700 !important;
+  }
+
+  .accessibility-7xl * {
+    font-weight: 800 !important;
   }
 
   @keyframes rotation {

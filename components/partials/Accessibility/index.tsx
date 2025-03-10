@@ -40,7 +40,7 @@ export default function Accessibility() {
     boldText: boolean;
     bigCursor: boolean;
     increaseContrast: boolean;
-    textSize: number;
+    textSize: number[];
     magnification: boolean;
     googleTranslate: string;
   };
@@ -53,7 +53,7 @@ export default function Accessibility() {
     boldText: false,
     bigCursor: false,
     increaseContrast: false,
-    textSize: 4,
+    textSize: [4],
     magnification: false,
     googleTranslate: "",
   });
@@ -69,6 +69,15 @@ export default function Accessibility() {
     boldText: "font-bold text-gray-900 bg-gray-100",
     bigCursor: "cursor-big",
     increaseContrast: "saturate-200",
+    textSize: {
+      1: "accessibility-1xl",
+      2: "accessibility-2xl",
+      3: "accessibility-3xl",
+      5: "accessibility-5xl",
+      6: "accessibility-6xl",
+      7: "accessibility-7xl",
+      8: "accessibility-8xl",
+    },
     magnification: "magnification",
   };
 
@@ -132,6 +141,38 @@ export default function Accessibility() {
         increaseContrast: settings.increaseContrast,
       }));
       root?.classList.add(accessibilityClasses.increaseContrast);
+    }
+
+    if (settings.textSize) {
+      setOptions((prev) => ({ ...prev, textSize: settings.textSize }));
+
+      if (settings.textSize[0] === 1) {
+        root.classList.add(accessibilityClasses.textSize[1]);
+      }
+
+      if (settings.textSize[0] === 2) {
+        root.classList.add(accessibilityClasses.textSize[2]);
+      }
+
+      if (settings.textSize[0] === 3) {
+        root.classList.add(accessibilityClasses.textSize[3]);
+      }
+
+      if (settings.textSize[0] === 5) {
+        root.classList.add(accessibilityClasses.textSize[5]);
+      }
+
+      if (settings.textSize[0] === 6) {
+        root.classList.add(accessibilityClasses.textSize[6]);
+      }
+
+      if (settings.textSize[0] === 7) {
+        root.classList.add(accessibilityClasses.textSize[7]);
+      }
+
+      if (settings.textSize[0] === 8) {
+        root.classList.add(accessibilityClasses.textSize[8]);
+      }
     }
   }, []);
 
@@ -237,6 +278,49 @@ export default function Accessibility() {
 
     const root = document.getElementById("root") as HTMLElement;
     root.classList.toggle(accessibilityClasses.increaseContrast);
+  };
+
+  const handleTextSize = (value: number[]) => {
+    setOptions({ ...options, textSize: value });
+    saveAccessibilifySetting("textSize", value);
+
+    const root = document.getElementById("root") as HTMLElement;
+
+    // remove all text size classes
+    Object.keys(accessibilityClasses.textSize).forEach((key) => {
+      root.classList.remove(
+        accessibilityClasses.textSize[
+          key as unknown as keyof typeof accessibilityClasses.textSize
+        ]
+      );
+    });
+
+    if (value[0] === 1) {
+      root.classList.add(accessibilityClasses.textSize[1]);
+    }
+    if (value[0] === 2) {
+      root.classList.add(accessibilityClasses.textSize[2]);
+    }
+    if (value[0] === 3) {
+      root.classList.add(accessibilityClasses.textSize[3]);
+    }
+
+    // ! skip 4 because it's default
+
+    if (value[0] === 5) {
+      root.classList.add(accessibilityClasses.textSize[5]);
+    }
+    if (value[0] === 6) {
+      root.classList.add(accessibilityClasses.textSize[6]);
+    }
+    if (value[0] === 7) {
+      root.classList.add(accessibilityClasses.textSize[7]);
+    }
+    if (value[0] === 8) {
+      root.classList.add(accessibilityClasses.textSize[8]);
+    }
+
+    console.log("value => ", value);
   };
 
   const handleMagnification = (event: any) => {
@@ -463,7 +547,13 @@ export default function Accessibility() {
                         <div className="relative w-full flex basis-8/12 justify-center items-center gap-2">
                           <div className="text-xs">A</div>
                           <div className="w-full flex flex-col justify-center relative">
-                            <Slider min={1} max={7} step={1} />
+                            <Slider
+                              min={1}
+                              max={7}
+                              step={1}
+                              onValueChange={handleTextSize}
+                              value={options.textSize}
+                            />
 
                             {/* slider steps */}
                             <div className="flex justify-between text-gray-7 text-sm -mt-2">

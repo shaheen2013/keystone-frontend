@@ -14,6 +14,7 @@ export function saveAccessibilifySetting(
     | "boldText"
     | "bigCursor"
     | "increaseContrast"
+    | "textSize"
     | "magnification",
   value: string | number[]
 ) {
