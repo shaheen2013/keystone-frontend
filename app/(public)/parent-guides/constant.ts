@@ -36,12 +36,28 @@ export const guides = {
 };
 
 export const educationPlans = {
- title: "Education Plans",
+ title: "A Parent's Guide to Individualized Education Plans",
  description:
-   "Discover the educational pathways that align with your child's unique needs and aspirations.",
+   "IEPs can be a complex but essential part of your child’s education journey. This guide simplifies the process, explaining your rights, the key components of an IEP, and how to work collaboratively with educators to meet your child's unique needs.",
    keyPoints: [
-    "Understand the basics of Individualized Education Plans (IEPs) and 504 Plans.",
-    "Learn how to collaborate with schools and professionals."
+    "Step-by-step breakdown of the IEP process.",
+    "Tips for advocating for your child during meetings.",
+    "Printable checklist to prepare for IEP discussions."
   ]  ,
-  image : educationplansImage
+  image : educationplansImage,
+  btn : {
+    text: "Contact Us",
+  }
+}
+
+export const downloadToolkits = {
+ title: "Download Toolkits and Checklists",
+ description:
+   "Download PDF Recourse",
+ toolkits : [
+   { title: "Education Plans", isPremium: true },
+   { title: "Education Plans", isPremium: false },
+   { title: "Education Plans", isPremium: true },
+   { title: "Education Plans", isPremium: true }
+ ]  
 }
