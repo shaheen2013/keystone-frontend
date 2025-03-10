@@ -10,7 +10,6 @@ import {
   CarouselItem,
 } from "@/components/shadcn/Carousel";
 import Autoplay from "embla-carousel-autoplay";
-import EventCard from "@/components/shadcn/event-card";
 
 const RecommendService = ({ data }: { data: any }) => {
   const { title, services } = data;
@@ -21,6 +20,7 @@ const RecommendService = ({ data }: { data: any }) => {
           {title}
         </h3>
         <Carousel
+          className="w-full"
           opts={{
             loop: false,
             duration: 60,
@@ -36,7 +36,10 @@ const RecommendService = ({ data }: { data: any }) => {
         >
           <CarouselContent>
             {services.map((service, index) => (
-              <CarouselItem key={index} className="basis-full md:basis-1/3">
+              <CarouselItem
+                key={index}
+                className="basis-full sm:basis-1/2 md:basis-1/3"
+              >
                 <div className="bg-white p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start border border-primary-7">
                   <div className="p-4 rounded-xl bg-secondary-2 text-secondary-6 size-12 md:size-[72px] flex items-center justify-center">
                     {index + 1}
