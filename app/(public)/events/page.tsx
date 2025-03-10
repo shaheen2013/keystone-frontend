@@ -6,7 +6,6 @@ import { allUpcomingEventsData, heroData } from "./constant";
 import GetTouch from "@/components/partials/get-touch";
 import EventsCalender from "./components/events-calender";
 import AllUpComingEvents from "./components/all-upcoming-events";
-import Hero from "./[slug]/components/hero";
 import CenteredHero from "@/components/partials/Hero/centered-hero";
 
 export const metadata: Metadata = {

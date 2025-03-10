@@ -7,7 +7,7 @@ import {
   CarouselContent,
   CarouselDots,
   CarouselItem,
-} from "@/components/shadcn/Carousel";
+} from "@/components/shadcn/Carousel2";
 import Link from "next/link";
 import EventCard from "@/components/shadcn/event-card";
 

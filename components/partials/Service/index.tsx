@@ -31,10 +31,15 @@ const ServiceSection = ({ data }: { data: ServiceDataType }) => {
                 {service.description}
               </p>
             </div>
-            <Button variant="link" size="md" asChild>
+            <Button
+              variant="link"
+              size="md"
+              asChild
+              className="text-secondary-6"
+            >
               <Link href={service.linkUrl}>
                 {service.linkText}
-                <ArrowRight className="text-secondary-6" />
+                <ArrowRight className="ml-2 size-6" />
               </Link>
             </Button>
           </div>

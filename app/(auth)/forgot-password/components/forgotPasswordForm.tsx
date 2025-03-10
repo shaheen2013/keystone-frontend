@@ -74,7 +74,7 @@ export default function forgotPasswordForm() {
                     fieldState: { error },
                   }) => (
                     <Input
-                      classNames={{ input: "bg-white" }}
+                      classes={{ input: "bg-white" }}
                       placeholder="Enter email address"
                       onChange={onChange}
                       onBlur={onBlur}
