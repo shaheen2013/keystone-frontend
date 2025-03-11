@@ -17,3 +17,7 @@ export { default as Category } from "./Category";
 export { default as Location } from "./Location";
 export { default as Attend } from "./Attend";
 export { default as Download } from "./Download";
+export { default as ChevronDown } from "./ChevronDown";
+export { default as LargeSearch } from "./LargeSearch";
+export { default as Clock } from "./Clock";
+export { default as Person } from "./Person";

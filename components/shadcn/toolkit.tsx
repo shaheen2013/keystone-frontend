@@ -3,11 +3,12 @@ import Image from "next/image";
 import image from "@/public/icons/download-toolkit.svg";
 import premium from "@/public/icons/premium.svg";
 import { Download } from "@/components/icons";
+import ResourcePurchase from "@/components/partials/resource-purchase";
 
-const DownloadToolkit = ({ data }: { data: any }) => {
+const Toolkit = ({ data }: { data: any }) => {
   const { title, isPremium } = data;
   return (
-    <div className="bg-primary-2 w-fit p-5 md:p-6 rounded-2xl relative flex flex-col gap-6">
+    <div className="bg-primary-2 w-fit p-5 md:p-6 rounded-2xl relative flex flex-col gap-6 cursor-pointer">
       {isPremium && (
         <span className="absolute top-8 right-8">
           <Image
@@ -30,10 +31,11 @@ const DownloadToolkit = ({ data }: { data: any }) => {
       </div>
       <div className="flex justify-between items-center gap-4">
         <span className="text-2xl font-semibold text-gray-9">{title}</span>
-        <Download className="size-8 text-gray-9" />
+        {isPremium && <ResourcePurchase />}
+        {!isPremium && <Download className="size-8 text-gray-9" />}
       </div>
     </div>
   );
 };
 
-export default DownloadToolkit;
+export default Toolkit;
