@@ -45,6 +45,12 @@ export default function Accessibility() {
     googleTranslate: string;
   };
 
+  type Accordion = {
+    color: string | null;
+    display: string | null;
+    googleTranslate: string | null;
+  };
+
   const [options, setOptions] = useState<Options>({
     colorBlind: false,
     lowVision: false,
@@ -414,7 +420,7 @@ export default function Accessibility() {
                   type="single"
                   collapsible
                   className="w-full"
-                  value="item-1"
+                  defaultValue="item-1"
                 >
                   <AccordionItem value={`item-1`} className="last:border-b-0">
                     <AccordionTrigger className="px-3 py-3">
@@ -508,7 +514,7 @@ export default function Accessibility() {
                   type="single"
                   collapsible
                   className="w-full"
-                  value="item-1"
+                  // value="item-1"
                 >
                   <AccordionItem value={`item-1`} className="last:border-b-0">
                     <AccordionTrigger className="px-3 py-3">
