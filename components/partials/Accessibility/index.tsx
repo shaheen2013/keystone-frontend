@@ -72,7 +72,7 @@ export default function Accessibility() {
       2: "saturate-150",
       3: "saturate-100",
     },
-    boldText: "font-bold text-gray-900 bg-gray-100",
+    boldText: "font-bold",
     bigCursor: "cursor-big",
     increaseContrast: "saturate-200",
     textSize: {
