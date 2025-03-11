@@ -343,7 +343,10 @@ export default function Accessibility() {
       googleTranslate: "",
     } as Options);
 
+    const body = document.body as HTMLElement;
+
     const root = document.getElementById("root") as HTMLElement;
+    body.classList.remove(accessibilityClasses.bigCursor);
 
     Object.keys(accessibilityClasses).forEach((key) => {
       const accessibilityClass =
