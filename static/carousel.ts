@@ -20,7 +20,7 @@ export const carouselContent: CarouselContent[] = [
     name: "John Doe",
     role: "Father of a child with autism",
     description:
-      "“Keystone Ability Support has been a game-changer for our family. Their guidance through the special education process gave us confidence and clarity. ",
+      "Keystone Ability Support has been an invaluable resource for our family. Their dedicated team helped us navigate challenges, providing us support to ensure a brighter future",
     ratings: 5,
     image: "/assets/auth/carousel/item-2.png",
   },
