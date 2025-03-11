@@ -1,16 +1,16 @@
 import React from "react";
 import Image from "next/image";
 
-import LoginLeftSidebar from "@/components/partials/LoginLeftSidebar";
+import AuthLeftSidebar from "@/components/partials/AuthLeftSidebar";
 
 export default function AuthLayout({ children }: any) {
   return (
     <div className="grid grid-cols-12 h-screen">
       {/* left */}
       <div className="lg:block hidden col-span-7 relative">
-        <div className="fixed top-0 left-0 w-[58.33%] h-full bg-gray-200">
+        <div className="fixed top-0 left-0 w-[58.33%] h-full ">
           {/* Content here */}
-          <LoginLeftSidebar className=" top-0 left-0 h-full" />
+          <AuthLeftSidebar className=" top-0 left-0 h-full" />
         </div>
       </div>
 
