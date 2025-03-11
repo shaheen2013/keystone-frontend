@@ -65,13 +65,11 @@ export default function ResetPasswordForm() {
           {/* form */}
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-6">
-              <InputOTP maxLength={5}>
-                <InputOTPGroup>
-                  <InputOTPSlot index={0} className="bg-white" />
-                  <InputOTPSlot index={1} className="bg-white" />
-                  <InputOTPSlot index={2} className="bg-white" />
-                  <InputOTPSlot index={4} className="bg-white" />
-                </InputOTPGroup>
+              <InputOTP maxLength={4}>
+                <InputOTPSlot index={0} className="bg-white" />
+                <InputOTPSlot index={1} className="bg-white" />
+                <InputOTPSlot index={2} className="bg-white" />
+                <InputOTPSlot index={3} className="bg-white" />
               </InputOTP>
             </div>
 
