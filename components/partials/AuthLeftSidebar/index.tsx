@@ -38,7 +38,7 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
   return (
     <div className={clx}>
       <Carousel setApi={setApi}>
-        <CarouselContent className=" w-full h-screen">
+        <CarouselContent className="w-full h-screen">
           {carouselContent.map((carouselData, index) => (
             <CarouselItem key={index} className="">
               <Image
@@ -46,7 +46,7 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
                 alt="1"
                 width={1200}
                 height={800}
-                className="w-full h-full object-cover "
+                className="w-full h-full  "
               />
               <div className="p-1">hey #{index}</div>
             </CarouselItem>
