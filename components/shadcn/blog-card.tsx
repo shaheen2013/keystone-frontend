@@ -1,9 +1,21 @@
 import Image from "next/image";
 import { Heart } from "../icons";
+import { cn } from "@/lib/utils";
 
-const BlogCard = ({ article }: { article: any }) => {
+const BlogCard = ({
+  article,
+  className,
+}: {
+  article: any;
+  className?: string;
+}) => {
   return (
-    <div className="bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-4 md:gap-6 items-start">
+    <div
+      className={cn(
+        "bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-4 md:gap-6 items-start",
+        className
+      )}
+    >
       <div className="relative">
         <Image
           src={article.image}
