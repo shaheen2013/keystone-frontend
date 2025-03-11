@@ -180,8 +180,6 @@ export default function Accessibility() {
     if (!event) {
       return;
     }
-
-    console.log("Accessibility component rendered");
   };
 
   // handle accessibility options
@@ -330,16 +328,45 @@ export default function Accessibility() {
   };
 
   const handleReset = () => {
+    localStorage.removeItem("accessibilitySettings");
+
+    setOptions({
+      colorBlind: false,
+      lowVision: false,
+      saturationStatus: false,
+      saturation: [1],
+      boldText: false,
+      bigCursor: false,
+      increaseContrast: false,
+      textSize: [4],
+      magnification: false,
+      googleTranslate: "",
+    } as Options);
+
     const root = document.getElementById("root") as HTMLElement;
 
-    console.log(accessibilityClasses);
-
     Object.keys(accessibilityClasses).forEach((key) => {
-      console.log("key => ", key);
-      const value =
+      const accessibilityClass =
         accessibilityClasses[key as keyof typeof accessibilityClasses];
 
-      console.log("value= > ", value);
+      if (typeof accessibilityClass === "string") {
+        const split = accessibilityClass.split(" ");
+
+        split.forEach((cls) => {
+          root.classList.remove(cls);
+        });
+        return;
+      }
+
+      if (typeof accessibilityClass === "object") {
+        Object.keys(accessibilityClass).forEach((key) => {
+          root.classList.remove(
+            accessibilityClass[
+              key as unknown as keyof typeof accessibilityClass
+            ]
+          );
+        });
+      }
     });
   };
 
