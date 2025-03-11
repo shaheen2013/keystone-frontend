@@ -8,7 +8,7 @@ import { Button } from "@/components/shadcn/button";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Input, InputPassword } from "@/components/shadcn/input";
 
-export default function LoginForm() {
+export default function SignupForm() {
   type FormValues = {
     name: string;
     email: string;

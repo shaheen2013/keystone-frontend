@@ -2,15 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 import { Button } from "@/components/shadcn/button";
-
-import {
-  InputOTP,
-  InputOTPSlot,
-  InputOTPGroup,
-} from "@/components/shadcn/input-otp";
+import { InputOTP, InputOTPSlot } from "@/components/shadcn/input-otp";
 
 export default function ResetPasswordForm() {
   type FormValues = {

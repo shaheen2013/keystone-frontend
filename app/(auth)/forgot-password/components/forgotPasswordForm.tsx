@@ -4,9 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
+import { Input } from "@/components/shadcn/input";
 import { Button } from "@/components/shadcn/button";
-import { Checkbox } from "@/components/shadcn/checkbox";
-import { Input, InputPassword } from "@/components/shadcn/input";
 
 export default function forgotPasswordForm() {
   type FormValues = {

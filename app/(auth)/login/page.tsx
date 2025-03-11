@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import LoginForm from "@/app/(auth)/login/components/loginForm";
 
 export const metadata: Metadata = {
