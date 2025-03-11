@@ -2,7 +2,7 @@ import React from "react";
 
 export default function OurImpact() {
   return (
-    <div className="container lg:py-32 py-12">
+    <div className="container lg:py-28 py-12">
       <h2 className="text-center text-gray-9 lg:text-5xl text-2xl font-bold lg:mb-6 mb-4">
         Our Impact
       </h2>

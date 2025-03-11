@@ -11,7 +11,7 @@ import { testimonialsData } from "@/static/homepage";
 import Toolkits from "./components/download-toolkits";
 
 export const metadata: Metadata = {
-  title: "Service Details | Keystone",
+  title: "Parent Details | Keystone",
   description:
     "A platform for online communities, the Disability Platform, and Atypical Advantage",
 };
