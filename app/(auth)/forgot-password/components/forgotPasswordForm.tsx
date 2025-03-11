@@ -24,7 +24,7 @@ export default function forgotPasswordForm() {
 
   return (
     <div className="flex flex-col justify-between items-center h-screen px-4 lg:pt-5 pt-20">
-      <div className=" flex justify-center h-full items-center">
+      <div className=" flex justify-center lg:h-full items-center">
         <div className="max-w-[520px] w-full  bg-primary-2 rounded-2xl lg:p-10 p-5">
           {/* brand logo */}
           <div className="flex items-center justify-center lg:mb-8 mb-6">
