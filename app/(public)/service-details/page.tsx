@@ -15,8 +15,8 @@ import WhyChooseKeystoneAbilitySupport from "./components/why-choose-keystone-ab
 import Testimonials from "@/components/partials/testimonials";
 import GetTouch from "@/components/partials/get-touch";
 import { contactInfo } from "@/static/shared";
-import OurProcess from "./components/our-process";
 import ExploreOtherServices from "./components/explore-other-services";
+import OurProcess from "@/components/partials/our-process";
 
 export const metadata: Metadata = {
   title: "Service Details | Keystone",

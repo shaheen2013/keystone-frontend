@@ -1,4 +1,4 @@
-import bgImage from "@/public/assets/home/hero/parent-guides.png";
+import bgImage from "@/public/assets/why-us/hero/image.png";
 
 import avatar1 from "@/public/assets/home/testimonials/avatar1.png";
 
@@ -89,6 +89,30 @@ export const testimonialsData = {
         image: avatar1,
       },
       rating: 5,
+    },
+  ],
+};
+
+export const ourProcessData = {
+  title: "What Makes Us Unique?",
+  steps: [
+    {
+      step: 1,
+      title: "Initial Consultation",
+      description:
+        "We meet with families to discuss their child's needs and current educational challenges.",
+    },
+    {
+      step: 2,
+      title: "Review & Assessment",
+      description:
+        "Our team examines IEPs, 504 Plans, evaluations, and school reports to identify gaps for improvement.",
+    },
+    {
+      step: 3,
+      title: "Strategy Development",
+      description:
+        "We create a tailored advocacy plan, outlining steps to secure necessary services and accommodations.",
     },
   ],
 };

@@ -6,7 +6,7 @@ const OurProcess = ({ data }: { data: any }) => {
         <h3 className="text-2xl md:text-5xl font-bold text-gray-9 text-center">
           {title}
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 justify-center gap-4 md:gap-8">
           {steps.map((step, index) => (
             <div
               key={index}

@@ -3,9 +3,11 @@ import { Metadata } from "next";
 
 import GetTouch from "@/components/partials/get-touch";
 import { contactInfo } from "@/static/shared";
-import { heroData, testimonialsData } from "./constant";
+import { heroData, ourProcessData, testimonialsData } from "./constant";
 import Testimonials from "@/components/partials/testimonials";
 import OurImpact from "@/components/partials/OurImpact";
+import OurProcess from "@/components/partials/our-process";
+import MissionAndVision from "./components/mission-vision";
 
 export const metadata: Metadata = {
   title: "Why Us | Keystone",
@@ -17,6 +19,8 @@ export default function ParentGuides() {
   return (
     <>
       <HeroSection data={heroData} />
+      <MissionAndVision />
+      <OurProcess data={ourProcessData} />
       <OurImpact />
       <Testimonials
         data={testimonialsData}
