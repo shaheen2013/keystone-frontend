@@ -1,3 +1,5 @@
+import GetTouch from "@/components/partials/get-touch";
+import { contactInfo } from "@/static/shared";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,5 +9,13 @@ export const metadata: Metadata = {
 };
 
 export default function ContactUs() {
-  return <>contact us</>;
+  return (
+    <>
+      <GetTouch
+        data={contactInfo}
+        classes={{ root: "bg-primary-2", form: "bg-white" }}
+      />
+      
+    </>
+  );
 }
