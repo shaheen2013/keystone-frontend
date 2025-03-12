@@ -2,20 +2,16 @@
 
 import React from "react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import {
   Select,
-  SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
-  SelectTrigger,
   SelectValue,
+  SelectTrigger,
+  SelectContent,
 } from "@/components/shadcn/select";
 
 export default function ProfileLayout({
@@ -23,8 +19,8 @@ export default function ProfileLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
   const router = useRouter();
+  const pathname = usePathname();
 
   const menuItems = [
     { name: "Profile Overview", path: "/profile/overview" },
@@ -34,7 +30,7 @@ export default function ProfileLayout({
   ];
 
   return (
-    <div className="lg:flex container lg:min-h-[calc(100vh-100px)] gap-8 py-12 dev">
+    <div className="lg:flex container lg:min-h-[calc(100vh-100px)] gap-8 py-12">
       {/* left */}
       <div className="col-span-3 min-w-[370px] bg-primary-2 rounded-2xl hidden lg:block">
         <div className="font-semibold text-2xl py-6 px-8 bg-primary-3 rounded-t-2xl">
@@ -64,9 +60,16 @@ export default function ProfileLayout({
       {/* mobile menu */}
       <div className="lg:hidden w-full mb-6">
         <div className="font-bold text-2xl mb-4">My Account</div>
-        <Select onValueChange={(value) => router.push(value)}>
+        <Select
+          onValueChange={(value) => router.push(value)}
+          value={menuItems.find((item) => item.path === pathname)?.path}
+        >
           <SelectTrigger>
-            <SelectValue placeholder="Select a fruit" />
+            <SelectValue
+              placeholder={
+                menuItems.find((item) => item.path === pathname)?.name
+              }
+            />
           </SelectTrigger>
           <SelectContent>
             {menuItems.map((item, index) => {
@@ -75,7 +78,7 @@ export default function ProfileLayout({
                   key={index}
                   value={item.path}
                   className={cn(
-                    "cursor-pointer rounded-lg hover:bg-primary-4 hover:text-white block font-normal text-sm py-2",
+                    "cursor-pointer rounded-lg hover:bg-primary-4 hover:text-white block font-normal text-sm py-2 mb-1",
                     { "!bg-primary-6 !text-white": pathname === item.path }
                   )}
                 >
@@ -88,7 +91,7 @@ export default function ProfileLayout({
       </div>
 
       {/* right */}
-      <div className="dev lg:col-span-9 w-full">{children}</div>
+      <div className="lg:col-span-9 w-full">{children}</div>
     </div>
   );
 }
