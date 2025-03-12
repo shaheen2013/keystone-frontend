@@ -12,10 +12,45 @@ import {
   DropdownMenuTrigger,
 } from "@/components/shadcn/dropdown-menu";
 import { Input } from "@/components/shadcn/input";
+import { cn } from "@/lib/utils";
+import { Check } from "lucide-react";
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useDebounceCallback } from "usehooks-ts";
 
 const Blogs = ({ data }: { data: any }) => {
-  const [search, setSearch] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [search, setSearch] = useState(searchParams.get("search") || "");
+  const [selectedCategory, setSelectedCategory] = useState(
+    searchParams.get("category") || "Select Category"
+  );
+
+  // Debounced search value
+  const debouncedSearch = useDebounceCallback((value: string) => {
+    setSearch(value);
+    updateUrlParams("search", value);
+  }, 100);
+
+  // Function to update URL parameters
+  const updateUrlParams = (key: string, value: string | null) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (value) {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
+
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    updateUrlParams("category", category);
+  };
+
   return (
     <section className="py-12 md:py-28">
       <div className="container flex flex-col gap-6 md:gap-12">
@@ -29,7 +64,7 @@ const Blogs = ({ data }: { data: any }) => {
               placeholder="Search by blog name"
               endIcon={<Search className="text-gray-7 size-6" />}
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(event) => debouncedSearch(event.target.value)}
             />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -37,18 +72,34 @@ const Blogs = ({ data }: { data: any }) => {
                   variant="outline"
                   className="ml-auto font-semibold text-gray-5 px-4 py-3"
                 >
-                  Select Category
+                  {selectedCategory}
                   <ChevronDown className="ml-10 size-6 text-gray-7" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>Filter</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Frontend Development</DropdownMenuItem>
-                <DropdownMenuItem>Backend Development</DropdownMenuItem>
-                <DropdownMenuItem>UI/UX Design</DropdownMenuItem>
-                <DropdownMenuItem>JavaScript Tips</DropdownMenuItem>
-                <DropdownMenuItem>React & Next.js</DropdownMenuItem>
+                {[
+                  "Frontend Development",
+                  "Backend Development",
+                  "UI/UX Design",
+                  "JavaScript Tips",
+                  "React & Next.js",
+                ].map((category) => (
+                  <DropdownMenuItem
+                    key={category}
+                    onClick={() => handleCategorySelect(category)}
+                    className={cn(
+                      "my-1",
+                      selectedCategory === category && "bg-gray-1"
+                    )}
+                  >
+                    {category}
+                    {selectedCategory === category && (
+                      <Check className="ml-auto size-6 text-primary-6" />
+                    )}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

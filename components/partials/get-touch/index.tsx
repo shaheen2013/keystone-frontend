@@ -11,7 +11,7 @@ import {
   SendHorizonalIcon,
 } from "lucide-react";
 
-const GetTouch = ({ data, classes }: { data: any; classes: any }) => {
+const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
   const { title, description, contactInfo } = data;
 
   return (
