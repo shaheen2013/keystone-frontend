@@ -15,7 +15,7 @@ const GetTouch = ({ data, classes }: { data: any; classes: any }) => {
   const { title, description, contactInfo } = data;
 
   return (
-    <section className={cn(" py-12 md:py-28 bg-white", classes.root)}>
+    <section className={cn(" py-12 md:py-28 bg-white", classes?.root)}>
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-12">
         <div className="flex flex-col">
           <h2 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9">
@@ -94,7 +94,7 @@ const GetTouch = ({ data, classes }: { data: any; classes: any }) => {
         <form
           className={cn(
             "flex flex-col gap-8 md:gap-12 p-4 md:p-8 bg-primary-2 rounded-2xl",
-            classes.form
+            classes?.form
           )}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
