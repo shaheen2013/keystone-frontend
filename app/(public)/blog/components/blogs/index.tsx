@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/shadcn/input";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounceCallback } from "usehooks-ts";
 import {
@@ -38,7 +38,7 @@ const Blogs = ({ data }: { data: any }) => {
   const [page, setPage] = useState(searchParams.get("page") || 1);
 
   console.log("page", page);
-  const dataLength = 20;
+  const dataLength = 200;
   const limit = 6;
   const totalPages = Math.ceil(dataLength / limit);
   // Debounced search value
@@ -79,6 +79,15 @@ const Blogs = ({ data }: { data: any }) => {
     const previousPage = page - 1;
     handlePageChange(previousPage);
   };
+
+  useEffect(() => {
+    const currentPage = searchParams.get("page");
+    if (currentPage) {
+      handlePageChange(parseInt(currentPage));
+    } else {
+      handlePageChange(1);
+    }
+  }, []);
 
   return (
     <section className="py-12 md:py-28">
@@ -141,6 +150,7 @@ const Blogs = ({ data }: { data: any }) => {
 
           <Pagination className="col-span-full">
             <PaginationContent className="justify-between w-full">
+              {/* Previous Button */}
               <PaginationItem
                 onClick={page > 1 ? handlePrevious : undefined}
                 className={cn(
@@ -150,24 +160,59 @@ const Blogs = ({ data }: { data: any }) => {
               >
                 <PaginationPrevious />
               </PaginationItem>
+
               <div className="hidden md:flex gap-2">
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <PaginationItem
-                    key={index}
-                    onClick={() => handlePageChange(index + 1)}
-                    className="cursor-pointer"
-                  >
-                    <PaginationLink isActive={index + 1 === page}>
-                      {index + 1}
-                    </PaginationLink>
-                  </PaginationItem>
-                ))}
+                {/* First Page */}
+                <PaginationItem
+                  onClick={() => handlePageChange(1)}
+                  className="cursor-pointer"
+                >
+                  <PaginationLink isActive={1 === page}>1</PaginationLink>
+                </PaginationItem>
+
+                {/* Left Ellipsis */}
+                {page > 3 && <PaginationEllipsis />}
+
+                {/* Middle Pages (Dynamically Show Pages Around Current Page) */}
+                {Array.from({ length: totalPages }, (_, index) => index + 1)
+                  .filter(
+                    (pageNumber) =>
+                      pageNumber === page || // Always show the current page
+                      pageNumber === page - 1 || // Show previous page
+                      pageNumber === page + 1 // Show next
+                  )
+                  .map((pageNumber) => (
+                    <PaginationItem
+                      key={pageNumber}
+                      onClick={() => handlePageChange(pageNumber)}
+                      className="cursor-pointer"
+                    >
+                      <PaginationLink isActive={pageNumber === page}>
+                        {pageNumber}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ))}
+
+                {/* Right Ellipsis */}
+                {page < totalPages - 2 && <PaginationEllipsis />}
+
+                {/* Last Page */}
+                <PaginationItem
+                  onClick={() => handlePageChange(totalPages)}
+                  className="cursor-pointer"
+                >
+                  <PaginationLink isActive={totalPages === page}>
+                    {totalPages}
+                  </PaginationLink>
+                </PaginationItem>
               </div>
+
               <span className="block md:hidden text-gray-9 text-sm font-medium">
                 Page {page} of {totalPages}
               </span>
+
+              {/* Next Button */}
               <PaginationItem
-                onClick={handleNext}
                 onClick={page < totalPages ? handleNext : undefined}
                 className={cn(
                   "cursor-pointer",
