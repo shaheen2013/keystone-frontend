@@ -1,5 +1,9 @@
 import React from "react";
 
 export default function AccountOverview() {
-  return <div>Profile Overview</div>;
+  return (
+    <div>
+      <p>Profile Overview</p>
+    </div>
+  );
 }
