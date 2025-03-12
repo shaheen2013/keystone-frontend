@@ -17,6 +17,15 @@ import { Check } from "lucide-react";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounceCallback } from "usehooks-ts";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/shadcn/pagination";
 
 const Blogs = ({ data }: { data: any }) => {
   const router = useRouter();
@@ -26,7 +35,12 @@ const Blogs = ({ data }: { data: any }) => {
   const [selectedCategory, setSelectedCategory] = useState(
     searchParams.get("category") || "Select Category"
   );
+  const [page, setPage] = useState(searchParams.get("page") || 1);
 
+  console.log("page", page);
+  const dataLength = 20;
+  const limit = 6;
+  const totalPages = Math.ceil(dataLength / limit);
   // Debounced search value
   const debouncedSearch = useDebounceCallback((value: string) => {
     setSearch(value);
@@ -49,6 +63,21 @@ const Blogs = ({ data }: { data: any }) => {
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     updateUrlParams("category", category);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    updateUrlParams("page", newPage.toString());
+  };
+
+  const handleNext = () => {
+    const nextPage = page + 1;
+    handlePageChange(nextPage);
+  };
+
+  const handlePrevious = () => {
+    const previousPage = page - 1;
+    handlePageChange(previousPage);
   };
 
   return (
@@ -106,9 +135,49 @@ const Blogs = ({ data }: { data: any }) => {
         </div>
         {/* blogs area */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {data.map((blog: any) => (
-            <BlogCard key={blog.id} article={blog} />
+          {data.map((blog: any, index) => (
+            <BlogCard key={index} article={blog} />
           ))}
+
+          <Pagination className="col-span-full">
+            <PaginationContent className="justify-between w-full">
+              <PaginationItem
+                onClick={page > 1 ? handlePrevious : undefined}
+                className={cn(
+                  "cursor-pointer",
+                  page === 1 && "cursor-not-allowed opacity-50"
+                )}
+              >
+                <PaginationPrevious />
+              </PaginationItem>
+              <div className="hidden md:flex gap-2">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <PaginationItem
+                    key={index}
+                    onClick={() => handlePageChange(index + 1)}
+                    className="cursor-pointer"
+                  >
+                    <PaginationLink isActive={index + 1 === page}>
+                      {index + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+              </div>
+              <span className="block md:hidden text-gray-9 text-sm font-medium">
+                Page {page} of {totalPages}
+              </span>
+              <PaginationItem
+                onClick={handleNext}
+                onClick={page < totalPages ? handleNext : undefined}
+                className={cn(
+                  "cursor-pointer",
+                  page === totalPages && "cursor-not-allowed opacity-50"
+                )}
+              >
+                <PaginationNext />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       </div>
     </section>
