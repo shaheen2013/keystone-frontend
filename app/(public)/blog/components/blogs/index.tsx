@@ -119,7 +119,7 @@ const Blogs = ({ data }: { data: any }) => {
         <PaginationWrapper
           page={page}
           setPage={setPage}
-          length={200}
+          total={200}
           className="col-span-full"
         />
       </div>
