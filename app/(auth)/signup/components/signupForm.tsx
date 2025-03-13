@@ -239,7 +239,7 @@ export default function SignupForm() {
 
           <div className="flex justify-center">
             <p className="lg:text-base text-sm">
-              Don't have an account?{" "}
+              Already have an account?{" "}
               <Link href="/login" className="text-secondary-6 font-semibold">
                 Login
               </Link>
