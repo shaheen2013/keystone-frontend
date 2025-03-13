@@ -162,7 +162,27 @@ export default function AccountOverview() {
             </div>
 
             {/* Address */}
-            <div className="col-span-2">1</div>
+            <div className="col-span-2">
+              <label className="mb-1 block">Address</label>
+              <Controller
+                control={control}
+                name="address"
+                rules={{ required: "Address is required" }}
+                render={({
+                  field: { onChange, value, onBlur },
+                  fieldState: { error },
+                }) => (
+                  <Input
+                    className="bg-white"
+                    placeholder="(123) 456-7890"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    errorText={error?.message}
+                  />
+                )}
+              />
+            </div>
           </div>
           <Button variant="secondary">Save Changes</Button>
         </form>
