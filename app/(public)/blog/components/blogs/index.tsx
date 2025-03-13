@@ -56,13 +56,13 @@ const Blogs = ({ data }: { data: any }) => {
 
   return (
     <section className="py-12 md:py-28">
-      <div className="container flex flex-col gap-6 md:gap-12">
+      <div className="container flex flex-col">
         {/* filter area */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 md:mb-12">
           <h4 className="text-gray-9 text-2xl md:text-4xl font-semibold">
             {search ? "Search Results" : " All Blogs"}
           </h4>
-          <div className="flex gap-4">
+          <div className="flex flex-col md:flex-row gap-4">
             <Input
               placeholder="Search by blog name"
               endIcon={<Search className="text-gray-7 size-6" />}
@@ -73,13 +73,13 @@ const Blogs = ({ data }: { data: any }) => {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  className="ml-auto font-semibold text-gray-5 px-4 py-3"
+                  className="ml-auto font-semibold text-gray-5 px-4 py-3 w-full md:w-fit justify-between"
                 >
                   {selectedCategory}
                   <ChevronDown className="ml-10 size-6 text-gray-7" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
+              <DropdownMenuContent className="w-56" align="end">
                 <DropdownMenuLabel>Filter</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {[
@@ -108,18 +108,20 @@ const Blogs = ({ data }: { data: any }) => {
           </div>
         </div>
         {/* blogs area */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 md:mb-12">
           {data.map((blog: any, index) => (
             <BlogCard key={index} article={blog} />
           ))}
-
-          <PaginationWrapper
-            page={page}
-            setPage={setPage}
-            length={200}
-            className="col-span-full"
-          />
         </div>
+
+        <hr className="bg-primary-2 mb-4 md:mb-7" />
+        {/* pagination area */}
+        <PaginationWrapper
+          page={page}
+          setPage={setPage}
+          length={200}
+          className="col-span-full"
+        />
       </div>
     </section>
   );
