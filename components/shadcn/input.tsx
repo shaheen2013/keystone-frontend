@@ -108,7 +108,10 @@ const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
             onClick={handleTogglePassword}
           >
             {showPassword ? (
-              <EyeOffIcon className="w-6 h-6" />
+              <EyeOffIcon
+                className="w-5 h-5 text-primary-6"
+                strokeWidth={1.5}
+              />
             ) : (
               <svg
                 width="20"
