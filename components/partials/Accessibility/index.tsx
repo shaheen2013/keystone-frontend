@@ -45,12 +45,6 @@ export default function Accessibility() {
     googleTranslate: string;
   };
 
-  type Accordion = {
-    color: string | null;
-    display: string | null;
-    googleTranslate: string | null;
-  };
-
   const [options, setOptions] = useState<Options>({
     colorBlind: false,
     lowVision: false,
@@ -180,15 +174,7 @@ export default function Accessibility() {
         root.classList.add(accessibilityClasses.textSize[8]);
       }
     }
-  }, [
-    accessibilityClasses.boldText,
-    accessibilityClasses.bigCursor,
-    accessibilityClasses.colorBlind,
-    accessibilityClasses.increaseContrast,
-    accessibilityClasses.lowVision,
-    accessibilityClasses.saturation,
-    accessibilityClasses.textSize,
-  ]);
+  }, []);
 
   const handleAccessibilityRender = (event: any) => {
     if (!event) {
@@ -388,7 +374,7 @@ export default function Accessibility() {
   };
 
   return (
-    <div className="fixed right-5 top-[450px] z-20">
+    <div className="fixed right-5 top-[450px] z-20 lg:flex hidden">
       <Sheet onOpenChange={handleAccessibilityRender}>
         <SheetTrigger asChild>
           <Image

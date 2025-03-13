@@ -31,14 +31,14 @@ export default function AccountOverview() {
 
   return (
     <div className="bg-primary-1 rounded-2xl">
-      <div className="font-semibold text-2xl py-6 px-8 bg-primary-2 rounded-t-2xl ">
+      <div className="font-semibold lg:text-2xl text-lg lg:py-6 lg:px-8 p-4  bg-primary-2 rounded-t-2xl">
         Profile Overview
       </div>
 
       {/* profile/upload */}
-      <div className="p-8">
+      <div className="lg:p-8 p-4">
         {/* image/button */}
-        <div className="flex gap-6 items-end mb-12">
+        <div className="flex gap-6 items-end lg:mb-12 mb-6">
           <Image
             src="https://dummyimage.com/140x140"
             alt="profile picture"
@@ -60,7 +60,7 @@ export default function AccountOverview() {
 
         {/* form */}
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-4 mb-12">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-4 lg:mb-12 mb-6">
             {/* first name */}
             <div className="lg:col-span-1 col-span-2">
               <label className="mb-1 block">First Name</label>
