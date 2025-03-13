@@ -61,7 +61,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {loading ? <Loader /> : children}
+        {loading ? <Loader className="w-6 h-6 p-3" /> : children}
       </Comp>
     );
   }
