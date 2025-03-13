@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 "use client";
 
 import * as React from "react";
@@ -58,7 +59,11 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         axis: orientation === "horizontal" ? "x" : "y",
       },
       plugins
-    );
+    ) as unknown as [
+      React.RefObject<HTMLDivElement>,
+      EmblaCarouselType | undefined
+    ];
+
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
 
@@ -117,7 +122,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     return (
       <CarouselContext.Provider
         value={{
-          carouselRef,
+          carouselRef: carouselRef as React.RefObject<HTMLDivElement>,
           api: api,
           opts,
           orientation:
@@ -193,13 +198,13 @@ CarouselItem.displayName = "CarouselItem";
 interface CarouselPreviousProps
   extends React.HTMLAttributes<HTMLButtonElement> {
   variant?:
-    | "outline"
-    | "default"
-    | "destructive"
+    | "primary"
     | "secondary"
+    | "destructive"
+    | "outline"
     | "ghost"
     | "link";
-  size?: "default" | "sm" | "lg" | "icon";
+  size?: "default" | "sm" | "md" | "lg" | "icon" | "none";
   icon?: React.ReactNode;
   iconClass?: string;
 }
@@ -247,12 +252,15 @@ CarouselPrevious.displayName = "CarouselPrevious";
 
 interface CarouselNextProps extends React.HTMLAttributes<HTMLButtonElement> {
   variant?:
-    | "outline"
-    | "default"
-    | "destructive"
+    | "primary"
     | "secondary"
+    | "destructive"
+    | "outline"
     | "ghost"
-    | "link";
+    | "link"
+    | "link-secondary"
+    | null
+    | undefined;
   size?: "default" | "sm" | "lg" | "icon";
   icon?: React.ReactNode;
   iconClass?: string;
