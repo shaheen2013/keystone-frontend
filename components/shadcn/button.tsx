@@ -32,10 +32,10 @@ const buttonVariants = cva(
         icon: "h-9 w-9",
         none: "",
       },
-    }, 
+    },
     defaultVariants: {
       variant: "primary",
-      size: "default", 
+      size: "default",
     },
   }
 );
