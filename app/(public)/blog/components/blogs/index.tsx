@@ -187,9 +187,11 @@ const Blogs = ({ data }: { data: any }) => {
                       onClick={() => handlePageChange(pageNumber)}
                       className="cursor-pointer"
                     >
-                      <PaginationLink isActive={pageNumber === page}>
-                        {pageNumber}
-                      </PaginationLink>
+                      {pageNumber !== 1 && pageNumber !== totalPages && (
+                        <PaginationLink isActive={pageNumber === page}>
+                          {pageNumber}
+                        </PaginationLink>
+                      )}
                     </PaginationItem>
                   ))}
 
