@@ -1,3 +1,4 @@
+import { StaticImageData } from "next/image";
 import { HeroData } from "./types";
 
 export default function CenteredHero({ data }: { data: HeroData }) {
@@ -8,7 +9,7 @@ export default function CenteredHero({ data }: { data: HeroData }) {
       className="relative w-full h-[480px] flex items-center justify-center bg-gray-200 bg-opacity-50"
       style={{
         background: `linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.80) 22.5%, rgba(0, 0, 0, 0.00) 79.21%)`,
-        backgroundImage: `url(${backgroundImage?.src})`,
+        backgroundImage: `url(${(backgroundImage as StaticImageData).src})`,
         backgroundSize: "cover",
         backgroundPosition: "90% center",
         backgroundRepeat: "no-repeat",
