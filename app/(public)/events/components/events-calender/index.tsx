@@ -14,6 +14,18 @@ import { Input } from "@/components/shadcn/input";
 import { Search } from "@/components/icons";
 
 const EventsCalender = () => {
+  const eventTypes = [
+    "live Webminar",
+    "On-Demand Workshop",
+    "Virtual Support Group",
+  ];
+
+  const services = [
+    "Special Education Advocacy and Support",
+    "Special Education Advocacy and Support",
+    "Special Education Advocacy and Support",
+  ];
+
   const handleEventClick = () => {};
 
   const handleEvents = () => {};
@@ -47,30 +59,17 @@ const EventsCalender = () => {
                   Event Type
                 </h3>
                 <hr className="border-gray-2" />
-                <div className="flex items-center space-x-2 px-5 py-3">
-                  <Checkbox id="live-webinar" />
-                  <Label htmlFor="live-webinar" className="text-lg text-gray-5">
-                    Live Webinar
-                  </Label>
-                </div>
-                <div className="flex items-center space-x-2 px-5 py-3">
-                  <Checkbox id="on-demand-workshop" />
-                  <Label
-                    htmlFor="on-demand-workshop"
-                    className="text-lg text-gray-5"
+                {eventTypes.map((eventType, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center space-x-2 px-5 py-3"
                   >
-                    On-Demand Workshop
-                  </Label>
-                </div>
-                <div className="flex items-center space-x-2 px-5 py-3">
-                  <Checkbox id="virtual-support-group" />
-                  <Label
-                    htmlFor="virtual-support-group"
-                    className="text-lg text-gray-5"
-                  >
-                    Virtual Support Group
-                  </Label>
-                </div>
+                    <Checkbox id={eventType} />
+                    <Label htmlFor={eventType} className="text-lg text-gray-5">
+                      {eventType}
+                    </Label>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -80,30 +79,17 @@ const EventsCalender = () => {
                   Services
                 </h3>
                 <hr className="border-gray-2" />
-                <div className="flex items-center space-x-2 px-5 py-3">
-                  <Checkbox id="live-webinar" />
-                  <Label htmlFor="live-webinar" className="text-lg text-gray-5">
-                    Live Webinar
-                  </Label>
-                </div>
-                <div className="flex items-center space-x-2 px-5 py-3">
-                  <Checkbox id="on-demand-workshop" />
-                  <Label
-                    htmlFor="on-demand-workshop"
-                    className="text-lg text-gray-5"
+                {services.map((service, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center space-x-2 px-5 py-3"
                   >
-                    On-Demand Workshop
-                  </Label>
-                </div>
-                <div className="flex items-center space-x-2 px-5 py-3">
-                  <Checkbox id="virtual-support-group" />
-                  <Label
-                    htmlFor="virtual-support-group"
-                    className="text-lg text-gray-5"
-                  >
-                    Virtual Support Group
-                  </Label>
-                </div>
+                    <Checkbox id={service} />
+                    <Label htmlFor={service} className="text-lg text-gray-5">
+                      {service}
+                    </Label>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
