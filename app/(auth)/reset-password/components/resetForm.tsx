@@ -73,7 +73,6 @@ export default function ResetPasswordForm() {
                   }) => (
                     <InputPassword
                       className="bg-white"
-                      // classNames={{ input: "bg-white" }}
                       placeholder="********"
                       onChange={onChange}
                       onBlur={onBlur}
