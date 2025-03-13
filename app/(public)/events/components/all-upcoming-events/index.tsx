@@ -14,7 +14,7 @@ const AllUpComingEvents = ({ data }: { data: any }) => {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6">
-          {events.map((event, index) => (
+          {events.map((event:any, index:any) => (
             <EventCard event={event} key={index} className="bg-white" />
           ))}
         </div>

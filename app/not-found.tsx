@@ -21,7 +21,7 @@ export default function NotFound() {
         />
 
         <p className="text-gray-9 font-semibold text-center mb-12">
-          The page you are trying to access doesn't exist or has been moved. Try
+          The page you are trying to access doesnt exist or has been moved. Try
           going back to our homepage.
         </p>
 

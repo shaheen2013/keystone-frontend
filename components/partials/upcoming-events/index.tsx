@@ -38,7 +38,7 @@ const UpComingEvents = ({ data }: { data: any }) => {
         ]}
       >
         <CarouselContent>
-          {events.map((event, index) => (
+          {events.map((event: any, index: any) => (
             <CarouselItem key={index} className="basis-full md:basis-1/3">
               <EventCard event={event} />
             </CarouselItem>

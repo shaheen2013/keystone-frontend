@@ -39,7 +39,7 @@ const InsightsAndStories = ({ data }: { data: any }) => {
         ]}
       >
         <CarouselContent>
-          {articles.map((article, index) => (
+          {articles.map((article:any, index:any) => (
             <CarouselItem key={index} className="basis-full md:basis-1/3">
               <BlogCard article={article} />
             </CarouselItem>

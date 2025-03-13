@@ -19,7 +19,7 @@ const KeyStoneAbilitySupport = ({ data }: { data: any }) => {
           </Button>
         </div>
         <div className="flex flex-col gap-4 md:gap-6">
-          {features.map((feature, index) => (
+          {features.map((feature:any, index:any) => (
             <div
               key={index}
               className="bg-white p-4 md:p-8 rounded-2xl border border-primary-7 flex flex-col gap-4"

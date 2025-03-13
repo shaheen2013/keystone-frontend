@@ -35,7 +35,8 @@ export function saveAccessibilifySetting(
       "accessibilitySettings",
       JSON.stringify({ ...JSON.parse(settings || "{}"), [name]: value })
     );
-  } catch (e) {
+  } catch (error: any) {
+    console.log(error);
     localStorage.removeItem("accessibilitySettings");
   }
 }
@@ -49,7 +50,8 @@ export function getAccessibilifySettings(name?: string) {
 
     const settings = localStorage.getItem("accessibilitySettings");
     return settings ? JSON.parse(settings) : {};
-  } catch (error) {
+  } catch (error: any) {
+    console.log(error);
     localStorage.removeItem("accessibilitySettings");
     return {};
   }

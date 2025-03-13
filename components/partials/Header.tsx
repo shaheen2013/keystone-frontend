@@ -195,3 +195,5 @@ const ListItem = forwardRef<
     </li>
   );
 });
+
+ListItem.displayName = "ListItem";

@@ -109,7 +109,7 @@ const Blogs = ({ data }: { data: any }) => {
         </div>
         {/* blogs area */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 md:mb-12">
-          {data.map((blog: any, index) => (
+          {data.map((blog: any, index: any) => (
             <BlogCard key={index} article={blog} />
           ))}
         </div>

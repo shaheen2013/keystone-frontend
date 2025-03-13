@@ -7,7 +7,7 @@ const RecentPosts = ({ data }: { data: any }) => {
         Recent Posts
       </h4>
       <div className="flex flex-col gap-4 p-6 ">
-        {data.map((item, index) => (
+        {data.map((item:any, index:any) => (
           <RecentPostCard key={index} data={item} />
         ))}
       </div>

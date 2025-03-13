@@ -17,7 +17,7 @@ const PaginationWrapper = ({
   setPage,
   length = 200,
   limit = 6,
-}) => {
+}: any) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const totalPages = Math.ceil(length / limit);
@@ -57,7 +57,7 @@ const PaginationWrapper = ({
     } else {
       handlePageChange(1);
     }
-  }, []);
+  }, [handlePageChange, searchParams]);
 
   return (
     <Pagination className={className}>

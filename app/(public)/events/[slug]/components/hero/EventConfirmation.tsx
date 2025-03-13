@@ -25,12 +25,12 @@ const EventContent = () => (
   <div className="rounded-2xl bg-white flex flex-col items-center">
     <Image src={attend} alt="Attend" width={100} height={160} />
     <h3 className="mt-6 mb-2 text-3xl font-semibold text-gray-9 text-center">
-      You're Almost There!
+      You&apos;re Almost There!
     </h3>
     <p className="text-base font-normal text-gray-8 text-center">
       Thank you for your interest!{" "}
       <span className="font-semibold text-secondary-6">
-        We’ll send the Zoom link to your email and contact shortly.
+        We&apos;ll send the Zoom link to your email and contact shortly.
       </span>
     </p>
     <hr className="h-px w-full bg-gray-2 mt-4 mb-8" />

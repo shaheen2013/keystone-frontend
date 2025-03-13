@@ -7,7 +7,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Input } from "@/components/shadcn/input";
 import { Button } from "@/components/shadcn/button";
 
-export default function forgotPasswordForm() {
+export default function ForgotPasswordForm() {
   type FormValues = {
     email: string;
   };

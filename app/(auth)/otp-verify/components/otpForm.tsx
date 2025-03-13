@@ -13,7 +13,7 @@ export default function ResetPasswordForm() {
     confirm_password: string;
   };
 
-  const { handleSubmit, control, getValues } = useForm<FormValues>({
+  const { handleSubmit } = useForm<FormValues>({
     defaultValues: {
       password: "",
       confirm_password: "",

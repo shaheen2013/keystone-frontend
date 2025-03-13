@@ -180,7 +180,15 @@ export default function Accessibility() {
         root.classList.add(accessibilityClasses.textSize[8]);
       }
     }
-  }, []);
+  }, [
+    accessibilityClasses.boldText,
+    accessibilityClasses.bigCursor,
+    accessibilityClasses.colorBlind,
+    accessibilityClasses.increaseContrast,
+    accessibilityClasses.lowVision,
+    accessibilityClasses.saturation,
+    accessibilityClasses.textSize,
+  ]);
 
   const handleAccessibilityRender = (event: any) => {
     if (!event) {

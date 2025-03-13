@@ -7,7 +7,7 @@ const OurProcess = ({ data }: { data: any }) => {
           {title}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-4 justify-center gap-4 md:gap-8">
-          {steps.map((step, index) => (
+          {steps.map((step: any, index: any) => (
             <div
               key={index}
               className="flex flex-col gap-4 md:gap-6 p-4 md:p-8 rounded-2xl border border-primary-7 bg-white"

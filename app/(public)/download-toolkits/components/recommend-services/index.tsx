@@ -35,7 +35,7 @@ const RecommendService = ({ data }: { data: any }) => {
           ]}
         >
           <CarouselContent>
-            {services.map((service, index) => (
+            {services.map((service:any, index:any) => (
               <CarouselItem
                 key={index}
                 className="basis-full sm:basis-1/2 md:basis-1/3"

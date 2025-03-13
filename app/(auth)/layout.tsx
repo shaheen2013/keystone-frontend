@@ -2,7 +2,7 @@ import React from "react";
 
 import AuthLeftSidebar from "@/components/partials/AuthLeftSidebar";
 
-export default function AuthLayout({ children }: any) {
+export default function AuthLayout({ children }: React.PropsWithChildren) {
   return (
     <div className="grid grid-cols-12 h-screen">
       {/* left */}

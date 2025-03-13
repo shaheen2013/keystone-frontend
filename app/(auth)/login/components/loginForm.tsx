@@ -191,7 +191,7 @@ export default function LoginForm() {
 
           <div className="flex justify-center">
             <p className="lg:text-base text-sm">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/signup" className="text-secondary-6 font-semibold">
                 Sign up
               </Link>

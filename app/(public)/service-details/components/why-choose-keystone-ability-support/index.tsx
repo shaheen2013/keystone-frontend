@@ -10,7 +10,7 @@ const WhyChooseKeystoneAbilitySupport = ({ data }: { data: any }) => {
             {title}
           </h3>
           <div className="flex flex-col gap-4">
-            {reasons.map((reason, index) => (
+            {reasons.map((reason:any, index:any) => (
               <div
                 key={index}
                 className="p-4 md:p-8 flex flex-col gap-3 md:gap-4 bg-primary-2 rounded-2xl"

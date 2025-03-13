@@ -10,7 +10,7 @@ const Faqs = ({ data }: { data: any }) => {
   const [isOpen, setOpen] = useState(data[items[0].key][0]);
 
   const handleToggle = useCallback((faq: any) => {
-    setOpen((prev) => (prev === faq ? null : faq));
+    setOpen((prev: any) => (prev === faq ? null : faq));
   }, []);
 
   return (

@@ -71,10 +71,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 Input.displayName = "Input";
 
 const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
-  (
-    { className, type, helperText, errorText, startIcon, endIcon, ...props },
-    ref
-  ) => {
+  ({ className, helperText, errorText, startIcon, endIcon, ...props }, ref) => {
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleTogglePassword = () => setShowPassword((prev) => !prev);
@@ -130,5 +127,7 @@ const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
+
+InputPassword.displayName = "InputPassword";
 
 export { Input, InputPassword };

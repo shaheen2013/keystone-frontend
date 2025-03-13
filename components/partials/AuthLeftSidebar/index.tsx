@@ -16,7 +16,7 @@ import { carouselContent } from "@/static/carousel";
 export default function AuthLeftSidebar({ className }: { className: string }) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
 
   const clx = classNames("relative", className);
 
@@ -27,7 +27,7 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
       return;
     }
 
-    setCount(api.scrollSnapList().length);
+    // setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
 
     api.on("select", () => {

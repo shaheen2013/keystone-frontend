@@ -34,7 +34,7 @@ const ExploreOtherServices = ({ data }: { data: any }) => {
           ]}
         >
           <CarouselContent>
-            {services.map((service, index) => (
+            {services.map((service: any, index: any) => (
               <CarouselItem key={index} className="basis-full md:basis-1/3">
                 <div
                   key={index}

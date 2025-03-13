@@ -48,7 +48,7 @@ const Testimonials = ({
           ]}
         >
           <CarouselContent>
-            {testimonials.map((testimonial, index) => (
+            {testimonials.map((testimonial: any, index: any) => (
               <CarouselItem key={index} className="basis-full md:basis-1/3">
                 <div
                   key={index}

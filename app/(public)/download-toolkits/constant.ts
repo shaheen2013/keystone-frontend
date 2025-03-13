@@ -1,8 +1,8 @@
-import {
-  Assessment,
-  EducationAdvocacy,
-  ResourceCoordination,
-} from "@/components/icons";
+// import {
+//   Assessment,
+//   EducationAdvocacy,
+//   ResourceCoordination,
+// } from "@/components/icons";
 
 export const downloadToolkits = {
   title: "Download Toolkits and Checklists",
