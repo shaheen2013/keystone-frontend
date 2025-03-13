@@ -99,7 +99,7 @@ export default function ForgotPasswordForm() {
             <p className="lg:text-base text-sm">
               Back to{" "}
               <Link href="/login" className="text-secondary-6 font-semibold">
-                Login
+                Log In
               </Link>
             </p>
           </div>
