@@ -73,7 +73,6 @@ export default function ResetPasswordForm() {
                   }) => (
                     <InputPassword
                       className="bg-white"
-                      // classNames={{ input: "bg-white" }}
                       placeholder="********"
                       onChange={onChange}
                       onBlur={onBlur}
@@ -121,7 +120,7 @@ export default function ResetPasswordForm() {
 
             {/* submit */}
             <Button variant="secondary" className="w-full" loading={false}>
-              Login
+              Reset Password
             </Button>
           </form>
         </div>

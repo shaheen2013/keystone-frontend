@@ -69,9 +69,16 @@ export default function ResetPasswordForm() {
             </div>
 
             {/* submit */}
-            <Button variant="secondary" className="w-full" loading={false}>
+            <Button variant="secondary" className="w-full mb-4" loading={false}>
               Verify & Proceed
             </Button>
+
+            {/* resend otp */}
+            <p className="text-gray-8 lg:text-base text-sm text-center">
+              <Link href="#" className="text-secondary-6 font-semibold">
+                Resend OTP
+              </Link>
+            </p>
           </form>
         </div>
       </div>
