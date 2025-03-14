@@ -29,7 +29,7 @@ export default function AccountSavedBlogs() {
                       height={20}
                     />
 
-                    <span>Remove</span>
+                    <span className="font-semibold">Remove</span>
                   </button>
 
                   <Image
