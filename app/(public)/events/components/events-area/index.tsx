@@ -233,13 +233,13 @@ const EventsArea = () => {
 
 function renderEventContent(eventContent: EventContentArg) {
   return (
-    <>
+    <div className="hidden md:block">
       <span>{eventContent.timeText}</span>
       <span>{eventContent.event.title}</span>
       {/* <span className="bg-secondary-4 rounded-md py-1 px-3 text-gray-9 text-sm font-semibold">
         {eventContent.event.title}
       </span> */}
-    </>
+    </div>
   );
 }
 

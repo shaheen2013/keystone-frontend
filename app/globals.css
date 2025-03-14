@@ -134,9 +134,6 @@
 .fc-day.fc-daygrid-day {
   padding: 8px !important;
 }
-.fc .fc-daygrid-event-harness {
-  margin-top: 6px !important;
-}
 
 .fc .fc-daygrid-event {
   border-radius: 8px !important;
@@ -175,4 +172,17 @@
   box-shadow: none !important;
   background-color: #f06143 !important;
   color: white !important;
+}
+
+.fc-daygrid-day-events {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .fc-daygrid-day-events {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+  }
 }
