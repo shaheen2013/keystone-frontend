@@ -11,7 +11,7 @@ import { Button } from "@/components/shadcn/button";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Label } from "@/components/shadcn/label";
 import { Input } from "@/components/shadcn/input";
-import { Search } from "@/components/icons";
+import { Filter2, Search } from "@/components/icons";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounceCallback } from "usehooks-ts";
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
@@ -19,6 +19,8 @@ import { allUpcomingEventsData, events } from "../../constant";
 import EventCard from "@/components/shadcn/event-card";
 import ExploreRecommendEvents from "@/components/partials/explore-recommend-events";
 import AllUpComingEvents from "../all-upcoming-events";
+import SearchDrawer from "./components/search-drawer";
+import FilterDrawer from "./components/filter-drawer";
 
 const EventsArea = () => {
   const router = useRouter();
@@ -53,22 +55,26 @@ const EventsArea = () => {
     <>
       <section className="py-12 md:py-28">
         <div className="container flex flex-col gap-6 md:gap-12">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-8">
-            <h3 className="text-4xl font-semibold text-gray-9">
+          <div className="flex justify-between items-center gap-4 md:gap-8">
+            <h3 className="text-2xl md:text-4xl font-semibold text-gray-9 ">
               {search ? "Search Results" : "Upcoming Events"}
             </h3>
             <Input
               placeholder="Search by event name"
-              classes={{ root: "w-full md:w-9/12 justify-self-end" }}
+              classes={{ root: "hidden md:block w-7/12 justify-self-end" }}
               endIcon={<Search className="text-gray-7" />}
               value={search}
               onChange={(event) => debouncedSearch(event.target.value)}
             />
+            <div className="flex gap-2 md:hidden">
+              <SearchDrawer search={search} setSearch={setSearch} />
+              <FilterDrawer />
+            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-8 items-start">
             {/* {renderSidebar(weekendsVisible, handleWeekendsToggle, currentEvents)} */}
             {/* filter area */}
-            <div className="bg-primary-1 rounded-xl overflow-hidden">
+            <div className="hidden md:block bg-primary-1 rounded-xl overflow-hidden">
               <div className="p-6 bg-primary-2 flex items-center justify-between ">
                 <h3 className="text-gray-9 text-2xl font-semibold">Filter</h3>
                 <Button
