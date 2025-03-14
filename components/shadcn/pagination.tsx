@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { ButtonProps, buttonVariants } from "@/components/shadcn/button";
+import Image from "next/image";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -59,17 +60,17 @@ const PaginationLink = ({
 );
 PaginationLink.displayName = "PaginationLink";
 
-const PaginationPrevious = ({
+const  PaginationPrevious = ({
   className,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn("gap-1 px-0 md:px-4 h-9 w-9 md:h-12 md:w-fit", className)}
+    className={cn("gap-3 px-0 md:px-4 h-9 w-9 md:h-12 md:w-fit", className)}
     {...props}
   >
-    <ChevronLeft className="h-4 w-4" />
+    <Image src="/icons/arrow-left.svg" alt="chevron left" height={24} width={24} />
     <span className="hidden md:block">Previous</span>
   </PaginationLink>
 );
@@ -82,11 +83,12 @@ const PaginationNext = ({
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn("gap-1 px-0 md:px-4 h-9 w-9 md:h-12 md:w-fit", className)}
+    className={cn("gap-3 px-0 md:px-4 h-9 w-9 md:h-12 md:w-fit", className)}
     {...props}
   >
     <span className="hidden md:block">Next</span>
-    <ChevronRight className="h-4 w-4" />
+    <Image src="/icons/arrow-right.svg" alt="chevron left" height={24} width={24} />
+
   </PaginationLink>
 );
 PaginationNext.displayName = "PaginationNext";
