@@ -67,7 +67,7 @@ export const eventTypes = [
 ];
 
 export const services = [
-  "Special Education Advocacy and Support",
-  "Special Education Advocacy and Support",
-  "Special Education Advocacy and Support",
+  "Special Education",
+  "Speech Therapy",
+  "Speech Language Pathology",
 ];

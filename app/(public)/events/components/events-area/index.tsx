@@ -11,8 +11,8 @@ import { Button } from "@/components/shadcn/button";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Label } from "@/components/shadcn/label";
 import { Input } from "@/components/shadcn/input";
-import { Filter2, Search } from "@/components/icons";
-import { useRouter, useSearchParams } from "next/navigation";
+import { Search } from "@/components/icons";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebounceCallback } from "usehooks-ts";
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
 import { allUpcomingEventsData, events } from "../../constant";
@@ -23,16 +23,19 @@ import SearchDrawer from "./components/search-drawer";
 import FilterDrawer from "./components/filter-drawer";
 
 const EventsArea = () => {
+  const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [page, setPage] = useState(searchParams.get("page") || 1);
 
+  console.log(searchParams.get("type"));
+
   // Debounced search value
   const debouncedSearch = useDebounceCallback((value: string) => {
     setSearch(value);
     updateUrlParams("event", value);
-  }, 100);
+  }, 50);
 
   // Function to update URL parameters
   const updateUrlParams = (key: string, value: string | null) => {
@@ -47,9 +50,44 @@ const EventsArea = () => {
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
+  function updateUrlsParamsFilter(key: string, value: string | null) {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    if (!value) return; // Prevent null values
+
+    // Get existing values for the key
+    let values = searchParams.getAll(key);
+
+    if (values.includes(value)) {
+      // Remove value if already present (unchecked)
+      values = values.filter((v) => v !== value);
+    } else {
+      // Add value if not present (checked)
+      values.push(value);
+    }
+
+    // Reset the key and update with new values
+    searchParams.delete(key);
+    values.forEach((v) => searchParams.append(key, v));
+
+    // Push the updated URL
+    router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
+  }
+
   const handleEventClick = () => {};
 
   const handleEvents = () => {};
+
+  const handleResetFilter = () => {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    // Keep "page" and "event", remove "type" and "service"
+    searchParams.delete("type");
+    searchParams.delete("service");
+
+    // Push updated URL
+    router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
+  };
 
   return (
     <>
@@ -80,10 +118,7 @@ const EventsArea = () => {
                 <Button
                   className="text-secondary-6 hover:bg-primary-1 hover:text-secondary-6"
                   variant="ghost"
-                  onClick={() => {
-                    updateUrlParams("type", null);
-                    updateUrlParams("service", null);
-                  }}
+                  onClick={handleResetFilter}
                 >
                   Reset
                 </Button>
@@ -101,15 +136,17 @@ const EventsArea = () => {
                     >
                       <Checkbox
                         id={eventType}
-                        // checked={isChecked}
-                        onCheckedChange={() => {
-                          updateUrlParams("type", eventType);
-                        }}
+                        checked={searchParams
+                          .getAll("type")
+                          .includes(eventType)}
+                        onCheckedChange={() =>
+                          updateUrlsParamsFilter("type", eventType)
+                        }
                         variant="secondary"
                       />
                       <Label
                         htmlFor={eventType}
-                        className="text-lg text-gray-5"
+                        className="text-lg text-gray-500"
                       >
                         {eventType}
                       </Label>
@@ -132,9 +169,12 @@ const EventsArea = () => {
                       <Checkbox
                         id={service}
                         variant="secondary"
-                        onCheckedChange={() => {
-                          updateUrlParams("service", service);
-                        }}
+                        checked={searchParams
+                          .getAll("service")
+                          .includes(service)}
+                        onCheckedChange={() =>
+                          updateUrlsParamsFilter("service", service)
+                        }
                       />
                       <Label htmlFor={service} className="text-lg text-gray-5">
                         {service}
