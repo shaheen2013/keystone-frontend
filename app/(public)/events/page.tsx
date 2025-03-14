@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 
 import { contactInfo } from "@/static/shared";
-import { allUpcomingEventsData, heroData } from "./constant";
+import { heroData } from "./constant";
 
 import GetTouch from "@/components/partials/get-touch";
-import EventsCalender from "./components/events-calender";
-import AllUpComingEvents from "./components/all-upcoming-events";
+import EventsArea from "./components/events-area";
 import CenteredHero from "@/components/partials/Hero/centered-hero";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Service Details | Keystone",
@@ -14,17 +14,13 @@ export const metadata: Metadata = {
     "A platform for online communities, the Disability Platform, and Atypical Advantage",
 };
 
-export default function ServiceDetails() {
-  // if not found then throw Not Found
-  // if (true) {
-  //   notFound();
-  // }
-
+export default function Events() {
   return (
     <>
       <CenteredHero data={heroData} />
-      <EventsCalender />
-      <AllUpComingEvents data={allUpcomingEventsData} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <EventsArea />
+      </Suspense>
       <GetTouch data={contactInfo} />
     </>
   );
