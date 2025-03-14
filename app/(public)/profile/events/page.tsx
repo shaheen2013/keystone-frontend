@@ -40,24 +40,27 @@ export default function AccountEvents() {
             return (
               <div
                 key={index}
-                className="bg-white p-6 rounded-xl border border-primary-2 flex justify-between hover:border-secondary-4"
+                className="bg-white lg:p-6 py-3 px-4 rounded-xl border border-primary-2 flex justify-between hover:border-secondary-4"
               >
                 <div>
-                  <p className=" text-xl font-medium">{event.name}</p>
+                  <p className="lg:text-xl text-sm font-medium">{event.name}</p>
                 </div>
+
                 <div>
                   {event.type == "ongoing" && (
-                    <p className="text-secondary-6 text-xl font-medium">
+                    <p className="text-secondary-6 lg:text-xl text-sm font-medium">
                       06:00 PM - 06:30 PM
                     </p>
                   )}
 
                   {event.type == "ended" && (
-                    <p className="text-gray-5 text-xl font-medium">Ended</p>
+                    <p className="text-gray-5 lg:text-xl text-sm font-medium">
+                      Ended
+                    </p>
                   )}
 
                   {event.type == "cancelled" && (
-                    <p className="text-[#FDB022] text-xl font-medium">
+                    <p className="text-[#FDB022] lg:text-xl text-sm font-medium">
                       Event Canceled
                     </p>
                   )}
