@@ -148,21 +148,7 @@ const EventsArea = () => {
                   center: "title",
                   right: "dayGridMonth,timeGridWeek,timeGridDay",
                 }}
-                // customButtons={{
-                //   prev: {
-                //     text: "Prev",
-                //     click: () => {
-                //       handlePrevClick();
-                //     },
-                //   },
-                //   next: {
-                //     text: "Next",
-                //     click: () => {
-                //       handleNextClick();
-                //     },
-                //   },
-                // }}
-                height="700px"
+                height="auto"
                 initialView="dayGridMonth"
                 selectable={true}
                 dayMaxEvents={true}
@@ -170,6 +156,7 @@ const EventsArea = () => {
                 eventContent={renderEventContent}
                 eventClick={handleEventClick}
                 eventsSet={handleEvents}
+                eventTextColor="#2B2B2B"
               />
             )}
             {search && (
