@@ -15,12 +15,12 @@ const PaginationWrapper = ({
   className,
   page,
   setPage,
-  length = 200,
+  total = 200,
   limit = 6,
 }: any) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const totalPages = Math.ceil(length / limit);
+  const totalPages = Math.ceil(total / limit);
 
   const handleNext = () => {
     const nextPage = page + 1;
@@ -57,7 +57,8 @@ const PaginationWrapper = ({
     } else {
       handlePageChange(1);
     }
-  }, [handlePageChange, searchParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Pagination className={className}>
