@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
@@ -7,7 +8,6 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Modal from "@/components/partials/Modal";
 import { Button } from "@/components/shadcn/button";
 import { InputPassword } from "@/components/shadcn/input";
-import Link from "next/link";
 
 export default function AccountPassword() {
   const [open, setOpen] = useState(false);
@@ -194,7 +194,7 @@ export default function AccountPassword() {
           </div>
 
           <p className="text-center mb-1 text-gray-700">
-            If you don't remember your password, forget it.
+            If you don&apos;t remember your password, forget it.
           </p>
 
           <Button
