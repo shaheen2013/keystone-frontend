@@ -11,7 +11,7 @@ import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
 
 interface CarouselContextProps {
-  carouselRef: React.RefObject<HTMLDivElement>;
+  carouselRef: any;
   api: EmblaCarouselType | undefined;
   opts: any;
   orientation: "horizontal" | "vertical";
@@ -122,7 +122,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     return (
       <CarouselContext.Provider
         value={{
-          carouselRef: carouselRef as React.RefObject<HTMLDivElement>,
+          carouselRef: carouselRef as any,
           api: api,
           opts,
           orientation:
@@ -149,7 +149,8 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
 );
 Carousel.displayName = "Carousel";
 
-interface CarouselContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+// interface CarouselContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+type CarouselContentProps = React.HTMLAttributes<HTMLDivElement>;
 
 const CarouselContent = React.forwardRef<HTMLDivElement, CarouselContentProps>(
   ({ className, ...props }, ref) => {
@@ -172,7 +173,8 @@ const CarouselContent = React.forwardRef<HTMLDivElement, CarouselContentProps>(
 );
 CarouselContent.displayName = "CarouselContent";
 
-interface CarouselItemProps extends React.HTMLAttributes<HTMLDivElement> {}
+// interface CarouselItemProps extends React.HTMLAttributes<HTMLDivElement> {}
+type CarouselItemProps = React.HTMLAttributes<HTMLDivElement>;
 
 const CarouselItem = React.forwardRef<HTMLDivElement, CarouselItemProps>(
   ({ className, ...props }, ref) => {
@@ -197,14 +199,8 @@ CarouselItem.displayName = "CarouselItem";
 
 interface CarouselPreviousProps
   extends React.HTMLAttributes<HTMLButtonElement> {
-  variant?:
-    | "primary"
-    | "secondary"
-    | "destructive"
-    | "outline"
-    | "ghost"
-    | "link";
-  size?: "default" | "sm" | "md" | "lg" | "icon" | "none";
+  variant?: any;
+  size?: "default" | "sm" | "lg" | "icon";
   icon?: React.ReactNode;
   iconClass?: string;
 }
@@ -251,16 +247,7 @@ const CarouselPrevious = React.forwardRef<
 CarouselPrevious.displayName = "CarouselPrevious";
 
 interface CarouselNextProps extends React.HTMLAttributes<HTMLButtonElement> {
-  variant?:
-    | "primary"
-    | "secondary"
-    | "destructive"
-    | "outline"
-    | "ghost"
-    | "link"
-    | "link-secondary"
-    | null
-    | undefined;
+  variant?: any;
   size?: "default" | "sm" | "lg" | "icon";
   icon?: React.ReactNode;
   iconClass?: string;
