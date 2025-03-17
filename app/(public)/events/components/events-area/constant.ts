@@ -26,6 +26,51 @@ export const INITIAL_EVENTS: EventInput[] = [
   },
   {
     id: createEventId(),
+    title: "Timed event",
+    start: todayStr,
+  },
+  {
+    id: createEventId(),
+    title: "Timed event",
+    start: todayStr,
+  },
+  {
+    id: createEventId(),
+    title: "Timed event",
+    start: todayStr,
+  },
+  {
+    id: createEventId(),
+    title: "Timed event",
+    start: todayStr,
+  },
+  {
+    id: createEventId(),
+    title: "Timed event",
+    start: todayStr,
+  },
+  {
+    id: createEventId(),
+    title: "Timed event",
+    start: todayStr,
+  },
+  {
+    id: createEventId(),
+    title: "Timed event",
+    start: todayStr,
+  },
+  {
+    id: createEventId(),
+    title: "Timed event",
+    start: todayStr,
+  },
+  {
+    id: createEventId(),
+    title: "Timed event",
+    start: todayStr,
+  },
+  {
+    id: createEventId(),
     title: "event",
     start: "2025-03-13",
   },

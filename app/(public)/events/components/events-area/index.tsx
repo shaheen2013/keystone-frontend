@@ -74,7 +74,9 @@ const EventsArea = () => {
     router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
   }
 
-  const handleEventClick = () => {};
+  const handleEventClick = (info: any) => {
+    console.log("Event Clicked", info);
+  };
 
   const handleEvents = () => {};
 
@@ -87,6 +89,15 @@ const EventsArea = () => {
 
     // Push updated URL
     router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
+  };
+
+  const handleDateClick = (info: any) => {
+    console.log("Date Clicked", info);
+
+    const selectedDate = info.dateStr;
+    const eventsOnDate = INITIAL_EVENTS.filter((event) =>
+      event?.start?.includes(selectedDate)
+    );
   };
 
   return (
@@ -203,8 +214,19 @@ const EventsArea = () => {
                 eventClick={handleEventClick}
                 eventsSet={handleEvents}
                 eventTextColor="#2B2B2B"
+                dateClick={handleDateClick}
               />
             )}
+            <div className="block md:hidden">
+              <div className="flex flex-col gap-3">
+                <span className="text-gray-9 font-semibold text-base">
+                  April 09 @ 5:30pm - 9:30pm
+                </span>
+                <p className="bg-secondary-4 rounded-md px-4 py-2 text-gray-9 text-sm font-medium text-center">
+                  Webminar
+                </p>
+              </div>
+            </div>
             {search && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                 {events.map((event: any, index: any) => (
