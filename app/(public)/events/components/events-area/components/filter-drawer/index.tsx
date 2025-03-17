@@ -13,6 +13,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { eventTypes, services } from "../../constant";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Label } from "@/components/shadcn/label";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type Inputs = {
   name: string;
@@ -24,8 +25,45 @@ const FilterDrawer = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+  const handleResetFilter = () => {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    // Keep "page" and "event", remove "type" and "service"
+    searchParams.delete("type");
+    searchParams.delete("service");
+
+    // Push updated URL
+    router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
+  };
+
+  function updateUrlsParamsFilter(key: string, value: string | null) {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    if (!value) return; // Prevent null values
+
+    // Get existing values for the key
+    let values = searchParams.getAll(key);
+
+    if (values.includes(value)) {
+      // Remove value if already present (unchecked)
+      values = values.filter((v) => v !== value);
+    } else {
+      // Add value if not present (checked)
+      values.push(value);
+    }
+
+    // Reset the key and update with new values
+    searchParams.delete(key);
+    values.forEach((v) => searchParams.append(key, v));
+
+    // Push the updated URL
+    router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
+  }
 
   return (
     <>
@@ -47,10 +85,7 @@ const FilterDrawer = () => {
                 <Button
                   className="text-secondary-6 hover:bg-primary-1 hover:text-secondary-6"
                   variant="ghost"
-                  // onClick={() => {
-                  //   updateUrlParams("type", null);
-                  //   updateUrlParams("service", null);
-                  // }}
+                  onClick={handleResetFilter}
                 >
                   Reset
                 </Button>
@@ -68,10 +103,12 @@ const FilterDrawer = () => {
                     >
                       <Checkbox
                         id={eventType}
-                        // checked={isChecked}
-                        // onCheckedChange={() => {
-                        //   updateUrlParams("type", eventType);
-                        // }}
+                        checked={searchParams
+                          .getAll("type")
+                          .includes(eventType)}
+                        onCheckedChange={() =>
+                          updateUrlsParamsFilter("type", eventType)
+                        }
                         variant="secondary"
                       />
                       <Label
@@ -99,9 +136,12 @@ const FilterDrawer = () => {
                       <Checkbox
                         id={service}
                         variant="secondary"
-                        // onCheckedChange={() => {
-                        //   updateUrlParams("service", service);
-                        // }}
+                        checked={searchParams
+                          .getAll("service")
+                          .includes(service)}
+                        onCheckedChange={() =>
+                          updateUrlsParamsFilter("service", service)
+                        }
                       />
                       <Label htmlFor={service} className="text-sm text-gray-5">
                         {service}

@@ -10,19 +10,43 @@ import { DialogTitle } from "@/components/shadcn/dialog";
 import { useState } from "react";
 import { Input } from "@/components/shadcn/input";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 type Inputs = {
   name: string;
 };
-const SearchDrawer = ({ setSearch }: { search: string; setSearch: any }) => {
+const SearchDrawer = ({
+  search,
+  setSearch,
+  searchParams,
+}: {
+  search: string;
+  setSearch: any;
+  searchParams: any;
+}) => {
   const [open, setOpen] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
+  const router = useRouter();
+  const updateUrlParams = (key: string, value: string | null) => {
+    const params = new URLSearchParams(searchParams.toString());
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+    if (value) {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
+
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    updateUrlParams("event", data.name);
+    setOpen(false);
+  };
 
   return (
     <>

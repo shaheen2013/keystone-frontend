@@ -116,7 +116,11 @@ const EventsArea = () => {
               onChange={(event) => debouncedSearch(event.target.value)}
             />
             <div className="flex gap-2 md:hidden">
-              <SearchDrawer search={search} setSearch={setSearch} />
+              <SearchDrawer
+                search={search}
+                setSearch={setSearch}
+                searchParams={searchParams}
+              />
               <FilterDrawer />
             </div>
           </div>
