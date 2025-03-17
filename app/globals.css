@@ -211,8 +211,14 @@
   .fc-header-toolbar.fc-toolbar div:nth-child(3) {
     grid-column: span 2 !important;
   }
+  .fc-header-toolbar.fc-toolbar div:nth-child(2) {
+    text-align: right !important;
+  }
+  .fc-header-toolbar.fc-toolbar div:nth-child(3) {
+    text-align: center !important;
+  }
 
   .fc-header-toolbar.fc-toolbar .fc-toolbar-title {
-    font-size: 1.5em !important;
+    font-size: 1em !important;
   }
 }
