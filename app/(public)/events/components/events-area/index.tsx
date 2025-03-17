@@ -74,8 +74,8 @@ const EventsArea = () => {
     router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
   }
 
-  const handleEventClick = (info: any) => {
-    console.log("Event Clicked", info);
+  const handleEventClick = (clickInfo: any) => {
+    console.log("Event Clicked", clickInfo.event.id);
   };
 
   const handleEvents = () => {};

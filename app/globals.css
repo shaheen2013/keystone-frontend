@@ -130,6 +130,7 @@
 
 .fc-day-today {
   background-color: #dee9e7 !important;
+  border-bottom: 2px solid #f06143 !important;
 }
 
 .fc .fc-daygrid-event {
@@ -182,6 +183,10 @@
   display: flex !important;
   flex-direction: column !important;
   gap: 6px !important;
+}
+
+.fc-daygrid-event-harness {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
