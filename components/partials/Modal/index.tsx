@@ -37,21 +37,6 @@ export default function Modal({
 
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const FooterButtons = (
-    <div className="flex flex-col md:flex-row w-full  gap-2">
-      <DialogClose asChild>
-        <DrawerClose asChild>
-          <Button variant="outline" className="w-full md:w-1/2">
-            Cancel
-          </Button>
-        </DrawerClose>
-      </DialogClose>
-      <Button variant="secondary" className="w-full md:w-1/2">
-        Buy Now
-      </Button>
-    </div>
-  );
-
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
@@ -64,7 +49,7 @@ export default function Modal({
           {/* title */}
           <h2 className="text-3xl font-semibold">{title}</h2>
           <div>{children}</div>
-          <DialogFooter className="p-0">{FooterButtons}</DialogFooter>
+          {/* <DialogFooter className="p-0"></DialogFooter> */}
         </DialogContent>
       </Dialog>
     );
@@ -73,13 +58,10 @@ export default function Modal({
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       {/* <DrawerTrigger asChild>{TriggerButton}</DrawerTrigger> */}
-      <DrawerContent
-        className="sm:max-w-[350px] p-8 md:p-10"
-        aria-describedby={undefined}
-      >
+      <DrawerContent className="p-8 md:p-10" aria-describedby={undefined}>
         <DialogTitle className="sr-only">Attend This Event</DialogTitle>
         <div className="mb-3">{children}</div>
-        <DrawerFooter className="p-0">{FooterButtons}</DrawerFooter>
+        {/* <DrawerFooter className="p-0"></DrawerFooter> */}
       </DrawerContent>
     </Drawer>
   );

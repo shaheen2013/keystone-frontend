@@ -1,13 +1,37 @@
 "use client";
 
 import { useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
+import Image from "next/image";
 
 import Modal from "@/components/partials/Modal";
-import Image from "next/image";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+
+import { Button } from "@/components/shadcn/button";
+import { Checkbox } from "@/components/shadcn/checkbox";
+import { Input, InputPassword } from "@/components/shadcn/input";
 
 export default function AccountPassword() {
   const [open, setOpen] = useState(false);
+
+  type FormValues = {
+    oldPassword: string;
+    newPassword: string;
+    confirmPassword: string;
+  };
+
+  const { handleSubmit, control, getValues, clearErrors } = useForm<FormValues>(
+    {
+      defaultValues: {
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      },
+    }
+  );
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    console.log("data => ", data);
+  };
 
   return (
     <div className="bg-primary-1 rounded-2xl">
@@ -15,8 +39,14 @@ export default function AccountPassword() {
         Password
       </div>
 
-      {/* profile/upload */}
-      <div className="lg:p-8 p-4" onClick={() => setOpen(true)}>
+      {/* content */}
+      <div
+        className="lg:p-8 p-4"
+        onClick={() => {
+          clearErrors();
+          setOpen(true);
+        }}
+      >
         <div className="bg-white lg:p-6 py-3 px-4 rounded-xl border border-primary-2 flex justify-between hover:border-secondary-4">
           <div>
             <p className="lg:text-xl text-sm font-medium">Change Password</p>
@@ -35,7 +65,135 @@ export default function AccountPassword() {
 
       {/* modal */}
       <Modal title="Change Password" open={open} onOpenChange={setOpen}>
-        This is a content in modal
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {/* old password */}
+          <div className="mb-3">
+            <Controller
+              control={control}
+              name="oldPassword"
+              rules={{
+                required: "Old password is required",
+                minLength: { value: 8, message: "Minimum length is 8" },
+                maxLength: { value: 100, message: "Maximum length is 100" },
+              }}
+              render={({
+                field: { onChange, value, onBlur },
+                fieldState: { error },
+              }) => (
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="text-base text-gray-9 mb-1 block"
+                  >
+                    Old Password
+                  </label>
+                  <InputPassword
+                    className="bg-white"
+                    placeholder="********"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    errorText={error?.message}
+                  />
+                </div>
+              )}
+            />
+          </div>
+
+          {/* new password */}
+          <div className="mb-3">
+            <Controller
+              control={control}
+              name="newPassword"
+              rules={{
+                required: "New password is required",
+                minLength: { value: 8, message: "Minimum length is 8" },
+                maxLength: { value: 100, message: "Maximum length is 100" },
+              }}
+              render={({
+                field: { onChange, value, onBlur },
+                fieldState: { error },
+              }) => (
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="text-base text-gray-9 mb-1 block"
+                  >
+                    New Password
+                  </label>
+                  <InputPassword
+                    className="bg-white"
+                    placeholder="********"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    errorText={error?.message}
+                  />
+                </div>
+              )}
+            />
+          </div>
+
+          {/* confirm password */}
+          <div className="mb-3">
+            <Controller
+              control={control}
+              name="confirmPassword"
+              rules={{
+                required: "Confirm password is required",
+                minLength: { value: 8, message: "Minimum length is 8" },
+                maxLength: { value: 100, message: "Maximum length is 100" },
+                validate: (value) => {
+                  if (value === getValues("newPassword")) {
+                    return true;
+                  }
+                  return "Passwords do not match";
+                },
+              }}
+              render={({
+                field: { onChange, value, onBlur },
+                fieldState: { error },
+              }) => (
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="text-base text-gray-9 mb-1 block"
+                  >
+                    New Password
+                  </label>
+                  <InputPassword
+                    className="bg-white"
+                    placeholder="********"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    errorText={error?.message}
+                  />
+                </div>
+              )}
+            />
+          </div>
+
+          {/* submit button */}
+          <div className="flex justify-between gap-3">
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full md:w-1/2"
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </Button>
+
+            <Button
+              type="submit"
+              variant="secondary"
+              className="w-full md:w-1/2"
+            >
+              Change
+            </Button>
+          </div>
+        </form>
       </Modal>
     </div>
   );
