@@ -3,7 +3,9 @@
 import { Play } from "@/components/icons";
 import dynamic from "next/dynamic";
 
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+const ReactPlayer = dynamic(() => import("react-player/youtube"), {
+  ssr: false,
+});
 
 const AboutWorkshop = ({ data }: { data: any }) => {
   const { vedioUrl, title, description, keyPoints } = data;
@@ -27,17 +29,15 @@ const AboutWorkshop = ({ data }: { data: any }) => {
             ))}
           </ul>
         </div>
-        <div className="max-w-[776px] w-full !h-60 md:!h-auto rounded-xl shadow-lg">
+        <div className="max-w-[776px] w-full min-h-60">
           <ReactPlayer
             url={vedioUrl}
-            muted
             loop
-            playIcon={<Play />}
+            playIcon={<Play className="size-16 md:size-24 " />}
             controls
             light
             width="100%"
             height="100%"
-            className="rounded-xl shadow-lg"
           />
         </div>
       </div>

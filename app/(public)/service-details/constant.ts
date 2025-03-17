@@ -24,8 +24,7 @@ export const heroData = {
 };
 
 export const ourServiceData = {
-  thumbnail: thumbnail,
-  url: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4",
+  url: "https://www.youtube.com/watch?v=3ZxAed4K2NM&list=RD74H-u947tOo&index=14",
   title: "About Our Service",
   description:
     "We help families navigate the complexities of the special education system with expert advocacy and guidance. We empower parents and caregivers to become strong, confident advocates for their child’s needs by providing coaching and resources to build their capacity. Whether it's understanding Individualized Education Programs (IEPs), ensuring access to the Least Restrictive Environment (LRE), or finding the right educational placement, we are here to help solve challenges and secure the support your child deserves. Whether you need assistance with specific issues or long-term support, we will guide you through the process, ensuring your child’s rights are upheld and your voice is heard.",
