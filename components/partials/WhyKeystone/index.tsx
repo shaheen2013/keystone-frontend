@@ -5,19 +5,20 @@ import { Play } from "@/components/icons";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+const ReactPlayer = dynamic(() => import("react-player/youtube"), {
+  ssr: false,
+});
 
 const WhyKeystoneSection = ({ data }: { data: any }) => {
   const { vedioUrl, title, description, cta } = data;
   return (
     <section className="py-12 md:py-28 bg-primary-2">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
-        <div className="max-w-[776px] w-full">
+        <div className="max-w-[776px] w-full md:h-[480px] h-60">
           <ReactPlayer
             url={vedioUrl}
-            muted
             loop
-            playIcon={<Play />}
+            playIcon={<Play className="size-16 md:size-24 " />}
             controls
             light
             width="100%"
