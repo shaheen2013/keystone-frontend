@@ -1,24 +1,8 @@
-import { useState } from "react";
-import { Download } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 
-import {
-  Dialog,
-  DialogTitle,
-  DialogClose,
-  DialogFooter,
-  DialogTrigger,
-  DialogContent,
-} from "@/components/shadcn/dialog";
+import { Dialog, DialogTitle, DialogContent } from "@/components/shadcn/dialog";
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerFooter,
-  DrawerTrigger,
-  DrawerContent,
-} from "@/components/shadcn/drawer";
-import { Button } from "@/components/shadcn/button";
+import { Drawer, DrawerContent } from "@/components/shadcn/drawer";
 
 interface ModalProps {
   open: boolean;
@@ -33,8 +17,6 @@ export default function Modal({
   children,
   onOpenChange,
 }: ModalProps) {
-  //   const [open, setOpen] = useState(false);
-
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
