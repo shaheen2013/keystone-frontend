@@ -2,13 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
-
-import Modal from "@/components/partials/Modal";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
+import Modal from "@/components/partials/Modal";
 import { Button } from "@/components/shadcn/button";
-import { Checkbox } from "@/components/shadcn/checkbox";
-import { Input, InputPassword } from "@/components/shadcn/input";
+import { InputPassword } from "@/components/shadcn/input";
 
 export default function AccountPassword() {
   const [open, setOpen] = useState(false);
