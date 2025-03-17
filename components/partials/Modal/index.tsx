@@ -58,8 +58,8 @@ export default function Modal({
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       {/* <DrawerTrigger asChild>{TriggerButton}</DrawerTrigger> */}
-      <DrawerContent className="p-8 md:p-10" aria-describedby={undefined}>
-        <DialogTitle className="sr-only">Attend This Event</DialogTitle>
+      <DrawerContent className="p-6 md:p-10" aria-describedby={undefined}>
+        <DialogTitle className="sr-only"></DialogTitle>
         <div className="mb-3">{children}</div>
         {/* <DrawerFooter className="p-0"></DrawerFooter> */}
       </DrawerContent>

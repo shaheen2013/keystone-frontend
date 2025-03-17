@@ -7,6 +7,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Modal from "@/components/partials/Modal";
 import { Button } from "@/components/shadcn/button";
 import { InputPassword } from "@/components/shadcn/input";
+import Link from "next/link";
 
 export default function AccountPassword() {
   const [open, setOpen] = useState(false);
@@ -63,7 +64,7 @@ export default function AccountPassword() {
 
       {/* modal */}
       <Modal title="Change Password" open={open} onOpenChange={setOpen}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="">
           {/* old password */}
           <div className="mb-3">
             <Controller
@@ -133,7 +134,7 @@ export default function AccountPassword() {
           </div>
 
           {/* confirm password */}
-          <div className="mb-3">
+          <div className="mb-6">
             <Controller
               control={control}
               name="confirmPassword"
@@ -173,7 +174,7 @@ export default function AccountPassword() {
           </div>
 
           {/* submit button */}
-          <div className="flex justify-between gap-3">
+          <div className="flex justify-between gap-3 mb-4">
             <Button
               type="button"
               variant="outline"
@@ -191,6 +192,19 @@ export default function AccountPassword() {
               Change
             </Button>
           </div>
+
+          <p className="text-center mb-1 text-gray-700">
+            If you don't remember your password, forget it.
+          </p>
+
+          <Button
+            asChild
+            className="block h-auto text-center text-sm"
+            variant="link-secondary"
+            type="button"
+          >
+            <Link href="/forgot-password">Forgot Password</Link>
+          </Button>
         </form>
       </Modal>
     </div>
