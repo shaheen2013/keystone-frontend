@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 "use client";
 
 import * as React from "react";
@@ -58,7 +59,11 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         axis: orientation === "horizontal" ? "x" : "y",
       },
       plugins
-    );
+    ) as unknown as [
+      React.RefObject<HTMLDivElement>,
+      EmblaCarouselType | undefined
+    ];
+
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
 

@@ -219,7 +219,7 @@ export default function SignupForm() {
 
           <div className="flex items-center gap-2 my-4">
             <div className="flex-1 border-t border-primary-3"></div>
-            <div className="text-gray-500 text-sm font-medium">OR</div>
+            <div className="text-gray-800 text-sm font-medium">OR</div>
             <div className="flex-1 border-t border-primary-3"></div>
           </div>
 
@@ -241,7 +241,7 @@ export default function SignupForm() {
             <p className="lg:text-base text-sm">
               Already have an account?{" "}
               <Link href="/login" className="text-secondary-6 font-semibold">
-                Login
+                Log In
               </Link>
             </p>
           </div>
