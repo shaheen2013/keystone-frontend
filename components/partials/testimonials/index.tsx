@@ -8,10 +8,12 @@ import Autoplay from "embla-carousel-autoplay";
 import { cn } from "@/lib/utils";
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselDots,
   CarouselItem,
 } from "@/components/shadcn/carousel";
+import { useEffect, useState } from "react";
 
 const Testimonials2 = ({
   data,
@@ -24,6 +26,19 @@ const Testimonials2 = ({
   };
 }) => {
   const { title, subtitle, testimonials } = data;
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
   return (
     <section className={cn("py-12 md:py-28 bg-primary-2", classes.root)}>
       <div className="container">
@@ -38,15 +53,15 @@ const Testimonials2 = ({
             loop: false,
             duration: 60,
             align: "center",
-            active: true,
           }}
           plugins={[
             Autoplay({
-              delay: 8000,
+              delay: 5000,
               stopOnInteraction: false,
               stopOnMouseEnter: true,
             }),
           ]}
+          setApi={setApi}
         >
           <CarouselContent>
             {testimonials.map((testimonial: any, index: number) => (
@@ -54,11 +69,10 @@ const Testimonials2 = ({
                 <div
                   key={index}
                   className={cn(
-                    "mx-2 my-6 p-4 md:p-8 bg-white rounded-2xl flex flex-col justify-center items-center",
+                    "mx-2 my-6 p-4 md:p-8 bg-white rounded-2xl flex flex-col justify-center items-center border border-secondary-7 md:border-transparent",
                     classes.card,
                     {
-                      "border border-secondary-7 scale-110 mx-6":
-                        index === Math.floor(testimonials.length / 2),
+                      "md:border-secondary-7 scale-110 mx-6": index === current,
                     }
                   )}
                 >

@@ -88,7 +88,7 @@ const ExploreRecommendBlogs = () => {
           }}
           plugins={[
             Autoplay({
-              delay: 8000,
+              delay: 5000,
               stopOnInteraction: false,
               stopOnMouseEnter: true,
             }),
