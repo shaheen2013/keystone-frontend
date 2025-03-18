@@ -4,16 +4,16 @@ import { Quote } from "@/components/icons";
 import Image from "next/image";
 import { Star } from "lucide-react";
 
+import Autoplay from "embla-carousel-autoplay";
+import { cn } from "@/lib/utils";
 import {
   Carousel,
   CarouselContent,
   CarouselDots,
   CarouselItem,
-} from "@/components/shadcn/Carousel2";
-import Autoplay from "embla-carousel-autoplay";
-import { cn } from "@/lib/utils";
+} from "@/components/shadcn/carousel";
 
-const Testimonials = ({
+const Testimonials2 = ({
   data,
   classes = {},
 }: {
@@ -37,7 +37,8 @@ const Testimonials = ({
           opts={{
             loop: false,
             duration: 60,
-            align: "start",
+            align: "center",
+            active: true,
           }}
           plugins={[
             Autoplay({
@@ -48,13 +49,17 @@ const Testimonials = ({
           ]}
         >
           <CarouselContent>
-            {testimonials.map((testimonial: any, index: any) => (
+            {testimonials.map((testimonial: any, index: number) => (
               <CarouselItem key={index} className="basis-full md:basis-1/3">
                 <div
                   key={index}
                   className={cn(
-                    "p-4 md:p-8 bg-white rounded-2xl flex flex-col justify-center items-center",
-                    classes.card
+                    "mx-2 my-6 p-4 md:p-8 bg-white rounded-2xl flex flex-col justify-center items-center",
+                    classes.card,
+                    {
+                      "border border-secondary-7 scale-110 mx-6":
+                        index === Math.floor(testimonials.length / 2),
+                    }
                   )}
                 >
                   <Quote className="text-secondary-5 mb-4 size-10 md:size-16" />
@@ -99,4 +104,4 @@ const Testimonials = ({
   );
 };
 
-export default Testimonials;
+export default Testimonials2;
