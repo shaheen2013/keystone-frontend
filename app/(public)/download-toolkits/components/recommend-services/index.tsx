@@ -3,13 +3,13 @@
 import { Button } from "@/components/shadcn/button";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons";
+import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
   CarouselDots,
   CarouselItem,
-} from "@/components/shadcn/Carousel2";
-import Autoplay from "embla-carousel-autoplay";
+} from "@/components/shadcn/carousel";
 
 const RecommendService = ({ data }: { data: any }) => {
   const { title, services } = data;
@@ -24,23 +24,20 @@ const RecommendService = ({ data }: { data: any }) => {
           opts={{
             loop: false,
             duration: 60,
-            align: "start",
+            align: "center",
           }}
           plugins={[
             Autoplay({
-              delay: 8000,
+              delay: 5000,
               stopOnInteraction: false,
               stopOnMouseEnter: true,
             }),
           ]}
         >
           <CarouselContent>
-            {services.map((service:any, index:any) => (
-              <CarouselItem
-                key={index}
-                className="basis-full sm:basis-1/2 md:basis-1/3"
-              >
-                <div className="bg-white p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start border border-primary-7">
+            {services.map((service: any, index: any) => (
+              <CarouselItem key={index} className="basis-full md:basis-1/3 ">
+                <div className="bg-white p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start border border-primary-7 h-full">
                   <div className="p-4 rounded-xl bg-secondary-2 text-secondary-6 size-12 md:size-[72px] flex items-center justify-center">
                     {index + 1}
                   </div>

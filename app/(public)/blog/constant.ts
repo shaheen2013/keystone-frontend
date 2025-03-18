@@ -19,7 +19,7 @@ export const blogs = [
     description:
       "Empower your child to thrive by fostering self-esteem, encouraging independence, and celebrating small victories. Explore practical strategies designed for parents.",
     image: insightsimg1,
-    saveForLater: true,
+    isSaveForLater: true,
   },
   {
     date: "6th Feb",
@@ -28,7 +28,7 @@ export const blogs = [
     description:
       "Empower your child to thrive by fostering self-esteem, encouraging independence, and celebrating small victories. Explore practical strategies designed for parents.",
     image: insightsimg2,
-    saveForLater: true,
+    isSaveForLater: false,
   },
   {
     date: "6th Feb",
@@ -37,7 +37,7 @@ export const blogs = [
     description:
       "Empower your child to thrive by fostering self-esteem, encouraging independence, and celebrating small victories. Explore practical strategies designed for parents.",
     image: insightsimg3,
-    saveForLater: true,
+    isSaveForLater: true,
   },
   {
     date: "6th Feb",
@@ -46,7 +46,7 @@ export const blogs = [
     description:
       "Empower your child to thrive by fostering self-esteem, encouraging independence, and celebrating small victories. Explore practical strategies designed for parents.",
     image: insightsimg1,
-    saveForLater: true,
+    isSaveForLater: false,
   },
   {
     date: "6th Feb",
@@ -55,7 +55,7 @@ export const blogs = [
     description:
       "Empower your child to thrive by fostering self-esteem, encouraging independence, and celebrating small victories. Explore practical strategies designed for parents.",
     image: insightsimg2,
-    saveForLater: true,
+    isSaveForLater: true,
   },
   {
     date: "6th Feb",
@@ -64,6 +64,6 @@ export const blogs = [
     description:
       "Empower your child to thrive by fostering self-esteem, encouraging independence, and celebrating small victories. Explore practical strategies designed for parents.",
     image: insightsimg3,
-    saveForLater: true,
+    isSaveForLater: false,
   },
 ];

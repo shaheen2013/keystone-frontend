@@ -1,15 +1,15 @@
 "use client";
 
+import EventCard from "@/components/shadcn/event-card";
+import Autoplay from "embla-carousel-autoplay";
+
+import img1 from "@/public/assets/home/upcoming-events/parent-training.png";
 import {
   Carousel,
   CarouselContent,
   CarouselDots,
   CarouselItem,
-} from "@/components/shadcn/Carousel2";
-import EventCard from "@/components/shadcn/event-card";
-import Autoplay from "embla-carousel-autoplay";
-
-import img1 from "@/public/assets/home/upcoming-events/parent-training.png";
+} from "@/components/shadcn/carousel";
 
 const ExploreRecommendEvents = () => {
   const data = {
@@ -67,7 +67,7 @@ const ExploreRecommendEvents = () => {
           }}
           plugins={[
             Autoplay({
-              delay: 8000,
+              delay: 5000,
               stopOnInteraction: false,
               stopOnMouseEnter: true,
             }),

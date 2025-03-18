@@ -37,7 +37,7 @@ export default {
         "gray-7": "#454545",
         "gray-8": "#3D3D3D",
         "gray-9": "#2B2B2B",
-        'warning-4': '#FDB022',
+        "warning-4": "#FDB022",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -109,7 +109,10 @@ export default {
     },
     container: {
       center: true,
-      padding: "1rem",
+      padding: {
+        DEFAULT: "1rem",
+        lg: "0rem",
+      },
       screens: {
         md: "100%",
         lg: "1600px",

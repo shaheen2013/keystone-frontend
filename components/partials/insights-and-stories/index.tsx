@@ -1,15 +1,16 @@
 "use client";
 
 import { Button } from "@/components/shadcn/button";
+
+import Autoplay from "embla-carousel-autoplay";
+import Link from "next/link";
+import BlogCard from "@/components/shadcn/blog-card";
 import {
   Carousel,
   CarouselContent,
   CarouselDots,
   CarouselItem,
-} from "@/components/shadcn/Carousel2";
-import Autoplay from "embla-carousel-autoplay";
-import Link from "next/link";
-import BlogCard from "@/components/shadcn/blog-card";
+} from "@/components/shadcn/carousel";
 
 const InsightsAndStories = ({ data }: { data: any }) => {
   const { title, cta, articles } = data;
@@ -32,14 +33,14 @@ const InsightsAndStories = ({ data }: { data: any }) => {
         }}
         plugins={[
           Autoplay({
-            delay: 8000,
+            delay: 5000,
             stopOnInteraction: false,
             stopOnMouseEnter: true,
           }),
         ]}
       >
         <CarouselContent>
-          {articles.map((article:any, index:any) => (
+          {articles.map((article: any, index: any) => (
             <CarouselItem key={index} className="basis-full md:basis-1/3">
               <BlogCard article={article} />
             </CarouselItem>

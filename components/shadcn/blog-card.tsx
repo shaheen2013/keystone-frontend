@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Heart } from "../icons";
+import { Heart, HeartFilled } from "../icons";
 import { cn } from "@/lib/utils";
 
 const BlogCard = ({
@@ -12,7 +12,7 @@ const BlogCard = ({
   return (
     <div
       className={cn(
-        "bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-4 md:gap-6 items-start",
+        "bg-primary-2 p-4 md:p-6 rounded-2xl flex flex-col gap-4 md:gap-6 items-start h-full",
         className
       )}
     >
@@ -23,10 +23,14 @@ const BlogCard = ({
           height={760}
           alt={article.title}
         />
-        <div className="absolute top-4 right-4 bg-white rounded-xl py-2.5 px-6 flex gap-2 cursor-pointer">
-          <Heart className="text-gray-9" />
+        <div className="absolute top-4 right-4 rounded-xl py-2.5 px-6 flex gap-2 cursor-pointer transition-all bg-white text-gray-9">
+          {article.isSaveForLater ? (
+            <HeartFilled className="text-red-500 size-5" />
+          ) : (
+            <Heart className=" text-gray-9 size-5" />
+          )}
           <span className="text-gray-9 text-sm font-semibold">
-            Save for Later
+            {article.isSaveForLater ? "Saved" : " Save for Later"}
           </span>
         </div>
       </div>

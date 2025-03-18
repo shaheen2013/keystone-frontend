@@ -7,7 +7,7 @@ import {
   CarouselContent,
   CarouselDots,
   CarouselItem,
-} from "@/components/shadcn/Carousel2";
+} from "@/components/shadcn/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
 
@@ -27,7 +27,7 @@ const ExploreOtherServices = ({ data }: { data: any }) => {
           }}
           plugins={[
             Autoplay({
-              delay: 8000,
+              delay: 5000,
               stopOnInteraction: false,
               stopOnMouseEnter: true,
             }),

@@ -21,3 +21,5 @@ export { default as ChevronDown } from "./ChevronDown";
 export { default as LargeSearch } from "./LargeSearch";
 export { default as Clock } from "./Clock";
 export { default as Person } from "./Person";
+export { default as Filter2 } from "./Filter2";
+export { default as HeartFilled } from "./HeartFilled";

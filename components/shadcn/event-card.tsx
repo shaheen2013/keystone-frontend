@@ -12,7 +12,7 @@ const EventCard = ({
   return (
     <div
       className={cn(
-        "bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-4 md:gap-6 items-start",
+        "bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-4 md:gap-6 items-start h-full",
         className
       )}
     >
