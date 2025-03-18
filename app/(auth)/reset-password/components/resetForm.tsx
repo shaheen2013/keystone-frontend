@@ -1,12 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
+import Modal from "@/components/partials/Modal";
 import { Button } from "@/components/shadcn/button";
 import { InputPassword } from "@/components/shadcn/input";
 
 export default function ResetPasswordForm() {
+  const [open, setOpen] = useState(true);
+
   type FormValues = {
     password: string;
     confirm_password: string;
@@ -85,7 +89,7 @@ export default function ResetPasswordForm() {
             </div>
 
             {/* confirm password */}
-            <div className="lg:mb-6">
+            <div className="lg:mb-6 mb-4">
               <Controller
                 control={control}
                 name="confirm_password"
@@ -125,6 +129,29 @@ export default function ResetPasswordForm() {
           </form>
         </div>
       </div>
+
+      {/* modal */}
+      <Modal title="" open={open} onOpenChange={setOpen}>
+        <div className="flex items-center justify-center mb-10">
+          <Image
+            src="/confirmation-reset.svg"
+            alt="logo"
+            width={300}
+            height={190}
+            className="w-[300px] h-[200px]"
+            priority
+          />
+        </div>
+
+        <h2 className="text-gray-9 font-semibold text-2xl text-center mb-9">
+          Your password has been reset successfully! You can now log in with
+          your new credentials.
+        </h2>
+
+        <Button variant="secondary" className="w-full">
+          Back to Log In
+        </Button>
+      </Modal>
 
       <p className="text-gray-9 lg:text-base text-xs font-medium py-6 lg:mt-0 mt-8">
         © 2025 Keystone Ability Support. All Rights Reserved.
