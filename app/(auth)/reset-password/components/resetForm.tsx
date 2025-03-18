@@ -89,7 +89,7 @@ export default function ResetPasswordForm() {
             </div>
 
             {/* confirm password */}
-            <div className="lg:mb-6">
+            <div className="lg:mb-6 mb-4">
               <Controller
                 control={control}
                 name="confirm_password"
