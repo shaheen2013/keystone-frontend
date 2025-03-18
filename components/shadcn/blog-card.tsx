@@ -28,7 +28,7 @@ const BlogCard = ({
           {article.isSaveForLater ? (
             <HeartFilled className="text-red-500 size-5" />
           ) : (
-            <Heart className=" text-red-500 size-5" />
+            <Heart className=" text-gray-9 size-5" />
           )}
           <span className="text-gray-9 text-sm font-semibold">
             {article.isSaveForLater ? "Saved" : " Save for Later"}
