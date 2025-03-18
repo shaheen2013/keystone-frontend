@@ -1,7 +1,12 @@
+"use client";
+
+import PaginationWrapper from "@/components/partials/pagination-wrapper";
 import Toolkit from "@/components/shadcn/toolkit";
+import { useState } from "react";
 
 const Toolkits = ({ data }: { data: any }) => {
   const { title, description, toolkits } = data;
+  const [page, setPage] = useState(1);
   return (
     <section className="py-12 md:py-28 bg-white">
       <div className="container flex flex-col gap-6 md:gap-12">
@@ -18,6 +23,11 @@ const Toolkits = ({ data }: { data: any }) => {
             {toolkits.map((toolkit: any, index: number) => (
               <Toolkit key={index} data={toolkit} />
             ))}
+            <PaginationWrapper
+              page={page}
+              setPage={setPage}
+              className="col-span-full"
+            />
           </div>
         )}
       </div>
