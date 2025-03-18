@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { Heart } from "../icons";
+import { Heart, HeartFilled } from "../icons";
 import { cn } from "@/lib/utils";
+import { HeartOff } from "lucide-react";
 
 const BlogCard = ({
   article,
@@ -23,10 +24,14 @@ const BlogCard = ({
           height={760}
           alt={article.title}
         />
-        <div className="absolute top-4 right-4 bg-white rounded-xl py-2.5 px-6 flex gap-2 cursor-pointer">
-          <Heart className="text-gray-9" />
+        <div className="absolute top-4 right-4 rounded-xl py-2.5 px-6 flex gap-2 cursor-pointer transition-all bg-white text-gray-9">
+          {article.isSaveForLater ? (
+            <HeartFilled className="text-red-500 size-5" />
+          ) : (
+            <Heart className=" text-red-500 size-5" />
+          )}
           <span className="text-gray-9 text-sm font-semibold">
-            Save for Later
+            {article.isSaveForLater ? "Saved" : " Save for Later"}
           </span>
         </div>
       </div>
