@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Heart, HeartFilled } from "../icons";
 import { cn } from "@/lib/utils";
-import { HeartOff } from "lucide-react";
 
 const BlogCard = ({
   article,
@@ -13,7 +12,7 @@ const BlogCard = ({
   return (
     <div
       className={cn(
-        "bg-primary-2 p-4 md:p-6 rounded-2xl flex flex-col gap-4 md:gap-6 items-start",
+        "bg-primary-2 p-4 md:p-6 rounded-2xl flex flex-col gap-4 md:gap-6 items-start h-full",
         className
       )}
     >
