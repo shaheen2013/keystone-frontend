@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { ButtonProps, buttonVariants } from "@/components/shadcn/button";
@@ -60,7 +60,7 @@ const PaginationLink = ({
 );
 PaginationLink.displayName = "PaginationLink";
 
-const  PaginationPrevious = ({
+const PaginationPrevious = ({
   className,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => (
@@ -70,7 +70,12 @@ const  PaginationPrevious = ({
     className={cn("gap-3 px-0 md:px-4 h-9 w-9 md:h-12 md:w-fit", className)}
     {...props}
   >
-    <Image src="/icons/arrow-left.svg" alt="chevron left" height={24} width={24} />
+    <Image
+      src="/icons/arrow-left.svg"
+      alt="chevron left"
+      height={24}
+      width={24}
+    />
     <span className="hidden md:block">Previous</span>
   </PaginationLink>
 );
@@ -87,8 +92,12 @@ const PaginationNext = ({
     {...props}
   >
     <span className="hidden md:block">Next</span>
-    <Image src="/icons/arrow-right.svg" alt="chevron left" height={24} width={24} />
-
+    <Image
+      src="/icons/arrow-right.svg"
+      alt="chevron left"
+      height={24}
+      width={24}
+    />
   </PaginationLink>
 );
 PaginationNext.displayName = "PaginationNext";

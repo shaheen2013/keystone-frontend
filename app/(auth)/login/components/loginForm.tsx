@@ -171,7 +171,7 @@ export default function LoginForm() {
 
           <div className="flex items-center gap-2 my-4">
             <div className="flex-1 border-t border-primary-3"></div>
-            <div className="text-gray-500 text-sm font-medium">OR</div>
+            <div className="text-gray-800 text-sm font-medium">OR</div>
             <div className="flex-1 border-t border-primary-3"></div>
           </div>
 
