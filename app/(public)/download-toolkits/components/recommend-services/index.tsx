@@ -3,13 +3,13 @@
 import { Button } from "@/components/shadcn/button";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons";
+import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
   CarouselDots,
   CarouselItem,
-} from "@/components/shadcn/Carousel2";
-import Autoplay from "embla-carousel-autoplay";
+} from "@/components/shadcn/carousel";
 
 const RecommendService = ({ data }: { data: any }) => {
   const { title, services } = data;

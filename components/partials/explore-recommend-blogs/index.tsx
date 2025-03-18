@@ -1,17 +1,17 @@
 "use client";
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselDots,
-  CarouselItem,
-} from "@/components/shadcn/Carousel2";
 import Autoplay from "embla-carousel-autoplay";
 
 import insightsimg1 from "@/public/assets/home/insights-and-stories/img1.png";
 import insightsimg2 from "@/public/assets/home/insights-and-stories/img2.png";
 import insightsimg3 from "@/public/assets/home/insights-and-stories/img3.png";
 import BlogCard from "@/components/shadcn/blog-card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselDots,
+  CarouselItem,
+} from "@/components/shadcn/carousel";
 
 const ExploreRecommendBlogs = () => {
   const data = {

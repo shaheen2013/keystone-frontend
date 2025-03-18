@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/shadcn/button";
 import Autoplay from "embla-carousel-autoplay";
+import Link from "next/link";
+import EventCard from "@/components/shadcn/event-card";
 import {
   Carousel,
   CarouselContent,
   CarouselDots,
   CarouselItem,
-} from "@/components/shadcn/Carousel2";
-import Link from "next/link";
-import EventCard from "@/components/shadcn/event-card";
+} from "@/components/shadcn/carousel";
 
 const UpComingEvents = ({ data }: { data: any }) => {
   const { title, cta, events } = data;
