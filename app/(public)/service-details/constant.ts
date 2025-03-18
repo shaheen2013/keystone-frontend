@@ -6,7 +6,6 @@ import {
   SupportPlan,
 } from "@/components/icons";
 import bgImage from "@/public/assets/home/hero/special-education-advocacy-support.png";
-import thumbnail from "@/public/assets/home/why-keystone/thumbnail.png";
 import whyChooseKeystoneAbilitySupportImage from "@/public/assets/service-details/why-choose-keystone-ability-support/image.png";
 import avatar1 from "@/public/assets/home/testimonials/avatar1.png";
 

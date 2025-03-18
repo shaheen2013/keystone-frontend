@@ -21,9 +21,9 @@ type Inputs = {
 const FilterDrawer = () => {
   const [open, setOpen] = useState(false);
   const {
-    register,
+    // register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm<Inputs>();
   const pathname = usePathname();
   const searchParams = useSearchParams();

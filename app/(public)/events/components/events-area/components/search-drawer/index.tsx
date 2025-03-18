@@ -16,8 +16,8 @@ type Inputs = {
   name: string;
 };
 const SearchDrawer = ({
-  search,
-  setSearch,
+  // search,
+  // setSearch,
   searchParams,
 }: {
   search: string;

@@ -4,6 +4,7 @@ import { contactInfo } from "@/static/shared";
 import { downloadToolkits, recommendedService } from "./constant";
 import RecommendService from "./components/recommend-services";
 import Toolkits from "./components/toolkits";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Download Toolkits | Keystone",
@@ -14,7 +15,9 @@ export const metadata: Metadata = {
 export default function DownloadToolkitsPage() {
   return (
     <>
-      <Toolkits data={downloadToolkits} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Toolkits data={downloadToolkits} />
+      </Suspense>
       <RecommendService data={recommendedService} />
       <GetTouch data={contactInfo} />
     </>

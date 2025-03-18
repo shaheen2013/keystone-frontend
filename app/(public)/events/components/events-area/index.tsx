@@ -94,10 +94,10 @@ const EventsArea = () => {
   const handleDateClick = (info: any) => {
     console.log("Date Clicked", info);
 
-    const selectedDate = info.dateStr;
-    const eventsOnDate = INITIAL_EVENTS.filter((event) =>
-      event?.start?.includes(selectedDate)
-    );
+    // const selectedDate = info.dateStr;
+    // const eventsOnDate = INITIAL_EVENTS.filter((event) =>
+    //   event?.start?.includes(selectedDate)
+    // );
   };
 
   return (
