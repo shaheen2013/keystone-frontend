@@ -20,7 +20,7 @@ export default function ParentGuides() {
     <>
       <HeroSection data={heroData} />
       <MissionAndVision />
-      <OurProcess data={ourProcessData} />
+      <OurProcess data={ourProcessData} classes={{ cards: "md:grid-cols-3" }} />
       <OurImpact />
       <Testimonials
         data={testimonialsData}

@@ -20,7 +20,7 @@ export default async function BlogDetails({
   return (
     <>
       <Hero data={heroData} />
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_512px] py-12 md:py-28 container gap-x-8">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_512px] py-12 md:py-28 container gap-8">
         <BlogContent />
         <RecentPosts data={recentPosts} />
       </div>
