@@ -2,7 +2,7 @@ export const quickLinks = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/services" },
   { name: "Events", href: "/events" },
-  { name: "Blogs", href: "/blog" },
+  { name: "Blogs", href: "/blogs" },
   { name: "Why Us", href: "/why-us" },
   { name: "Contact Us", href: "/contact-us" },
 ];
