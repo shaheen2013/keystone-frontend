@@ -24,8 +24,10 @@ export default function GoogleTranslate() {
     if (typeof window === "undefined") return;
 
     // Definir función antes de cargar el script
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     window.googleTranslateElementInit = function () {
-      new window.google.translate.TranslateElement(
+      new (window as any).google.translate.TranslateElement(
         { pageLanguage: "en", autoDisplay: true },
         "google_translate_element"
       );

@@ -14,6 +14,7 @@ const ReactPlayer = dynamic(() => import("react-player/youtube"), {
 const WhyKeystoneSection = ({ data }: { data: any }) => {
   const { vedioUrl, title, description, cta } = data;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: dataGet, error, isLoading } = useGetBillingPricesQuery({});
 
   return (

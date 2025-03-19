@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-const OurProcess = ({ classes, data }: { classes: any; data: any }) => {
+const OurProcess = ({ classes, data }: { classes?: any; data: any }) => {
   const { title, steps } = data;
   return (
     <section className="py-12 md:py-28 bg-primary-2">
