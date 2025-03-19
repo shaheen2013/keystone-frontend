@@ -1,4 +1,6 @@
-const OurProcess = ({ data }: { data: any }) => {
+import { cn } from "@/lib/utils";
+
+const OurProcess = ({ classes, data }: { classes: any; data: any }) => {
   const { title, steps } = data;
   return (
     <section className="py-12 md:py-28 bg-primary-2">
@@ -6,7 +8,12 @@ const OurProcess = ({ data }: { data: any }) => {
         <h3 className="text-2xl md:text-5xl font-bold text-gray-9 text-center">
           {title}
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-4 justify-center gap-4 md:gap-8">
+        <div
+          className={cn(
+            "grid grid-cols-1 md:grid-cols-4 justify-center gap-4 md:gap-8",
+            classes?.cards
+          )}
+        >
           {steps.map((step: any, index: any) => (
             <div
               key={index}
