@@ -16,19 +16,9 @@ import {
   AccordionTrigger,
 } from "@/components/shadcn/accordion";
 
-import {
-  Select,
-  SelectItem,
-  SelectValue,
-  SelectGroup,
-  SelectTrigger,
-  SelectContent,
-} from "@/components/shadcn/select";
-
 import { Slider } from "@/components/shadcn/slider";
 import { Switch } from "@/components/shadcn/switch";
 import { Button } from "@/components/shadcn/button";
-import { languageOptions } from "@/static/accessibility";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/shadcn/sheet";
 
 export default function Accessibility() {
@@ -627,58 +617,7 @@ export default function Accessibility() {
                   </div>
                 </div>
               </div>
-
-              {/* google translate*/}
-              <div className="border-primary-2 border rounded-xl mb-4">
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value={`item-1`} className="last:border-b-0">
-                    <AccordionTrigger className="px-3 py-3">
-                      <div className="flex items-center justify-between gap-3">
-                        <Image
-                          src="/icons/translate-box.svg"
-                          width={20}
-                          height={20}
-                          alt="Accessibility"
-                          className="w-10 h-10"
-                        />
-                        <span className="font-semibold text-gray-9 text-base">
-                          Google Translate
-                        </span>
-                      </div>
-                    </AccordionTrigger>
-
-                    <AccordionContent className="border-t border-primary-2 px-4 py-4">
-                      <div>
-                        <Select>
-                          <SelectTrigger className="">
-                            <SelectValue placeholder="Select Language" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              {languageOptions.map((option, index) => {
-                                return (
-                                  <SelectItem value={option.slug} key={index}>
-                                    <div className="flex items-center gap-3">
-                                      <Image
-                                        src={option.icon}
-                                        width={20}
-                                        height={16}
-                                        alt={option.name}
-                                        className="w-5 h-4 rounded"
-                                      />
-                                      {option.name}
-                                    </div>
-                                  </SelectItem>
-                                );
-                              })}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
+              {/* <GoogleTranslate /> */}
             </div>
           </div>
 
