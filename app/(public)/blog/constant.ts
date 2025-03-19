@@ -67,3 +67,10 @@ export const blogs = [
     isSaveForLater: false,
   },
 ];
+
+export const notFoundData = {
+  title:
+    "<span class='text-secondary-6'> Oops! </span>We couldn’t find any matching blogs.",
+  description:
+    "Stay updated with the latest blogs and news. Don’t miss out on exciting opportunities to learn, connect, and grow!",
+};
