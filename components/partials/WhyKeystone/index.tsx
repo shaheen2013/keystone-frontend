@@ -1,9 +1,11 @@
 "use client";
 
-import { Button } from "@/components/shadcn/button";
-import { Play } from "@/components/icons";
-import dynamic from "next/dynamic";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+import { Play } from "@/components/icons";
+import { Button } from "@/components/shadcn/button";
+import { useGetBillingPricesQuery } from "@/features/public/billingSlice";
 
 const ReactPlayer = dynamic(() => import("react-player/youtube"), {
   ssr: false,
@@ -11,6 +13,9 @@ const ReactPlayer = dynamic(() => import("react-player/youtube"), {
 
 const WhyKeystoneSection = ({ data }: { data: any }) => {
   const { vedioUrl, title, description, cta } = data;
+
+  const { data: dataGet, error, isLoading } = useGetBillingPricesQuery({});
+
   return (
     <section className="py-12 md:py-28 bg-primary-2">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
