@@ -125,6 +125,10 @@
     @apply bg-background text-foreground;
   }
 }
+/* google translate */
+iframe#\:1\.container {
+  display: none !important;
+}
 
 /* events calendar */
 
