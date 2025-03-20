@@ -13,7 +13,6 @@ import { Label } from "@/components/shadcn/label";
 import { Input } from "@/components/shadcn/input";
 import { Search } from "@/components/icons";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useDebounceCallback } from "usehooks-ts";
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
 import { allUpcomingEventsData, events } from "../../constant";
 import EventCard from "@/components/shadcn/event-card";
@@ -32,10 +31,10 @@ const EventsArea = () => {
   console.log(searchParams.get("type"));
 
   // Debounced search value
-  const debouncedSearch = useDebounceCallback((value: string) => {
+  const handleSearch = (value: string) => {
     setSearch(value);
     updateUrlParams("event", value);
-  }, 50);
+  };
 
   // Function to update URL parameters
   const updateUrlParams = (key: string, value: string | null) => {
@@ -113,7 +112,7 @@ const EventsArea = () => {
               classes={{ root: "hidden md:block w-7/12 justify-self-end" }}
               endIcon={<Search className="text-gray-7" />}
               value={search}
-              onChange={(event) => debouncedSearch(event.target.value)}
+              onChange={(event) => handleSearch(event.target.value)}
             />
             <div className="flex gap-2 md:hidden">
               <SearchDrawer
