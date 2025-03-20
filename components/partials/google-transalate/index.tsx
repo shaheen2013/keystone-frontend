@@ -1,23 +1,46 @@
 "use client";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/shadcn/accordion";
+
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 
-export default function GoogleTranslate() {
-  // const [selectedLang, setSelectedLang] = useState("en");
+declare global {
+  interface Window {
+    google?: {
+      translate: {
+        TranslateElement: new (options: object, containerId: string) => void;
+      };
+    };
+    googleTranslateElementInit?: () => void;
+  }
+}
 
-  // // Handle language selection from the custom dropdown
-  // const handleTranslate = (lang: string) => {
-  //   setSelectedLang(lang);
-  // };
+export default function GoogleTranslate() {
   const scriptRef = useRef<HTMLScriptElement | null>(null);
-  const translateRef = useRef<HTMLElement | null>(null);
+  const translateRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     let timeoutId: any;
 
-    if (!(translateRef.current?.childNodes.length > 0)) {
+    if (!(translateRef.current?.childNodes?.length ?? 0 > 0)) {
       function activateTranslate() {
-        //add script
+        // Define googleTranslateElementInit globally
+        window.googleTranslateElementInit = function () {
+          if (translateRef.current) {
+            new window.google!.translate.TranslateElement(
+              {},
+              "google_translate_element"
+            );
+          }
+        };
+
+        // Add script dynamically if not added already
         if (!scriptRef.current) {
           const addScript = document.createElement("script");
           addScript.src =
@@ -26,20 +49,8 @@ export default function GoogleTranslate() {
           document.body.appendChild(addScript);
         }
 
-        //activate translate - only works once
-        if (
-          !(translateRef.current?.childNodes.length > 0) &&
-          window.google?.translate
-        ) {
-          window.googleTranslateElementInit =
-            new window.google.translate.TranslateElement(
-              {},
-              "google_translate_element"
-            );
-        }
-
-        //reset if not finished
-        if (!translateRef.current?.childNodes.length > 0) {
+        // Retry if translation is not initialized
+        if (!(translateRef.current?.childNodes?.length ?? 0 > 0)) {
           timeoutId = setTimeout(() => {
             activateTranslate();
           }, 1000);
@@ -50,13 +61,13 @@ export default function GoogleTranslate() {
     }
 
     return () => clearTimeout(timeoutId);
-  }, [scriptRef]);
+  }, []);
 
   return (
     <div className="translate-container">
       {/* Google Translate UI */}
       <div className="border-primary-2 border rounded-xl mb-4">
-        {/* <Accordion type="single" collapsible className="w-full">
+        <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1" className="last:border-b-0">
             <AccordionTrigger className="px-3 py-3">
               <div className="flex items-center justify-between gap-3">
@@ -73,35 +84,9 @@ export default function GoogleTranslate() {
               </div>
             </AccordionTrigger>
 
-            <AccordionContent className="border-t border-primary-2 px-4 py-4">
-              <div>
-                <Select onValueChange={handleTranslate} value={selectedLang}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Language" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {languageOptions.map((option, index) => (
-                        <SelectItem value={option.slug} key={index}>
-                          <div className="flex items-center gap-3">
-                            <Image
-                              src={option.icon}
-                              width={20}
-                              height={16}
-                              alt={`${option.name} Flag`}
-                              className="w-5 h-4 rounded"
-                            />
-                            {option.name}
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-            </AccordionContent>
+            <AccordionContent className="border-t border-primary-2 px-4 py-4"></AccordionContent>
           </AccordionItem>
-        </Accordion> */}
+        </Accordion>
         <div ref={translateRef} id="google_translate_element"></div>
       </div>
     </div>
