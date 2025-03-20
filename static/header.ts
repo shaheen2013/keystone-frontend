@@ -88,8 +88,8 @@ export const menuOptions: MenuOptions[] = [
     items: resourceItems,
   },
   {
-    name: "Blog",
-    href: "/blog",
+    name: "Blogs",
+    href: "/blogs",
   },
   {
     name: "Why us",

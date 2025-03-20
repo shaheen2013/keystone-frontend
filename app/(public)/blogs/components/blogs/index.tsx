@@ -16,7 +16,6 @@ import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useDebounceCallback } from "usehooks-ts";
 
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
 
@@ -30,11 +29,10 @@ const Blogs = ({ data }: { data: any }) => {
   );
   const [page, setPage] = useState(searchParams.get("page") || 1);
 
-  // Debounced search value
-  const debouncedSearch = useDebounceCallback((value: string) => {
+  const handleSearch = (value: string) => {
     setSearch(value);
     updateUrlParams("search", value);
-  }, 100);
+  };
 
   // Function to update URL parameters
   const updateUrlParams = (key: string, value: string | null) => {
@@ -67,7 +65,7 @@ const Blogs = ({ data }: { data: any }) => {
               placeholder="Search by blog name"
               endIcon={<Search className="text-gray-7 size-6" />}
               value={search}
-              onChange={(event) => debouncedSearch(event.target.value)}
+              onChange={(event) => handleSearch(event.target.value)}
             />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
