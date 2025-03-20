@@ -20,6 +20,7 @@ import { Slider } from "@/components/shadcn/slider";
 import { Switch } from "@/components/shadcn/switch";
 import { Button } from "@/components/shadcn/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/shadcn/sheet";
+import GoogleTranslate from "../google-transalate";
 
 export default function Accessibility() {
   type Options = {
@@ -617,7 +618,7 @@ export default function Accessibility() {
                   </div>
                 </div>
               </div>
-              {/* <GoogleTranslate /> */}
+              <GoogleTranslate />
             </div>
           </div>
 
