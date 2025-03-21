@@ -58,45 +58,16 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
       <div className="absolute bottom-0 left-0 right-0 backdrop-blur-lg bg-[#141F1FB2] p-8">
         {/* star */}
         <div className="flex items-center space-x-1 mb-4">
-          <Image
-            src="/icons/star.svg"
-            alt="star"
-            width={20}
-            height={20}
-            className="h-5 w-5"
-          />
-
-          <Image
-            src="/icons/star.svg"
-            alt="star"
-            width={20}
-            height={20}
-            className="h-5 w-5"
-          />
-
-          <Image
-            src="/icons/star.svg"
-            alt="star"
-            width={20}
-            height={20}
-            className="h-5 w-5"
-          />
-
-          <Image
-            src="/icons/star.svg"
-            alt="star"
-            width={20}
-            height={20}
-            className="h-5 w-5"
-          />
-
-          <Image
-            src="/icons/star.svg"
-            alt="star"
-            width={20}
-            height={20}
-            className="h-5 w-5"
-          />
+          {Array.from({ length: 5 }).map((_, index) => (
+            <Image
+              key={index}
+              src="/icons/star.svg"
+              alt="star"
+              width={20}
+              height={20}
+              className="h-5 w-5"
+            />
+          ))}
         </div>
 
         {/* description */}
@@ -117,14 +88,20 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
           {/* arrow */}
           <div className="flex gap-x-8">
             <button
-              className="border border-white h-14 w-14 rounded-full flex items-center justify-center"
+              className="border border-white h-14 w-14 rounded-full flex items-center justify-center hover:border-secondary-6 hover:bg-secondary-6 disabled:pointer-events-none disabled:opacity-50"
               onClick={() => api?.scrollPrev()}
+              type="button"
+              disabled={current == 1}
+              title="Previous slide"
             >
               <ArrowLeft size={24} stroke="#fff" />
             </button>
             <button
-              className="border border-secondary-6 h-14 w-14 rounded-full flex items-center justify-center bg-secondary-6"
+              className="border border-white  h-14 w-14 rounded-full flex items-center justify-center  hover:border-secondary-6 hover:bg-secondary-6 disabled:pointer-events-none disabled:opacity-50"
               onClick={() => api?.scrollNext()}
+              disabled={current === carouselContent.length}
+              type="button"
+              title="Next slide"
             >
               <ArrowRight size={24} stroke="#fff" />
             </button>

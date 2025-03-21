@@ -249,7 +249,8 @@ export default function SignupForm() {
       </div>
 
       <p className="text-gray-9 lg:text-base text-xs font-medium py-6 lg:mt-0 mt-8">
-        © 2025 Keystone Ability Support. All Rights Reserved.
+        © {new Date().getFullYear()} Keystone Ability Support. All Rights
+        Reserved.
       </p>
     </div>
   );
