@@ -86,8 +86,8 @@ export default function GoogleTranslate() {
 
             <AccordionContent className="border-t border-primary-2 px-4 py-4"></AccordionContent>
           </AccordionItem>
+          <div ref={translateRef} id="google_translate_element"></div>
         </Accordion>
-        <div ref={translateRef} id="google_translate_element"></div>
       </div>
     </div>
   );

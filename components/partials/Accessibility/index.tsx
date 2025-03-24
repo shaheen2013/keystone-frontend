@@ -12,15 +12,15 @@ import {
 import {
   Accordion,
   AccordionItem,
-  AccordionContent,
   AccordionTrigger,
+  AccordionContent,
 } from "@/components/shadcn/accordion";
-
 import { Slider } from "@/components/shadcn/slider";
 import { Switch } from "@/components/shadcn/switch";
 import { Button } from "@/components/shadcn/button";
+
+import GoogleTranslate from "@/components/partials/google-transalate";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/shadcn/sheet";
-import GoogleTranslate from "../google-transalate";
 
 export default function Accessibility() {
   type Options = {
@@ -33,6 +33,7 @@ export default function Accessibility() {
     increaseContrast: boolean;
     textSize: number[];
     magnification: boolean;
+    textToSpeech: boolean;
     googleTranslate: string;
   };
 
@@ -46,6 +47,7 @@ export default function Accessibility() {
     increaseContrast: false,
     textSize: [4],
     magnification: false,
+    textToSpeech: false,
     googleTranslate: "",
   });
 
@@ -74,8 +76,9 @@ export default function Accessibility() {
 
   useEffect(() => {
     const settings: Options = getAccessibilifySettings();
-    const root = document.getElementById("root") as HTMLElement;
+
     const body = document.body as HTMLElement;
+    const root = document.getElementById("root") as HTMLElement;
 
     if (settings.colorBlind) {
       setOptions((prev) => ({ ...prev, colorBlind: settings.colorBlind }));
@@ -326,6 +329,19 @@ export default function Accessibility() {
     root.classList.toggle(accessibilityClasses.magnification);
   };
 
+  const handleTextToSpeech = (event: any) => {
+    setOptions({ ...options, textToSpeech: event });
+    saveAccessibilifySetting("textToSpeech", event);
+
+    const utterance = new SpeechSynthesisUtterance("hello world");
+
+    if (event) {
+      window.speechSynthesis.speak(utterance);
+    } else {
+      window.speechSynthesis.cancel();
+    }
+  };
+
   const handleReset = () => {
     localStorage.removeItem("accessibilitySettings");
 
@@ -390,10 +406,11 @@ export default function Accessibility() {
           aria-describedby={undefined}
           id="accessibility-menu"
         >
-          {/* todo: ignore this component */}
-          <DialogTitle>
-            {/* Intentional DialogTitle component because to remove shadcn error */}
-          </DialogTitle>
+          {/* 
+            ignore DialogTitle component
+            Intentional DialogTitle component because to remove shadcn error 
+          */}
+          <DialogTitle></DialogTitle>
 
           {/* content */}
           <div className="flex-1">
@@ -503,12 +520,7 @@ export default function Accessibility() {
 
               {/* display & text size accordion */}
               <div className="border-primary-2 border rounded-xl mb-4">
-                <Accordion
-                  type="single"
-                  collapsible
-                  className="w-full"
-                  // value="item-1"
-                >
+                <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value={`item-1`} className="last:border-b-0">
                     <AccordionTrigger className="px-3 py-3">
                       <div className="flex items-center justify-between gap-3">
@@ -606,7 +618,7 @@ export default function Accessibility() {
                 <div className="p-3 flex justify-between items-center">
                   <div className="flex items-center gap-3">
                     <Image
-                      src="/icons/color.svg"
+                      src="/icons/search-box.svg"
                       width={20}
                       height={20}
                       alt="Accessibility"
@@ -626,6 +638,34 @@ export default function Accessibility() {
                   </div>
                 </div>
               </div>
+
+              {/* text to speech */}
+              <div className="border-primary-2 border rounded-xl mb-4">
+                <div className="p-3 flex justify-between items-center">
+                  <div className="flex items-center gap-3">
+                    <Image
+                      src="/icons/text-speech.svg"
+                      width={20}
+                      height={20}
+                      alt="Accessibility"
+                      className="w-10 h-10"
+                    />
+
+                    <span className="font-semibold text-gray-9 text-base">
+                      Text to Speech
+                    </span>
+                  </div>
+
+                  <div className="mr-[2px]">
+                    <Switch
+                      checked={options.textToSpeech}
+                      onCheckedChange={handleTextToSpeech}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* google translate */}
               <GoogleTranslate />
             </div>
           </div>
