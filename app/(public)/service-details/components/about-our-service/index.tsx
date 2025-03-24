@@ -1,11 +1,4 @@
-"use client";
-
-import { Play } from "@/components/icons";
-import dynamic from "next/dynamic";
-
-const ReactPlayer = dynamic(() => import("react-player/youtube"), {
-  ssr: false,
-});
+import YoutubeVideoPlayer from "@/components/partials/youtube-player";
 
 const AboutOurService = ({ data }: { data: any }) => {
   const { url, title, description } = data;
@@ -19,15 +12,7 @@ const AboutOurService = ({ data }: { data: any }) => {
           <p className="mb-8 md:mb-12 text-base md:text-xl">{description}</p>
         </div>
         <div className="max-w-[776px] w-full min-h-60">
-          <ReactPlayer
-            url={url}
-            loop
-            playIcon={<Play className="size-16 md:size-24 " />}
-            controls
-            light
-            width="100%"
-            height="100%"
-          />
+          <YoutubeVideoPlayer url={url} />
         </div>
       </div>
     </section>
