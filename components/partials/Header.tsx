@@ -25,6 +25,11 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/shadcn/navigation-menu";
 import { Button } from "@/components/shadcn/button";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/shadcn/avatar";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -91,15 +96,30 @@ export default function Header() {
 
         {/* Right - Login Button */}
         <div className="flex items-center">
-          <Button asChild variant="link" className="hidden lg:flex">
-            <Link href="/login" className="">
-              Login
-            </Link>
-          </Button>
+          {true ? (
+            <div className="hidden md:flex items-center gap-3">
+              <Avatar className="rounded-xl">
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="Jon Doe"
+                />
+                <AvatarFallback className="rounded-xl" />
+              </Avatar>
+              <h4 className="text-gray-9 text-xl font-medium">Jon Doe</h4>
+            </div>
+          ) : (
+            <>
+              <Button asChild variant="link" className="hidden lg:flex">
+                <Link href="/login" className="">
+                  Login
+                </Link>
+              </Button>
 
-          <Button asChild className="hidden lg:flex" variant="secondary">
-            <Link href="/signup">Signup</Link>
-          </Button>
+              <Button asChild className="hidden lg:flex" variant="secondary">
+                <Link href="/signup">Signup</Link>
+              </Button>
+            </>
+          )}
 
           {/* Mobile Menu */}
           <Button asChild className="lg:hidden mr-4" variant="secondary">
