@@ -15,7 +15,7 @@ const WhyKeystoneSection = ({ data }: { data: any }) => {
     <section className="py-12 md:py-28 bg-primary-2">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
         <div className="max-w-[776px] w-full min-h-60 ">
-          <YoutubeVideoPlayer url={vedioUrl} /><YoutubeVideoPlayer url={vedioUrl} />
+          <YoutubeVideoPlayer url={vedioUrl} />
         </div>
         <div className="flex flex-col items-start justify-center text-gray-9">
           <h3 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold">

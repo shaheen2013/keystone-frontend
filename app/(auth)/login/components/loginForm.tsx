@@ -7,6 +7,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Button } from "@/components/shadcn/button";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Input, InputPassword } from "@/components/shadcn/input";
+import { GSign } from "@/components/partials/social-signin";
 
 export default function LoginForm() {
   type FormValues = {
@@ -175,19 +176,7 @@ export default function LoginForm() {
             <div className="flex-1 border-t border-primary-3"></div>
           </div>
 
-          <Button
-            className="w-full bg-white border border-primary-3 mb-4"
-            variant="ghost"
-          >
-            <Image
-              src="/assets/auth/google.svg"
-              alt="google"
-              width={24}
-              height={24}
-              className="h-6 w-6"
-            />
-            Sign in with Google
-          </Button>
+          <GSign />
 
           <div className="flex justify-center">
             <p className="lg:text-base text-sm">
