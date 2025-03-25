@@ -333,12 +333,12 @@ export default function Accessibility() {
     setOptions({ ...options, textToSpeech: event });
     saveAccessibilifySetting("textToSpeech", event);
 
-    const utterance = new SpeechSynthesisUtterance("hello world");
+    // const utterance = new SpeechSynthesisUtterance("hello world");
 
     if (event) {
-      window.speechSynthesis.speak(utterance);
+      // window.speechSynthesis.speak(utterance);
     } else {
-      window.speechSynthesis.cancel();
+      // window.speechSynthesis.cancel();
     }
   };
 
