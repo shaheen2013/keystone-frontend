@@ -165,6 +165,14 @@ export default function Accessibility() {
         root.classList.add(accessibilityClasses.textSize[8]);
       }
     }
+
+    if (settings.magnification) {
+      setOptions((prev) => ({
+        ...prev,
+        magnification: settings.magnification,
+      }));
+      root?.classList.add(accessibilityClasses.magnification);
+    }
   }, []);
 
   const handleAccessibilityRender = (event: any) => {
