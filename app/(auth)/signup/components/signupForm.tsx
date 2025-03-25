@@ -7,12 +7,17 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Button } from "@/components/shadcn/button";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Input, InputPassword } from "@/components/shadcn/input";
+import { useRegisterMutation } from "@/features/auth/authSlice";
+import GoogleSignIn from "@/components/partials/social-signin/google";
+import { error } from "console";
 
 export default function SignupForm() {
+  const [register, { isLoading }] = useRegisterMutation();
   type FormValues = {
     name: string;
     email: string;
     password: string;
+    confirmPassword: string;
     termsAndCondition: boolean;
   };
 
@@ -21,12 +26,25 @@ export default function SignupForm() {
       name: "",
       email: "",
       password: "",
+      confirmPassword: "",
       termsAndCondition: false,
     },
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+    const payload = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      password_confirmation: data.confirmPassword,
+      accept: data.termsAndCondition,
+    };
+    try {
+      const res = register(payload).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -40,7 +58,7 @@ export default function SignupForm() {
               alt="logo"
               width={150}
               height={65}
-              className="lg:w-[150px] w-[120px] lg:h-[65px] h-[50px]"
+              className="lg:w-[150px] w-[120px]"
               priority
             />
           </div>
@@ -118,6 +136,7 @@ export default function SignupForm() {
                       onBlur={onBlur}
                       value={value}
                       errorText={error?.message}
+                      type="email"
                     />
                   )}
                 />
@@ -157,6 +176,39 @@ export default function SignupForm() {
                 )}
               />
             </div>
+            {/* confirm password */}
+            <div className="mb-3">
+              <Controller
+                control={control}
+                name="confirmPassword"
+                rules={{
+                  required: "Confirm Password is required",
+                  minLength: { value: 8, message: "Minimum length is 8" },
+                  maxLength: { value: 100, message: "Maximum length is 100" },
+                }}
+                render={({
+                  field: { onChange, value, onBlur },
+                  fieldState: { error },
+                }) => (
+                  <div>
+                    <label
+                      htmlFor="confirmPassword"
+                      className="text-base text-gray-9 mb-2"
+                    >
+                      Confirm Password
+                    </label>
+                    <InputPassword
+                      className="bg-white"
+                      placeholder="********"
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      value={value}
+                      errorText={error?.message}
+                    />
+                  </div>
+                )}
+              />
+            </div>
 
             {/* remember/forget password */}
             <div className="lg:mb-8 mb-6 flex justify-between">
@@ -164,7 +216,11 @@ export default function SignupForm() {
                 <Controller
                   control={control}
                   name="termsAndCondition"
-                  render={({ field: { onChange, value, onBlur } }) => (
+                  rules={{ required: "Agree to terms and conditions" }}
+                  render={({
+                    field: { onChange, value, onBlur },
+                    fieldState: { error },
+                  }) => (
                     <Checkbox
                       id="termsAndCondition"
                       variant="secondary"
@@ -212,7 +268,7 @@ export default function SignupForm() {
             </div>
 
             {/* submit */}
-            <Button variant="secondary" className="w-full" loading={false}>
+            <Button variant="secondary" className="w-full" loading={isLoading}>
               Sign Up
             </Button>
           </form>
@@ -223,19 +279,7 @@ export default function SignupForm() {
             <div className="flex-1 border-t border-primary-3"></div>
           </div>
 
-          <Button
-            className="w-full bg-white border border-primary-3 mb-4"
-            variant="ghost"
-          >
-            <Image
-              src="/assets/auth/google.svg"
-              alt="google"
-              width={24}
-              height={24}
-              className="h-6 w-6"
-            />
-            Sign in with Google
-          </Button>
+          <GoogleSignIn />
 
           <div className="flex justify-center">
             <p className="lg:text-base text-sm">

@@ -55,6 +55,13 @@ export const authSlice = apiSlice.injectEndpoints({
     //     body: data,
     //   }),
     // }),
+    register: builder.mutation({
+      query: (data: any) => ({
+        url: `/register`,
+        method: "POST",
+        body: data,
+      }),
+    }),
     googleRedirectUrl: builder.query({
       query: () => ({
         url: "/google/redirect",
@@ -80,4 +87,5 @@ export const {
   // useOnboardingMutation,
   useLazyGoogleRedirectUrlQuery,
   useGoogleCallbackMutation,
+  useRegisterMutation,
 } = authSlice;

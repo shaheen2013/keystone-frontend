@@ -3,14 +3,15 @@ import { useLazyGoogleRedirectUrlQuery } from "@/features/auth/authSlice";
 
 import Image from "next/image";
 
-const GSign = () => {
-  const [googleRedirectUrl, { data, isLoading }] =
-    useLazyGoogleRedirectUrlQuery();
+const GoogleSignIn = () => {
+  const [googleRedirectUrl, { isLoading }] = useLazyGoogleRedirectUrlQuery();
   const handleGoogleSignIn = async () => {
     if (isLoading) return;
     try {
-      await googleRedirectUrl({}).unwrap();
-      window.open(data?.url, "_blank", "height=500,width=500");
+      const data = await googleRedirectUrl().unwrap();
+      console.log("data", data);
+      console.log("url", data.url);
+      window.open(data.data.url, "_blank", "height=500,width=500");
     } catch (error) {
       console.log(error);
     }
@@ -33,4 +34,4 @@ const GSign = () => {
   );
 };
 
-export default GSign;
+export default GoogleSignIn;

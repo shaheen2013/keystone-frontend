@@ -1,3 +1,5 @@
+"use client";
+
 import { useGoogleCallbackMutation } from "@/features/auth/authSlice";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useCallback } from "react";
@@ -13,7 +15,12 @@ const GoogleCallback = () => {
   const sendRequest = useCallback(async () => {
     if (!code || !scope || !authuser || !prompt) return;
     try {
-      await googleCallback({ code, scope, authuser, prompt }).unwrap();
+      await googleCallback({
+        code,
+        scope,
+        authuser,
+        prompt,
+      }).unwrap();
     } catch (error) {
       console.log(error);
     }
