@@ -9,7 +9,6 @@ import { Checkbox } from "@/components/shadcn/checkbox";
 import { Input, InputPassword } from "@/components/shadcn/input";
 import { useRegisterMutation } from "@/features/auth/authSlice";
 import GoogleSignIn from "@/components/partials/social-signin/google";
-import { error } from "console";
 
 export default function SignupForm() {
   const [register, { isLoading }] = useRegisterMutation();

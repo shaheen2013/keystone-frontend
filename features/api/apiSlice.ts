@@ -5,11 +5,22 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || "",
     mode: "cors",
-    // prepareHeaders: (headers, { getState }) => {
-    //     // headers.set('authorization', `Bearer ${getState().authToken.token || localStorage.getItem('access_token')}`);
-    //     headers.set('authorization', `Bearer ${localStorage.getItem('token')}`);
-    //     return headers
-    // },
+    prepareHeaders: (headers) => {
+      // headers.set(
+      //   "authorization",
+      //   `Bearer ${
+      //     getState().authToken.token ||
+      //     localStorage.getItem("access_token") ||
+      //     ""
+      //   }`
+      // );
+      headers.set("Content-Type", "application/json");
+      headers.set("Access-Control-Allow-Origin", "*");
+      headers.set("accept", "application/json");
+
+      return headers;
+    },
+
     credentials: "include",
   }),
   endpoints: () => ({}),

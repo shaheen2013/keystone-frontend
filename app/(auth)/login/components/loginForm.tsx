@@ -8,8 +8,10 @@ import { Button } from "@/components/shadcn/button";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Input, InputPassword } from "@/components/shadcn/input";
 import { GSign } from "@/components/partials/social-signin";
+import { useLoginMutation } from "@/features/auth/authSlice";
 
 export default function LoginForm() {
+  const [login, { isLoading }] = useLoginMutation();
   type FormValues = {
     email: string;
     password: string;
@@ -25,7 +27,8 @@ export default function LoginForm() {
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+    const res = login(data).unwrap();
+    console.log(res);
   };
 
   return (
@@ -79,6 +82,7 @@ export default function LoginForm() {
                     fieldState: { error },
                   }) => (
                     <Input
+                      type="email"
                       classes={{ input: "bg-white" }}
                       placeholder="Enter email address"
                       onChange={onChange}
@@ -165,7 +169,7 @@ export default function LoginForm() {
             </div>
 
             {/* submit */}
-            <Button variant="secondary" className="w-full" loading={false}>
+            <Button variant="secondary" className="w-full" loading={isLoading}>
               Login
             </Button>
           </form>
@@ -190,7 +194,8 @@ export default function LoginForm() {
       </div>
 
       <p className="text-gray-9 lg:text-base text-xs font-medium py-6 lg:mt-0 mt-8">
-        © 2025 Keystone Ability Support. All Rights Reserved.
+        © {new Date().getFullYear()} Keystone Ability Support. All Rights
+        Reserved.
       </p>
     </div>
   );
