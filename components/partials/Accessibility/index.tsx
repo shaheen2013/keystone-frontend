@@ -74,6 +74,7 @@ export default function Accessibility() {
     magnification: "magnification",
   };
 
+  // persist accessibility settings
   useEffect(() => {
     const settings: Options = getAccessibilifySettings();
 
@@ -177,6 +178,43 @@ export default function Accessibility() {
       root?.classList.add(accessibilityClasses.magnification);
     }
   }, []);
+
+  // handle text to speech
+  useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      const target = event.target as Element | null;
+
+      console.log("target", target);
+
+      if (target && target.matches("h1, h2, h3, h4, h5, h6, p, span")) {
+        if (target.textContent) {
+          // console.log("Clicked text:", target.textContent.trim());
+
+          // Remove highlight from previous elements
+          document.querySelectorAll(".highlighted").forEach((el) => {
+            el.classList.remove("highlighted");
+          });
+
+          // Add highlight to the clicked element
+          target.classList.add("highlighted");
+
+          // remove highlight after 2 seconds
+          setTimeout(() => {
+            target.classList.remove("highlighted");
+          }, 2000);
+        }
+      }
+    };
+
+    // Attach event listener
+    document.addEventListener("click", handleClick);
+
+    // Cleanup function to remove event listener
+    return () => {
+      document.removeEventListener("click", handleClick);
+      console.log("Cleanup: Event listener removed");
+    };
+  }, [options.textToSpeech]);
 
   const handleAccessibilityRender = (event: any) => {
     if (!event) {
@@ -402,7 +440,7 @@ export default function Accessibility() {
         </SheetTrigger>
 
         <SheetContent
-          className="flex flex-col overflow-y-scroll min-w-[460px] p-8"
+          className="flex flex-col overflow-y-scroll min-w-[460px] p-8 "
           aria-describedby={undefined}
           id="accessibility-menu"
         >
