@@ -25,8 +25,8 @@ const Checkbox = React.forwardRef<CheckboxRef, CheckboxProps>(
 
     const clx = cn(
       "peer h-5 w-5 shrink-0 rounded-sm border-2 border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 overflow-hidden",
-      variant ? variantClasses[variant] : "",
-      className
+      className,
+      variant && variantClasses[variant]
     );
 
     const checkClx = cn("flex items-center justify-center");

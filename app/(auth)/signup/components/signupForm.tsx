@@ -227,6 +227,7 @@ export default function SignupForm() {
                       checked={value}
                       onCheckedChange={onChange}
                       onBlur={onBlur}
+                      className={error && "border-red-500"}
                     />
                   )}
                 />
