@@ -3,8 +3,17 @@ import Link from "next/link";
 import { ArrowRight } from "@/components/icons";
 import { ServiceDataType } from "./types";
 
-const ServiceSection = ({ data }: { data: ServiceDataType }) => {
+const ServiceSection = ({
+  data,
+  keyService,
+}: {
+  data: ServiceDataType;
+  keyService?: boolean;
+}) => {
   const { title, subtitle, services, cta } = data;
+  const filteredServices = keyService
+    ? services.filter((service: any) => service.keyService)
+    : services;
   return (
     <section className="container my-12 md:my-28 flex flex-col items-center">
       <h2 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9 text-center">
@@ -13,11 +22,11 @@ const ServiceSection = ({ data }: { data: ServiceDataType }) => {
       <p className="mb-6 md:mb-12 text-base md:text-2xl text-gray-8 text-center">
         {subtitle}
       </p>
-      <div className="mb-6 md:mb-12 grid md:grid-cols-3 gap-4 md:gap-8">
-        {services.map((service, index) => (
+      <div className="mb-6 md:mb-12 flex flex-col md:flex-row md:flex-wrap justify-center gap-4 md:gap-8">
+        {filteredServices.map((service, index) => (
           <div
             key={index}
-            className="bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start"
+            className="bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start max-w-[512px] w-full"
           >
             <div className="p-4 rounded-xl bg-white text-secondary-6">
               <service.icon />
@@ -45,9 +54,11 @@ const ServiceSection = ({ data }: { data: ServiceDataType }) => {
           </div>
         ))}
       </div>
-      <Button variant="secondary" size="lg" asChild>
-        <Link href={cta.url}>{cta.text}</Link>
-      </Button>
+      {keyService && (
+        <Button variant="secondary" size="lg" asChild>
+          <Link href={cta.url}>{cta.text}</Link>
+        </Button>
+      )}
     </section>
   );
 };

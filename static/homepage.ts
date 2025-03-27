@@ -35,6 +35,7 @@ export const serviceData = {
     "Comprehensive Services for Families with Children with Special Needs",
   services: [
     {
+      keyService: true,
       icon: EducationAdvocacy,
       title: "Special Education Advocacy and Support",
       description:
@@ -43,6 +44,7 @@ export const serviceData = {
       linkUrl: "/services/special-education",
     },
     {
+      keyService: true,
       icon: Assessment,
       title: "Individualized Needs Assessment",
       description:
@@ -51,6 +53,25 @@ export const serviceData = {
       linkUrl: "/services/needs-assessment",
     },
     {
+      keyService: false,
+      icon: ResourceCoordination,
+      title: "Resource Coordination",
+      description:
+        "Navigating services for children with disabilities can be overwhelming. We help families connect with the right resources—whether it’s early intervention services, special education programs, or support groups.",
+      linkText: "View Details",
+      linkUrl: "/services/resource-coordination",
+    },
+    {
+      keyService: false,
+      icon: Assessment,
+      title: "Individualized Needs Assessment",
+      description:
+        "Our team conducts thorough evaluations to assess your child’s educational, therapeutic, and social needs. Based on this, we develop a customized plan to meet their unique needs.",
+      linkText: "View Details",
+      linkUrl: "/services/needs-assessment",
+    },
+    {
+      keyService: true,
       icon: ResourceCoordination,
       title: "Resource Coordination",
       description:

@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <>
       <HeroSection data={heroData} />
-      <ServiceSection data={serviceData} />
+      <ServiceSection data={serviceData} keyService />
       <WhyKeystoneSection data={WhyKeystoneData} />
       <UpComingEvents data={upcomingEventsData} />
       <KeyStoneAbilitySupport data={keystoneAbilitySupportData} />
