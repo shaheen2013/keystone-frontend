@@ -5,7 +5,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || "",
     mode: "cors",
-    prepareHeaders: (headers) => {
+    prepareHeaders: async (headers) => {
       // headers.set(
       //   "authorization",
       //   `Bearer ${
@@ -23,5 +23,6 @@ export const apiSlice = createApi({
 
     credentials: "include",
   }),
+  tagTypes: ["User"],
   endpoints: () => ({}),
 });

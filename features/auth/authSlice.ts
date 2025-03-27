@@ -55,6 +55,15 @@ export const authSlice = apiSlice.injectEndpoints({
     //     body: data,
     //   }),
     // }),
+    login: builder.mutation({
+      query: (data: any) => ({
+        url: `/login`,
+        method: "POST",
+        body: data,
+        formData: true,
+      }),
+    }),
+
     register: builder.mutation({
       query: (data: any) => ({
         url: `/register`,
@@ -62,13 +71,7 @@ export const authSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-    login: builder.mutation({
-      query: (data: any) => ({
-        url: `/login`,
-        method: "POST",
-        body: data,
-      }),
-    }),
+
     googleRedirectUrl: builder.query({
       query: () => ({
         url: "/google/redirect",
