@@ -1,17 +1,21 @@
+"use client";
+
+import PaginationWrapper from "@/components/partials/pagination-wrapper";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 export default function AccountSavedBlogs() {
+  const [page, setPage] = useState(1);
   return (
     <div className="bg-primary-1 rounded-2xl">
       <div className="font-semibold lg:text-2xl text-lg lg:py-6 lg:px-8 p-4  bg-primary-2 rounded-t-2xl">
-        Events
+        Saved Blogs
       </div>
 
       {/* content */}
       <div className="lg:p-8 p-4">
         {/* events */}
-        <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-6">
+        <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-6 mb-4 md:mb-6">
           {Array(5)
             .fill(0)
             .map((_, index) => {
@@ -66,6 +70,14 @@ export default function AccountSavedBlogs() {
               );
             })}
         </div>
+        <hr className="bg-primary-2 mb-4 md:mb-7" />
+        {/* pagination area */}
+        <PaginationWrapper
+          page={page}
+          setPage={setPage}
+          total={200}
+          className="col-span-full"
+        />
       </div>
     </div>
   );

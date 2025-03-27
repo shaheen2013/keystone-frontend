@@ -259,7 +259,7 @@ export const insightsAndStoriesData = {
   title: "Insights and Stories",
   cta: {
     text: "See All",
-    link: "#",
+    link: "/blogs",
   },
   articles: [
     {

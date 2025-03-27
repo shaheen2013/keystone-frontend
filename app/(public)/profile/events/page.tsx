@@ -1,16 +1,10 @@
 "use client";
 
-import {
-  Pagination,
-  PaginationLink,
-  PaginationItem,
-  PaginationNext,
-  PaginationEllipsis,
-  PaginationContent,
-  PaginationPrevious,
-} from "@/components/shadcn/pagination";
+import PaginationWrapper from "@/components/partials/pagination-wrapper";
+import { useState } from "react";
 
 export default function AccountEvents() {
+  const [page, setPage] = useState(1);
   type Event = {
     name: string;
     time: string;
@@ -35,7 +29,7 @@ export default function AccountEvents() {
       {/* content */}
       <div className="lg:p-8 p-4">
         {/* events */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 mb-4 md:mb-6">
           {events.map((event, index) => {
             return (
               <div
@@ -70,40 +64,14 @@ export default function AccountEvents() {
           })}
         </div>
 
-        <hr className="mt-6 mb-5" />
-
-        {/* pagination */}
-        <Pagination>
-          <PaginationContent className=" flex w-full justify-center">
-            <PaginationItem className="">
-              <PaginationPrevious href="#" />
-            </PaginationItem>
-
-            <div className="flex w-full justify-center gap-3">
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationLink href="#" isActive>
-                  2
-                </PaginationLink>
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationLink href="#">3</PaginationLink>
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-            </div>
-
-            <PaginationItem>
-              <PaginationNext href="#" />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+        <hr className="bg-primary-2 mb-4 md:mb-7" />
+        {/* pagination area */}
+        <PaginationWrapper
+          page={page}
+          setPage={setPage}
+          total={200}
+          className="col-span-full"
+        />
       </div>
     </div>
   );
