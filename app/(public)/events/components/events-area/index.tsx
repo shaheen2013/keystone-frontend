@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { EventContentArg } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
 import { eventTypes, INITIAL_EVENTS, services } from "./constant";
 import { Button } from "@/components/shadcn/button";
 import { Checkbox } from "@/components/shadcn/checkbox";
@@ -202,13 +200,12 @@ const EventsArea = () => {
             {/* calender area */}
             {!search && (
               <FullCalendar
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                plugins={[dayGridPlugin]}
                 headerToolbar={{
                   left: "prev,next",
-                  center: "title",
-                  right: "dayGridMonth,timeGridWeek,timeGridDay",
+                  right: "title",
                 }}
-                height="auto"
+                height="820px"
                 initialView="dayGridMonth"
                 selectable={true}
                 dayMaxEvents={true}
@@ -217,7 +214,7 @@ const EventsArea = () => {
                 eventClick={handleEventClick}
                 eventsSet={handleEvents}
                 eventTextColor="#2B2B2B"
-                dateClick={handleDateClick}
+                datesSet={handleDateClick}
               />
             )}
             <div className="block md:hidden">

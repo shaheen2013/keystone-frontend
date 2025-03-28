@@ -179,6 +179,11 @@
   border-radius: 12px !important;
 }
 
+.fc-toolbar-title {
+  font-weight: 600 !important;
+  font-size: 20px !important;
+  color: "#2B2B2B !important";
+}
 .fc .fc-daygrid-day-top {
   justify-content: center !important;
 }
@@ -208,12 +213,20 @@
   cursor: pointer;
 }
 
+.fc-popover-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 @media screen and (max-width: 768px) {
   .fc-daygrid-day-events {
     flex-direction: row !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
     align-items: center !important;
+    padding: 2px !important;
+    gap: 3px !important;
   }
   .fc-daygrid-event-harness {
     width: 6px !important;
@@ -221,23 +234,8 @@
     background-color: #f06143 !important;
     border-radius: 15px !important;
   }
-  .fc-header-toolbar.fc-toolbar {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    row-gap: 12px !important;
-  }
-
-  .fc-header-toolbar.fc-toolbar div:nth-child(3) {
-    grid-column: span 2 !important;
-  }
-  .fc-header-toolbar.fc-toolbar div:nth-child(2) {
-    text-align: right !important;
-  }
-  .fc-header-toolbar.fc-toolbar div:nth-child(3) {
-    text-align: center !important;
-  }
 
   .fc-header-toolbar.fc-toolbar .fc-toolbar-title {
-    font-size: 1em !important;
+    font-size: 16px !important;
   }
 }
