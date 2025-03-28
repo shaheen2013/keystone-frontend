@@ -4,14 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
+// components
 import { Button } from "@/components/shadcn/button";
 import { Checkbox } from "@/components/shadcn/checkbox";
-import { Input, InputPassword } from "@/components/shadcn/input";
 import { GSign } from "@/components/partials/social-signin";
 import { useLoginMutation } from "@/features/auth/authSlice";
+import { Input, InputPassword } from "@/components/shadcn/input";
 
 export default function LoginForm() {
   const [login, { isLoading }] = useLoginMutation();
+
   type FormValues = {
     email: string;
     password: string;
@@ -20,15 +22,33 @@ export default function LoginForm() {
 
   const { handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: "testuser@gmail.com",
+      password: "password",
       keepSigned: false,
     },
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const res = login(data).unwrap();
-    console.log(res);
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    // const res = login(data).unwrap();
+    // console.log(res);
+
+    try {
+      const payload = {
+        email: data.email,
+        password: data.password,
+      };
+
+      const { error, data: loginData } = await login(payload);
+
+      if (error) {
+        console.log("error", error);
+        // return;
+      }
+
+      console.log("loginData", loginData);
+    } catch (error) {
+      console.log("catch error", error);
+    }
   };
 
   return (
