@@ -172,6 +172,17 @@
   border: none !important;
 }
 
+.fc .fc-button-primary:hover {
+  background-color: #f06143 !important;
+  border: none !important;
+  color: white !important;
+}
+.fc .fc-button-primary:focus {
+  background-color: #f06143 !important;
+  border: none !important;
+  color: white !important;
+}
+
 .fc-toolbar {
   background-color: #f5f8f7 !important;
   padding: 8px !important;
@@ -191,13 +202,7 @@
   column-gap: 12px;
 }
 
-.fc-button-group button[aria-pressed="true"] {
-  box-shadow: none !important;
-  background-color: #f06143 !important;
-  color: white !important;
-}
-
-.fc-button-group button:focus {
+.fc-button-primary button[aria-pressed="true"] {
   box-shadow: none !important;
   background-color: #f06143 !important;
   color: white !important;

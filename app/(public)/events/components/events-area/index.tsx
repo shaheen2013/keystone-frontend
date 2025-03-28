@@ -202,8 +202,9 @@ const EventsArea = () => {
               <FullCalendar
                 plugins={[dayGridPlugin]}
                 headerToolbar={{
-                  left: "prev,next",
-                  right: "title",
+                  left: "prev",
+                  center: "title",
+                  right: "next",
                 }}
                 height="820px"
                 initialView="dayGridMonth"
