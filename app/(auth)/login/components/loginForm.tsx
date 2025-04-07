@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
 // components
@@ -12,42 +13,76 @@ import { useLoginMutation } from "@/features/auth/authSlice";
 import { Input, InputPassword } from "@/components/shadcn/input";
 
 export default function LoginForm() {
+  const router = useRouter();
   const [login, { isLoading }] = useLoginMutation();
 
   type FormValues = {
     email: string;
     password: string;
-    keepSigned: boolean;
+    remember: boolean;
   };
 
-  const { handleSubmit, control } = useForm<FormValues>({
+  interface LoginPayload {
+    email: string;
+    password: string;
+    remember: boolean;
+  }
+
+  interface LoginError {
+    data?: {
+      errors?: {
+        email?: string[];
+        password?: string[];
+      };
+    };
+  }
+
+  const { handleSubmit, control, setError } = useForm<FormValues>({
     defaultValues: {
-      email: "testuser@gmail.com",
-      password: "password",
-      keepSigned: false,
+      email: "",
+      password: "",
+      remember: false,
     },
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    // const res = login(data).unwrap();
-    // console.log(res);
+    const payload: LoginPayload = {
+      email: data.email,
+      password: data.password,
+      remember: data.remember,
+    };
 
     try {
-      const payload = {
-        email: data.email,
-        password: data.password,
-      };
-
-      const { error, data: loginData } = await login(payload);
+      const { error, data } = await login(payload);
 
       if (error) {
-        console.log("error", error);
-        // return;
+        handleAuthError(error as LoginError);
+        return;
       }
+      if (data.success) {
+        localStorage.setItem("key_stone_token", data.data.access_token);
+        router.push("/");
+      }
+    } catch (error) {}
+  };
 
-      console.log("loginData", loginData);
-    } catch (error) {
-      console.log("catch error", error);
+  const handleAuthError = (error: LoginError) => {
+    const errors = error?.data?.errors;
+
+    if (!errors) return;
+
+    if (errors.email?.length) {
+      setError("email", {
+        type: "manual",
+        message: errors.email.join(", "),
+      });
+    }
+
+    if (errors.password?.length) {
+      setError("password", {
+        type: "manual",
+        message: errors.password.join(", "),
+      });
     }
   };
 
@@ -154,10 +189,10 @@ export default function LoginForm() {
               <div className="flex items-center gap-2">
                 <Controller
                   control={control}
-                  name="keepSigned"
+                  name="remember"
                   render={({ field: { onChange, value, onBlur } }) => (
                     <Checkbox
-                      id="keepSigned"
+                      id="remember"
                       variant="secondary"
                       checked={value}
                       onCheckedChange={onChange}
@@ -166,7 +201,7 @@ export default function LoginForm() {
                   )}
                 />
 
-                <label htmlFor="keepSigned" className="lg:text-base text-sm">
+                <label htmlFor="remember" className="lg:text-base text-sm">
                   Keep me signed in.
                 </label>
               </div>
