@@ -30,9 +30,27 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/shadcn/avatar";
+import { useMeQuery } from "@/features/auth/authSlice";
+
+interface User {
+  data: {
+    avatar: string;
+    name: string;
+  };
+}
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const {
+    data: currentUser,
+    isLoading,
+    isFetching,
+  } = useMeQuery({}) as {
+    data: User;
+    isLoading: boolean;
+    isFetching: boolean;
+  };
+  console.log("user", currentUser);
 
   return (
     <header className="border-b sticky top-0 bg-white z-10">
@@ -96,18 +114,22 @@ export default function Header() {
 
         {/* Right - Login Button */}
         <div className="flex items-center">
-          {true ? (
+          {!isLoading && !isFetching && currentUser && (
             <div className="hidden md:flex items-center gap-3">
               <Avatar className="rounded-xl">
                 <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="Jon Doe"
+                  src={currentUser?.data?.avatar}
+                  alt={currentUser?.data?.name}
                 />
                 <AvatarFallback className="rounded-xl" />
               </Avatar>
-              <h4 className="text-gray-9 text-xl font-medium">Jon Doe</h4>
+              <h4 className="text-gray-9 text-xl font-medium max-w-36 truncate">
+                {currentUser?.data?.name}
+              </h4>
             </div>
-          ) : (
+          )}
+
+          {!isLoading && !isFetching && !currentUser && (
             <>
               <Button asChild variant="link" className="hidden lg:flex">
                 <Link href="/login" className="">

@@ -6,14 +6,13 @@ export const apiSlice = createApi({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || "",
     mode: "cors",
     prepareHeaders: async (headers) => {
-      // headers.set(
-      //   "authorization",
-      //   `Bearer ${
-      //     getState().authToken.token ||
-      //     localStorage.getItem("access_token") ||
-      //     ""
-      //   }`
-      // );
+      headers.set(
+        "authorization",
+        `Bearer ${
+          // getState().authToken.token ||
+          localStorage.getItem("key_stone_token") || ""
+        }`
+      );
       headers.set("Content-Type", "application/json");
       headers.set("Access-Control-Allow-Origin", "*");
       headers.set("accept", "application/json");

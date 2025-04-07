@@ -85,6 +85,10 @@ export const authSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+
+    me: builder.query({
+      query: () => "/user",
+    }),
   }),
 });
 
@@ -99,4 +103,5 @@ export const {
   useLazyGoogleRedirectUrlQuery,
   useGoogleCallbackMutation,
   useRegisterMutation,
+  useMeQuery,
 } = authSlice;
