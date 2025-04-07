@@ -15,7 +15,8 @@ export function saveAccessibilifySetting(
     | "bigCursor"
     | "increaseContrast"
     | "textSize"
-    | "magnification",
+    | "magnification"
+    | "textToSpeech",
   value: string | number[]
 ) {
   try {
