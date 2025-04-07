@@ -8,9 +8,11 @@ import { Button } from "@/components/shadcn/button";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Input, InputPassword } from "@/components/shadcn/input";
 import { useRegisterMutation } from "@/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 import GoogleSignIn from "@/components/partials/social-signin/google";
 
 export default function SignupForm() {
+  const router = useRouter();
   const [register, { isLoading }] = useRegisterMutation();
   type FormValues = {
     name: string;
@@ -20,7 +22,7 @@ export default function SignupForm() {
     termsAndCondition: boolean;
   };
 
-  const { handleSubmit, control } = useForm<FormValues>({
+  const { handleSubmit, control, setError } = useForm<FormValues>({
     defaultValues: {
       name: "",
       email: "",
@@ -30,7 +32,17 @@ export default function SignupForm() {
     },
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  interface SignUpError {
+    data?: {
+      errors?: {
+        email?: string[];
+        password?: string[];
+        password_confirmation?: string[];
+      };
+    };
+  }
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const payload = {
       name: data.name,
       email: data.email,
@@ -39,10 +51,41 @@ export default function SignupForm() {
       accept: data.termsAndCondition,
     };
     try {
-      const res = register(payload).unwrap();
-      console.log(res);
+      const res = await register(payload).unwrap();
+
+      if (res.success) {
+        localStorage.setItem("key_stone_token", res.data.access_token);
+        router.push("/");
+      }
     } catch (error) {
-      console.log(error);
+      handleAuthError(error as SignUpError);
+    }
+  };
+
+  const handleAuthError = (error: SignUpError) => {
+    const errors = error?.data?.errors;
+
+    if (!errors) return;
+
+    if (errors.email?.length) {
+      setError("email", {
+        type: "manual",
+        message: errors.email.join(", "),
+      });
+    }
+
+    if (errors.password?.length) {
+      setError("password", {
+        type: "manual",
+        message: errors.password.join(", "),
+      });
+    }
+
+    if (errors.password_confirmation?.length) {
+      setError("confirmPassword", {
+        type: "manual",
+        message: errors.password_confirmation.join(", "),
+      });
     }
   };
 
