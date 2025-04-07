@@ -53,17 +53,15 @@ export default function LoginForm() {
     };
 
     try {
-      const { error, data } = await login(payload);
+      const response = await login(payload).unwrap();
 
-      if (error) {
-        handleAuthError(error as LoginError);
-        return;
-      }
-      if (data.success) {
-        localStorage.setItem("key_stone_token", data.data.access_token);
+      if (response.success) {
+        localStorage.setItem("key_stone_token", response.data.access_token);
         router.push("/");
       }
-    } catch (error) {}
+    } catch (error) {
+      handleAuthError(error as LoginError);
+    }
   };
 
   const handleAuthError = (error: LoginError) => {
