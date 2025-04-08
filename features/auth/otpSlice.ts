@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const tokenSlice = createSlice({
-  name: "counter",
+export const otpSlice = createSlice({
+  name: "otp",
   initialState: null,
   reducers: {
-    setOtp: (state, action) => {
+    shareOtp: (state, action) => {
       return action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setOtp } = tokenSlice.actions;
+export const { shareOtp } = otpSlice.actions;
 
-export default tokenSlice.reducer;
+export default otpSlice.reducer;

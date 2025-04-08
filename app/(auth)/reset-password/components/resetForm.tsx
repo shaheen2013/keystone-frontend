@@ -3,18 +3,25 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useSearchParams } from "next/navigation";
 
 import Modal from "@/components/partials/Modal";
 import { Button } from "@/components/shadcn/button";
 import { InputPassword } from "@/components/shadcn/input";
 import { cn } from "@/lib/utils";
 import { useResetPasswordMutation } from "@/features/auth/authSlice";
+import { useSelector } from "react-redux";
 
 export default function ResetPasswordForm({
   className,
 }: {
   className?: string;
 }) {
+  const searchParams = useSearchParams();
+  const otp = useSelector((state: any) => state.otp);
+  console.log("redux otp", otp);
+  const email = searchParams.get("email");
+
   const [open, setOpen] = useState(false);
 
   type FormValues = {
@@ -31,9 +38,10 @@ export default function ResetPasswordForm({
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log(data);
+    const payload = { ...data, otp, email };
+    console.log("payload", payload);
     try {
-      const response = await resetPassword(data).unwrap();
+      const response = await resetPassword(payload).unwrap();
     } catch (error) {
       console.log(error);
     }
