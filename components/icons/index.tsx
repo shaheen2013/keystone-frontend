@@ -24,3 +24,5 @@ export { default as Person } from "./Person";
 export { default as Filter2 } from "./Filter2";
 export { default as HeartFilled } from "./HeartFilled";
 export { default as Share } from "./Share";
+export { default as Minus } from "./Minus";
+export { default as Plus } from "./Plus";

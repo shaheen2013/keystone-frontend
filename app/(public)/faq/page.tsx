@@ -4,7 +4,6 @@ import CenteredHero from "@/components/partials/Hero/centered-hero";
 import Support from "@/components/partials/support";
 import { supportSectionData } from "@/static/homepage";
 import Faqs from "./components/faqs";
-import { faqsData } from "./constant";
 
 export const metadata: Metadata = {
   title: "FAQs | Keystone",
@@ -16,7 +15,7 @@ export default function FaqsPage() {
   return (
     <>
       <CenteredHero data={heroData} />
-      <Faqs data={faqsData} />
+      <Faqs />
       <Support data={supportSectionData} />
     </>
   );
