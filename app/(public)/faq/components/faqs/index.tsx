@@ -35,7 +35,7 @@ const Faqs = () => {
             defaultValue={faqsData[0].id}
             className="max-w-6xl w-full mx-auto"
           >
-            <TabsList className="flex gap-2 md:gap-8">
+            <TabsList className="flex justify-start md:justify-center gap-2 md:gap-8">
               {faqsData.map((cat: any) => (
                 <TabsTrigger key={cat.id} value={cat.id}>
                   {cat.name}
