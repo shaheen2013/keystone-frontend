@@ -59,34 +59,36 @@ const Faqs = () => {
                         className="flex justify-between items-start gap-6 bg-gray-1 border border-gray-2 rounded-xl px-4 md:px-5 py-3 md:py-4 cursor-pointer"
                         onClick={() => handleToggle(faq.id)}
                       >
-                        <div className="flex flex-col gap-4">
-                          <h4 className="text-base md:text-xl font-bold text-gray-9">
-                            {faq.question}
-                          </h4>
+                        <div className="flex flex-col gap-4 w-full">
+                          <div className="flex justify-between items-center">
+                            <h4 className="text-base md:text-xl font-bold text-gray-9">
+                              {faq.question}
+                            </h4>
+                            {isOpen ? (
+                              <Minus
+                                className="text-gray-9 size-6 shrink-0"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleToggle(faq.id);
+                                }}
+                              />
+                            ) : (
+                              <Plus
+                                className="text-gray-9 size-7 shrik-0"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleToggle(faq.id);
+                                }}
+                              />
+                            )}
+                          </div>
+
                           {isOpen && (
                             <p className="text-gray-9 text-sm md:text-lg">
                               {faq.answer}
                             </p>
                           )}
                         </div>
-
-                        {isOpen ? (
-                          <Minus
-                            className="text-gray-9 size-6 shrink-0"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleToggle(faq.id);
-                            }}
-                          />
-                        ) : (
-                          <Plus
-                            className="text-gray-9 size-7 shrik-0"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleToggle(faq.id);
-                            }}
-                          />
-                        )}
                       </div>
                     );
                   })}
