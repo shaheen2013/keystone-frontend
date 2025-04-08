@@ -1,12 +1,17 @@
 import { apiSlice } from "@/features/api/apiSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
-const store = configureStore({
-    reducer: {
-        [apiSlice.reducerPath]: apiSlice.reducer,
-    },
-    middleware: getDefaultMiddleware =>
-        getDefaultMiddleware().concat(apiSlice.middleware)
-})
+import tokenSlice from "@/features/auth/tokenSlice";
 
-export default store
+const store = configureStore({
+  reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
+
+    // Add other reducers here if needed
+    token: tokenSlice,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
+});
+
+export default store;

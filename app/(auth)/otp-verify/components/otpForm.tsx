@@ -8,11 +8,18 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/shadcn/button";
 import { InputOTP, InputOTPSlot } from "@/components/shadcn/input-otp";
 import { cn } from "@/lib/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { setOtp } from "@/features/auth/tokenSlice";
 
 export default function OTPForm({ className }: { className?: string }) {
   type FormValues = {
     otp: string;
   };
+
+  const token = useSelector((state: any) => state.token);
+  const dispatch = useDispatch();
+
+  console.log(token, "token");
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -25,7 +32,9 @@ export default function OTPForm({ className }: { className?: string }) {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
-    router.push("/reset-password");
+    // router.push("/reset-password");
+
+    dispatch(setOtp("123"));
   };
 
   return (
