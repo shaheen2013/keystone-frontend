@@ -28,7 +28,9 @@ const Faqs = () => {
   return (
     <section className="bg-white py-12 md:py-28">
       <div className="container flex flex-col items-center gap-6 md:gap-12">
-        <h3 className="text-2xl md:text-5xl font-bold text-gray-9">FAQS</h3>
+        <h3 className="text-2xl md:text-5xl font-bold text-gray-9">
+          Frequently Asked Question
+        </h3>
 
         {faqsData.length > 0 && (
           <Tabs
