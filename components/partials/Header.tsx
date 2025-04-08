@@ -31,6 +31,7 @@ import {
   AvatarImage,
 } from "@/components/shadcn/avatar";
 import { useMeQuery } from "@/features/auth/authSlice";
+import ProfileMenu from "./Profile-menu";
 
 interface User {
   data: {
@@ -115,18 +116,7 @@ export default function Header() {
         {/* Right - Login Button */}
         <div className="flex items-center">
           {!isLoading && !isFetching && currentUser && (
-            <div className="hidden md:flex items-center gap-3">
-              <Avatar className="rounded-xl">
-                <AvatarImage
-                  src={currentUser?.data?.avatar}
-                  alt={currentUser?.data?.name}
-                />
-                <AvatarFallback className="rounded-xl" />
-              </Avatar>
-              <h4 className="text-gray-9 text-xl font-medium max-w-36 truncate">
-                {currentUser?.data?.name}
-              </h4>
-            </div>
+            <ProfileMenu currentUser={currentUser} />
           )}
 
           {!isLoading && !isFetching && !currentUser && (

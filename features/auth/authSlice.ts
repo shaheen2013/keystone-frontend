@@ -93,6 +93,13 @@ export const authSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    logout: builder.mutation({
+      query: () => ({
+        url: "/logout",
+        method: "POST",
+      }),
+    }),
+
     me: builder.query({
       query: () => "/user",
     }),
@@ -112,4 +119,5 @@ export const {
   useMeQuery,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useLogoutMutation,
 } = authSlice;
