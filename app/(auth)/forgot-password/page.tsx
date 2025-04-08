@@ -9,8 +9,13 @@ export const metadata: Metadata = {
 
 export default function Login() {
   return (
-    <div>
-      <ForgotPassword />
+    <div className="flex flex-col justify-between items-center h-screen px-4 lg:pt-5 pt-20">
+      <div className="flex justify-center lg:h-full items-center">
+        <ForgotPassword />
+      </div>
+      <p className="text-gray-9 lg:text-base text-xs font-medium py-6 lg:mt-0 mt-8">
+        © 2025 Keystone Ability Support. All Rights Reserved.
+      </p>
     </div>
   );
 }

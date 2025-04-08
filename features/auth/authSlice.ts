@@ -34,13 +34,7 @@ export const authSlice = apiSlice.injectEndpoints({
     //     body: data,
     //   }),
     // }),
-    // resetPassword: builder.mutation({
-    //   query: (data: any) => ({
-    //     url: `/reset_password`,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    // }),
+
     // emailConfirmed: builder.query({
     //   query: (data: any) => ({
     //     url: `/email_confirmation`,
@@ -85,7 +79,20 @@ export const authSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-
+    forgotPassword: builder.mutation({
+      query: (data: any) => ({
+        url: "/forgot-password",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    resetPassword: builder.mutation({
+      query: (data: any) => ({
+        url: `/reset-password`,
+        method: "POST",
+        body: data,
+      }),
+    }),
     me: builder.query({
       query: () => "/user",
     }),
@@ -96,12 +103,13 @@ export const {
   // useEmailConfirmedQuery,
   // useRegisterMutation,
   // useLoginMutation,
-  // useForgotPasswordMutation,
-  // useResetPasswordMutation,
+
   // useOnboardingMutation,
   useLoginMutation,
   useLazyGoogleRedirectUrlQuery,
   useGoogleCallbackMutation,
   useRegisterMutation,
   useMeQuery,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
 } = authSlice;
