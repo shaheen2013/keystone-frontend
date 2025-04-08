@@ -9,17 +9,20 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 const Faqs = () => {
   const { data } = useGetFaqsQuery({});
   const faqsData = useMemo(() => data?.data || [], [data]);
-  console.log("faqsData", faqsData);
 
-  const [openFaqId, setOpenFaqId] = useState<string | null>(null);
+  const [openFaqIds, setOpenFaqIds] = useState<string[]>([]);
 
   useEffect(() => {
     const firstFaq = faqsData[0]?.faqs?.[0];
-    if (firstFaq?.id) setOpenFaqId(firstFaq.id);
+    if (firstFaq?.id) setOpenFaqIds([firstFaq?.id]);
   }, [faqsData]);
 
   const handleToggle = useCallback((faqId: string) => {
-    setOpenFaqId((prevId) => (prevId === faqId ? null : faqId));
+    setOpenFaqIds((prevIds) =>
+      prevIds.includes(faqId)
+        ? prevIds.filter((id) => id !== faqId)
+        : [...prevIds, faqId]
+    );
   }, []);
 
   return (
@@ -48,7 +51,7 @@ const Faqs = () => {
               >
                 <div className="flex flex-col gap-2 md:gap-6">
                   {cat.faqs.map((faq: any) => {
-                    const isOpen = openFaqId === faq.id;
+                    const isOpen = openFaqIds.includes(faq.id);
 
                     return (
                       <div
@@ -69,18 +72,18 @@ const Faqs = () => {
 
                         {isOpen ? (
                           <Minus
-                            className="text-gray-9 size-6"
+                            className="text-gray-9 size-6 shrink-0"
                             onClick={(e) => {
                               e.stopPropagation();
-                              setOpenFaqId(null);
+                              handleToggle(faq.id);
                             }}
                           />
                         ) : (
                           <Plus
-                            className="text-gray-9 size-7"
+                            className="text-gray-9 size-7 shrik-0"
                             onClick={(e) => {
                               e.stopPropagation();
-                              setOpenFaqId(faq.id);
+                              handleToggle(faq.id);
                             }}
                           />
                         )}
