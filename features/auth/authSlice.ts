@@ -2,53 +2,6 @@ import { apiSlice } from "../api/apiSlice";
 
 export const authSlice = apiSlice.injectEndpoints({
   endpoints: (builder: any) => ({
-    // register: builder.mutation({
-    //   query: (data: any) => ({
-    //     url: `/register`,
-    //     method: "POST",
-    //     body: data,
-    //     credentials: "include",
-    //   }),
-    //   invalidatesTags: ["getUserData"],
-    // }),
-    // login: builder.mutation({
-    //   query: (data: any) => ({
-    //     url: `/login`,
-    //     method: "POST",
-    //     body: data,
-    //     credentials: "include",
-    //   }),
-    //   invalidatesTags: ["getUserData"],
-    // }),
-    // loginSocial: builder.mutation({
-    //   query: ({ source, method }: any) => ({
-    //     url: `/auth/url?source=${source}&method=${method}`,
-    //     method: "GET",
-    //   }),
-    //   invalidatesTags: ["getUserData"],
-    // }),
-    // forgotPassword: builder.mutation({
-    //   query: (data: any) => ({
-    //     url: `/forgot_password`,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    // }),
-
-    // emailConfirmed: builder.query({
-    //   query: (data: any) => ({
-    //     url: `/email_confirmation`,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    // }),
-    // onboarding: builder.mutation({
-    //   query: (data: any) => ({
-    //     url: `/onboarding`,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    // }),
     login: builder.mutation({
       query: (data: any) => ({
         url: `/login`,
@@ -82,6 +35,14 @@ export const authSlice = apiSlice.injectEndpoints({
     forgotPassword: builder.mutation({
       query: (data: any) => ({
         url: "/forgot-password",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    verifyOtp: builder.mutation({
+      query: (data: any) => ({
+        url: "/reset-password/verfy-otp",
         method: "POST",
         body: data,
       }),
@@ -122,6 +83,7 @@ export const {
   useRegisterMutation,
   useMeQuery,
   useForgotPasswordMutation,
+  useVerifyOtpMutation,
   useResetPasswordMutation,
   useUpdatePasswordMutation,
   useLogoutMutation,

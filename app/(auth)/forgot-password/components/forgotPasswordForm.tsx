@@ -21,7 +21,7 @@ export default function ForgotPasswordForm({
 
   const router = useRouter();
 
-  const { handleSubmit, control } = useForm<FormValues>({
+  const { handleSubmit, control, setError } = useForm<FormValues>({
     defaultValues: {
       email: "",
     },
@@ -31,13 +31,17 @@ export default function ForgotPasswordForm({
     console.log(data);
     try {
       const response = await forgotPassword(data).unwrap();
-      if (response.success) {
+      if (response?.success) {
         console.log(response);
         router.push(`/otp-verify?email=${data.email}`);
       }
     } catch (error) {
-      console.log(error);
-      router.push(`/otp-verify?email=${data.email}`);
+      setError("email", {
+        type: "manual",
+        message: `${
+          error?.data?.errors?.email.join(", ") || "email not found"
+        }`,
+      });
     }
   };
 

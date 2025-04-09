@@ -10,6 +10,10 @@ import { InputOTP, InputOTPSlot } from "@/components/shadcn/input-otp";
 import { cn } from "@/lib/utils";
 import { useDispatch } from "react-redux";
 import { shareOtp } from "@/features/auth/otpSlice";
+import {
+  useForgotPasswordMutation,
+  useVerifyOtpMutation,
+} from "@/features/auth/authSlice";
 
 export default function OTPForm({ className }: { className?: string }) {
   type FormValues = {
@@ -21,16 +25,38 @@ export default function OTPForm({ className }: { className?: string }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get("email");
-  const { handleSubmit, control } = useForm<FormValues>({
+  const { handleSubmit, control, getValues } = useForm<FormValues>({
     defaultValues: {
       otp: "",
     },
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
+  const [forgotPassword] = useForgotPasswordMutation();
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log(data);
-    dispatch(shareOtp(data.otp));
-    router.push(`/reset-password?email=${email}`);
+    const payload = { ...data, email };
+    try {
+      const response = await verifyOtp(payload).unwrap();
+      if (response?.success) {
+        dispatch(shareOtp(data.otp));
+        router.push(`/reset-password?email=${email}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    dispatch(shareOtp(""));
+    try {
+      await forgotPassword({ email }).unwrap();
+      dispatch(shareOtp(getValues("otp")));
+      router.push(`/reset-password?email=${email}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -78,11 +104,11 @@ export default function OTPForm({ className }: { className?: string }) {
             rules={{ required: true, minLength: 4 }}
             render={({ field }) => (
               <InputOTP
-                maxLength={4}
+                maxLength={6}
                 value={field.value}
                 onChange={field.onChange}
               >
-                {[0, 1, 2, 3].map((i) => (
+                {[0, 1, 2, 3, 4, 5].map((i) => (
                   <InputOTPSlot
                     key={i}
                     index={i}
@@ -97,16 +123,19 @@ export default function OTPForm({ className }: { className?: string }) {
         <Button
           variant="secondary"
           className="w-full mb-4"
-          loading={false}
+          loading={isLoading}
           type="submit"
         >
           Verify & Proceed
         </Button>
 
         <p className="text-gray-8 lg:text-base text-sm text-center">
-          <Link href="#" className="text-secondary-6 font-semibold">
+          <span
+            className="text-secondary-6 font-semibold cursor-pointer"
+            onClick={handleResendOtp}
+          >
             Resend OTP
-          </Link>
+          </span>
         </p>
       </form>
     </div>
