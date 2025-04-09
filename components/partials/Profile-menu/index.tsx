@@ -29,6 +29,7 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
       console.log("res", res);
 
       if (res?.success) {
+        localStorage.removeItem("key_stone_token");
         router.push("/");
       }
     } catch (error) {

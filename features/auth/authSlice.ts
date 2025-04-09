@@ -105,20 +105,17 @@ export const authSlice = apiSlice.injectEndpoints({
         url: "/logout",
         method: "POST",
       }),
+      invalidatesTags: ["getUserData"],
     }),
 
     me: builder.query({
       query: () => "/user",
+      providesTags: ["getUserData"],
     }),
   }),
 });
 
 export const {
-  // useEmailConfirmedQuery,
-  // useRegisterMutation,
-  // useLoginMutation,
-
-  // useOnboardingMutation,
   useLoginMutation,
   useLazyGoogleRedirectUrlQuery,
   useGoogleCallbackMutation,
