@@ -27,6 +27,7 @@ import {
 import { Button } from "@/components/shadcn/button";
 import { useMeQuery } from "@/features/auth/authSlice";
 import ProfileMenu from "./Profile-menu";
+import { useGetHeaderQuery } from "@/features/public/headerSlice";
 
 interface User {
   data: {
@@ -37,6 +38,7 @@ interface User {
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const {
     data: currentUser,
     isLoading,
@@ -46,7 +48,10 @@ export default function Header() {
     isLoading: boolean;
     isFetching: boolean;
   };
-  console.log("user", currentUser);
+
+  const { data: headerData } = useGetHeaderQuery({});
+
+  console.log("headerData", headerData);
 
   return (
     <header className="border-b sticky top-0 bg-white z-10">
@@ -55,7 +60,7 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <Link href="/">
             <Image
-              src="/icons/brand-logo.svg"
+              src={headerData?.data?.website_logo ?? "/icons/brand-logo.svg"}
               alt="logo"
               width={100}
               height={100}
@@ -69,15 +74,15 @@ export default function Header() {
         <nav className="hidden lg:flex items-center gap-6">
           <NavigationMenu>
             <NavigationMenuList>
-              {menuOptions.map((menu, index) => {
-                if (menu.href) {
+              {headerData?.data?.menus?.map((menu, index) => {
+                if (menu.children.length === 0) {
                   return (
                     <NavigationMenuItem key={index}>
-                      <Link href={menu.href} legacyBehavior passHref>
+                      <Link href={menu.url} legacyBehavior passHref>
                         <NavigationMenuLink
                           className={navigationMenuTriggerStyle()}
                         >
-                          {menu.name}
+                          {menu.title}
                         </NavigationMenuLink>
                       </Link>
                     </NavigationMenuItem>
@@ -86,17 +91,17 @@ export default function Header() {
 
                 return (
                   <NavigationMenuItem key={index}>
-                    <NavigationMenuTrigger>{menu.name}</NavigationMenuTrigger>
+                    <NavigationMenuTrigger>{menu.title}</NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                        {menu.items &&
-                          menu.items.map((component) => (
+                        {menu?.children?.length > 0 &&
+                          menu.children.map((component: any) => (
                             <ListItem
                               key={component.title}
                               title={component.title}
-                              href={component.href}
+                              href={component.url}
                             >
-                              {component.description}
+                              {component.subtitle}
                             </ListItem>
                           ))}
                       </ul>
