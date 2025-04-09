@@ -137,9 +137,9 @@ export default function Header() {
 
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden bg-gray-2 rounded-xl p-2"
+            className="lg:hidden bg-gray-2 rounded-xl p-1.5"
           >
-            {mobileMenuOpen ? <X size={30} /> : <Menu size={30} />}
+            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
 
           <Dialog

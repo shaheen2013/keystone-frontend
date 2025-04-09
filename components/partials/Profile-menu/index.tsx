@@ -51,7 +51,7 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
         )}
       >
         <div className="flex items-center gap-3 cursor-pointer px-3 py-2 rounded-lg hover:md:bg-muted transition">
-          <Avatar className="rounded-full size-12">
+          <Avatar className="rounded-full size-10">
             <AvatarImage
               src={currentUser?.data?.avatar}
               alt={currentUser?.data?.name}
@@ -68,7 +68,7 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
               {currentUser?.data?.email}
             </span>
           </div>
-          <div className={cn("mt-1 self-start hidden md:block")}>
+          <div className={cn("shrink-0 hidden md:block")}>
             <ChevronDown
               className={cn(
                 "h-4 w-4 duration-300 ease-in",
