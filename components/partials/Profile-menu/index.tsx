@@ -29,7 +29,7 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
 
   const handleLogout = async () => {
     try {
-      const res = await logout({}).unwrap();
+      const res: any = await logout({}).unwrap();
       console.log("res", res);
 
       if (res?.success) {

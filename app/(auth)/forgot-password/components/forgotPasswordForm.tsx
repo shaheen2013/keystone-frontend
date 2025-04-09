@@ -30,12 +30,12 @@ export default function ForgotPasswordForm({
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log(data);
     try {
-      const response = await forgotPassword(data).unwrap();
+      const response: any = await forgotPassword(data).unwrap();
       if (response?.success) {
         console.log(response);
         router.push(`/otp-verify?email=${data.email}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       setError("email", {
         type: "manual",
         message: `${

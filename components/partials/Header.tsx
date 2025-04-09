@@ -49,7 +49,7 @@ export default function Header() {
     isFetching: boolean;
   };
 
-  const { data: headerData } = useGetHeaderQuery({});
+  const { data: headerData }: any = useGetHeaderQuery({});
 
   console.log("headerData", headerData);
 
@@ -74,7 +74,7 @@ export default function Header() {
         <nav className="hidden lg:flex items-center gap-6">
           <NavigationMenu>
             <NavigationMenuList>
-              {headerData?.data?.menus?.map((menu, index) => {
+              {headerData?.data?.menus?.map((menu: any, index: number) => {
                 if (menu.children.length === 0) {
                   return (
                     <NavigationMenuItem key={index}>

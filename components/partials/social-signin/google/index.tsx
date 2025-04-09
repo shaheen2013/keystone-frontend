@@ -8,7 +8,7 @@ const GoogleSignIn = () => {
   const handleGoogleSignIn = async () => {
     if (isLoading) return;
     try {
-      const data = await googleRedirectUrl().unwrap();
+      const data: any = await googleRedirectUrl({}).unwrap();
       console.log("data", data);
       console.log("url", data.url);
       window.open(data.data.url, "_blank", "height=500,width=500");

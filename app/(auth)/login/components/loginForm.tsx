@@ -53,7 +53,7 @@ export default function LoginForm() {
     };
 
     try {
-      const response = await login(payload).unwrap();
+      const response: any = await login(payload).unwrap();
 
       if (response.success) {
         localStorage.setItem("key_stone_token", response.data.access_token);

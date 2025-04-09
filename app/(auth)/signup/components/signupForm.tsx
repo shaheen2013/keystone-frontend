@@ -51,7 +51,7 @@ export default function SignupForm() {
       accept: data.termsAndCondition,
     };
     try {
-      const res = await register(payload).unwrap();
+      const res: any = await register(payload).unwrap();
 
       if (res.success) {
         localStorage.setItem("key_stone_token", res.data.access_token);

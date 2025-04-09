@@ -7,7 +7,7 @@ import { TabsContent } from "@radix-ui/react-tabs";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 const Faqs = () => {
-  const { data } = useGetFaqsQuery({});
+  const { data }: any = useGetFaqsQuery({});
   const faqsData = useMemo(() => data?.data || [], [data]);
 
   const [openFaqIds, setOpenFaqIds] = useState<string[]>([]);

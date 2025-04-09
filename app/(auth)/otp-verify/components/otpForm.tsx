@@ -38,7 +38,7 @@ export default function OTPForm({ className }: { className?: string }) {
     console.log(data);
     const payload = { ...data, email };
     try {
-      const response = await verifyOtp(payload).unwrap();
+      const response: any = await verifyOtp(payload).unwrap();
       if (response?.success) {
         dispatch(shareOtp(data.otp));
         router.push(`/reset-password?email=${email}`);
