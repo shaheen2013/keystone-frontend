@@ -93,6 +93,13 @@ export const authSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    updatePassword: builder.mutation({
+      query: (data: any) => ({
+        url: `/password`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
     logout: builder.mutation({
       query: () => ({
         url: "/logout",
@@ -119,5 +126,6 @@ export const {
   useMeQuery,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useUpdatePasswordMutation,
   useLogoutMutation,
 } = authSlice;

@@ -8,9 +8,11 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Modal from "@/components/partials/Modal";
 import { Button } from "@/components/shadcn/button";
 import { InputPassword } from "@/components/shadcn/input";
+import { useUpdatePasswordMutation } from "@/features/auth/authSlice";
 
 export default function AccountPassword() {
   const [open, setOpen] = useState(false);
+  const [updatePassword, { isLoading }] = useUpdatePasswordMutation();
 
   type FormValues = {
     oldPassword: string;
@@ -18,18 +20,66 @@ export default function AccountPassword() {
     confirmPassword: string;
   };
 
-  const { handleSubmit, control, getValues, clearErrors } = useForm<FormValues>(
-    {
+  interface updatePasswordError {
+    data?: {
+      errors?: {
+        current_password?: string[];
+        password?: string[];
+        password_confirmation?: string[];
+      };
+    };
+  }
+
+  const { handleSubmit, control, getValues, clearErrors, reset, setError } =
+    useForm<FormValues>({
       defaultValues: {
         oldPassword: "",
         newPassword: "",
         confirmPassword: "",
       },
-    }
-  );
+    });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log("data => ", data);
+    const payload = {
+      current_password: data.oldPassword,
+      password: data.newPassword,
+      password_confirmation: data.confirmPassword,
+    };
+    try {
+      await updatePassword(payload).unwrap();
+      setOpen(false);
+      reset();
+    } catch (error) {
+      handleError(error as updatePasswordError);
+    }
+  };
+
+  const handleError = (error: updatePasswordError) => {
+    const errors = error?.data?.errors;
+
+    if (!errors) return;
+
+    if (errors.current_password?.length) {
+      setError("oldPassword", {
+        type: "manual",
+        message: errors.current_password.join(", "),
+      });
+    }
+
+    if (errors.password?.length) {
+      setError("newPassword", {
+        type: "manual",
+        message: errors.password.join(", "),
+      });
+    }
+
+    if (errors.password_confirmation?.length) {
+      setError("confirmPassword", {
+        type: "manual",
+        message: errors.password_confirmation.join(", "),
+      });
+    }
   };
 
   return (
@@ -158,7 +208,7 @@ export default function AccountPassword() {
                     htmlFor="password"
                     className="text-base text-gray-9 mb-1 block"
                   >
-                    New Password
+                    Confirm New Password
                   </label>
                   <InputPassword
                     className="bg-white"
@@ -188,6 +238,7 @@ export default function AccountPassword() {
               type="submit"
               variant="secondary"
               className="w-full md:w-1/2"
+              loading={isLoading}
             >
               Change
             </Button>

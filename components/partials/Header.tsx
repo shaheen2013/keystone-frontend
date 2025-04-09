@@ -25,11 +25,6 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/shadcn/navigation-menu";
 import { Button } from "@/components/shadcn/button";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/shadcn/avatar";
 import { useMeQuery } from "@/features/auth/authSlice";
 import ProfileMenu from "./Profile-menu";
 
