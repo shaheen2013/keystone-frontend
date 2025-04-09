@@ -129,13 +129,15 @@ export default function Header() {
           )}
 
           {/* Mobile Menu */}
-          <Button asChild className="lg:hidden mr-4" variant="secondary">
-            <Link href="/login">Login</Link>
-          </Button>
+          {!isLoading && !isFetching && !currentUser && (
+            <Button asChild className="lg:hidden mr-4" variant="secondary">
+              <Link href="/login">Login</Link>
+            </Button>
+          )}
 
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden bg-gray-2 rounded-xl p-[10px]"
+            className="lg:hidden bg-gray-2 rounded-xl p-2"
           >
             {mobileMenuOpen ? <X size={30} /> : <Menu size={30} />}
           </button>

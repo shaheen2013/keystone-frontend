@@ -1,3 +1,4 @@
+import { ChevronDown } from "@/components/icons";
 import {
   Avatar,
   AvatarFallback,
@@ -10,12 +11,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/shadcn/dropdown-menu";
 import { useLogoutMutation } from "@/features/auth/authSlice";
+import { cn } from "@/lib/utils";
 import { User, CalendarDays, Bookmark, KeyRound, LogOut } from "lucide-react";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
 
   const [logout] = useLogoutMutation();
 
@@ -38,10 +42,16 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <div className="hidden md:flex items-center gap-3 cursor-pointer px-3 py-2 rounded-lg hover:bg-muted transition">
-          <Avatar className="rounded-xl h-10 w-10">
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger
+        asChild
+        className={cn(
+          open &&
+            "bg-transparent md:bg-muted hover:bg-transparent hover:md:bg-muted"
+        )}
+      >
+        <div className="flex items-center gap-3 cursor-pointer px-3 py-2 rounded-lg hover:md:bg-muted transition">
+          <Avatar className="rounded-full size-12">
             <AvatarImage
               src={currentUser?.data?.avatar}
               alt={currentUser?.data?.name}
@@ -50,13 +60,21 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
               {currentUser?.data?.name?.[0]}
             </AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
+          <div className="hidden md:flex flex-col">
             <h4 className="text-base font-medium text-foreground max-w-[160px] truncate">
               {currentUser?.data?.name}
             </h4>
             <span className="text-sm text-muted-foreground">
               {currentUser?.data?.email}
             </span>
+          </div>
+          <div className={cn("mt-1 self-start hidden md:block")}>
+            <ChevronDown
+              className={cn(
+                "h-4 w-4 duration-300 ease-in",
+                open && "rotate-180"
+              )}
+            />
           </div>
         </div>
       </DropdownMenuTrigger>
