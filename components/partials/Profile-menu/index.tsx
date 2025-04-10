@@ -10,15 +10,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/shadcn/dropdown-menu";
+import { apiSlice } from "@/features/api/apiSlice";
 import { useLogoutMutation } from "@/features/auth/authSlice";
 import { cn } from "@/lib/utils";
 import { User, CalendarDays, Bookmark, KeyRound, LogOut } from "lucide-react";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
   const [logout] = useLogoutMutation();
@@ -34,7 +37,9 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
 
       if (res?.success) {
         localStorage.removeItem("key_stone_token");
+
         router.push("/");
+        dispatch(apiSlice.util.resetApiState());
       }
     } catch (error) {
       console.log(error);
