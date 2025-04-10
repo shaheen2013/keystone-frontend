@@ -27,21 +27,26 @@ export default function ForgotPasswordForm({
     },
   });
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log(data);
     try {
       const response: any = await forgotPassword(data).unwrap();
+
       if (response?.success) {
-        console.log(response);
         router.push(`/otp-verify?email=${data.email}`);
+        return;
       }
     } catch (error: any) {
-      setError("email", {
-        type: "manual",
-        message: `${
-          error?.data?.errors?.email.join(", ") || "email not found"
-        }`,
-      });
+      const emailErrors = error?.data?.errors?.email;
+
+      if (emailErrors?.includes("verification code already sent")) {
+        router.push(`/otp-verify?email=${data.email}`);
+      } else {
+        setError("email", {
+          type: "manual",
+          message: emailErrors?.join(", ") || "email not found",
+        });
+      }
     }
   };
 
