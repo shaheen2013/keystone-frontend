@@ -29,6 +29,7 @@ import { Button } from "@/components/shadcn/button";
 import { useMeQuery } from "@/features/auth/authSlice";
 import ProfileMenu from "./Profile-menu";
 import { useGetHeaderQuery } from "@/features/public/headerSlice";
+import { Skeleton } from "../shadcn/skeleton";
 
 interface User {
   data: {
@@ -61,66 +62,83 @@ export default function Header() {
         {/* Left - Brand */}
         <div className="flex items-center gap-2">
           <Link href="/">
-            <Image
-              src={headerData?.data?.website_logo ?? "/icons/brand-logo.svg"}
-              alt="logo"
-              width={100}
-              height={100}
-              className="h-12 w-[110px] flex-1"
-              priority
-            />
+            {headerData?.data?.website_logo ? (
+              <Image
+                src={headerData?.data?.website_logo}
+                alt="logo"
+                width={100}
+                height={100}
+                className="h-12 w-[110px] flex-1"
+                priority
+              />
+            ) : (
+              <Skeleton className="w-[100px] h-12" />
+            )}
           </Link>
         </div>
 
         {/* Center - Content (hidden on tablet) */}
         <nav className="hidden lg:flex items-center gap-6">
+          {}
           <NavigationMenu>
             <NavigationMenuList>
-              {headerData?.data?.menus?.map((menu: any, index: number) => {
-                if (menu.children.length === 0) {
-                  return (
-                    <NavigationMenuItem key={index}>
-                      <Link href={menu.url} legacyBehavior passHref>
-                        <NavigationMenuLink
-                          className={navigationMenuTriggerStyle()}
+              {headerData?.data?.menus?.length
+                ? headerData.data.menus.map((menu: any, index: number) => {
+                    if (menu.children.length === 0) {
+                      return (
+                        <NavigationMenuItem key={index}>
+                          <Link href={menu.url} legacyBehavior passHref>
+                            <NavigationMenuLink
+                              className={navigationMenuTriggerStyle()}
+                            >
+                              {menu.title}
+                            </NavigationMenuLink>
+                          </Link>
+                        </NavigationMenuItem>
+                      );
+                    }
+
+                    return (
+                      <NavigationMenuItem key={index}>
+                        <NavigationMenuTrigger
+                          onClick={() => router.push(menu.url)}
                         >
                           {menu.title}
-                        </NavigationMenuLink>
-                      </Link>
-                    </NavigationMenuItem>
-                  );
-                }
-
-                return (
-                  <NavigationMenuItem key={index}>
-                    <NavigationMenuTrigger
-                      onClick={() => router.push(menu.url)}
-                    >
-                      {menu.title}
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                        {menu?.children?.length > 0 &&
-                          menu.children.map((component: any) => (
-                            <ListItem
-                              key={component.title}
-                              title={component.title}
-                              href={component.url}
-                            >
-                              {component.subtitle}
-                            </ListItem>
-                          ))}
-                      </ul>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                );
-              })}
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                            {menu?.children?.length > 0 &&
+                              menu.children.map((component: any) => (
+                                <ListItem
+                                  key={component.title}
+                                  title={component.title}
+                                  href={component.url}
+                                >
+                                  {component.subtitle}
+                                </ListItem>
+                              ))}
+                          </ul>
+                        </NavigationMenuContent>
+                      </NavigationMenuItem>
+                    );
+                  })
+                : Array.from({ length: 6 }).map((_, index) => (
+                    <div key={index} className="px-3 flex gap-3">
+                      <Skeleton className="w-16 h-9" />
+                    </div>
+                  ))}
             </NavigationMenuList>
           </NavigationMenu>
         </nav>
 
         {/* Right - Login Button */}
         <div className="flex items-center">
+          {isLoading && isFetching && (
+            <div className="hidden md:flex gap-3">
+              <Skeleton className="w-16 h-9" />
+              <Skeleton className="w-16 h-9" />
+            </div>
+          )}
           {!isLoading && !isFetching && currentUser && (
             <ProfileMenu currentUser={currentUser} />
           )}
@@ -140,18 +158,27 @@ export default function Header() {
           )}
 
           {/* Mobile Menu */}
-          {!isLoading && !isFetching && !currentUser && (
-            <Button asChild className="lg:hidden mr-4" variant="secondary">
-              <Link href="/login">Login</Link>
-            </Button>
+
+          {isLoading && isFetching && (
+            <div className="flex md:hidden gap-3">
+              <Skeleton className="w-16 h-9" />
+              <Skeleton className="w-16 h-9" />
+            </div>
           )}
 
-          <button
-            onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden bg-gray-2 rounded-xl p-1.5"
-          >
-            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
+          {!isLoading && !isFetching && !currentUser && (
+            <>
+              <Button asChild className="lg:hidden mr-4" variant="secondary">
+                <Link href="/login">Login</Link>
+              </Button>
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className="lg:hidden bg-gray-2 rounded-xl p-1.5"
+              >
+                {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+              </button>
+            </>
+          )}
 
           <Dialog
             open={mobileMenuOpen}
