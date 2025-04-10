@@ -14,6 +14,7 @@ import {
   AccordionTrigger,
 } from "@/components/shadcn/accordion";
 import { menuOptions } from "@/static/header";
+import { useRouter } from "next/navigation";
 
 import {
   NavigationMenu,
@@ -37,6 +38,7 @@ interface User {
 }
 
 export default function Header() {
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const {
@@ -91,7 +93,11 @@ export default function Header() {
 
                 return (
                   <NavigationMenuItem key={index}>
-                    <NavigationMenuTrigger>{menu.title}</NavigationMenuTrigger>
+                    <NavigationMenuTrigger
+                      onClick={() => router.push(menu.url)}
+                    >
+                      {menu.title}
+                    </NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                         {menu?.children?.length > 0 &&
