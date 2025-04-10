@@ -8,7 +8,7 @@ const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
 
     // Add other reducers here if needed
-    otp: otpSlice,
+    otpToken: otpSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

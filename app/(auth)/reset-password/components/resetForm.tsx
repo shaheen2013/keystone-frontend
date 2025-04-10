@@ -19,8 +19,10 @@ export default function ResetPasswordForm({
   className?: string;
 }) {
   const searchParams = useSearchParams();
-  const otp = useSelector((state: any) => state.otp);
-  console.log("redux otp", otp);
+  const otpToken = useSelector((state: any) => state.otpToken);
+
+  console.log("otpToken", otpToken);
+
   const email = searchParams.get("email");
 
   const [open, setOpen] = useState(false);
@@ -30,8 +32,17 @@ export default function ResetPasswordForm({
     confirm_password: string;
   };
 
+  interface passwordResetError {
+    data?: {
+      errors?: {
+        password?: string[];
+        password_confirmation?: string[];
+      };
+    };
+  }
+
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
-  const { handleSubmit, control, getValues } = useForm<FormValues>({
+  const { handleSubmit, control, getValues, setError } = useForm<FormValues>({
     defaultValues: {
       password: "",
       confirm_password: "",
@@ -39,12 +50,41 @@ export default function ResetPasswordForm({
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const payload = { ...data, otp, email };
+    const payload = {
+      ...data,
+      password_confirmation: data.confirm_password,
+      token: otpToken,
+      email,
+    };
     console.log("payload", payload);
     try {
-      const response = await resetPassword(payload).unwrap();
+      const response: any = await resetPassword(payload).unwrap();
+
+      if (response?.success) {
+        setOpen(true);
+      }
     } catch (error) {
-      console.log(error);
+      handleAuthError(error as passwordResetError);
+    }
+  };
+
+  const handleAuthError = (error: passwordResetError) => {
+    const errors = error?.data?.errors;
+
+    if (!errors) return;
+
+    if (errors.password?.length) {
+      setError("password", {
+        type: "manual",
+        message: errors.password.join(", "),
+      });
+    }
+
+    if (errors.password_confirmation?.length) {
+      setError("confirm_password", {
+        type: "manual",
+        message: errors.password_confirmation.join(", "),
+      });
     }
   };
 

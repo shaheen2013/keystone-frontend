@@ -9,7 +9,7 @@ import { Button } from "@/components/shadcn/button";
 import { InputOTP, InputOTPSlot } from "@/components/shadcn/input-otp";
 import { cn } from "@/lib/utils";
 import { useDispatch } from "react-redux";
-import { shareOtp } from "@/features/auth/otpSlice";
+import { shareOtpToken } from "@/features/auth/otpSlice";
 import {
   useForgotPasswordMutation,
   useVerifyOtpMutation,
@@ -25,7 +25,14 @@ export default function OTPForm({ className }: { className?: string }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get("email");
-  const { handleSubmit, control, getValues } = useForm<FormValues>({
+  const {
+    handleSubmit,
+    control,
+
+    reset,
+    setError,
+    formState: { errors },
+  } = useForm<FormValues>({
     defaultValues: {
       otp: "",
     },
@@ -40,22 +47,30 @@ export default function OTPForm({ className }: { className?: string }) {
     try {
       const response: any = await verifyOtp(payload).unwrap();
       if (response?.success) {
-        dispatch(shareOtp(data.otp));
+        dispatch(shareOtpToken(response.data.password_reset_token));
         router.push(`/reset-password?email=${email}`);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      const otpErrors = error?.data?.errors?.otp;
+      setError("otp", {
+        type: "manual",
+        message: otpErrors?.join(", "),
+      });
     }
   };
 
   const handleResendOtp = async () => {
-    dispatch(shareOtp(""));
+    reset();
+    dispatch(shareOtpToken(""));
     try {
       await forgotPassword({ email }).unwrap();
-      dispatch(shareOtp(getValues("otp")));
-      router.push(`/reset-password?email=${email}`);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      const otpErrors = error?.data?.errors?.email;
+
+      setError("otp", {
+        type: "manual",
+        message: otpErrors?.join(", "),
+      });
     }
   };
 
@@ -118,6 +133,9 @@ export default function OTPForm({ className }: { className?: string }) {
               </InputOTP>
             )}
           />
+          <span className="text-red-500 text-sm block mt-2">
+            {errors.otp && errors.otp.message}
+          </span>
         </div>
 
         <Button

@@ -39,7 +39,7 @@ export default function ForgotPasswordForm({
     } catch (error: any) {
       const emailErrors = error?.data?.errors?.email;
 
-      if (emailErrors?.includes("verification code already sent")) {
+      if (emailErrors?.includes("Verification code already sent.")) {
         router.push(`/otp-verify?email=${data.email}`);
       } else {
         setError("email", {

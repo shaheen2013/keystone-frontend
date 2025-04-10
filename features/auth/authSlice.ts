@@ -42,7 +42,7 @@ export const authSlice = apiSlice.injectEndpoints({
 
     verifyOtp: builder.mutation({
       query: (data: any) => ({
-        url: "/reset-password/verfy-otp",
+        url: "/reset-password/verify-otp",
         method: "POST",
         body: data,
       }),

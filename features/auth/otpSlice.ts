@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const otpSlice = createSlice({
-  name: "otp",
+  name: "otpToken",
   initialState: null,
   reducers: {
-    shareOtp: (state, action) => {
+    shareOtpToken: (state, action) => {
       return action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { shareOtp } = otpSlice.actions;
+export const { shareOtpToken } = otpSlice.actions;
 
 export default otpSlice.reducer;

@@ -35,6 +35,13 @@ export default function LoginForm() {
         password?: string[];
       };
     };
+  } interface LoginError {
+    data?: {
+      errors?: {
+        email?: string[];
+        password?: string[];
+      };
+    };
   }
 
   const { handleSubmit, control, setError } = useForm<FormValues>({
