@@ -14,21 +14,22 @@ import {
   useForgotPasswordMutation,
   useVerifyOtpMutation,
 } from "@/features/auth/authSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function OTPForm({ className }: { className?: string }) {
   type FormValues = {
     otp: string;
   };
 
-  const [isDisabled, setIsDisabled] = useState(true);
+  // const [isDisabled, setIsDisabled] = useState(true);
+  // console.log("isDisabled", isDisabled);
 
   const dispatch = useDispatch();
 
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get("email");
-  const resetTime = searchParams.get("reset-time");
+  // let resetTime = searchParams.get("reset-time");
   const {
     handleSubmit,
     control,
@@ -83,13 +84,13 @@ export default function OTPForm({ className }: { className?: string }) {
     if (!email) router.push("/forgot-password");
   }, [email, router]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsDisabled(false);
-    }, parseInt(resetTime || "0"));
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsDisabled(false);
+  //   }, 3000);
 
-    return () => clearTimeout(timer);
-  }, [resetTime]);
+  //   return () => clearTimeout(timer);
+  // }, [resetTime]);
 
   return (
     <div
@@ -166,7 +167,7 @@ export default function OTPForm({ className }: { className?: string }) {
 
         <button
           className="text-secondary-6 lg:text-base text-sm text-center font-semibold cursor-pointer disabled:text-gray-5 disabled:cursor-not-allowed"
-          disabled={isDisabled}
+          // disabled={isDisabled}
           onClick={handleResendOtp}
           type="button"
         >

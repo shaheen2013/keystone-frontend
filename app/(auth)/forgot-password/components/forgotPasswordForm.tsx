@@ -35,7 +35,8 @@ export default function ForgotPasswordForm({
 
       if (response?.success) {
         router.push(
-          `/otp-verify?email=${data.email}&reset-time=${response.data.otp_reset_time}`
+          `/otp-verify?email=${data.email}`
+          // `/otp-verify?email=${data.email}&reset-time=${response.data.otp_reset_time}`
         );
         return;
       }
