@@ -77,24 +77,27 @@ export default function ResetPasswordForm({
     if (!errors) return;
 
     if (errors.token?.length) {
-      setError("confirm_password", {
-        type: "manual",
-        message: errors.token.join(", "),
-      });
+      router.push("/forgot-password");
     }
 
     if (errors.email?.length) {
-      setError("confirm_password", {
-        type: "manual",
-        message: errors.email.join(", "),
-      });
+      router.push("/forgot-password");
     }
 
     if (errors.password?.length) {
-      setError("password", {
-        type: "manual",
-        message: errors.password.join(", "),
-      });
+      if (
+        errors.password.includes("This password reset token is invalid.") ||
+        errors.password.includes(
+          "We can't find a user with that email address."
+        )
+      ) {
+        router.push("/forgot-password");
+      } else {
+        setError("password", {
+          type: "manual",
+          message: errors.password.join(", "),
+        });
+      }
     }
 
     if (errors.password_confirmation?.length) {
