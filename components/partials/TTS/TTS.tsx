@@ -7,16 +7,6 @@ interface TTSProps {
 }
 
 const TTS: FC<TTSProps> = ({ isTTSActive }) => {
-  const highlightText = (element: HTMLElement | null) => {
-    document.querySelectorAll(".highlight").forEach((el) => {
-      el.classList.remove("highlight");
-    });
-
-    if (element) {
-      element.classList.add("highlight");
-    }
-  };
-
   useEffect(() => {
     const speakText = (text: string, element: HTMLElement) => {
       const words = text.trim().split(/\s+/);
@@ -24,9 +14,7 @@ const TTS: FC<TTSProps> = ({ isTTSActive }) => {
 
       let charIndex = 0;
 
-      utterance.onstart = () => {
-        highlightText(element);
-      };
+      utterance.onstart = () => {};
 
       utterance.onboundary = (event: SpeechSynthesisEvent) => {
         if (event.name === "word" || event.charIndex >= 0) {
@@ -51,9 +39,11 @@ const TTS: FC<TTSProps> = ({ isTTSActive }) => {
       };
 
       utterance.onend = () => {
-        highlightText(null);
-        element.classList.remove("highlight");
-        element.innerHTML = text; // restore original text
+        element.innerHTML = text;
+        const spans = element.querySelectorAll("span");
+        spans.forEach((span) => {
+          span.classList.remove("current-speaking");
+        });
       };
 
       window.speechSynthesis.speak(utterance);

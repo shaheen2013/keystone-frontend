@@ -396,7 +396,7 @@ export default function Accessibility() {
             {Object.keys(options).some(
               (key) => options[key as keyof Options] === true
             ) && (
-              <div className="absolute top-0 right-0 w-2 h-2 bg-green-500 rounded-full"></div>
+              <div className="absolute animate-ping top-0 right-[-3px] w-3 h-3 bg-green-500 rounded-full"></div>
             )}
           </div>
         </SheetTrigger>
