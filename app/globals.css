@@ -67,7 +67,8 @@
 
   .cursor-big,
   .cursor-big * {
-    cursor: url("https://cdn.userway.org/widgetapp/images/arrow_w.svg"), auto !important;
+    cursor:
+      url("https://cdn.userway.org/widgetapp/images/arrow_w.svg"), auto !important;
   }
 
   .magnification {
@@ -243,4 +244,25 @@
   .fc-header-toolbar.fc-toolbar .fc-toolbar-title {
     font-size: 16px !important;
   }
+}
+
+.highlight {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.3s ease;
+  padding: 3px 6px;
+}
+
+.current-speaking {
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 4px 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transform: scale(1.05);
+  transition: all 0.3s ease;
 }
