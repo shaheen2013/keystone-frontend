@@ -31,16 +31,19 @@ export default function ForgotPasswordForm({
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const response: any = await forgotPassword(data).unwrap();
+      console.log("response", response);
 
       if (response?.success) {
-        router.push(`/otp-verify?email=${data.email}`);
+        router.push(
+          `/otp-verify?email=${data.email}&reset-time=${response.data.otp_reset_time}`
+        );
         return;
       }
     } catch (error: any) {
       const emailErrors = error?.data?.errors?.email;
 
       if (emailErrors?.includes("Verification code already sent.")) {
-        router.push(`/otp-verify?email=${data.email}`);
+        // router.push(`/otp-verify?email=${data.email}`);
       } else {
         setError("email", {
           type: "manual",

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 import Modal from "@/components/partials/Modal";
 import { Button } from "@/components/shadcn/button";
@@ -19,6 +19,7 @@ export default function ResetPasswordForm({
   className?: string;
 }) {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const otpToken = useSelector((state: any) => state.otpToken);
 
   console.log("otpToken", otpToken);
@@ -35,6 +36,8 @@ export default function ResetPasswordForm({
   interface passwordResetError {
     data?: {
       errors?: {
+        email?: string[];
+        token?: string[];
         password?: string[];
         password_confirmation?: string[];
       };
@@ -73,6 +76,20 @@ export default function ResetPasswordForm({
 
     if (!errors) return;
 
+    if (errors.token?.length) {
+      setError("confirm_password", {
+        type: "manual",
+        message: errors.token.join(", "),
+      });
+    }
+
+    if (errors.email?.length) {
+      setError("confirm_password", {
+        type: "manual",
+        message: errors.email.join(", "),
+      });
+    }
+
     if (errors.password?.length) {
       setError("password", {
         type: "manual",
@@ -87,6 +104,15 @@ export default function ResetPasswordForm({
       });
     }
   };
+
+  const handleOpenModal = () => {
+    setOpen(false);
+    router.push("/login");
+  };
+
+  useEffect(() => {
+    if (!email || !otpToken) router.push("/forgot-password");
+  }, [email, otpToken, router]);
 
   return (
     <>
@@ -195,7 +221,7 @@ export default function ResetPasswordForm({
       </div>
 
       {/* modal */}
-      <Modal title="" open={open} onOpenChange={setOpen}>
+      <Modal title="" open={open} onOpenChange={handleOpenModal}>
         <div className="flex items-center justify-center mb-10">
           <Image
             src="/confirmation-reset.svg"

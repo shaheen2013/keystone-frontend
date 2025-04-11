@@ -14,17 +14,21 @@ import {
   useForgotPasswordMutation,
   useVerifyOtpMutation,
 } from "@/features/auth/authSlice";
+import { useEffect, useState } from "react";
 
 export default function OTPForm({ className }: { className?: string }) {
   type FormValues = {
     otp: string;
   };
 
+  const [isDisabled, setIsDisabled] = useState(true);
+
   const dispatch = useDispatch();
 
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get("email");
+  const resetTime = searchParams.get("reset-time");
   const {
     handleSubmit,
     control,
@@ -39,6 +43,7 @@ export default function OTPForm({ className }: { className?: string }) {
   });
 
   const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
+  console.log("verifyOtp", verifyOtp);
   const [forgotPassword] = useForgotPasswordMutation();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
@@ -73,6 +78,18 @@ export default function OTPForm({ className }: { className?: string }) {
       });
     }
   };
+
+  useEffect(() => {
+    if (!email) router.push("/forgot-password");
+  }, [email, router]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsDisabled(false);
+    }, parseInt(resetTime || "0"));
+
+    return () => clearTimeout(timer);
+  }, [resetTime]);
 
   return (
     <div
@@ -111,7 +128,7 @@ export default function OTPForm({ className }: { className?: string }) {
       </p>
 
       {/* form */}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
         <div className="mb-6">
           <Controller
             control={control}
@@ -147,14 +164,14 @@ export default function OTPForm({ className }: { className?: string }) {
           Verify & Proceed
         </Button>
 
-        <p className="text-gray-8 lg:text-base text-sm text-center">
-          <span
-            className="text-secondary-6 font-semibold cursor-pointer"
-            onClick={handleResendOtp}
-          >
-            Resend OTP
-          </span>
-        </p>
+        <button
+          className="text-secondary-6 lg:text-base text-sm text-center font-semibold cursor-pointer disabled:text-gray-5 disabled:cursor-not-allowed"
+          disabled={isDisabled}
+          onClick={handleResendOtp}
+          type="button"
+        >
+          Resend OTP
+        </button>
       </form>
     </div>
   );
