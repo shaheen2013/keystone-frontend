@@ -9,7 +9,7 @@ export default function AuthLayout({ children }: React.PropsWithChildren) {
       <div className="lg:block hidden col-span-7 relative">
         <div className="fixed top-0 left-0 w-[58.33%] h-full ">
           {/* Content here */}
-          <AuthLeftSidebar className=" top-0 left-0 h-full" />
+          <AuthLeftSidebar className="top-0 left-0 h-full" />
         </div>
       </div>
 
