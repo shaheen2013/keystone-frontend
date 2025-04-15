@@ -15,10 +15,10 @@ const ServiceSection = ({
   title: string;
   subtitle: string;
 }) => {
-  const { data, isLoading, isPending }: any = useGetServicesQuery({});
+  const { data, isLoading, isFetching }: any = useGetServicesQuery({});
   const services = data?.data?.services || [];
 
-  const loading = isLoading || isPending;
+  const loading = isLoading || isFetching;
 
   return (
     <section className="container my-12 md:my-28 flex flex-col items-center">
