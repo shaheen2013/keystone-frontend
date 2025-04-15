@@ -1,7 +1,7 @@
 "use client";
 
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 export default function AccountEvents() {
   const [page, setPage] = useState(1);
@@ -66,12 +66,14 @@ export default function AccountEvents() {
 
         <hr className="bg-primary-2 mb-4 md:mb-7" />
         {/* pagination area */}
-        <PaginationWrapper
-          page={page}
-          setPage={setPage}
-          total={200}
-          className="col-span-full"
-        />
+        <Suspense fallback={<div className="h-10" />}>
+          <PaginationWrapper
+            page={page}
+            setPage={setPage}
+            total={200}
+            className="col-span-full"
+          />
+        </Suspense>
       </div>
     </div>
   );

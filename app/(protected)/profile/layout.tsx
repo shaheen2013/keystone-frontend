@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectContent,
 } from "@/components/shadcn/select";
-import { useAuth } from "@/hooks/useAuth";
+// import { useAuth } from "@/hooks/useAuth";
 
 export default function ProfileLayout({
   children,
@@ -30,15 +30,15 @@ export default function ProfileLayout({
     { name: "Password", path: "/profile/password" },
   ];
 
-  const { isAuthenticated } = useAuth();
+  // const { isAuthenticated } = useAuth();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.replace("/login");
-    }
-  }, [isAuthenticated, router]);
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     router.replace("/login");
+  //   }
+  // }, [isAuthenticated, router]);
 
-  if (!isAuthenticated) return null;
+  // if (!isAuthenticated) return null;
 
   return (
     <div className="lg:flex container lg:min-h-[calc(100vh-100px)] gap-8 py-12">

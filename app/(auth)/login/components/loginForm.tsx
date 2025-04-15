@@ -35,7 +35,8 @@ export default function LoginForm() {
         password?: string[];
       };
     };
-  } interface LoginError {
+  }
+  interface LoginError {
     data?: {
       errors?: {
         email?: string[];
@@ -64,7 +65,8 @@ export default function LoginForm() {
 
       if (response.success) {
         localStorage.setItem("key_stone_token", response.data.access_token);
-        router.push("/");
+        router.push("/profile/overview");
+        console.log("response", response);
       }
     } catch (error) {
       handleAuthError(error as LoginError);
