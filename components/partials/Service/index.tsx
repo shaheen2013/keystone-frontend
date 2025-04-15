@@ -1,64 +1,78 @@
+"use client";
+
 import { Button } from "@/components/shadcn/button";
 import Link from "next/link";
-import { ArrowRight } from "@/components/icons";
-import { ServiceDataType } from "./types";
+import { useGetServicesQuery } from "@/features/public/services";
+import ServiceCard from "./components/service-card";
+import { Skeleton } from "@/components/shadcn/skeleton";
 
 const ServiceSection = ({
-  data,
   keyService,
+  title,
+  subtitle,
 }: {
-  data: ServiceDataType;
   keyService?: boolean;
+  title: string;
+  subtitle: string;
 }) => {
-  const { title, subtitle, services, cta } = data;
-  const filteredServices = keyService
-    ? services.filter((service: any) => service.keyService)
-    : services;
+  const { data, isLoading, isPending }: any = useGetServicesQuery({});
+  const services = data?.data?.services || [];
+
+  const loading = isLoading || isPending;
+
   return (
     <section className="container my-12 md:my-28 flex flex-col items-center">
-      <h2 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9 text-center">
-        {title}
-      </h2>
-      <p className="mb-6 md:mb-12 text-base md:text-2xl text-gray-8 text-center">
-        {subtitle}
-      </p>
-      <div className="mb-6 md:mb-12 flex flex-col md:flex-row md:flex-wrap justify-center gap-4 md:gap-8">
-        {filteredServices.map((service, index) => (
-          <div
-            key={index}
-            className="bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start max-w-[512px] w-full"
-          >
-            <div className="p-4 rounded-xl bg-white text-secondary-6">
-              <service.icon />
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <h3 className="text-xl md:text-3xl font-bold text-gray-9">
-                {service.title}
-              </h3>
-              <p className="text-sm md:text-lg text-gray-9 line-clamp-3">
-                {service.description}
-              </p>
-            </div>
-            <Button
-              variant="link"
-              size="md"
-              asChild
-              className="text-secondary-6"
-            >
-              <Link href={service.linkUrl}>
-                {service.linkText}
-                <ArrowRight className="ml-2 size-6" />
-              </Link>
-            </Button>
-          </div>
-        ))}
-      </div>
-      {keyService && (
-        <Button variant="secondary" size="lg" asChild>
-          <Link href={cta.url}>{cta.text}</Link>
-        </Button>
+      {loading ? (
+        <Skeleton className="mb-4 md:mb-6 h-8 md:h-14 w-3/4 md:w-1/2" />
+      ) : (
+        <h2 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9 text-center">
+          {title}
+        </h2>
       )}
+      {loading ? (
+        <Skeleton className="mb-6 md:mb-12 h-6 md:h-8 w-5/6 md:w-2/3" />
+      ) : (
+        <p className="mb-6 md:mb-12 text-base md:text-2xl text-gray-8 text-center">
+          {subtitle}
+        </p>
+      )}
+
+      <div className="mb-6 md:mb-12 flex flex-col md:flex-row md:flex-wrap justify-center gap-4 md:gap-8 w-full">
+        {loading && (
+          <>
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div
+                key={index}
+                className="bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start  max-w-[512px] w-full"
+              >
+                <Skeleton className="p-4 rounded-xl size-12" />
+                <div className="flex flex-col gap-4 w-full">
+                  <Skeleton className="h-8 w-3/4" />
+                  <div className="space-y-2 w-full">
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-5/6" />
+                    <Skeleton className="h-4 w-2/3" />
+                  </div>
+                </div>
+                <Skeleton className="h-6 w-32" />
+              </div>
+            ))}
+          </>
+        )}
+
+        {services.length > 0 &&
+          services?.map((service: any, index: any) => (
+            <ServiceCard key={index} service={service} />
+          ))}
+      </div>
+      {keyService &&
+        (loading ? (
+          <Skeleton className="h-10 md:h-16 w-32" />
+        ) : (
+          <Button variant="secondary" size="lg" asChild>
+            <Link href="/service">See All</Link>
+          </Button>
+        ))}
     </section>
   );
 };

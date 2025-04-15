@@ -12,7 +12,6 @@ import {
   heroData,
   insightsAndStoriesData,
   keystoneAbilitySupportData,
-  serviceData,
   supportSectionData,
   testimonialsData,
   upcomingEventsData,
@@ -23,7 +22,11 @@ export default function Home() {
   return (
     <>
       <HeroSection data={heroData} />
-      <ServiceSection data={serviceData} keyService />
+      <ServiceSection
+        keyService
+        title="Our Key Services"
+        subtitle="Comprehensive Services for Families with Children with Special Needs"
+      />
       <WhyKeystoneSection data={WhyKeystoneData} />
       <UpComingEvents data={upcomingEventsData} />
       <KeyStoneAbilitySupport data={keystoneAbilitySupportData} />
