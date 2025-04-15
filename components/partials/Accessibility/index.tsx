@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
 
 import {
-  getAccessibilifySettings,
+  getAccessabilitySettings,
   saveAccessibilifySetting,
 } from "@/lib/utils";
 
@@ -75,7 +75,7 @@ export default function Accessibility() {
   };
 
   useEffect(() => {
-    const settings: Options = getAccessibilifySettings();
+    const settings: Options = getAccessabilitySettings();
 
     const body = document.body as HTMLElement;
     const root = document.getElementById("root") as HTMLElement;
@@ -676,6 +676,7 @@ export default function Accessibility() {
               variant="secondary"
               className="w-full"
               onClick={handleReset}
+              translate="no"
             >
               <Image
                 src="/icons/arrow-rotate.svg"

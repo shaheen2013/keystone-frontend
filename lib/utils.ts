@@ -42,7 +42,7 @@ export function saveAccessibilifySetting(
   }
 }
 
-export function getAccessibilifySettings(name?: string) {
+export function getAccessabilitySettings(name?: string) {
   try {
     if (name) {
       const settings = localStorage.getItem("accessibilitySettings");

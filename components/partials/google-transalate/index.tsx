@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/shadcn/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/shadcn/accordion";
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
@@ -33,18 +28,14 @@ export default function GoogleTranslate() {
         // Define googleTranslateElementInit globally
         window.googleTranslateElementInit = function () {
           if (translateRef.current) {
-            new window.google!.translate.TranslateElement(
-              {},
-              "google_translate_element"
-            );
+            new window.google!.translate.TranslateElement({}, "google_translate_element");
           }
         };
 
         // Add script dynamically if not added already
         if (!scriptRef.current) {
           const addScript = document.createElement("script");
-          addScript.src =
-            "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+          addScript.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
           scriptRef.current = addScript;
           document.body.appendChild(addScript);
         }
@@ -78,9 +69,7 @@ export default function GoogleTranslate() {
                   alt="Translate Icon"
                   className="w-10 h-10"
                 />
-                <span className="font-semibold text-gray-9 text-base">
-                  Google Translate
-                </span>
+                <span className="font-semibold text-gray-9 text-base">Google Translate</span>
               </div>
             </AccordionTrigger>
 
