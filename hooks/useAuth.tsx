@@ -1,7 +1,12 @@
-export function useAuth() {
-  const token = localStorage.getItem("key_stone_token");
+import { useEffect, useState } from "react";
 
-  return {
-    isAuthenticated: token ? true : false,
-  };
+export function useAuth() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("key_stone_token");
+    setIsAuthenticated(!!token);
+  }, []);
+
+  return { isAuthenticated };
 }
