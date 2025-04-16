@@ -29,7 +29,7 @@ const TTS: FC<TTSProps> = ({ isTTSActive }) => {
           const spans = words.map((word, idx) => {
             const span = document.createElement("span");
             span.textContent = word + " ";
-            if (idx === wordIndex) span.classList.add("current-speaking");
+            if (idx <= wordIndex) span.classList.add("current-speaking");
             return span;
           });
 
