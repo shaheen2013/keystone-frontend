@@ -5,6 +5,7 @@ import { Input } from "@/components/shadcn/input";
 import { Label } from "@/components/shadcn/label";
 import { Textarea } from "@/components/shadcn/textarea";
 import { useContactMutation } from "@/features/public/contactSlice";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import {
   Clock3Icon,
@@ -16,6 +17,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 
 const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
+  const { toast } = useToast();
   const { title, description, contactInfo } = data;
   const [contact, { isLoading }] = useContactMutation();
 
@@ -36,11 +38,15 @@ const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
     try {
       const response = await contact(data).unwrap();
       if (response) {
-        alert("Your message has been sent successfully!");
+        toast({
+          description: "Successfully submitted your message.",
+        });
       }
     } catch (error) {
       console.log(error);
-      alert("Something went wrong. Please try again later.");
+      toast({
+        description: "Something went wrong. Please try again later.",
+      });
     }
   };
 
