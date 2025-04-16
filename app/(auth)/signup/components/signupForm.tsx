@@ -174,6 +174,7 @@ export default function SignupForm() {
                     fieldState: { error },
                   }) => (
                     <Input
+                    
                       classes={{ input: "bg-white" }}
                       placeholder="Enter email address"
                       onChange={onChange}

@@ -5,12 +5,12 @@ export const contactFormSlice = apiSlice.injectEndpoints({
     contact: builder.mutation({
       query: (data: any) => ({
         method: "POST",
-        url: `/contact_form`,
+        url: `/contuct-us`,
         body: data,
       }),
-      transformErrorResponse: (response: any) => {
-        return response.data;
-      },
+      // transformErrorResponse: (response: any) => {
+      //   return response.data;
+      // },
     }),
   }),
 });

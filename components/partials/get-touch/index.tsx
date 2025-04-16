@@ -1,7 +1,10 @@
+"use client";
+
 import { Button } from "@/components/shadcn/button";
 import { Input } from "@/components/shadcn/input";
 import { Label } from "@/components/shadcn/label";
 import { Textarea } from "@/components/shadcn/textarea";
+import { useContactMutation } from "@/features/public/contactSlice";
 import { cn } from "@/lib/utils";
 import {
   Clock3Icon,
@@ -10,9 +13,36 @@ import {
   Phone,
   SendHorizonalIcon,
 } from "lucide-react";
+import { Controller, useForm } from "react-hook-form";
 
 const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
   const { title, description, contactInfo } = data;
+  const [contact, { isLoading }] = useContactMutation();
+
+  const { handleSubmit, control } = useForm({
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (data: any) => {
+    console.log(data);
+
+    try {
+      const response = await contact(data).unwrap();
+      if (response) {
+        alert("Your message has been sent successfully!");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Something went wrong. Please try again later.");
+    }
+  };
 
   return (
     <section className={cn(" py-12 md:py-28 bg-white", classes?.root)}>
@@ -96,60 +126,151 @@ const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
             "flex flex-col gap-8 md:gap-12 p-4 md:p-8 bg-primary-2 rounded-2xl",
             classes?.form
           )}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="fname">First Name</Label>
-              <Input
-                id="fname"
-                type="text"
-                classes={{ input: "bg-white" }}
-                placeholder="Enter First Name"
+              <Label htmlFor="first_name">
+                First Name <span className="text-orange-500">*</span>
+              </Label>
+              <Controller
+                name="first_name"
+                control={control}
+                rules={{ required: "First Name is required" }}
+                render={({
+                  field: { onChange, value, onBlur },
+                  fieldState: { error },
+                }) => (
+                  <Input
+                    id="first_name"
+                    type="text"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    classes={{ input: "bg-white" }}
+                    placeholder="Enter First Name"
+                    errorText={error?.message}
+                  />
+                )}
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="lname">Last Name</Label>
-              <Input
-                id="lname"
-                type="text"
-                classes={{ input: "bg-white" }}
-                placeholder="Enter Last Name"
+              <Label htmlFor="last_name">Last Name </Label>
+              <Controller
+                name="last_name"
+                control={control}
+                render={({
+                  field: { onChange, value, onBlur },
+                  fieldState: { error },
+                }) => (
+                  <Input
+                    id="last_name"
+                    type="text"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    classes={{ input: "bg-white" }}
+                    placeholder="Enter Last Name"
+                    errorText={error?.message}
+                  />
+                )}
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="text"
-                classes={{ input: "bg-white" }}
-                placeholder="Enter Email Address"
+              <Label htmlFor="email">
+                Email <span className="text-orange-500">*</span>
+              </Label>
+              <Controller
+                name="email"
+                control={control}
+                rules={{ required: "Email is required" }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <Input
+                    id="email"
+                    type="text"
+                    classes={{ input: "bg-white" }}
+                    placeholder="Enter Email Address"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    errorText={error?.message}
+                  />
+                )}
               />
             </div>
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="phone">Phone</Label>
-              <Input
-                id="phone"
-                type="text"
-                classes={{ input: "bg-white" }}
-                placeholder="Enter Phone Number"
+              <Controller
+                name="phone"
+                control={control}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <Input
+                    id="phone"
+                    type="text"
+                    classes={{ input: "bg-white" }}
+                    placeholder="Enter Phone Number"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    errorText={error?.message}
+                  />
+                )}
               />
             </div>
             <div className="col-span-full flex flex-col gap-1.5">
-              <Label htmlFor="subject">Subject</Label>
-              <Input
-                id="subject"
-                type="text"
-                classes={{ input: "bg-white" }}
-                placeholder="Enter Subject"
+              <Label htmlFor="subject">
+                Subject <span className="text-orange-500">*</span>
+              </Label>
+              <Controller
+                name="subject"
+                control={control}
+                rules={{ required: "Subject is required" }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <Input
+                    id="subject"
+                    type="text"
+                    classes={{ input: "bg-white" }}
+                    placeholder="Enter Subject"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    errorText={error?.message}
+                  />
+                )}
               />
             </div>
             <div className="col-span-full flex flex-col gap-1.5">
-              <Label htmlFor="message">Message</Label>
-              <Textarea
-                id="message"
-                className="bg-white"
-                placeholder="Enter Message"
-                rows={4}
+              <Label htmlFor="message">
+                Message <span className="text-orange-500">*</span>
+              </Label>
+              <Controller
+                name="message"
+                control={control}
+                rules={{ required: "Message is required" }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <Textarea
+                    id="message"
+                    className="bg-white"
+                    placeholder="Enter Message"
+                    rows={4}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    errorText={error?.message}
+                  />
+                )}
               />
             </div>
           </div>
@@ -159,7 +280,9 @@ const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
             className="w-full md:w-fit self-end"
           >
             Submit
-            <SendHorizonalIcon className="ml-1 text-white" />
+            <SendHorizonalIcon
+              className={cn("ml-1 text-white", isLoading && "animate-pulse")}
+            />
           </Button>
         </form>
       </div>
