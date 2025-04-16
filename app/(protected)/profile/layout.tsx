@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import Cookies from "js-cookie";
 
 import { cn } from "@/lib/utils";
 import {
@@ -13,7 +13,6 @@ import {
   SelectTrigger,
   SelectContent,
 } from "@/components/shadcn/select";
-// import { useAuth } from "@/hooks/useAuth";
 
 export default function ProfileLayout({
   children,
@@ -22,6 +21,7 @@ export default function ProfileLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
+  const [allowed, setAllowed] = useState(false);
 
   const menuItems = [
     { name: "Profile Overview", path: "/profile/overview" },
@@ -30,41 +30,38 @@ export default function ProfileLayout({
     { name: "Password", path: "/profile/password" },
   ];
 
-  // const { isAuthenticated } = useAuth();
+  useEffect(() => {
+    const token = Cookies.get("key_stone_token");
 
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     router.replace("/login");
-  //   }
-  // }, [isAuthenticated, router]);
+    if (!token) {
+      router.replace("/login");
+    } else {
+      setAllowed(true);
+    }
+  }, [router]);
 
-  // if (!isAuthenticated) return null;
+  if (!allowed) return null;
 
   return (
     <div className="lg:flex container lg:min-h-[calc(100vh-100px)] gap-8 py-12">
-      {/* left */}
       <div className="col-span-3 min-w-[370px] bg-primary-2 rounded-2xl hidden lg:block">
         <div className="font-semibold text-2xl py-6 px-8 bg-primary-3 rounded-t-2xl">
           My Account
         </div>
 
         <div className="p-8">
-          {menuItems.map((item, index) => {
-            return (
-              <Link
-                href={item.path}
-                key={index}
-                className={cn(
-                  "mb-2 py-3 px-6 cursor-pointer rounded-xl hover:bg-primary-4 hover:text-white block font-semibold",
-                  {
-                    "bg-primary-6 text-white": pathname === item.path,
-                  }
-                )}
-              >
-                {item.name}
-              </Link>
-            );
-          })}
+          {menuItems.map((item, index) => (
+            <Link
+              href={item.path}
+              key={index}
+              className={cn(
+                "mb-2 py-3 px-6 cursor-pointer rounded-xl hover:bg-primary-4 hover:text-white block font-semibold",
+                { "bg-primary-6 text-white": pathname === item.path }
+              )}
+            >
+              {item.name}
+            </Link>
+          ))}
         </div>
       </div>
 
@@ -83,25 +80,23 @@ export default function ProfileLayout({
             />
           </SelectTrigger>
           <SelectContent>
-            {menuItems.map((item, index) => {
-              return (
-                <SelectItem
-                  key={index}
-                  value={item.path}
-                  className={cn(
-                    "cursor-pointer rounded-lg hover:bg-primary-4 hover:text-white block font-normal text-sm py-2 mb-1",
-                    { "!bg-primary-6 !text-white": pathname === item.path }
-                  )}
-                >
-                  {item.name}
-                </SelectItem>
-              );
-            })}
+            {menuItems.map((item, index) => (
+              <SelectItem
+                key={index}
+                value={item.path}
+                className={cn(
+                  "cursor-pointer rounded-lg hover:bg-primary-4 hover:text-white block font-normal text-sm py-2 mb-1",
+                  { "!bg-primary-6 !text-white": pathname === item.path }
+                )}
+              >
+                {item.name}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
 
-      {/* right */}
+      {/* main content */}
       <div className="lg:col-span-9 w-full">{children}</div>
     </div>
   );

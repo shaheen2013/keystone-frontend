@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/shadcn/dropdown-menu";
+import Cookies from "js-cookie";
 import { apiSlice } from "@/features/api/apiSlice";
 import { useLogoutMutation } from "@/features/auth/authSlice";
 import { cn } from "@/lib/utils";
@@ -20,6 +21,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
+  console.log("currentUser", currentUser);
   const router = useRouter();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -36,7 +38,7 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
       console.log("res", res);
 
       if (res?.success) {
-        localStorage.removeItem("key_stone_token");
+        Cookies.remove("key_stone_token");
 
         router.push("/");
         dispatch(apiSlice.util.resetApiState());
