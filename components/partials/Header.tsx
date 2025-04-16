@@ -140,7 +140,15 @@ export default function Header() {
             </div>
           )}
           {!isLoading && !isFetching && currentUser && (
-            <ProfileMenu currentUser={currentUser} />
+            <>
+              <ProfileMenu currentUser={currentUser} />
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className="lg:hidden bg-gray-2 rounded-xl p-1.5"
+              >
+                {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+              </button>
+            </>
           )}
 
           {!isLoading && !isFetching && !currentUser && (

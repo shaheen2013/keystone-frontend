@@ -45,6 +45,7 @@ const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
     } catch (error) {
       console.log(error);
       toast({
+        variant: "destructive",
         description: "Something went wrong. Please try again later.",
       });
     }
