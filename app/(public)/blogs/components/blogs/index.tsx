@@ -154,6 +154,7 @@ const Blogs = () => {
                 page={page}
                 setPage={setPage}
                 total={totalBlogs}
+                limit={PAGINATION_LIMIT}
                 className="col-span-full"
               />
             )}
