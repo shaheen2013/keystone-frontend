@@ -22,8 +22,8 @@ const Testimonials2 = ({
   subtitle,
   classes = {},
 }: {
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
   classes?: {
     root?: string;
     card?: string;
@@ -131,8 +131,8 @@ const Testimonials2 = ({
                           <Image
                             height={620}
                             width={560}
-                            src={testimonial.parent_avatar.path}
-                            alt={testimonial.parent_name}
+                            src={testimonial?.parent_avatar.path}
+                            alt={testimonial?.parent_name}
                             className="size-16 object-cover object-center rounded-full"
                           />
                         </div>

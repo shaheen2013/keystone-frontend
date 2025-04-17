@@ -13,7 +13,6 @@ import {
   insightsAndStoriesData,
   keystoneAbilitySupportData,
   supportSectionData,
-  testimonialsData,
   upcomingEventsData,
   WhyKeystoneData,
 } from "@/static/homepage";

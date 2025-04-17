@@ -7,7 +7,6 @@ import { downloadToolkits, educationPlans, guides, heroData } from "./constant";
 import Guides from "./components/guides";
 import EducationPlans from "./components/education-plans";
 import Testimonials from "@/components/partials/testimonials";
-import { testimonialsData } from "@/static/homepage";
 import Toolkits from "./components/download-toolkits";
 
 export const metadata: Metadata = {
@@ -24,7 +23,7 @@ export default function ParentGuides() {
       <EducationPlans data={educationPlans} />
       <Toolkits data={downloadToolkits} />
       <Testimonials
-        data={testimonialsData}
+        title="Inspiring Stories from Our Community"
         classes={{ root: "bg-primary-2", card: "bg-white" }}
       />
       <GetTouch data={contactInfo} />

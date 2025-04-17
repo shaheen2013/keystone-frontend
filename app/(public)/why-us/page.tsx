@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 import GetTouch from "@/components/partials/get-touch";
 import { contactInfo } from "@/static/shared";
-import { heroData, ourProcessData, testimonialsData } from "./constant";
+import { heroData, ourProcessData } from "./constant";
 import Testimonials from "@/components/partials/testimonials";
 import OurImpact from "@/components/partials/OurImpact";
 import OurProcess from "@/components/partials/our-process";
@@ -23,7 +23,8 @@ export default function ParentGuides() {
       <OurProcess data={ourProcessData} classes={{ cards: "md:grid-cols-3" }} />
       <OurImpact />
       <Testimonials
-        data={testimonialsData}
+        title="Parents Are Saying"
+        subtitle="Real stories from families we've helped—because every child deserves the right support and opportunities to thrive."
         classes={{ root: "bg-primary-2", card: "bg-white" }}
       />
       <GetTouch data={contactInfo} />

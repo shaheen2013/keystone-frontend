@@ -6,7 +6,6 @@ import {
   keyBenefitsData,
   ourProcessData,
   ourServiceData,
-  testimonialsData,
   whyChooseKeystoneAbilitySupportData,
 } from "./constant";
 import AboutOurService from "./components/about-our-service";
@@ -35,7 +34,8 @@ export default function ServiceDetails() {
       />
       <OurProcess data={ourProcessData} />
       <Testimonials
-        data={testimonialsData}
+        title="Parents Are Saying"
+        subtitle="Real stories from families we've helped—because every child deserves the right support and opportunities to thrive."
         classes={{ root: "bg-white", card: "bg-primary-1" }}
       />
       <ExploreOtherServices data={exploreOtherServicesData} />

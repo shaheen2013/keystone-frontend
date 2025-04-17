@@ -4,8 +4,6 @@ import img1 from "@/public/assets/home/upcoming-events/parent-training.png";
 import img2 from "@/public/assets/home/upcoming-events/parent-training2.png";
 import img3 from "@/public/assets/home/upcoming-events/parent-training3.png";
 
-import avatar1 from "@/public/assets/home/testimonials/avatar1.png";
-
 import insightsimg1 from "@/public/assets/home/insights-and-stories/img1.png";
 import insightsimg2 from "@/public/assets/home/insights-and-stories/img2.png";
 import insightsimg3 from "@/public/assets/home/insights-and-stories/img3.png";
@@ -114,80 +112,6 @@ export const keystoneAbilitySupportData = {
       title: "Commitment to Long-Term Success",
       description:
         "We are here for the long haul. Our focus is not just on immediate needs but on helping children and families thrive in the future, with sustainable plans and continuous support.",
-    },
-  ],
-};
-
-export const testimonialsData = {
-  title: "Parents Are Saying",
-  subtitle:
-    "Real stories from families we've helped—because every child deserves the right support and opportunities to thrive.",
-  testimonials: [
-    {
-      id: 1,
-      quote:
-        "Keystone Ability Support has been a game-changer for our family. Their guidance through the special education process gave us confidence and clarity. Now, my child is receiving the right support in school!",
-      author: {
-        name: "James T.",
-        description: "Father of a child with autism",
-        image: avatar1,
-      },
-      rating: 5,
-    },
-    {
-      id: 2,
-      quote:
-        "Keystone Ability Support has been a game-changer for our family. Their guidance through the special education process gave us confidence and clarity. Now, my child is receiving the right support in school!",
-      author: {
-        name: "James T.",
-        description: "Father of a child with autism",
-        image: avatar1,
-      },
-      rating: 4,
-    },
-    {
-      id: 3,
-      quote:
-        "Keystone Ability Support has been a game-changer for our family. Their guidance through the special education process gave us confidence and clarity. Now, my child is receiving the right support in school!",
-      author: {
-        name: "James T.",
-        description: "Father of a child with autism",
-        image: avatar1,
-      },
-      rating: 5,
-    },
-    {
-      id: 4,
-      quote:
-        "Keystone Ability Support has been a game-changer for our family. Their guidance through the special education process gave us confidence and clarity. Now, my child is receiving the right support in school!",
-      author: {
-        name: "James T.",
-        description: "Father of a child with autism",
-        image: avatar1,
-      },
-      rating: 5,
-    },
-    {
-      id: 5,
-      quote:
-        "Keystone Ability Support has been a game-changer for our family. Their guidance through the special education process gave us confidence and clarity. Now, my child is receiving the right support in school!",
-      author: {
-        name: "James T.",
-        description: "Father of a child with autism",
-        image: avatar1,
-      },
-      rating: 4,
-    },
-    {
-      id: 6,
-      quote:
-        "Keystone Ability Support has been a game-changer for our family. Their guidance through the special education process gave us confidence and clarity. Now, my child is receiving the right support in school!",
-      author: {
-        name: "James T.",
-        description: "Father of a child with autism",
-        image: avatar1,
-      },
-      rating: 5,
     },
   ],
 };
