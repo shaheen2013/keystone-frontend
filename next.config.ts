@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "dummyimage.com",
       },
+      {
+        hostname: "10.0.0.203",
+      },
     ],
   },
 };

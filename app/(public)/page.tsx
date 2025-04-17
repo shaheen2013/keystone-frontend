@@ -31,7 +31,10 @@ export default function Home() {
       <UpComingEvents data={upcomingEventsData} />
       <KeyStoneAbilitySupport data={keystoneAbilitySupportData} />
       <OurImpact />
-      <Testimonials data={testimonialsData} />
+      <Testimonials
+        title="Parents Are Saying"
+        subtitle="Real stories from families we've helped—because every child deserves the right support and opportunities to thrive."
+      />
       <InsightsAndStories data={insightsAndStoriesData} />
       <Support data={supportSectionData} />
     </>
