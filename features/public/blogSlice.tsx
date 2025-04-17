@@ -6,7 +6,11 @@ export const blogSlice = apiSlice.injectEndpoints({
       query: ({ pagi_limit, query, blog_category_ids }: any) =>
         `/blogs?query=${query}&blog_category_ids=${blog_category_ids}&pagi_limit=${pagi_limit}`,
     }),
+
+    getblogscategories: builder.query({
+      query: () => `/blog-categories`,
+    }),
   }),
 });
 
-export const { useGetblogsQuery } = blogSlice;
+export const { useGetblogsQuery, useGetblogscategoriesQuery } = blogSlice;
