@@ -17,13 +17,13 @@ const BlogCard = ({
         className
       )}
     >
-      <div className="relative">
+      <div className="relative w-full">
         <Image
           src={article.feature_image.path}
           width={1000}
           height={760}
           alt={article.title}
-          className="w-full object-cover rounded-xl"
+          className="w-full h-[230px] md:h-[314px] object-cover rounded-xl"
         />
         <div className="absolute top-4 right-4 rounded-xl py-2.5 px-6 flex gap-2 cursor-pointer transition-all bg-white text-gray-9">
           {article.isSaveForLater ? (

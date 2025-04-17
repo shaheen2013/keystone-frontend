@@ -39,7 +39,8 @@ const Blogs = () => {
   // Initialize state from URL params on first render
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
-    setPage(Number(params.get("page")) || 1);
+    const pageParam = params.get("page");
+    setPage(pageParam ? Math.max(1, parseInt(pageParam)) : 1);
   }, [searchParams]);
 
   // Fetch blogs data using state values
@@ -54,23 +55,33 @@ const Blogs = () => {
 
   const loading = isLoading || isFetching;
   const blogsData = data?.data || [];
-  const totalBlogs = blogsData?.blogs?.total;
+  const totalBlogs = blogsData?.blogs?.total || 0;
   const categories = categoriesData?.data.blog_categories || [];
 
   const handleSearch = (value: string) => {
     setSearch(value);
-    setPage(1);
+    handlePageChange(1);
   };
 
   const handleCategorySelect = (categoryID: string) => {
     setSelectedCategories((prev) => {
-      if (prev.includes(categoryID)) {
-        return prev.filter((c) => c !== categoryID);
-      } else {
-        return [...prev, categoryID];
-      }
+      const newCategories = prev.includes(categoryID)
+        ? prev.filter((c) => c !== categoryID)
+        : [...prev, categoryID];
+      return newCategories;
     });
-    setPage(1);
+    handlePageChange(1);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    updateUrlParams("page", newPage.toString());
+  };
+
+  const updateUrlParams = (key: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(key, value);
+    window.history.replaceState({}, "", `?${params.toString()}`);
   };
 
   return (
@@ -79,7 +90,7 @@ const Blogs = () => {
         {/* filter area */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 md:mb-12">
           <h4 className="text-gray-9 text-2xl md:text-4xl font-semibold">
-            {search ? "Search Results" : " All Blogs"}
+            {search ? "Search Results" : "All Blogs"}
           </h4>
 
           <div className="flex flex-col md:flex-row gap-4">
@@ -125,24 +136,21 @@ const Blogs = () => {
         {/* blogs area */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 md:mb-12">
           {loading ? (
-            <>
-              {Array.from({ length: PAGINATION_LIMIT }, (_, index) => (
-                <BlogCardSkeleton key={`skeleton-${index}`} />
-              ))}
-            </>
+            Array.from({ length: PAGINATION_LIMIT }).map((_, index) => (
+              <BlogCardSkeleton key={`skeleton-${index}`} />
+            ))
+          ) : blogsData?.blogs?.data?.length > 0 ? (
+            blogsData.blogs.data.map((blog: any) => (
+              <BlogCard key={blog.id} article={blog} />
+            ))
           ) : (
-            <>
-              {blogsData?.blogs?.data.map((blog: any, index: any) => (
-                <BlogCard key={index} article={blog} />
-              ))}
-            </>
+            <div className="col-span-full">
+              <NotFound data={notFoundData} />
+            </div>
           )}
         </div>
 
-        {/* No results found */}
-        {totalBlogs === 0 && <NotFound data={notFoundData} />}
-
-        <hr className="bg-primary-2 mb-4 md:mb-7" />
+        {totalBlogs > 0 && <hr className="bg-primary-2 mb-4 md:mb-7" />}
 
         {/* pagination area */}
         {loading ? (
