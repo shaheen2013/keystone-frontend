@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Heart, HeartFilled } from "../icons";
 import { cn } from "@/lib/utils";
+import moment from "moment";
 
 const BlogCard = ({
   article,
@@ -18,10 +19,11 @@ const BlogCard = ({
     >
       <div className="relative">
         <Image
-          src={article.image}
+          src={article.feature_image.path}
           width={1000}
           height={760}
           alt={article.title}
+          className="w-full object-cover rounded-xl"
         />
         <div className="absolute top-4 right-4 rounded-xl py-2.5 px-6 flex gap-2 cursor-pointer transition-all bg-white text-gray-9">
           {article.isSaveForLater ? (
@@ -34,16 +36,16 @@ const BlogCard = ({
           </span>
         </div>
       </div>
-      <div className="flex flex-col gap-3 md:gap-4">
+      <div className="flex flex-col gap-3 md:gap-4 w-full">
         <div className="flex gap-2 justify-between text-secondary-6 font-medium text-base">
-          <span>{article.date}</span>
-          <span>{article.readTime}</span>
+          <span>{moment(article.created_at).format("Do MMM")}</span>
+          <span>{article.reading_time} minute read</span>
         </div>
         <h3 className="text-gray-9 text-xl md:text-3xl font-bold">
           {article.title}
         </h3>
         <p className="text-gray-9 text-sm md:text-lg line-clamp-3">
-          {article.description}
+          {article.subtitle}
         </p>
       </div>
     </div>
