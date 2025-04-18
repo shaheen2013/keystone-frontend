@@ -11,23 +11,23 @@ import {
   CarouselItem,
   CarouselContent,
 } from "@/components/partials/auth-carousel";
-import { carouselContent } from "@/static/carousel";
+import { useGetTestimonialQuery } from "@/features/public/testimonialSlice";
 
 export default function AuthLeftSidebar({ className }: { className: string }) {
+  const { data, isLoading, isFetching }: any = useGetTestimonialQuery({});
+  const testimonials = data?.data?.parent_reviews || [];
+  const loading = isLoading || isFetching;
+
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  // const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
   const clx = classNames("relative", className);
 
-  const content = carouselContent[current - 1];
-
   useEffect(() => {
-    if (!api) {
-      return;
-    }
+    if (!api) return;
 
-    // setCount(api.scrollSnapList().length);
+    setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
 
     api.on("select", () => {
@@ -35,79 +35,97 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
     });
   }, [api]);
 
+  // Handle loading state
+  if (loading) {
+    return (
+      <div className={clx}>
+        <div className="w-full h-screen bg-gray-200 animate-pulse" />
+      </div>
+    );
+  }
+
   return (
     <div className={clx}>
-      <Carousel setApi={setApi}>
-        <CarouselContent className="w-full h-screen">
-          {carouselContent.map((carouselData, index) => (
-            <CarouselItem key={index} className="">
+      <Carousel setApi={setApi} className="w-full h-screen">
+        <CarouselContent>
+          {testimonials.map((carouselData: any, index: number) => (
+            <CarouselItem key={index} className="relative h-screen">
               <Image
-                src={carouselData.image}
-                alt="1"
-                width={1200}
-                height={800}
-                className="w-full h-full  "
+                src={
+                  carouselData.image || "https://dummyimage.com/600x400/000/fff"
+                }
+                alt={`Testimonial ${index + 1}`}
+                fill
+                className="object-cover object-center h-full w-full"
               />
-              <div className="p-1">hey #{index}</div>
+
+              {/* Testimonial Content */}
+              <div className="absolute bottom-0 left-0 right-0 backdrop-blur-lg bg-[#141F1FB2] p-8">
+                {/* Rating */}
+                <div className="flex items-center space-x-1 mb-4">
+                  {Array.from({ length: carouselData?.rating || 0 }).map(
+                    (_, i) => (
+                      <Image
+                        key={i}
+                        src="/icons/star.svg"
+                        alt="star"
+                        width={20}
+                        height={20}
+                        className="h-5 w-5"
+                      />
+                    )
+                  )}
+                </div>
+
+                {/* Feedback */}
+                <p className="text-white font-semibold text-3xl mb-8 line-clamp-4">
+                  {carouselData?.feedback}
+                </p>
+
+                {/* Author Info */}
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="text-white font-semibold text-xl mb-1">
+                      {carouselData?.parent_name}
+                    </p>
+                    <p className="text-white text-base">
+                      {carouselData?.parent_designation}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
+
+        {/* Navigation Arrows */}
+        <div className="absolute bottom-4 right-4 flex gap-x-8 z-10">
+          <button
+            className={`border border-white h-14 w-14 rounded-full flex items-center justify-center transition-colors ${
+              current === 1
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:border-secondary-6 hover:bg-secondary-6"
+            }`}
+            onClick={() => api?.scrollPrev()}
+            disabled={current === 1}
+            aria-label="Previous testimonial"
+          >
+            <ArrowLeft size={24} stroke="#fff" />
+          </button>
+          <button
+            className={`border border-white h-14 w-14 rounded-full flex items-center justify-center transition-colors ${
+              current === count
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:border-secondary-6 hover:bg-secondary-6"
+            }`}
+            onClick={() => api?.scrollNext()}
+            disabled={current === count}
+            aria-label="Next testimonial"
+          >
+            <ArrowRight size={24} stroke="#fff" />
+          </button>
+        </div>
       </Carousel>
-
-      {/* information */}
-      <div className="absolute bottom-0 left-0 right-0 backdrop-blur-lg bg-[#141F1FB2] p-8">
-        {/* star */}
-        <div className="flex items-center space-x-1 mb-4">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <Image
-              key={index}
-              src="/icons/star.svg"
-              alt="star"
-              width={20}
-              height={20}
-              className="h-5 w-5"
-            />
-          ))}
-        </div>
-
-        {/* description */}
-        <p className="text-white font-semibold text-3xl mb-8">
-          {content?.description}
-        </p>
-
-        {/* name, role, arrow */}
-        <div className="flex justify-between">
-          {/* name, role */}
-          <div className="">
-            <p className="text-white font-semibold text-xl mb-1">
-              {content?.name}
-            </p>
-            <p className="text-white text-base">{content?.role}</p>
-          </div>
-
-          {/* arrow */}
-          <div className="flex gap-x-8">
-            <button
-              className="border border-white h-14 w-14 rounded-full flex items-center justify-center hover:border-secondary-6 hover:bg-secondary-6 disabled:pointer-events-none disabled:opacity-50"
-              onClick={() => api?.scrollPrev()}
-              type="button"
-              disabled={current == 1}
-              title="Previous slide"
-            >
-              <ArrowLeft size={24} stroke="#fff" />
-            </button>
-            <button
-              className="border border-white  h-14 w-14 rounded-full flex items-center justify-center  hover:border-secondary-6 hover:bg-secondary-6 disabled:pointer-events-none disabled:opacity-50"
-              onClick={() => api?.scrollNext()}
-              disabled={current === carouselContent.length}
-              type="button"
-              title="Next slide"
-            >
-              <ArrowRight size={24} stroke="#fff" />
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
