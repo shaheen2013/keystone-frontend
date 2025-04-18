@@ -19,7 +19,7 @@ const BlogCard = ({
     >
       <div className="relative w-full">
         <Image
-          src={article.feature_image.path}
+          src={article?.feature_image?.path || ""}
           width={1000}
           height={760}
           alt={article.title}
