@@ -46,9 +46,9 @@ const Blogs = () => {
   // Fetch blogs data using state values
   const { data, isLoading, isFetching }: any = useGetblogsQuery({
     query: search,
-    blog_category_ids: selectedCategories,
     page: page,
     pagi_limit: PAGINATION_LIMIT,
+    blog_category_ids: selectedCategories,
   });
 
   const { data: categoriesData }: any = useGetblogscategoriesQuery({});
