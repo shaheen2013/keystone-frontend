@@ -3,30 +3,24 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import ReduxProvider from "@/components/partials/ReduxProvider";
+import GoogleTranslateInit from "@/components/GoogleTranslateInit";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-});
+const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   title: "Keystone | A Place for Connection & Support",
-  description:
-    "Keystone is a space where everyone can connect, engage, and find support. Join a welcoming community designed to make life easier and more meaningful.",
-  icons: {
-    icon: "/icons/favicon.ico",
-  },
+  description: "Keystone is a space where everyone can connect...",
+  icons: { icon: "/icons/favicon.ico" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <ReduxProvider>{children}</ReduxProvider>
+        <ReduxProvider>
+          <GoogleTranslateInit />
+          {children}
+        </ReduxProvider>
       </body>
     </html>
   );

@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "dummyimage.com",
       },
+      {
+        hostname: "www.gstatic.com",
+      },
     ],
   },
 };

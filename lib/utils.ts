@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function saveAccessibilifySetting(
+export function saveAccessibilitySetting(
   name:
     | "colorBlind"
     | "lowVision"
