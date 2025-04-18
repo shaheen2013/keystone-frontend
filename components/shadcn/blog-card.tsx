@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Heart, HeartFilled } from "../icons";
 import { cn } from "@/lib/utils";
 import moment from "moment";
+import Link from "next/link";
 
 const BlogCard = ({
   article,
@@ -11,11 +12,12 @@ const BlogCard = ({
   className?: string;
 }) => {
   return (
-    <div
+    <Link
       className={cn(
         "bg-primary-2 p-4 md:p-6 rounded-2xl flex flex-col gap-4 md:gap-6 items-start h-full",
         className
       )}
+      href={`/blogs/${article.slug}`}
     >
       <div className="relative w-full">
         <Image
@@ -48,7 +50,7 @@ const BlogCard = ({
           {article.subtitle}
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 

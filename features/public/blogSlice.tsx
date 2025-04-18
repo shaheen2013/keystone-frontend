@@ -24,7 +24,11 @@ export const blogSlice = apiSlice.injectEndpoints({
     getblogscategories: builder.query({
       query: () => `/blog-categories`,
     }),
+    getblog: builder.query({
+      query: ({ slug }: any) => `/blogs/${slug}`,
+    }),
   }),
 });
 
-export const { useGetblogsQuery, useGetblogscategoriesQuery } = blogSlice;
+export const { useGetblogsQuery, useGetblogscategoriesQuery, useGetblogQuery } =
+  blogSlice;
