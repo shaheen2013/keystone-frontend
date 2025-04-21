@@ -58,7 +58,11 @@ const ExploreRecommendBlogs = () => {
             )}
             {blogs?.map((blog: any, index: any) => (
               <CarouselItem key={index} className="basis-full md:basis-1/3">
-                <BlogCard article={blog} key={index} className="bg-white" />
+                <BlogCard
+                  article={blog}
+                  key={index}
+                  classes={{ root: "bg-white" }}
+                />
               </CarouselItem>
             ))}
 

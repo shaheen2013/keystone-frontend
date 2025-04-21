@@ -21,6 +21,7 @@ import PaginationWrapper from "@/components/partials/pagination-wrapper";
 import {
   useGetblogscategoriesQuery,
   useGetblogsQuery,
+  useSaveToggleMutation,
 } from "@/features/public/blogSlice";
 import BlogCardSkeleton from "@/components/skeletons/blog-card";
 import { PAGINATION_LIMIT } from "@/lib/constants";
@@ -45,7 +46,7 @@ const Blogs = () => {
   }, [searchParams]);
 
   // Fetch blogs data using state values
-  const { data, isLoading, isFetching }: any = useGetblogsQuery({
+  const { data, isLoading, isFetching, refetch }: any = useGetblogsQuery({
     query: search,
     page: page,
     pagi_limit: PAGINATION_LIMIT,
@@ -53,6 +54,8 @@ const Blogs = () => {
   });
 
   const { data: categoriesData }: any = useGetblogscategoriesQuery({});
+
+  const [saveToggle] = useSaveToggleMutation();
 
   const loading = isLoading || isFetching;
   const blogsData = data?.data || [];
@@ -85,6 +88,15 @@ const Blogs = () => {
     window.history.replaceState({}, "", `?${params.toString()}`);
   };
 
+  const handleToggle = async (id: string) => {
+    try {
+      const result = await saveToggle({ blog_id: id }).unwrap();
+      console.log("Toggled:", result);
+      refetch();
+    } catch (err) {
+      console.error("Failed to toggle save:", err);
+    }
+  };
   return (
     <>
       <section className="py-12 md:py-28">
@@ -143,7 +155,11 @@ const Blogs = () => {
               ))
             ) : blogsData?.blogs?.data?.length > 0 ? (
               blogsData.blogs.data.map((blog: any) => (
-                <BlogCard key={blog.id} article={blog} />
+                <BlogCard
+                  key={blog.id}
+                  article={blog}
+                  handleToggle={handleToggle}
+                />
               ))
             ) : (
               <div className="col-span-full">

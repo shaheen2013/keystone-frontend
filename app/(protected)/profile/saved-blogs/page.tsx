@@ -1,11 +1,40 @@
 "use client";
 
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
-import Image from "next/image";
+import BlogCard from "@/components/shadcn/blog-card";
+import { BlogCardSkeleton, PaginationSkeleton } from "@/components/skeletons";
+import {
+  useGetSavedBlogsQuery,
+  useSaveToggleMutation,
+} from "@/features/public/blogSlice";
+import { PAGINATION_LIMIT } from "@/lib/constants";
 import React, { Suspense, useState } from "react";
 
 export default function AccountSavedBlogs() {
   const [page, setPage] = useState(1);
+
+  const { data, isFetching, isLoading, refetch }: any = useGetSavedBlogsQuery({
+    page: page,
+    pagi_limit: PAGINATION_LIMIT,
+  });
+
+  const [saveToggle] = useSaveToggleMutation();
+
+  const loading = isLoading || isFetching;
+
+  const savedBlogs = data?.data.saved_blogs.data || [];
+  const totalBlogs = data?.data?.saved_blogs?.total || 0;
+
+  const handleToggle = async (id: string) => {
+    try {
+      const result = await saveToggle({ blog_id: id }).unwrap();
+      console.log("Toggled:", result);
+      refetch();
+    } catch (err) {
+      console.error("Failed to toggle save:", err);
+    }
+  };
+
   return (
     <div className="bg-primary-1 rounded-2xl">
       <div className="font-semibold lg:text-2xl text-lg lg:py-6 lg:px-8 p-4  bg-primary-2 rounded-t-2xl">
@@ -15,70 +44,47 @@ export default function AccountSavedBlogs() {
       {/* content */}
       <div className="lg:p-8 p-4">
         {/* events */}
-        <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-6 mb-4 md:mb-6">
-          {Array(5)
-            .fill(0)
-            .map((_, index) => {
-              return (
-                <div
-                  key={index}
-                  className="bg-primary-2 p-5 rounded-xl relative"
-                >
-                  {/* remove */}
-                  <button className="absolute bg-white flex gap-2 items-center px-6 py-2 right-8 top-8 rounded-xl">
-                    <Image
-                      src="/icons/delete.svg"
-                      alt="close"
-                      width={20}
-                      height={20}
-                    />
-
-                    <span className="font-semibold">Remove</span>
-                  </button>
-
-                  <Image
-                    src="https://dummyimage.com/720x480"
-                    alt="event"
-                    height={480}
-                    width={720}
-                    className="rounded-2xl mb-4 w-full"
-                  />
-
-                  {/* time/read min */}
-                  <div className="flex gap-2 items-center justify-between mb-4">
-                    <div className="text-secondary-6 text-base font-semibold">
-                      6th Feb
-                    </div>
-                    <div className="text-secondary-6 text-base font-semibold">
-                      6 minute Read
-                    </div>
-                  </div>
-
-                  {/* title */}
-                  <h2 className="text-gray-900 text-xl font-semibold mb-4">
-                    5 Ways to Build Confidence Your Child with Special Needs
-                  </h2>
-
-                  {/* description */}
-                  <p className="text-gray-900 line-clamp-3">
-                    Empower your child to thrive by fostering self-esteem,
-                    encouraging independence, and celebrating small victories.
-                    Explore practical strategies designed for parents navigating
-                    unique challenges.
-                  </p>
-                </div>
-              );
-            })}
+        <div className="grid md:grid-cols-3 grid-cols-1 gap-6 mb-4 md:mb-6">
+          {loading ? (
+            Array.from({ length: PAGINATION_LIMIT }).map((_, index) => (
+              <BlogCardSkeleton key={`skeleton-${index}`} />
+            ))
+          ) : totalBlogs > 0 ? (
+            savedBlogs.map((blog: any) => (
+              <BlogCard
+                key={blog.id}
+                article={blog}
+                userPanel
+                classes={{
+                  image: "h-[230px] md:h-[214px]",
+                  title: "text-xl md:text-xl font-semibold",
+                }}
+                handleToggle={handleToggle}
+              />
+            ))
+          ) : (
+            <div className="col-span-full text-center">No Saved Blogs</div>
+          )}
         </div>
         <hr className="bg-primary-2 mb-4 md:mb-7" />
         {/* pagination area */}
         <Suspense fallback={<div className="h-10" />}>
-          <PaginationWrapper
-            page={page}
-            setPage={setPage}
-            total={200}
-            className="col-span-full"
-          />
+          {/* pagination area */}
+          {loading ? (
+            <PaginationSkeleton className="mt-4" />
+          ) : (
+            <>
+              {totalBlogs > PAGINATION_LIMIT && (
+                <PaginationWrapper
+                  page={page}
+                  setPage={setPage}
+                  total={totalBlogs}
+                  limit={PAGINATION_LIMIT}
+                  className="col-span-full"
+                />
+              )}
+            </>
+          )}
         </Suspense>
       </div>
     </div>

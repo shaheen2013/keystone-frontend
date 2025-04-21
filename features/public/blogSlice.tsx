@@ -27,8 +27,22 @@ export const blogSlice = apiSlice.injectEndpoints({
     getblog: builder.query({
       query: ({ slug }: any) => `/blogs/${slug}`,
     }),
+    getSavedBlogs: builder.query({
+      query: () => `/saved-blogs`,
+    }),
+    saveToggle: builder.mutation({
+      query: ({ blog_id }: any) => ({
+        url: `/saved-blogs/${blog_id}`,
+        method: "PATCH",
+      }),
+    }),
   }),
 });
 
-export const { useGetblogsQuery, useGetblogscategoriesQuery, useGetblogQuery } =
-  blogSlice;
+export const {
+  useGetblogsQuery,
+  useGetblogscategoriesQuery,
+  useGetblogQuery,
+  useGetSavedBlogsQuery,
+  useSaveToggleMutation,
+} = blogSlice;

@@ -28,3 +28,4 @@ export { default as Minus } from "./Minus";
 export { default as Plus } from "./Plus";
 export { default as Twitter } from "./Twitter";
 export { default as Facebook } from "./Facebook";
+export { default as Delete } from "./Delete";
