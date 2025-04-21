@@ -18,7 +18,7 @@ export default function BlogPage() {
   return (
     <>
       <CenteredHero data={heroData} />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div className="h-3"></div>}>
         <Blogs />
       </Suspense>
       <GetTouch data={contactInfo} />

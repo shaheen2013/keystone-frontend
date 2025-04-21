@@ -8,12 +8,13 @@ import {
   useSaveToggleMutation,
 } from "@/features/public/blogSlice";
 import { PAGINATION_LIMIT } from "@/lib/constants";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
 export default function AccountSavedBlogs() {
   const [page, setPage] = useState(1);
+  const [savedBlogs, setSavedBlogs] = useState<any[]>([]);
 
-  const { data, isFetching, isLoading, refetch }: any = useGetSavedBlogsQuery({
+  const { data, isFetching, isLoading }: any = useGetSavedBlogsQuery({
     page: page,
     pagi_limit: PAGINATION_LIMIT,
   });
@@ -22,18 +23,33 @@ export default function AccountSavedBlogs() {
 
   const loading = isLoading || isFetching;
 
-  const savedBlogs = data?.data.saved_blogs.data || [];
   const totalBlogs = data?.data?.saved_blogs?.total || 0;
 
   const handleToggle = async (id: string) => {
+    // Store the blog being removed in case we need to revert
+    const blogToRemove = savedBlogs.find((blog) => blog.id === id);
     try {
-      const result = await saveToggle({ blog_id: id }).unwrap();
-      console.log("Toggled:", result);
-      refetch();
+      // Immediately update UI
+      setSavedBlogs((prevBlogs: any) =>
+        prevBlogs.filter((blog: any) => blog.id !== id)
+      );
+
+      // Send API request
+      await saveToggle({ blog_id: id }).unwrap();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      console.error("Failed to toggle save:", err);
+      // Revert on error
+      if (blogToRemove) {
+        setSavedBlogs((prevBlogs: any) => [...prevBlogs, blogToRemove]);
+      }
     }
   };
+
+  useEffect(() => {
+    if (data?.data?.saved_blogs?.data) {
+      setSavedBlogs(data.data.saved_blogs.data);
+    }
+  }, [data]);
 
   return (
     <div className="bg-primary-1 rounded-2xl">
@@ -49,8 +65,8 @@ export default function AccountSavedBlogs() {
             Array.from({ length: PAGINATION_LIMIT }).map((_, index) => (
               <BlogCardSkeleton key={`skeleton-${index}`} />
             ))
-          ) : totalBlogs > 0 ? (
-            savedBlogs.map((blog: any) => (
+          ) : savedBlogs?.length > 0 ? (
+            savedBlogs?.map((blog: any) => (
               <BlogCard
                 key={blog.id}
                 article={blog}

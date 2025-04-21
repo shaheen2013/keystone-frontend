@@ -29,14 +29,22 @@ import { PaginationSkeleton } from "@/components/skeletons";
 import NotFound from "@/components/partials/not-found";
 import { notFoundData } from "../../constant";
 import ExploreRecommendBlogs from "@/components/partials/explore-recommend-blogs";
+import { useDebounceCallback } from "usehooks-ts";
 
 const Blogs = () => {
   const searchParams = useSearchParams();
+
+  const [inputValue, setInputValue] = useState("");
 
   // State for filters
   const [search, setSearch] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [page, setPage] = useState(1);
+
+  // Debounce the search input with 500ms delay
+  const debouncedSearch = useDebounceCallback(setSearch, 500);
+
+  const [blogsData, setBlogsData] = useState([]);
 
   // Initialize state from URL params on first render
   useEffect(() => {
@@ -46,7 +54,7 @@ const Blogs = () => {
   }, [searchParams]);
 
   // Fetch blogs data using state values
-  const { data, isLoading, isFetching, refetch }: any = useGetblogsQuery({
+  const { data, isLoading, isFetching }: any = useGetblogsQuery({
     query: search,
     page: page,
     pagi_limit: PAGINATION_LIMIT,
@@ -58,12 +66,12 @@ const Blogs = () => {
   const [saveToggle] = useSaveToggleMutation();
 
   const loading = isLoading || isFetching;
-  const blogsData = data?.data || [];
-  const totalBlogs = blogsData?.blogs?.total || 0;
+  const totalBlogs = data?.data?.blogs?.total || 0;
   const categories = categoriesData?.data.blog_categories || [];
 
   const handleSearch = (value: string) => {
-    setSearch(value);
+    setInputValue(value);
+    debouncedSearch(value);
     handlePageChange(1);
   };
 
@@ -88,13 +96,31 @@ const Blogs = () => {
     window.history.replaceState({}, "", `?${params.toString()}`);
   };
 
+  useEffect(() => {
+    if (data?.data?.blogs?.data) {
+      setBlogsData(data.data.blogs.data);
+    }
+  }, [data]);
+
   const handleToggle = async (id: string) => {
     try {
-      const result = await saveToggle({ blog_id: id }).unwrap();
-      console.log("Toggled:", result);
-      refetch();
+      //  immediately update UI
+      setBlogsData((prevBlogs: any) =>
+        prevBlogs.map((blog: any) =>
+          blog.id === id ? { ...blog, is_saved: !blog.is_saved } : blog
+        )
+      );
+
+      // Send API request
+      await saveToggle({ blog_id: id }).unwrap();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      console.error("Failed to toggle save:", err);
+      // Revert on error
+      setBlogsData((prevBlogs: any) =>
+        prevBlogs.map((blog: any) =>
+          blog.id === id ? { ...blog, is_saved: !blog.is_saved } : blog
+        )
+      );
     }
   };
   return (
@@ -111,7 +137,7 @@ const Blogs = () => {
               <Input
                 placeholder="Search by blog name"
                 endIcon={<Search className="text-gray-7 size-6" />}
-                value={search}
+                value={inputValue}
                 onChange={(event) => handleSearch(event.target.value)}
               />
               <DropdownMenu>
@@ -153,8 +179,8 @@ const Blogs = () => {
               Array.from({ length: PAGINATION_LIMIT }).map((_, index) => (
                 <BlogCardSkeleton key={`skeleton-${index}`} />
               ))
-            ) : blogsData?.blogs?.data?.length > 0 ? (
-              blogsData.blogs.data.map((blog: any) => (
+            ) : blogsData?.length > 0 ? (
+              blogsData.map((blog: any) => (
                 <BlogCard
                   key={blog.id}
                   article={blog}
@@ -189,9 +215,7 @@ const Blogs = () => {
         </div>
       </section>
 
-      {!loading && blogsData?.blogs?.data?.length === 0 && (
-        <ExploreRecommendBlogs />
-      )}
+      {!loading && blogsData?.length === 0 && <ExploreRecommendBlogs />}
     </>
   );
 };
