@@ -1,8 +1,8 @@
 "use client";
 
+import { DialogTitle } from "@radix-ui/react-dialog";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { DialogTitle } from "@radix-ui/react-dialog";
 
 import {
   getAccessibilifySettings,
@@ -11,16 +11,17 @@ import {
 
 import {
   Accordion,
+  AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  AccordionContent,
 } from "@/components/shadcn/accordion";
+import { Button } from "@/components/shadcn/button";
 import { Slider } from "@/components/shadcn/slider";
 import { Switch } from "@/components/shadcn/switch";
-import { Button } from "@/components/shadcn/button";
 
 import GoogleTranslate from "@/components/partials/google-transalate";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/shadcn/sheet";
+import TTS from "../TTS/TTS";
 
 export default function Accessibility() {
   type Options = {
@@ -47,7 +48,7 @@ export default function Accessibility() {
     increaseContrast: false,
     textSize: [4],
     magnification: false,
-    textToSpeech: false,
+    textToSpeech: localStorage.getItem("textToSpeech") === "true",
     googleTranslate: "",
   });
 
@@ -332,14 +333,7 @@ export default function Accessibility() {
   const handleTextToSpeech = (event: any) => {
     setOptions({ ...options, textToSpeech: event });
     saveAccessibilifySetting("textToSpeech", event);
-
-    // const utterance = new SpeechSynthesisUtterance("hello world");
-
-    if (event) {
-      // window.speechSynthesis.speak(utterance);
-    } else {
-      // window.speechSynthesis.cancel();
-    }
+    localStorage.setItem("textToSpeech", event);
   };
 
   const handleReset = () => {
@@ -392,13 +386,21 @@ export default function Accessibility() {
     <div className="fixed right-5 top-[450px] z-20 lg:flex hidden">
       <Sheet onOpenChange={handleAccessibilityRender}>
         <SheetTrigger asChild>
-          <Image
-            src="/icons/accessibility.svg"
-            width={50}
-            height={50}
-            alt="Accessibility"
-            className="cursor-pointer"
-          />
+          <div className={`cursor-pointer`}>
+            <Image
+              src="/icons/accessibility.svg"
+              width={50}
+              height={50}
+              alt="Accessibility"
+            />
+            {Object.keys(options).some(
+              (key) => options[key as keyof Options] === true
+            ) && (
+              <div className="absolute top-0 right-[-3px] w-3 h-3 bg-green-500 rounded-full">
+                <div className="animate-ping w-3 h-3 bg-green-500 rounded-full" />
+              </div>
+            )}
+          </div>
         </SheetTrigger>
 
         <SheetContent
@@ -669,7 +671,7 @@ export default function Accessibility() {
               <GoogleTranslate />
             </div>
           </div>
-
+          {/* TTS Iniitalze */}
           {/* bottom  */}
           <div className="mt-auto">
             <Button
@@ -689,6 +691,7 @@ export default function Accessibility() {
           </div>
         </SheetContent>
       </Sheet>
+      <TTS isTTSActive={options.textToSpeech} />
     </div>
   );
 }
