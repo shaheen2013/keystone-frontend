@@ -5,7 +5,7 @@ import { toast } from "@/hooks/use-toast";
 import { Copy } from "lucide-react";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { FacebookShareButton, TwitterShareButton } from "react-share";
+import { FacebookShareButton, TwitterShareButton } from "next-share";
 
 const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
   const [copied, setCopied] = useState(false);
@@ -41,6 +41,7 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
           <title>{data?.title}</title>
           <meta property="og:title" content={data?.title} />
           <meta property="og:description" content={data?.subtitle} />
+          <meta property="og:image" content={data?.banner?.path} />
           <meta
             property="og:url"
             content={`https://yourdomain.com/blogs/${data?.id}`}
@@ -50,6 +51,7 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={data?.title} />
           <meta name="twitter:description" content={data?.subtitle} />
+          <meta name="twitter:image" content={data?.banner?.path} />
         </Head>
       )}
       <section className="flex flex-col">
@@ -118,11 +120,23 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
                   </span>
                 </Button>
 
-                <FacebookShareButton url={shareUrl}>
+                <FacebookShareButton
+                  url={"https://github.com/next-share"}
+                  quote={
+                    "next-share is a social share buttons for your next React apps."
+                  }
+                  blankTarget
+                >
                   <Facebook className="size-10 rounded-lg" />
                 </FacebookShareButton>
 
-                <TwitterShareButton url={shareUrl}>
+                <TwitterShareButton
+                  url={"https://github.com/next-share"}
+                  title={
+                    "next-share is a social share buttons for your next React apps."
+                  }
+                  blankTarget
+                >
                   <Twitter className="size-10 rounded-lg" />
                 </TwitterShareButton>
               </div>

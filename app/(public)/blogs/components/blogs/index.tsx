@@ -27,6 +27,7 @@ import { PAGINATION_LIMIT } from "@/lib/constants";
 import { PaginationSkeleton } from "@/components/skeletons";
 import NotFound from "@/components/partials/not-found";
 import { notFoundData } from "../../constant";
+import ExploreRecommendBlogs from "@/components/partials/explore-recommend-blogs";
 
 const Blogs = () => {
   const searchParams = useSearchParams();
@@ -85,91 +86,97 @@ const Blogs = () => {
   };
 
   return (
-    <section className="py-12 md:py-28">
-      <div className="container flex flex-col">
-        {/* filter area */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 md:mb-12">
-          <h4 className="text-gray-9 text-2xl md:text-4xl font-semibold">
-            {search ? "Search Results" : "All Blogs"}
-          </h4>
+    <>
+      <section className="py-12 md:py-28">
+        <div className="container flex flex-col">
+          {/* filter area */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 md:mb-12">
+            <h4 className="text-gray-9 text-2xl md:text-4xl font-semibold">
+              {search ? "Search Results" : "All Blogs"}
+            </h4>
 
-          <div className="flex flex-col md:flex-row gap-4">
-            <Input
-              placeholder="Search by blog name"
-              endIcon={<Search className="text-gray-7 size-6" />}
-              value={search}
-              onChange={(event) => handleSearch(event.target.value)}
-            />
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="ml-auto font-semibold text-gray-5 px-4 py-3 w-full md:w-fit justify-between"
-                >
-                  Filter by category
-                  <ChevronDown className="ml-10 size-6 text-gray-7" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end">
-                <DropdownMenuLabel>Filter</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {categories.map((category: any) => (
-                  <DropdownMenuItem
-                    key={category.id}
-                    onClick={() => handleCategorySelect(category.id)}
-                    className={cn(
-                      "my-1",
-                      selectedCategories.includes(category.id) && "bg-gray-1"
-                    )}
+            <div className="flex flex-col md:flex-row gap-4">
+              <Input
+                placeholder="Search by blog name"
+                endIcon={<Search className="text-gray-7 size-6" />}
+                value={search}
+                onChange={(event) => handleSearch(event.target.value)}
+              />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="ml-auto font-semibold text-gray-5 px-4 py-3 w-full md:w-fit justify-between"
                   >
-                    {category.name}
-                    {selectedCategories.includes(category.id) && (
-                      <Check className="ml-auto size-6 text-primary-6" />
-                    )}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
-
-        {/* blogs area */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 md:mb-12">
-          {loading ? (
-            Array.from({ length: PAGINATION_LIMIT }).map((_, index) => (
-              <BlogCardSkeleton key={`skeleton-${index}`} />
-            ))
-          ) : blogsData?.blogs?.data?.length > 0 ? (
-            blogsData.blogs.data.map((blog: any) => (
-              <BlogCard key={blog.id} article={blog} />
-            ))
-          ) : (
-            <div className="col-span-full">
-              <NotFound data={notFoundData} />
+                    Filter by category
+                    <ChevronDown className="ml-10 size-6 text-gray-7" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end">
+                  <DropdownMenuLabel>Filter</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {categories.map((category: any) => (
+                    <DropdownMenuItem
+                      key={category.id}
+                      onClick={() => handleCategorySelect(category.id)}
+                      className={cn(
+                        "my-1",
+                        selectedCategories.includes(category.id) && "bg-gray-1"
+                      )}
+                    >
+                      {category.name}
+                      {selectedCategories.includes(category.id) && (
+                        <Check className="ml-auto size-6 text-primary-6" />
+                      )}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
+          </div>
+
+          {/* blogs area */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 md:mb-12">
+            {loading ? (
+              Array.from({ length: PAGINATION_LIMIT }).map((_, index) => (
+                <BlogCardSkeleton key={`skeleton-${index}`} />
+              ))
+            ) : blogsData?.blogs?.data?.length > 0 ? (
+              blogsData.blogs.data.map((blog: any) => (
+                <BlogCard key={blog.id} article={blog} />
+              ))
+            ) : (
+              <div className="col-span-full">
+                <NotFound data={notFoundData} />
+              </div>
+            )}
+          </div>
+
+          {totalBlogs > 0 && <hr className="bg-primary-2 mb-4 md:mb-7" />}
+
+          {/* pagination area */}
+          {loading ? (
+            <PaginationSkeleton className="mt-4" />
+          ) : (
+            <>
+              {totalBlogs > PAGINATION_LIMIT && (
+                <PaginationWrapper
+                  page={page}
+                  setPage={setPage}
+                  total={totalBlogs}
+                  limit={PAGINATION_LIMIT}
+                  className="col-span-full"
+                />
+              )}
+            </>
           )}
         </div>
+      </section>
 
-        {totalBlogs > 0 && <hr className="bg-primary-2 mb-4 md:mb-7" />}
-
-        {/* pagination area */}
-        {loading ? (
-          <PaginationSkeleton className="mt-4" />
-        ) : (
-          <>
-            {totalBlogs > PAGINATION_LIMIT && (
-              <PaginationWrapper
-                page={page}
-                setPage={setPage}
-                total={totalBlogs}
-                limit={PAGINATION_LIMIT}
-                className="col-span-full"
-              />
-            )}
-          </>
-        )}
-      </div>
-    </section>
+      {!loading && blogsData?.blogs?.data?.length === 0 && (
+        <ExploreRecommendBlogs />
+      )}
+    </>
   );
 };
 

@@ -162,10 +162,13 @@ const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="last_name">Last Name </Label>
+              <Label htmlFor="last_name">
+                Last Name <span className="text-orange-500">*</span>
+              </Label>
               <Controller
                 name="last_name"
                 control={control}
+                rules={{ required: "Last Name is required" }}
                 render={({
                   field: { onChange, value, onBlur },
                   fieldState: { error },
@@ -209,10 +212,13 @@ const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="phone">Phone</Label>
+              <Label htmlFor="phone">
+                Phone <span className="text-orange-500">*</span>
+              </Label>
               <Controller
                 name="phone"
                 control={control}
+                rules={{ required: "Phone Number is required" }}
                 render={({
                   field: { onChange, onBlur, value },
                   fieldState: { error },
