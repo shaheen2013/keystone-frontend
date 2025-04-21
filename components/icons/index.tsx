@@ -26,3 +26,5 @@ export { default as HeartFilled } from "./HeartFilled";
 export { default as Share } from "./Share";
 export { default as Minus } from "./Minus";
 export { default as Plus } from "./Plus";
+export { default as Twitter } from "./Twitter";
+export { default as Facebook } from "./Facebook";
