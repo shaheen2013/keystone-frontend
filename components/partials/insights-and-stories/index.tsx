@@ -18,7 +18,6 @@ import {
 } from "@/features/public/blogSlice";
 import { PAGINATION_LIMIT } from "@/lib/constants";
 import { Skeleton } from "@/components/shadcn/skeleton";
-import { cn } from "@/lib/utils";
 import { BlogCardSkeleton } from "@/components/skeletons";
 
 const InsightsAndStories = () => {
