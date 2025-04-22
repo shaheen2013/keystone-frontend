@@ -6,17 +6,11 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 
 import { getAccessabilitySettings, saveAccessibilitySetting } from "@/lib/utils";
 
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@/components/shadcn/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/shadcn/accordion";
+import { Button } from "@/components/shadcn/button";
 import { Slider } from "@/components/shadcn/slider";
 import { Switch } from "@/components/shadcn/switch";
-import { Button } from "@/components/shadcn/button";
 
-import GoogleTranslate from "@/components/partials/google-transalate";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/shadcn/sheet";
 import TTS from "../TTS/TTS";
 
@@ -239,7 +233,7 @@ export default function Accessibility() {
     setOptions({ ...options, lowVision: event });
 
     document.getElementById("root")?.classList.toggle(accessibilityClasses.lowVision);
-    saveAccessibilitySetting("lowVision", event);
+    saveAccessibilifySetting("lowVision", event);
   };
 
   const handleSaturationStatus = (event: any) => {
@@ -420,15 +414,8 @@ export default function Accessibility() {
       <Sheet open={open} onOpenChange={handleAccessibilityRender}>
         <SheetTrigger asChild>
           <div className={`cursor-pointer`}>
-            <Image
-              src="/icons/accessibility.svg"
-              width={50}
-              height={50}
-              alt="Accessibility"
-            />
-            {Object.keys(options).some(
-              (key) => options[key as keyof Options] === true
-            ) && (
+            <Image src="/icons/accessibility.svg" width={50} height={50} alt="Accessibility" />
+            {Object.keys(options).some((key) => options[key as keyof Options] === true) && (
               <div className="absolute top-0 right-[-3px] w-3 h-3 bg-green-500 rounded-full">
                 <div className="animate-ping w-3 h-3 bg-green-500 rounded-full" />
               </div>
