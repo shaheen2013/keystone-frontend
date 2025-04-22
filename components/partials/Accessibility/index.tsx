@@ -4,17 +4,9 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import {
-  getAccessibilifySettings,
-  saveAccessibilifySetting,
-} from "@/lib/utils";
+import { getAccessibilifySettings, saveAccessibilifySetting } from "@/lib/utils";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/shadcn/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/shadcn/accordion";
 import { Button } from "@/components/shadcn/button";
 import { Slider } from "@/components/shadcn/slider";
 import { Switch } from "@/components/shadcn/switch";
@@ -198,9 +190,7 @@ export default function Accessibility() {
   const handleLowVision = (event: any) => {
     setOptions({ ...options, lowVision: event });
 
-    document
-      .getElementById("root")
-      ?.classList.toggle(accessibilityClasses.lowVision);
+    document.getElementById("root")?.classList.toggle(accessibilityClasses.lowVision);
     saveAccessibilifySetting("lowVision", event);
   };
 
@@ -290,9 +280,7 @@ export default function Accessibility() {
     // remove all text size classes
     Object.keys(accessibilityClasses.textSize).forEach((key) => {
       root.classList.remove(
-        accessibilityClasses.textSize[
-          key as unknown as keyof typeof accessibilityClasses.textSize
-        ]
+        accessibilityClasses.textSize[key as unknown as keyof typeof accessibilityClasses.textSize]
       );
     });
 
@@ -358,8 +346,7 @@ export default function Accessibility() {
     body.classList.remove(accessibilityClasses.bigCursor);
 
     Object.keys(accessibilityClasses).forEach((key) => {
-      const accessibilityClass =
-        accessibilityClasses[key as keyof typeof accessibilityClasses];
+      const accessibilityClass = accessibilityClasses[key as keyof typeof accessibilityClasses];
 
       if (typeof accessibilityClass === "string") {
         const split = accessibilityClass.split(" ");
@@ -372,11 +359,7 @@ export default function Accessibility() {
 
       if (typeof accessibilityClass === "object") {
         Object.keys(accessibilityClass).forEach((key) => {
-          root.classList.remove(
-            accessibilityClass[
-              key as unknown as keyof typeof accessibilityClass
-            ]
-          );
+          root.classList.remove(accessibilityClass[key as unknown as keyof typeof accessibilityClass]);
         });
       }
     });
@@ -387,15 +370,8 @@ export default function Accessibility() {
       <Sheet onOpenChange={handleAccessibilityRender}>
         <SheetTrigger asChild>
           <div className={`cursor-pointer`}>
-            <Image
-              src="/icons/accessibility.svg"
-              width={50}
-              height={50}
-              alt="Accessibility"
-            />
-            {Object.keys(options).some(
-              (key) => options[key as keyof Options] === true
-            ) && (
+            <Image src="/icons/accessibility.svg" width={50} height={50} alt="Accessibility" />
+            {Object.keys(options).some((key) => options[key as keyof Options] === true) && (
               <div className="absolute top-0 right-[-3px] w-3 h-3 bg-green-500 rounded-full">
                 <div className="animate-ping w-3 h-3 bg-green-500 rounded-full" />
               </div>
@@ -416,24 +392,16 @@ export default function Accessibility() {
 
           {/* content */}
           <div className="flex-1">
-            <h2 className="font-semibold text-2xl mb-2 text-gray-9">
-              Accessibility Menu
-            </h2>
+            <h2 className="font-semibold text-2xl mb-2 text-gray-9">Accessibility Menu</h2>
 
             <p className="text-gray-8 text-base mb-6">
-              Customize your browsing with accessibility options designed to
-              enhance readability, visibility.
+              Customize your browsing with accessibility options designed to enhance readability, visibility.
             </p>
 
             <div>
               {/* color accordion*/}
               <div className="border-primary-2 border rounded-xl mb-4">
-                <Accordion
-                  type="single"
-                  collapsible
-                  className="w-full"
-                  defaultValue="item-1"
-                >
+                <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
                   <AccordionItem value={`item-1`} className="last:border-b-0">
                     <AccordionTrigger className="px-3 py-3">
                       <div className="flex items-center justify-between gap-3">
@@ -444,9 +412,7 @@ export default function Accessibility() {
                           alt="Accessibility"
                           className="w-10 h-10"
                         />
-                        <span className="font-semibold text-gray-9 text-base">
-                          Color
-                        </span>
+                        <span className="font-semibold text-gray-9 text-base">Color</span>
                       </div>
                     </AccordionTrigger>
 
@@ -454,36 +420,23 @@ export default function Accessibility() {
                       {/* color blind */}
                       <div className="mb-4 border-b border-primary-2 pb-3">
                         <label className="flex items-center justify-between">
-                          <span className="text-gray-9 font-medium text-base">
-                            Color Blind
-                          </span>
-                          <Switch
-                            onCheckedChange={handleColorBlind}
-                            checked={options.colorBlind}
-                          />
+                          <span className="text-gray-9 font-medium text-base">Color Blind</span>
+                          <Switch onCheckedChange={handleColorBlind} checked={options.colorBlind} />
                         </label>
                       </div>
 
                       {/* low vision */}
                       <div className="mb-4 border-b border-primary-2 pb-3">
                         <label className="flex items-center justify-between">
-                          <span className="text-gray-9 font-medium text-base">
-                            Low Vision
-                          </span>
-                          <Switch
-                            id="airplane-mode"
-                            checked={options.lowVision}
-                            onCheckedChange={handleLowVision}
-                          />
+                          <span className="text-gray-9 font-medium text-base">Low Vision</span>
+                          <Switch id="airplane-mode" checked={options.lowVision} onCheckedChange={handleLowVision} />
                         </label>
                       </div>
 
                       {/* saturation */}
                       <div className="mb-5">
                         <label className="flex items-center justify-between">
-                          <span className="text-gray-9 font-medium text-base">
-                            Saturation
-                          </span>
+                          <span className="text-gray-9 font-medium text-base">Saturation</span>
                           <Switch
                             id="airplane-mode"
                             checked={options.saturationStatus}
@@ -533,9 +486,7 @@ export default function Accessibility() {
                           alt="Accessibility"
                           className="w-10 h-10"
                         />
-                        <span className="font-semibold text-gray-9 text-base">
-                          Display & Text Size
-                        </span>
+                        <span className="font-semibold text-gray-9 text-base">Display & Text Size</span>
                       </div>
                     </AccordionTrigger>
 
@@ -543,58 +494,35 @@ export default function Accessibility() {
                       {/* bold text */}
                       <div className="mb-4 border-b border-primary-2 pb-3">
                         <label className="flex items-center justify-between">
-                          <span className="text-gray-9 font-medium text-base">
-                            Bold Text
-                          </span>
-                          <Switch
-                            checked={options.boldText}
-                            onCheckedChange={handleBoldText}
-                          />
+                          <span className="text-gray-9 font-medium text-base">Bold Text</span>
+                          <Switch checked={options.boldText} onCheckedChange={handleBoldText} />
                         </label>
                       </div>
 
                       {/* big cursor */}
                       <div className="mb-4 border-b border-primary-2 pb-3">
                         <label className="flex items-center justify-between">
-                          <span className="text-gray-9 font-medium text-base">
-                            Big Cursor
-                          </span>
-                          <Switch
-                            onCheckedChange={handleBigCursor}
-                            checked={options.bigCursor}
-                          />
+                          <span className="text-gray-9 font-medium text-base">Big Cursor</span>
+                          <Switch onCheckedChange={handleBigCursor} checked={options.bigCursor} />
                         </label>
                       </div>
 
                       {/* increase contrast */}
                       <div className="mb-4 border-b border-primary-2 pb-3">
                         <label className="flex items-center justify-between">
-                          <span className="text-gray-9 font-medium text-base">
-                            Increase Contrast
-                          </span>
-                          <Switch
-                            onCheckedChange={handleIncreaseContrast}
-                            checked={options.increaseContrast}
-                          />
+                          <span className="text-gray-9 font-medium text-base">Increase Contrast</span>
+                          <Switch onCheckedChange={handleIncreaseContrast} checked={options.increaseContrast} />
                         </label>
                       </div>
 
                       {/* text size */}
                       <div className="flex items-center">
-                        <div className="text-gray-9 font-medium text-base basis-4/12">
-                          Text Size
-                        </div>
+                        <div className="text-gray-9 font-medium text-base basis-4/12">Text Size</div>
 
                         <div className="relative w-full flex basis-8/12 justify-center items-center gap-2">
                           <div className="text-xs">A</div>
                           <div className="w-full flex flex-col justify-center relative">
-                            <Slider
-                              min={1}
-                              max={7}
-                              step={1}
-                              onValueChange={handleTextSize}
-                              value={options.textSize}
-                            />
+                            <Slider min={1} max={7} step={1} onValueChange={handleTextSize} value={options.textSize} />
 
                             {/* slider steps */}
                             <div className="flex justify-between text-gray-7 text-sm -mt-2">
@@ -627,16 +555,11 @@ export default function Accessibility() {
                       className="w-10 h-10"
                     />
 
-                    <span className="font-semibold text-gray-9 text-base">
-                      Magnification
-                    </span>
+                    <span className="font-semibold text-gray-9 text-base">Magnification</span>
                   </div>
 
                   <div className="mr-[2px]">
-                    <Switch
-                      checked={options.magnification}
-                      onCheckedChange={handleMagnification}
-                    />
+                    <Switch checked={options.magnification} onCheckedChange={handleMagnification} />
                   </div>
                 </div>
               </div>
@@ -653,16 +576,11 @@ export default function Accessibility() {
                       className="w-10 h-10"
                     />
 
-                    <span className="font-semibold text-gray-9 text-base">
-                      Text to Speech
-                    </span>
+                    <span className="font-semibold text-gray-9 text-base">Text to Speech</span>
                   </div>
 
                   <div className="mr-[2px]">
-                    <Switch
-                      checked={options.textToSpeech}
-                      onCheckedChange={handleTextToSpeech}
-                    />
+                    <Switch checked={options.textToSpeech} onCheckedChange={handleTextToSpeech} />
                   </div>
                 </div>
               </div>
@@ -674,11 +592,7 @@ export default function Accessibility() {
           {/* TTS Iniitalze */}
           {/* bottom  */}
           <div className="mt-auto">
-            <Button
-              variant="secondary"
-              className="w-full"
-              onClick={handleReset}
-            >
+            <Button variant="secondary" className="w-full" onClick={handleReset}>
               <Image
                 src="/icons/arrow-rotate.svg"
                 width={50}
