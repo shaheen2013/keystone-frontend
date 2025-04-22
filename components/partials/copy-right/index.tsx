@@ -1,3 +1,5 @@
+"use client";
+
 import { Skeleton } from "@/components/shadcn/skeleton";
 import { useGetFooterQuery } from "@/features/public/footerSlice";
 const CopyRight = () => {
