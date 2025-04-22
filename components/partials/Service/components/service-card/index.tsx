@@ -1,12 +1,15 @@
 import { ArrowRight } from "@/components/icons";
+import Image from "next/image";
 import Link from "next/link";
 
 const ServiceCard = ({ service }: { service: any }) => {
   return (
     <div className="bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start max-w-[512px] w-full">
-      <div className="p-4 rounded-xl bg-white text-secondary-6">
-        {/* <service.icon /> */}
-      </div>
+      {service?.icon && (
+        <div className="p-4 rounded-xl bg-white text-secondary-6">
+          <Image src={service.icon} width={40} height={40} alt="service" />
+        </div>
+      )}
 
       <div className="flex flex-col gap-4">
         <h3 className="text-xl md:text-3xl font-bold text-gray-9">
