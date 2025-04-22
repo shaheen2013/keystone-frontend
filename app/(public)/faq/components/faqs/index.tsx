@@ -9,7 +9,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 const Faqs = () => {
   const { data, isLoading, isFetching }: any = useGetFaqsQuery({});
-  const faqsData = useMemo(() => data?.data || [], [data]);
+  const faqsData = useMemo(() => data?.data?.faqs || [], [data]);
   const loading = isLoading || isFetching;
 
   const [openFaqIds, setOpenFaqIds] = useState<string[]>([]);
