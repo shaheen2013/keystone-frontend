@@ -44,3 +44,4 @@ yarn.lock
 
 # exclude .env.example
 !.env.example
+/.idea
