@@ -32,12 +32,18 @@ export default function Footer() {
 
   const loading = isLoading || isFetching;
 
-  const { handleSubmit, control, setError } = useForm<FormValues>({
+  const {
+    handleSubmit,
+    control,
+    setError,
+    formState: { errors },
+  } = useForm<FormValues>({
     defaultValues: {
       email: "",
     },
   });
 
+  console.log("error", errors);
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const response: any = await subscribe(data).unwrap();
@@ -232,20 +238,17 @@ export default function Footer() {
                   message: "Invalid email address",
                 },
               }}
-              render={({
-                field: { onChange, value, onBlur },
-                fieldState: { error },
-              }) => (
+              render={({ field: { onChange, value, onBlur } }) => (
                 <Input
                   classes={{ input: "bg-white" }}
                   placeholder="Enter email address"
                   onChange={onChange}
                   onBlur={onBlur}
                   value={value}
-                  errorText={error?.message}
                 />
               )}
             />
+
             <Button
               variant="secondary"
               size="sm"
@@ -255,6 +258,11 @@ export default function Footer() {
               Sign Up
             </Button>
           </form>
+          {errors && (
+            <p className="text-red-500  text-sm mt-1 ml-1">
+              {errors.email?.message}
+            </p>
+          )}
         </div>
       </div>
 
