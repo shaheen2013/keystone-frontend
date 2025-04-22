@@ -13,10 +13,11 @@ const TTS: FC<TTSProps> = ({ isTTSActive }) => {
       const utterance = new SpeechSynthesisUtterance(text);
 
       let charIndex = 0;
-
-      utterance.onstart = () => {};
+      let boundaryFired = false;
 
       utterance.onboundary = (event: SpeechSynthesisEvent) => {
+        boundaryFired = true;
+
         if (event.name === "word" || event.charIndex >= 0) {
           charIndex = event.charIndex;
 
@@ -47,7 +48,20 @@ const TTS: FC<TTSProps> = ({ isTTSActive }) => {
       };
 
       window.speechSynthesis.speak(utterance);
+      utterance.onstart = () => {
+        setTimeout(() => {
+          if (!boundaryFired) {
+            // Fallback: highlight entire sentence
+            const span = document.createElement("span");
+            span.classList.add("current-speaking");
+            span.textContent = text;
+            element.innerHTML = "";
+            element.appendChild(span);
+          }
+        }, 200); // Give boundary a chance to fire first
+      };
     };
+
     const handleClick = (event: MouseEvent) => {
       window.speechSynthesis.cancel(); // stop any ongoing speech
       if (!isTTSActive) return;
