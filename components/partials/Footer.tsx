@@ -37,6 +37,7 @@ export default function Footer() {
     control,
     setError,
     formState: { errors },
+    reset,
   } = useForm<FormValues>({
     defaultValues: {
       email: "",
@@ -51,6 +52,7 @@ export default function Footer() {
       toast({
         description: "Thank you for subscribing",
       });
+      reset();
     } catch (error: any) {
       const emailErrors = error?.data?.errors?.email;
       setError("email", {
