@@ -28,16 +28,18 @@ const BlogCard = ({
     >
       <div className="relative w-full">
         <Link href={`/blogs/${article.slug}`}>
-          <Image
-            src={article?.feature_image?.path || ""}
-            width={1000}
-            height={760}
-            alt={article.title}
-            className={cn(
-              "w-full h-[230px] md:h-[314px] object-cover rounded-xl",
-              classes?.image
-            )}
-          />
+          {article?.feature_image?.path && (
+            <Image
+              src={article?.feature_image?.path}
+              width={1000}
+              height={760}
+              alt={article.title}
+              className={cn(
+                "w-full h-[230px] md:h-[314px] object-cover rounded-xl",
+                classes?.image
+              )}
+            />
+          )}
         </Link>
         <div
           className="absolute top-4 right-4 rounded-xl py-2.5 px-6 flex gap-2 items-center cursor-pointer transition-all bg-white"

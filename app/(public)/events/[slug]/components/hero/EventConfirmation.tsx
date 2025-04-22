@@ -23,7 +23,7 @@ import {
 
 const EventContent = () => (
   <div className="rounded-2xl bg-white flex flex-col items-center">
-    <Image src={attend} alt="Attend" width={100} height={160} />
+    {attend && <Image src={attend} alt="Attend" width={100} height={160} />}
     <h3 className="mt-6 mb-2 text-3xl font-semibold text-gray-9 text-center">
       You&apos;re Almost There!
     </h3>

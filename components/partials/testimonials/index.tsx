@@ -128,13 +128,15 @@ const Testimonials2 = ({
                       </p>
                       <div className="flex flex-col gap-4 md:gap-4 items-center">
                         <div className="size-16 rounded-full">
-                          <Image
-                            height={620}
-                            width={560}
-                            src={testimonial?.parent_avatar.path}
-                            alt={testimonial?.parent_name}
-                            className="size-16 object-cover object-center rounded-full"
-                          />
+                          {testimonial?.parent_avatar.path && (
+                            <Image
+                              height={620}
+                              width={560}
+                              src={testimonial?.parent_avatar.path}
+                              alt={testimonial?.parent_name}
+                              className="size-16 object-cover object-center rounded-full"
+                            />
+                          )}
                         </div>
                         <span className="text-sm md:text-base text-gray-9 font-semibold">
                           {testimonial.parent_name},{" "}
