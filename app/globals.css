@@ -244,6 +244,9 @@
     font-size: 16px !important;
   }
 }
+.current-speaking {
+  background: rgba(251, 251, 62, 0.633);
+}
 
 .skiptranslate {
   display: none;
