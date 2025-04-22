@@ -8,20 +8,53 @@ import {
   CarouselDots,
   CarouselItem,
 } from "@/components/shadcn/carousel";
-import { useGetblogsQuery } from "@/features/public/blogSlice";
+import {
+  useGetblogsQuery,
+  useSaveToggleMutation,
+} from "@/features/public/blogSlice";
 import { PAGINATION_LIMIT } from "@/lib/constants";
 import { Skeleton } from "@/components/shadcn/skeleton";
 import { BlogCardSkeleton } from "@/components/skeletons";
+import { useEffect, useState } from "react";
 
 const ExploreRecommendBlogs = () => {
+  const [blogsData, saveBlogsData] = useState([]);
   const { data, isLoading, isFetching }: any = useGetblogsQuery({
     page: 1,
     pagi_limit: PAGINATION_LIMIT,
   });
-
-  const blogs = data?.data?.blogs.data;
+  const [saveToggle] = useSaveToggleMutation();
 
   const loading = isLoading || isFetching;
+
+  const handleToggle = async (id: string) => {
+    try {
+      //  immediately update UI
+      saveBlogsData((prevBlogs: any) =>
+        prevBlogs.map((blog: any) =>
+          blog.id === id ? { ...blog, is_saved: !blog.is_saved } : blog
+        )
+      );
+
+      // Send API request
+      await saveToggle({ blog_id: id }).unwrap();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      // Revert on error
+      saveBlogsData((prevBlogs: any) =>
+        prevBlogs.map((blog: any) =>
+          blog.id === id ? { ...blog, is_saved: !blog.is_saved } : blog
+        )
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (data?.data?.blogs?.data) {
+      saveBlogsData(data.data.blogs.data);
+    }
+  }, [data]);
+
   return (
     <section className="bg-primary-2 py-12 md:py-28">
       <div className="container flex flex-col gap-6 md:gap-12">
@@ -56,17 +89,18 @@ const ExploreRecommendBlogs = () => {
                 ))}
               </>
             )}
-            {blogs?.map((blog: any, index: any) => (
+            {blogsData?.map((blog: any, index: any) => (
               <CarouselItem key={index} className="basis-full md:basis-1/3">
                 <BlogCard
                   article={blog}
                   key={index}
                   classes={{ root: "bg-white" }}
+                  handleToggle={handleToggle}
                 />
               </CarouselItem>
             ))}
 
-            {!loading && blogs?.length === 0 && (
+            {!loading && blogsData?.length === 0 && (
               <CarouselItem className="basis-full">
                 <h4 className="text-center self-center text-gray-9 text-lg font-semibold">
                   No Blogs Found

@@ -6,9 +6,9 @@ import insightsimg3 from "@/public/assets/home/insights-and-stories/img3.png";
 
 export const heroData = {
   title: "Empowering Families with Knowledge",
-  description:
+  subtitle:
     "Explore expert advice, inspiring stories, and practical tips to support children with special needs. Stay informed and inspired.",
-  backgroundImage: heroBgImage,
+  banner: heroBgImage,
 };
 
 export const blogs = [

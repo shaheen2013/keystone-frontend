@@ -6,9 +6,9 @@ import img3 from "@/public/assets/home/upcoming-events/parent-training3.png";
 
 export const heroData = {
   title: "Stay Connected and Inspired",
-  description:
+  subtitle:
     "Explore our upcoming events designed to educate, connect, and support families with children with special needs.",
-  backgroundImage: heroImage,
+  banner: heroImage,
 };
 
 export const allUpcomingEventsData = {

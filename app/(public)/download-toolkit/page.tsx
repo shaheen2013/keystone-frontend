@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import GetTouch from "@/components/partials/get-touch";
-import { contactInfo } from "@/static/shared";
 import { downloadToolkits, recommendedService } from "./constant";
 import RecommendService from "./components/recommend-services";
 import Toolkits from "./components/toolkits";
