@@ -52,7 +52,7 @@ export default function BlogDetails({
       </div>
       <ExploreRecommendBlogs />
 
-      <GetTouch data={contactInfo} />
+      <GetTouch />
     </>
   );
 }

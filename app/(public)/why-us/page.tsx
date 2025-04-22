@@ -2,7 +2,6 @@ import HeroSection from "@/components/partials/Hero";
 import { Metadata } from "next";
 
 import GetTouch from "@/components/partials/get-touch";
-import { contactInfo } from "@/static/shared";
 import { heroData, ourProcessData } from "./constant";
 import Testimonials from "@/components/partials/testimonials";
 import OurImpact from "@/components/partials/OurImpact";
@@ -27,7 +26,7 @@ export default function ParentGuides() {
         subtitle="Real stories from families we've helped—because every child deserves the right support and opportunities to thrive."
         classes={{ root: "bg-primary-2", card: "bg-white" }}
       />
-      <GetTouch data={contactInfo} />
+      <GetTouch />
     </>
   );
 }

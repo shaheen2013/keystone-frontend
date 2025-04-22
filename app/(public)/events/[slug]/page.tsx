@@ -6,7 +6,6 @@ import Agenda from "./components/agenda";
 import MeetOurSpeaker from "../components/meet-our-speaker";
 import ExploreRecommendEvents from "@/components/partials/explore-recommend-events";
 import GetTouch from "@/components/partials/get-touch";
-import { contactInfo } from "@/static/shared";
 
 export default async function EventDetails({
   params,
@@ -24,7 +23,7 @@ export default async function EventDetails({
       <Agenda />
       <MeetOurSpeaker />
       <ExploreRecommendEvents />
-      <GetTouch data={contactInfo} />
+      <GetTouch />
     </>
   );
 }

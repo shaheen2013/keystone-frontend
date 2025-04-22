@@ -19,7 +19,7 @@ export default function DownloadToolkitsPage() {
         <Toolkits data={downloadToolkits} />
       </Suspense>
       <RecommendService data={recommendedService} />
-      <GetTouch data={contactInfo} />
+      <GetTouch />
     </>
   );
 }

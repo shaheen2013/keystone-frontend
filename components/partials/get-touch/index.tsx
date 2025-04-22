@@ -4,7 +4,9 @@ import { Button } from "@/components/shadcn/button";
 import { Input } from "@/components/shadcn/input";
 import { Label } from "@/components/shadcn/label";
 import { Textarea } from "@/components/shadcn/textarea";
+import { GetTouchSkeleton } from "@/components/skeletons";
 import { useContactMutation } from "@/features/public/contactSlice";
+import { useGetFooterQuery } from "@/features/public/footerSlice";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import {
@@ -16,10 +18,14 @@ import {
 } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 
-const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
+const GetTouch = ({ classes }: { classes?: any }) => {
   const { toast } = useToast();
-  const { title, description, contactInfo } = data;
-  const [contact, { isLoading }] = useContactMutation();
+  const [contact, { isLoading: postLoading }] = useContactMutation();
+  const { data, isLoading, isFetching }: any = useGetFooterQuery({});
+
+  const loading = isLoading || isFetching;
+
+  const getContactInfo = data?.data?.get_in_touch;
 
   const { handleSubmit, control } = useForm({
     defaultValues: {
@@ -51,15 +57,19 @@ const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
     }
   };
 
+  if (loading) {
+    return <GetTouchSkeleton classes={classes} />;
+  }
+
   return (
     <section className={cn(" py-12 md:py-28 bg-white", classes?.root)}>
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-12">
         <div className="flex flex-col">
           <h2 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold text-gray-9">
-            {title}
+            We’re Here to Help
           </h2>
           <p className="mb-6 md:mb-12 text-base md:text-xl text-gray-8">
-            {description}
+            {getContactInfo?.contact_info}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-primary-1 rounded-2xl p-4 md:p-6 col-span-full flex gap-3 md:gap-4 items-center">
@@ -72,17 +82,7 @@ const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
                 </h4>
                 <p className="flex items-center gap-1 md:gap-0 flex-col md:flex-row">
                   <span className="text-xs md:text-sm">
-                    Monday - Friday
-                    <span className="text-primary-6 font-semibold ml-1">
-                      (09:00 AM – 09:00 PM)
-                    </span>
-                  </span>
-                  <span className="hidden md:block mx-2">|</span>
-                  <span className="text-xs md:text-sm">
-                    Saturday - Sunday
-                    <span className="text-primary-6 font-semibold ml-1">
-                      (11:00 AM – 05:00 PM)
-                    </span>
+                    {getContactInfo?.availability}
                   </span>
                 </p>
               </div>
@@ -96,7 +96,7 @@ const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
                   Location:
                 </h4>
                 <p className="text-xs md:text-sm text-gray-9">
-                  {contactInfo.location}
+                  {getContactInfo?.location}
                 </p>
               </div>
             </div>
@@ -109,7 +109,7 @@ const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
                   Email:
                 </h4>
                 <p className="text-xs md:text-sm text-gray-9">
-                  {contactInfo.email}
+                  {getContactInfo?.email}
                 </p>
               </div>
             </div>
@@ -122,7 +122,7 @@ const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
                   Phone:
                 </h4>
                 <p className="text-xs md:text-sm text-gray-9">
-                  {contactInfo.phone}
+                  {getContactInfo?.phone}
                 </p>
               </div>
             </div>
@@ -294,7 +294,7 @@ const GetTouch = ({ data, classes }: { data: any; classes?: any }) => {
           >
             Submit
             <SendHorizonalIcon
-              className={cn("ml-1 text-white", isLoading && "animate-pulse")}
+              className={cn("ml-1 text-white", postLoading && "animate-pulse")}
             />
           </Button>
         </form>

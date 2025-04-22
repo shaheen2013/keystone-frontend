@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 
-import { contactInfo } from "@/static/shared";
 import { heroData } from "./constant";
 
 import GetTouch from "@/components/partials/get-touch";
@@ -21,7 +20,7 @@ export default function Events() {
       <Suspense fallback={<div>Loading...</div>}>
         <EventsArea />
       </Suspense>
-      <GetTouch data={contactInfo} />
+      <GetTouch />
     </>
   );
 }
