@@ -38,6 +38,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -111,6 +112,7 @@
     0% {
       transform: rotate(0deg);
     }
+
     100% {
       transform: rotate(360deg);
     }
@@ -121,6 +123,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -161,9 +164,11 @@
   font-weight: 500 !important;
   font-size: 14px !important;
 }
+
 .fc .fc-highlight {
   background-color: #f5f8f7 !important;
 }
+
 .fc .fc-button-primary {
   height: 40px !important;
   border-radius: 8px !important;
@@ -177,6 +182,7 @@
   border: none !important;
   color: white !important;
 }
+
 .fc .fc-button-primary:focus {
   background-color: #f06143 !important;
   border: none !important;
@@ -195,9 +201,11 @@
   font-size: 20px !important;
   color: "#2B2B2B !important";
 }
+
 .fc .fc-daygrid-day-top {
   justify-content: center !important;
 }
+
 .fc .fc-button-group {
   column-gap: 12px;
 }
@@ -233,6 +241,7 @@
     padding: 2px !important;
     gap: 3px !important;
   }
+
   .fc-daygrid-event-harness {
     width: 6px !important;
     height: 6px !important;
@@ -244,8 +253,10 @@
     font-size: 16px !important;
   }
 }
+
 .current-speaking {
   background: rgba(251, 251, 62, 0.633);
+  transition: background-color 0.1s ease;
 }
 
 .skiptranslate {

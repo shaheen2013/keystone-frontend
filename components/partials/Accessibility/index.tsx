@@ -414,15 +414,8 @@ export default function Accessibility() {
       <Sheet open={open} onOpenChange={handleAccessibilityRender}>
         <SheetTrigger asChild>
           <div className={`cursor-pointer`}>
-            <Image
-              src="/icons/accessibility.svg"
-              width={50}
-              height={50}
-              alt="Accessibility"
-            />
-            {Object.keys(options).some(
-              (key) => options[key as keyof Options] === true
-            ) && (
+            <Image src="/icons/accessibility.svg" width={50} height={50} alt="Accessibility" />
+            {Object.keys(options).some((key) => options[key as keyof Options] === true) && (
               <div className="absolute top-0 right-[-3px] w-3 h-3 bg-green-500 rounded-full">
                 <div className="animate-ping w-3 h-3 bg-green-500 rounded-full" />
               </div>
