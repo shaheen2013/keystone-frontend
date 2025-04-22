@@ -13,6 +13,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "@/hooks/use-toast";
 import { FooterSkeleton } from "../skeletons";
 import { useSelector } from "react-redux";
+import Logo from "./logo";
 
 type FormValues = {
   email: string;
@@ -63,18 +64,9 @@ export default function Footer() {
         {/* left */}
 
         <div className="xl:w-80 lg:w-60">
-          {(footerData?.logo || logo) && (
-            <Link href="/" className="lg:mb-6 mb-5 block">
-              <Image
-                src={footerData?.logo || logo}
-                alt="logo"
-                width={100}
-                height={100}
-                className="h-12 w-[110px] flex-1"
-              />
-            </Link>
-          )}
-
+          <div className="flex items-center  lg:mb-8 mb-6">
+            <Logo />
+          </div>
           <p className="text-base text-gray-9 mb-8">{footerData?.about}</p>
 
           <div className="flex gap-4">

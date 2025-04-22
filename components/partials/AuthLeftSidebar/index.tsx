@@ -16,6 +16,7 @@ import { useGetTestimonialQuery } from "@/features/public/testimonialSlice";
 export default function AuthLeftSidebar({ className }: { className: string }) {
   const { data, isLoading, isFetching }: any = useGetTestimonialQuery({});
   const testimonials = data?.data?.parent_reviews || [];
+  console.log("testimonials", testimonials);
   const loading = isLoading || isFetching;
 
   const [api, setApi] = useState<CarouselApi>();
@@ -48,16 +49,19 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
     <div className={clx}>
       <Carousel setApi={setApi} className="w-full h-screen">
         <CarouselContent>
-          {testimonials.map((carouselData: any, index: number) => (
+          {testimonials?.map((carouselData: any, index: number) => (
             <CarouselItem key={index} className="relative h-screen">
-              <Image
-                src={
-                  carouselData.image || "https://dummyimage.com/600x400/000/fff"
-                }
-                alt={`Testimonial ${index + 1}`}
-                fill
-                className="object-cover object-center h-full w-full"
-              />
+              {
+                // Testimonial Image
+                carouselData?.image && (
+                  <Image
+                    src={carouselData.image}
+                    alt={`Testimonial ${index + 1}`}
+                    fill
+                    className="object-cover object-center h-full w-full"
+                  />
+                )
+              }
 
               {/* Testimonial Content */}
               <div className="absolute bottom-0 left-0 right-0 backdrop-blur-lg bg-[#141F1FB2] p-8">
@@ -96,6 +100,14 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
               </div>
             </CarouselItem>
           ))}
+
+          {testimonials?.length === 0 && (
+            <CarouselItem className="relative h-screen flex justify-center items-center">
+              <p className="text-gray-9 text-2xl font-semibold">
+                No Testimonial Found
+              </p>
+            </CarouselItem>
+          )}
         </CarouselContent>
 
         {/* Navigation Arrows */}

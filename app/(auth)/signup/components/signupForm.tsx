@@ -2,7 +2,6 @@
 
 import Cookies from "js-cookie";
 import Link from "next/link";
-import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
 import { Button } from "@/components/shadcn/button";
@@ -11,6 +10,8 @@ import { Input, InputPassword } from "@/components/shadcn/input";
 import { useRegisterMutation } from "@/features/auth/authSlice";
 import { useRouter } from "next/navigation";
 import GoogleSignIn from "@/components/partials/social-signin/google";
+import Logo from "@/components/partials/logo";
+import CopyRight from "@/components/partials/copy-right";
 
 export default function SignupForm() {
   const router = useRouter();
@@ -97,14 +98,7 @@ export default function SignupForm() {
         <div className="max-w-[520px] w-full  bg-primary-2 rounded-2xl lg:p-10 p-5">
           {/* brand logo */}
           <div className="flex items-center justify-center lg:mb-8 mb-6">
-            <Image
-              src="/icons/brand-logo.svg"
-              alt="logo"
-              width={150}
-              height={65}
-              className="lg:w-[150px] w-[120px]"
-              priority
-            />
+            <Logo />
           </div>
 
           {/* title */}
@@ -174,7 +168,6 @@ export default function SignupForm() {
                     fieldState: { error },
                   }) => (
                     <Input
-                    
                       classes={{ input: "bg-white" }}
                       placeholder="Enter email address"
                       onChange={onChange}
@@ -338,10 +331,7 @@ export default function SignupForm() {
         </div>
       </div>
 
-      <p className="text-gray-9 lg:text-base text-xs font-medium py-6 lg:mt-0 mt-8">
-        © {new Date().getFullYear()} Keystone Ability Support. All Rights
-        Reserved.
-      </p>
+      <CopyRight />
     </div>
   );
 }

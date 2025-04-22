@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import OTPForm from "@/app/(auth)/otp-verify/components/otpForm";
 import { Suspense } from "react";
+import CopyRight from "@/components/partials/copy-right";
 
 export const metadata: Metadata = {
   title: "Reset Password | Keystone | A Place for Connection & Support",
@@ -16,10 +17,7 @@ export default function OTPVerify() {
           <OTPForm />
         </Suspense>
       </div>
-      <p className="text-gray-9 lg:text-base text-xs font-medium py-6 lg:mt-0 mt-8">
-        © {new Date().getFullYear()} Keystone Ability Support. All Rights
-        Reserved.
-      </p>
+      <CopyRight />
     </div>
   );
 }
