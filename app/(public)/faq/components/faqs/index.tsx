@@ -1,14 +1,16 @@
 "use client";
 
 import { Minus, Plus } from "@/components/icons";
+import { Skeleton } from "@/components/shadcn/skeleton";
 import { Tabs, TabsList, TabsTrigger } from "@/components/shadcn/tabs";
 import { useGetFaqsQuery } from "@/features/public/faqSlice";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 const Faqs = () => {
-  const { data }: any = useGetFaqsQuery({});
+  const { data, isLoading, isFetching }: any = useGetFaqsQuery({});
   const faqsData = useMemo(() => data?.data || [], [data]);
+  const loading = isLoading || isFetching;
 
   const [openFaqIds, setOpenFaqIds] = useState<string[]>([]);
 
@@ -25,14 +27,49 @@ const Faqs = () => {
     );
   }, []);
 
+  // Skeleton for the header
+  const HeaderSkeleton = () => <Skeleton className="h-10 w-64 mx-auto" />;
+
+  // Skeleton for the tabs
+  const TabsSkeleton = () => (
+    <div className="flex gap-4 justify-center">
+      {[...Array(3)].map((_, i) => (
+        <Skeleton key={i} className="h-10 w-24" />
+      ))}
+    </div>
+  );
+
+  // Skeleton for FAQ items
+  const FaqItemSkeleton = () => (
+    <div className="flex flex-col gap-4 bg-gray-1 border border-gray-2 rounded-xl p-4">
+      <div className="flex justify-between items-center">
+        <Skeleton className="h-6 w-3/4" />
+        <Skeleton className="h-6 w-6 rounded-full" />
+      </div>
+    </div>
+  );
+
   return (
     <section className="bg-white py-12 md:py-28">
       <div className="container flex flex-col items-center gap-6 md:gap-12">
-        <h3 className="text-2xl md:text-5xl font-bold text-gray-9">
-          Frequently Asked Question
-        </h3>
+        {loading ? (
+          <HeaderSkeleton />
+        ) : (
+          <h3 className="text-2xl md:text-5xl font-bold text-gray-9">
+            Frequently Asked Question
+          </h3>
+        )}
 
-        {faqsData.length > 0 && (
+        {loading ? (
+          <div className="max-w-6xl w-full mx-auto">
+            <TabsSkeleton />
+            <div className="mt-6 md:mt-12 w-full flex flex-col gap-4">
+              {[...Array(4)].map((_, i) => (
+                <FaqItemSkeleton key={i} />
+              ))}
+            </div>
+          </div>
+        ) : faqsData.length > 0 ? (
           <Tabs
             defaultValue={faqsData[0].id}
             className="max-w-6xl w-full mx-auto"
@@ -98,6 +135,8 @@ const Faqs = () => {
               </TabsContent>
             ))}
           </Tabs>
+        ) : (
+          <p className="text-gray-500">No FAQs found</p>
         )}
       </div>
     </section>
