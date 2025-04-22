@@ -61,16 +61,19 @@ export default function Footer() {
     <footer className="text-gray-600 bg-primary-2">
       <div className="container lg:py-24 py-12 mx-auto flex  lg:flex-row md:flex-nowrap flex-wrap flex-col gap-6">
         {/* left */}
+
         <div className="xl:w-80 lg:w-60">
-          <Link href="/" className="lg:mb-6 mb-5 block">
-            <Image
-              src={footerData?.logo || logo}
-              alt="logo"
-              width={100}
-              height={100}
-              className="h-12 w-[110px] flex-1"
-            />
-          </Link>
+          {(footerData?.logo || logo) && (
+            <Link href="/" className="lg:mb-6 mb-5 block">
+              <Image
+                src={footerData?.logo || logo}
+                alt="logo"
+                width={100}
+                height={100}
+                className="h-12 w-[110px] flex-1"
+              />
+            </Link>
+          )}
 
           <p className="text-base text-gray-9 mb-8">{footerData?.about}</p>
 
