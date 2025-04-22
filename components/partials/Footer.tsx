@@ -12,6 +12,7 @@ import {
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "@/hooks/use-toast";
 import { FooterSkeleton } from "../skeletons";
+import { useSelector } from "react-redux";
 
 type FormValues = {
   email: string;
@@ -19,6 +20,9 @@ type FormValues = {
 
 export default function Footer() {
   const { data, isLoading, isFetching }: any = useGetFooterQuery({});
+  const logo = useSelector((state: any) => state.logoUrl);
+
+  console.log("logo", logo);
   const [subscribe] = useSubscribeMutation();
 
   const footerData = data?.data;
@@ -59,15 +63,13 @@ export default function Footer() {
         {/* left */}
         <div className="xl:w-80 lg:w-60">
           <Link href="/" className="lg:mb-6 mb-5 block">
-            {footerData?.logo && (
-              <Image
-                src={footerData?.logo}
-                alt="logo"
-                width={100}
-                height={100}
-                className="h-12 w-[110px] flex-1"
-              />
-            )}
+            <Image
+              src={footerData?.logo || logo}
+              alt="logo"
+              width={100}
+              height={100}
+              className="h-12 w-[110px] flex-1"
+            />
           </Link>
 
           <p className="text-base text-gray-9 mb-8">{footerData?.about}</p>
