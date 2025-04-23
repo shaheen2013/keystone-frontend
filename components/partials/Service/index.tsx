@@ -18,7 +18,7 @@ const ServiceSection = ({
   title: string;
   subtitle: string;
 }) => {
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
 
   const limit = 3;
 

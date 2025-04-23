@@ -13,7 +13,6 @@ import {
   AccordionTrigger,
 } from "@/components/shadcn/accordion";
 import { menuOptions } from "@/static/header";
-import { useRouter } from "next/navigation";
 
 import {
   NavigationMenu,
@@ -39,7 +38,6 @@ interface User {
 }
 
 export default function Header() {
-  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const {
@@ -112,10 +110,8 @@ export default function Header() {
 
                   return (
                     <NavigationMenuItem key={index}>
-                      <NavigationMenuTrigger
-                        onClick={() => router.push("/services")}
-                      >
-                        {menu.name}
+                      <NavigationMenuTrigger>
+                        <Link href="/services"> {menu.name}</Link>
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
@@ -223,9 +219,7 @@ export default function Header() {
                     <Accordion type="single" collapsible key={index}>
                       <AccordionItem value="item-1" className="">
                         <AccordionTrigger className="text-md font-semibold px-6 py-3 text-gray-9">
-                          <div onClick={() => router.push("/services")}>
-                            {menu?.name}
-                          </div>
+                          <Link href="/services">{menu?.name}</Link>
                         </AccordionTrigger>
                         <AccordionContent>
                           {menu.items &&
@@ -258,14 +252,16 @@ export default function Header() {
   );
 }
 
-const ListItem = forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
+interface ListItemProps extends React.ComponentPropsWithoutRef<"li"> {
+  href: string;
+  title: string;
+}
+
+const ListItem = forwardRef<React.ElementRef<"li">, ListItemProps>(
+  ({ className, title, children, href, ...props }, ref) => {
+    return (
       <NavigationMenuLink asChild>
-        <a
+        <li
           ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
@@ -273,14 +269,16 @@ const ListItem = forwardRef<
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
+          <Link href={href}>
+            <div className="text-sm font-medium leading-none">{title}</div>
+            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+              {children}
+            </p>
+          </Link>
+        </li>
       </NavigationMenuLink>
-    </li>
-  );
-});
+    );
+  }
+);
 
 ListItem.displayName = "ListItem";
