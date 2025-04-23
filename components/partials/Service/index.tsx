@@ -6,8 +6,6 @@ import { useGetServicesQuery } from "@/features/public/services";
 import ServiceCard from "./components/service-card";
 import { Skeleton } from "@/components/shadcn/skeleton";
 import { ServiceCardSkeleton } from "@/components/skeletons";
-import { PAGINATION_LIMIT } from "@/lib/constants";
-import { useState } from "react";
 
 const ServiceSection = ({
   keyService,
@@ -18,16 +16,7 @@ const ServiceSection = ({
   title: string;
   subtitle: string;
 }) => {
-  const [page] = useState(1);
-
-  const limit = 3;
-
-  const queryParams = keyService
-    ? { limit: limit }
-    : {
-        page: page,
-        pagi_limit: PAGINATION_LIMIT,
-      };
+  const queryParams = keyService ? { limit: 3 } : {};
 
   const { data, isLoading, isFetching }: any = useGetServicesQuery(queryParams);
   const services = data?.data?.services || [];
