@@ -944,6 +944,7 @@ export default function Accessibility() {
                 height={50}
                 alt="Accessibility"
                 className="cursor-pointer h-6 w-6"
+                translate="no"
               />
               Reset All
             </Button>
