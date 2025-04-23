@@ -223,7 +223,9 @@ export default function Header() {
                     <Accordion type="single" collapsible key={index}>
                       <AccordionItem value="item-1" className="">
                         <AccordionTrigger className="text-md font-semibold px-6 py-3 text-gray-9">
-                          {menu?.name}
+                          <div onClick={() => router.push("/services")}>
+                            {menu?.name}
+                          </div>
                         </AccordionTrigger>
                         <AccordionContent>
                           {menu.items &&
@@ -234,7 +236,7 @@ export default function Header() {
                                   key={subIndex}
                                 >
                                   <Link
-                                    href={submenu.slug}
+                                    href={`/services/${submenu.slug}`}
                                     className="block py-4 pl-10 text-base font-semibold text-gray-9"
                                   >
                                     {submenu.name}
