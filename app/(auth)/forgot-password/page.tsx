@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import ForgotPassword from "@/app/(auth)/forgot-password/components/forgotPasswordForm";
+import CopyRight from "@/components/partials/copy-right";
 
 export const metadata: Metadata = {
   title: "Forgot Password | Keystone | A Place for Connection & Support",
@@ -13,9 +14,7 @@ export default function Login() {
       <div className="flex justify-center lg:h-full items-center">
         <ForgotPassword />
       </div>
-      <p className="text-gray-9 lg:text-base text-xs font-medium py-6 lg:mt-0 mt-8">
-        © 2025 Keystone Ability Support. All Rights Reserved.
-      </p>
+      <CopyRight />
     </div>
   );
 }

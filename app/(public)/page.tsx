@@ -10,7 +10,6 @@ import Testimonials from "@/components/partials/testimonials";
 
 import {
   heroData,
-  insightsAndStoriesData,
   keystoneAbilitySupportData,
   supportSectionData,
   upcomingEventsData,
@@ -34,7 +33,7 @@ export default function Home() {
         title="Parents Are Saying"
         subtitle="Real stories from families we've helped—because every child deserves the right support and opportunities to thrive."
       />
-      <InsightsAndStories data={insightsAndStoriesData} />
+      <InsightsAndStories />
       <Support data={supportSectionData} />
     </>
   );

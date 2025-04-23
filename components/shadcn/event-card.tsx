@@ -16,15 +16,18 @@ const EventCard = ({
         className
       )}
     >
-      <div className="max-h-[314px] w-full overflow-hidden">
-        <Image
-          src={event.image}
-          width={1000}
-          height={760}
-          alt={event.title}
-          className="w-full h-full object-cover"
-        />
-      </div>
+      {event?.image && (
+        <div className="max-h-[314px] w-full overflow-hidden">
+          <Image
+            src={event.image}
+            width={1000}
+            height={760}
+            alt={event.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+
       <div className="flex flex-col gap-3 md:gap-4">
         <div className="flex gap-2 text-secondary-6">
           <Calendar />

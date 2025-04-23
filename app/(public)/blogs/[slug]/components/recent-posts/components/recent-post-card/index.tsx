@@ -4,13 +4,15 @@ const RecentPostCard = ({ data }: { data: any }) => {
   const { title, subtitle, reading_time, created_at, feature_image } = data;
   return (
     <div className="grid grid-cols-[124px_1fr] md:grid-cols-[144px_1fr] rounded-2xl overflow-hidden">
-      <Image
-        src={feature_image?.path}
-        alt="recent post image"
-        width={400}
-        height={300}
-        className="w-full h-full object-cover object-center"
-      />
+      {feature_image?.path && (
+        <Image
+          src={feature_image?.path}
+          alt="recent post image"
+          width={400}
+          height={300}
+          className="w-full h-full object-cover object-center"
+        />
+      )}
 
       <div className="p-4 bg-white flex flex-col gap-2">
         <div className="flex items-center gap-2 justify-between">

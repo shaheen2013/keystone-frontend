@@ -59,20 +59,17 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
       >
         <div className="flex items-center gap-3 cursor-pointer px-3 py-2 rounded-lg hover:md:bg-muted transition">
           <Avatar className="rounded-full size-10">
-            <AvatarImage
-              src={currentUser?.data?.avatar}
-              alt={currentUser?.data?.name}
-            />
+            <AvatarImage src={currentUser?.avatar} alt={currentUser?.name} />
             <AvatarFallback className="rounded-xl">
-              {currentUser?.data?.name?.[0]}
+              {currentUser?.name?.[0]}
             </AvatarFallback>
           </Avatar>
           <div className="hidden md:flex flex-col">
             <h4 className="text-base font-medium text-foreground max-w-[160px] truncate">
-              {currentUser?.data?.name}
+              {currentUser?.name}
             </h4>
             <span className="text-sm text-muted-foreground">
-              {currentUser?.data?.email}
+              {currentUser?.email}
             </span>
           </div>
           <div className={cn("shrink-0 hidden md:block")}>

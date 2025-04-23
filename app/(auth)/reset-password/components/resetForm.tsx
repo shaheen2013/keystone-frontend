@@ -12,6 +12,7 @@ import { InputPassword } from "@/components/shadcn/input";
 import { cn } from "@/lib/utils";
 import { useResetPasswordMutation } from "@/features/auth/authSlice";
 import { useSelector } from "react-redux";
+import Logo from "@/components/partials/logo";
 
 export default function ResetPasswordForm({
   className,
@@ -127,14 +128,7 @@ export default function ResetPasswordForm({
       >
         {/* brand logo */}
         <div className="flex items-center justify-center lg:mb-8 mb-6">
-          <Image
-            src="/icons/brand-logo.svg"
-            alt="logo"
-            width={150}
-            height={65}
-            className="lg:w-[150px] w-[120px] lg:h-[65px] h-[50px]"
-            priority
-          />
+          <Logo />
         </div>
 
         {/* title */}

@@ -109,52 +109,65 @@ const Testimonials2 = ({
               </>
             ) : (
               <>
-                {testimonials.map((testimonial: any, index: number) => (
-                  <CarouselItem key={index} className="basis-full md:basis-1/3">
-                    <div
-                      key={index}
-                      className={cn(
-                        "mx-2 my-6 p-4 md:p-8 bg-white rounded-2xl flex flex-col justify-center items-center border border-secondary-7 md:border-transparent",
-                        classes.card,
-                        {
-                          "md:border-secondary-7 scale-110 mx-6":
-                            index === current,
-                        }
-                      )}
-                    >
-                      <Quote className="text-secondary-5 mb-4 size-10 md:size-16" />
-                      <p className="text-center mb-6 md:mb-8 text-base text-gray-9 line-clamp-6 md:line-clamp-4 font-semibold">
-                        {testimonial.feedback}
-                      </p>
-                      <div className="flex flex-col gap-4 md:gap-4 items-center">
-                        <div className="size-16 rounded-full">
-                          <Image
-                            height={620}
-                            width={560}
-                            src={testimonial?.parent_avatar.path}
-                            alt={testimonial?.parent_name}
-                            className="size-16 object-cover object-center rounded-full"
-                          />
-                        </div>
-                        <span className="text-sm md:text-base text-gray-9 font-semibold">
-                          {testimonial.parent_name},{" "}
-                          {testimonial.parent_designation}
-                        </span>
-                        <div className="flex items-center gap-1">
-                          {Array.from({ length: testimonial.rating }).map(
-                            (_, index) => (
-                              <Star
-                                key={index}
-                                className="text-warning-4 size-5"
-                                fill="currentColor"
-                              />
-                            )
+                {testimonials.length > 0 ? (
+                  <>
+                    {testimonials.map((testimonial: any, index: number) => (
+                      <CarouselItem
+                        key={index}
+                        className="basis-full md:basis-1/3"
+                      >
+                        <div
+                          key={index}
+                          className={cn(
+                            "mx-2 my-6 p-4 md:p-8 bg-white rounded-2xl flex flex-col justify-center items-center border border-secondary-7 md:border-transparent",
+                            classes.card,
+                            {
+                              "md:border-secondary-7 scale-110 mx-6":
+                                index === current,
+                            }
                           )}
+                        >
+                          <Quote className="text-secondary-5 mb-4 size-10 md:size-16" />
+                          <p className="text-center mb-6 md:mb-8 text-base text-gray-9 line-clamp-6 md:line-clamp-4 font-semibold">
+                            {testimonial.feedback}
+                          </p>
+                          <div className="flex flex-col gap-4 md:gap-4 items-center">
+                            <div className="size-16 rounded-full">
+                              {testimonial?.parent_avatar.path && (
+                                <Image
+                                  height={620}
+                                  width={560}
+                                  src={testimonial?.parent_avatar.path}
+                                  alt={testimonial?.parent_name}
+                                  className="size-16 object-cover object-center rounded-full"
+                                />
+                              )}
+                            </div>
+                            <span className="text-sm md:text-base text-gray-9 font-semibold">
+                              {testimonial.parent_name},{" "}
+                              {testimonial.parent_designation}
+                            </span>
+                            <div className="flex items-center gap-1">
+                              {Array.from({ length: testimonial.rating }).map(
+                                (_, index) => (
+                                  <Star
+                                    key={index}
+                                    className="text-warning-4 size-5"
+                                    fill="currentColor"
+                                  />
+                                )
+                              )}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
+                      </CarouselItem>
+                    ))}
+                  </>
+                ) : (
+                  <CarouselItem className="basis-full text-center">
+                    Not found
                   </CarouselItem>
-                ))}
+                )}
               </>
             )}
           </CarouselContent>

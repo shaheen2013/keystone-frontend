@@ -2,9 +2,9 @@ import heroImage from "@/public/assets/services/hero/services-hero.png";
 
 export const heroData = {
   title: "Explore Our Services",
-  description:
+  subtitle:
     "Designed to support families and children with special needs, our services empower you with the tools and resources to thrive.",
-  backgroundImage: heroImage,
+  banner: heroImage,
 };
 
 export const keystoneAbilitySupportData = {

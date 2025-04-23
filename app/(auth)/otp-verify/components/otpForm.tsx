@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -15,6 +14,7 @@ import {
   useVerifyOtpMutation,
 } from "@/features/auth/authSlice";
 import { useEffect } from "react";
+import Logo from "@/components/partials/logo";
 
 export default function OTPForm({ className }: { className?: string }) {
   type FormValues = {
@@ -101,14 +101,7 @@ export default function OTPForm({ className }: { className?: string }) {
     >
       {/* brand logo */}
       <div className="flex items-center justify-center lg:mb-8 mb-6">
-        <Image
-          src="/icons/brand-logo.svg"
-          alt="logo"
-          width={150}
-          height={65}
-          className="lg:w-[150px] w-[120px] lg:h-[65px] h-[50px]"
-          priority
-        />
+        <Logo />
       </div>
 
       {/* title */}

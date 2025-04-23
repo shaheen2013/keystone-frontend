@@ -27,11 +27,13 @@ const EducationPlans = ({ data }: { data: any }) => {
           </Button>
         </div>
         <div className="max-w-[776px] w-full !h-60 md:!h-auto rounded-xl shadow-lg">
-          <Image
-            src={image}
-            alt="image"
-            className="w-full h-full object-cover"
-          />
+          {image && (
+            <Image
+              src={image}
+              alt="image"
+              className="w-full h-full object-cover"
+            />
+          )}
         </div>
       </div>
     </section>

@@ -1,7 +1,6 @@
 import HeroSection from "@/components/partials/Hero";
 import { Metadata } from "next";
 import {
-  exploreOtherServicesData,
   heroData,
   keyBenefitsData,
   ourProcessData,
@@ -13,7 +12,6 @@ import KeyBenefits from "./components/key-benefits";
 import WhyChooseKeystoneAbilitySupport from "./components/why-choose-keystone-ability-support";
 import Testimonials from "@/components/partials/testimonials";
 import GetTouch from "@/components/partials/get-touch";
-import { contactInfo } from "@/static/shared";
 import ExploreOtherServices from "./components/explore-other-services";
 import OurProcess from "@/components/partials/our-process";
 
@@ -38,8 +36,8 @@ export default function ServiceDetails() {
         subtitle="Real stories from families we've helped—because every child deserves the right support and opportunities to thrive."
         classes={{ root: "bg-white", card: "bg-primary-1" }}
       />
-      <ExploreOtherServices data={exploreOtherServicesData} />
-      <GetTouch data={contactInfo} />
+      <ExploreOtherServices />
+      <GetTouch />
     </>
   );
 }

@@ -3,7 +3,6 @@
 import React from "react";
 
 import GetTouch from "@/components/partials/get-touch";
-import { contactInfo } from "@/static/shared";
 import Hero from "./components/hero";
 import BlogContent from "./components/blog-content";
 import RecentPosts from "./components/recent-posts";
@@ -52,7 +51,7 @@ export default function BlogDetails({
       </div>
       <ExploreRecommendBlogs />
 
-      <GetTouch data={contactInfo} />
+      <GetTouch />
     </>
   );
 }

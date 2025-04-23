@@ -5,7 +5,9 @@ const MissionAndVision = () => {
   return (
     <section className="py-12 md:py-28 bg-white">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
-        <Image src={sectionImg} alt="Image" width={776} height={450} />
+        {sectionImg && (
+          <Image src={sectionImg} alt="Image" width={776} height={450} />
+        )}
         <div className="flex flex-col gap-4 md:gap-8">
           <div className="flex flex-col gap-4">
             <h2 className="text-gray-9 text-xl md:text-5xl font-bold">

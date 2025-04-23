@@ -14,13 +14,15 @@ const MeetOurSpeaker = () => {
               className="flex flex-col gap-4 md:gap-6 p-4 md:p-6 rounded-2xl bg-primary-2"
             >
               <div className="max-h-[400px] w-full rounded-xl overflow-hidden">
-                <Image
-                  src={img1}
-                  width={1000}
-                  height={760}
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
+                {img1 && (
+                  <Image
+                    src={img1}
+                    width={1000}
+                    height={760}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
               <div className="flex flex-col gap-3 md:gap-4">
                 <h3 className="text-gray-9 text-xl md:text-2xl font-bold">

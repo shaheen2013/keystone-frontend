@@ -24,7 +24,14 @@ import { Download } from "@/components/icons";
 
 const EventContent = () => (
   <div className="rounded-2xl bg-white flex flex-col items-center">
-    <Image src={resourcePurchaseImage} alt="unlock" width={240} height={160} />
+    {resourcePurchaseImage && (
+      <Image
+        src={resourcePurchaseImage}
+        alt="unlock"
+        width={240}
+        height={160}
+      />
+    )}
     <h3 className="mt-6 mb-2 text-3xl font-semibold text-gray-9 text-center">
       Unlock Premium Resources
     </h3>

@@ -1,7 +1,5 @@
 import { Metadata } from "next";
 
-import { contactInfo } from "@/static/shared";
-
 import GetTouch from "@/components/partials/get-touch";
 import CenteredHero from "@/components/partials/Hero/centered-hero";
 import { heroData } from "./constant";
@@ -21,7 +19,7 @@ export default function BlogPage() {
       <Suspense fallback={<div className="h-3"></div>}>
         <Blogs />
       </Suspense>
-      <GetTouch data={contactInfo} />
+      <GetTouch />
     </>
   );
 }

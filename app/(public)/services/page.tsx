@@ -4,7 +4,6 @@ import { heroData, keystoneAbilitySupportData } from "./constant";
 import ServiceSection from "@/components/partials/Service";
 import KeyStoneAbilitySupport from "./components/keystone-ability-support";
 import GetTouch from "@/components/partials/get-touch";
-import { contactInfo } from "@/static/shared";
 
 export const metadata: Metadata = {
   title: "Services | Keystone",
@@ -21,7 +20,7 @@ export default function Services() {
         subtitle="Comprehensive Services for Families with Children with Special Needs"
       />
       <KeyStoneAbilitySupport data={keystoneAbilitySupportData} />
-      <GetTouch data={contactInfo} />
+      <GetTouch />
     </>
   );
 }
