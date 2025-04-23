@@ -6,6 +6,8 @@ import { useGetServicesQuery } from "@/features/public/services";
 import ServiceCard from "./components/service-card";
 import { Skeleton } from "@/components/shadcn/skeleton";
 import { ServiceCardSkeleton } from "@/components/skeletons";
+import { PAGINATION_LIMIT } from "@/lib/constants";
+import { useState } from "react";
 
 const ServiceSection = ({
   keyService,
@@ -16,7 +18,18 @@ const ServiceSection = ({
   title: string;
   subtitle: string;
 }) => {
-  const { data, isLoading, isFetching }: any = useGetServicesQuery({});
+  const [page, setPage] = useState(1);
+
+  const limit = 3;
+
+  const queryParams = keyService
+    ? { limit: limit }
+    : {
+        page: page,
+        pagi_limit: PAGINATION_LIMIT,
+      };
+
+  const { data, isLoading, isFetching }: any = useGetServicesQuery(queryParams);
   const services = data?.data?.services || [];
 
   const loading = isLoading || isFetching;
@@ -47,18 +60,28 @@ const ServiceSection = ({
           </>
         )}
 
-        {services.length > 0 &&
+        {services?.length > 0 &&
           services?.map((service: any, index: any) => (
             <ServiceCard key={index} service={service} />
           ))}
+
+        {!loading && services?.length === 0 && (
+          <p className="text-gray-8 text-base md:text-2xl text-center">
+            No Services Found.
+          </p>
+        )}
       </div>
       {keyService &&
         (loading ? (
           <Skeleton className="h-10 md:h-16 w-32" />
         ) : (
-          <Button variant="secondary" size="lg" asChild>
-            <Link href="/service">See All</Link>
-          </Button>
+          <>
+            {services?.length > 0 && (
+              <Button variant="secondary" size="lg" asChild>
+                <Link href="/services">See All</Link>
+              </Button>
+            )}
+          </>
         ))}
     </section>
   );

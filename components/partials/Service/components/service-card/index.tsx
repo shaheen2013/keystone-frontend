@@ -32,9 +32,12 @@ const ServiceCard = ({
       )}
 
       <div className="flex flex-col gap-4">
-        <h3 className="text-xl md:text-3xl font-bold text-gray-9">
+        <Link
+          className="text-xl md:text-3xl font-bold text-gray-9"
+          href={`/services/${service.slug}`}
+        >
           {service.name}
-        </h3>
+        </Link>
         <p className="text-sm md:text-lg text-gray-9 line-clamp-3">
           {service.short_brief}
         </p>
