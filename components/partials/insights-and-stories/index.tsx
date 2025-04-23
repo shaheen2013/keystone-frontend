@@ -16,7 +16,7 @@ import {
   useGetblogsQuery,
   useSaveToggleMutation,
 } from "@/features/public/blogSlice";
-import { PAGINATION_LIMIT } from "@/lib/constants";
+import { CAROUSEL_LIMIT } from "@/lib/constants";
 import { Skeleton } from "@/components/shadcn/skeleton";
 import { BlogCardSkeleton } from "@/components/skeletons";
 
@@ -25,8 +25,7 @@ const InsightsAndStories = () => {
 
   // Fetch blogs data using state values
   const { data, isLoading, isFetching }: any = useGetblogsQuery({
-    page: 1,
-    pagi_limit: PAGINATION_LIMIT,
+    limit: CAROUSEL_LIMIT,
   });
 
   const [saveToggle] = useSaveToggleMutation();
@@ -54,8 +53,8 @@ const InsightsAndStories = () => {
   };
 
   useEffect(() => {
-    if (data?.data?.blogs?.data) {
-      setBlogsData(data.data.blogs.data);
+    if (data?.data?.blogs) {
+      setBlogsData(data.data.blogs);
     }
   }, [data]);
 
