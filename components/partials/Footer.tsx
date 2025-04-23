@@ -14,6 +14,7 @@ import { toast } from "@/hooks/use-toast";
 import { FooterSkeleton } from "../skeletons";
 import { useSelector } from "react-redux";
 import Logo from "./logo";
+import { quickLinks, supportAndLegal } from "@/static/footer";
 
 type FormValues = {
   email: string;
@@ -138,18 +139,17 @@ export default function Footer() {
               Quick Links
             </h2>
             <nav className="lg:mb-10 mb-4">
-              {footerData?.quick_links &&
-                footerData?.quick_links?.map((link: any, index: number) => {
-                  return (
-                    <Link
-                      key={index}
-                      href={link.url}
-                      className="block lg:mb-3 mb-2 text-gray-9"
-                    >
-                      {link.label}
-                    </Link>
-                  );
-                })}
+              {quickLinks?.map((link, index) => {
+                return (
+                  <Link
+                    key={index}
+                    href={link.href}
+                    className="block lg:mb-3 mb-2 text-gray-9"
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
 
@@ -158,18 +158,17 @@ export default function Footer() {
               Support & Legal
             </h2>
             <nav className="lg:mb-10 mb-4">
-              {footerData?.support_links &&
-                footerData?.support_links?.map((link: any, index: number) => {
-                  return (
-                    <Link
-                      key={index}
-                      href={link?.url}
-                      className="block lg:mb-3 mb-2 text-gray-9"
-                    >
-                      {link?.label}
-                    </Link>
-                  );
-                })}
+              {supportAndLegal?.map((link, index) => {
+                return (
+                  <Link
+                    key={index}
+                    href={link.href}
+                    className="block lg:mb-3 mb-2 text-gray-9"
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
 

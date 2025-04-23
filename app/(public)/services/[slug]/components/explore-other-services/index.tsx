@@ -10,13 +10,14 @@ import {
 import { Skeleton } from "@/components/shadcn/skeleton";
 import { ServiceCardSkeleton } from "@/components/skeletons";
 import { useGetServicesQuery } from "@/features/public/services";
+import { CAROUSEL_LIMIT } from "@/lib/constants";
 import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useState } from "react";
 
 const ExploreOtherServices = () => {
   const [services, setServices] = useState<any>([]);
   const { data, isLoading, isFetching }: any = useGetServicesQuery({
-    limit: 45,
+    limit: CAROUSEL_LIMIT,
   });
 
   const loading = isLoading || isFetching;
