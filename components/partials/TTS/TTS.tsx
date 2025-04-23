@@ -36,25 +36,23 @@ const TTS: FC<TTSProps> = ({ isTTSActive }) => {
       };
 
       utterance.onend = () => {
-        // element.innerHTML = text;
-        // const spans = element.querySelectorAll("current-speaking");
-        // spans.forEach((span) => {
-        //   span.classList.remove("current-speaking");
-        // });
-        // if (!boundaryFired) {
         document.querySelectorAll(".current-speaking").forEach((el) => {
           el.classList.remove("current-speaking");
         });
-        // }
       };
 
       window.speechSynthesis.speak(utterance);
-      utterance.onstart = () => {
+
+      const fallback = setTimeout(() => {
+        if (!boundaryFired) {
+          element.classList.add("current-speaking");
+        }
         setTimeout(() => {
-          if (!boundaryFired) {
-            element.classList.add("current-speaking");
-          }
-        }, 200);
+          element.classList.remove("current-speaking");
+        }, words.length * 600);
+      }, 300);
+      return () => {
+        clearTimeout(fallback);
       };
     };
 
@@ -76,7 +74,6 @@ const TTS: FC<TTSProps> = ({ isTTSActive }) => {
         });
         return;
       }
-
       const text = element.innerText || element.textContent;
       if (!text || text.trim() === "") return;
       speakText(text, element);

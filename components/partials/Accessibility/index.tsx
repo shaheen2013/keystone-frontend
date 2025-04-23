@@ -342,6 +342,7 @@ export default function Accessibility() {
 
   const handleReset = () => {
     localStorage.removeItem("accessibilitySettings");
+    localStorage.removeItem("textToSpeech");
 
     setOptions({
       colorBlind: false,
