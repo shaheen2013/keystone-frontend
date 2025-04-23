@@ -1,5 +1,6 @@
 "use client";
 
+import Cookies from "js-cookie";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -64,9 +65,9 @@ export default function LoginForm() {
       const response: any = await login(payload).unwrap();
 
       if (response.success) {
-        localStorage.setItem("key_stone_token", response.data.access_token);
+        const token = response.data.access_token;
+        Cookies.set("key_stone_token", token, { expires: 7 });
         router.push("/profile/overview");
-        console.log("response", response);
       }
     } catch (error) {
       handleAuthError(error as LoginError);

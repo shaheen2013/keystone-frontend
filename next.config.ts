@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
       {
         hostname: "www.gstatic.com",
       },
+      {
+        hostname: "10.0.0.203",
+      },
+      {
+        hostname: "184.174.32.195",
+      },
+      {
+        hostname: "plus.unsplash.com",
+      },
     ],
   },
 };

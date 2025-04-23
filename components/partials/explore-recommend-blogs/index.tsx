@@ -1,10 +1,6 @@
 "use client";
 
 import Autoplay from "embla-carousel-autoplay";
-
-import insightsimg1 from "@/public/assets/home/insights-and-stories/img1.png";
-import insightsimg2 from "@/public/assets/home/insights-and-stories/img2.png";
-import insightsimg3 from "@/public/assets/home/insights-and-stories/img3.png";
 import BlogCard from "@/components/shadcn/blog-card";
 import {
   Carousel,
@@ -12,74 +8,30 @@ import {
   CarouselDots,
   CarouselItem,
 } from "@/components/shadcn/carousel";
+import { useGetblogsQuery } from "@/features/public/blogSlice";
+import { PAGINATION_LIMIT } from "@/lib/constants";
+import { Skeleton } from "@/components/shadcn/skeleton";
+import { BlogCardSkeleton } from "@/components/skeletons";
 
 const ExploreRecommendBlogs = () => {
-  const data = {
-    title: "Explore Recommended Blogs",
-    blogs: [
-      {
-        date: "6th Feb",
-        readTime: "6 minute Read",
-        title: "5 Ways to Build Confidence Your Child with Special Needs",
-        description:
-          "Empower your child to thrive by fostering self-esteem, encouraging independence, and celebrating small victories. Explore practical strategies designed for parents.",
-        image: insightsimg1,
-        saveForLater: true,
-      },
-      {
-        date: "6th Feb",
-        readTime: "6 minute Read",
-        title: "5 Ways to Build Confidence Your Child with Special Needs",
-        description:
-          "Empower your child to thrive by fostering self-esteem, encouraging independence, and celebrating small victories. Explore practical strategies designed for parents.",
-        image: insightsimg2,
-        saveForLater: true,
-      },
-      {
-        date: "6th Feb",
-        readTime: "6 minute Read",
-        title: "5 Ways to Build Confidence Your Child with Special Needs",
-        description:
-          "Empower your child to thrive by fostering self-esteem, encouraging independence, and celebrating small victories. Explore practical strategies designed for parents.",
-        image: insightsimg3,
-        saveForLater: true,
-      },
-      {
-        date: "6th Feb",
-        readTime: "6 minute Read",
-        title: "5 Ways to Build Confidence Your Child with Special Needs",
-        description:
-          "Empower your child to thrive by fostering self-esteem, encouraging independence, and celebrating small victories. Explore practical strategies designed for parents.",
-        image: insightsimg1,
-        saveForLater: true,
-      },
-      {
-        date: "6th Feb",
-        readTime: "6 minute Read",
-        title: "5 Ways to Build Confidence Your Child with Special Needs",
-        description:
-          "Empower your child to thrive by fostering self-esteem, encouraging independence, and celebrating small victories. Explore practical strategies designed for parents.",
-        image: insightsimg2,
-        saveForLater: true,
-      },
-      {
-        date: "6th Feb",
-        readTime: "6 minute Read",
-        title: "5 Ways to Build Confidence Your Child with Special Needs",
-        description:
-          "Empower your child to thrive by fostering self-esteem, encouraging independence, and celebrating small victories. Explore practical strategies designed for parents.",
-        image: insightsimg3,
-        saveForLater: true,
-      },
-    ],
-  };
-  const { title, blogs } = data;
+  const { data, isLoading, isFetching }: any = useGetblogsQuery({
+    page: 1,
+    pagi_limit: PAGINATION_LIMIT,
+  });
+
+  const blogs = data?.data?.blogs.data;
+
+  const loading = isLoading || isFetching;
   return (
     <section className="bg-primary-2 py-12 md:py-28">
       <div className="container flex flex-col gap-6 md:gap-12">
-        <h3 className="text-center text-2xl md:text-5xl font-bold text-gray-9">
-          {title}
-        </h3>
+        {loading ? (
+          <Skeleton className="mx-auto mb-4 md:mb-6 h-8 md:h-14 w-3/4 md:w-1/2" />
+        ) : (
+          <h3 className="text-center text-2xl md:text-5xl font-bold text-gray-9">
+            Explore Recommended Blogs
+          </h3>
+        )}
         <Carousel
           opts={{
             loop: false,
@@ -95,14 +47,44 @@ const ExploreRecommendBlogs = () => {
           ]}
         >
           <CarouselContent>
-            {blogs.map((blog, index) => (
+            {loading && (
+              <>
+                {[...Array(3)].map((_, index) => (
+                  <CarouselItem key={index} className="basis-full md:basis-1/3">
+                    <BlogCardSkeleton className="bg-white" />
+                  </CarouselItem>
+                ))}
+              </>
+            )}
+            {blogs?.map((blog: any, index: any) => (
               <CarouselItem key={index} className="basis-full md:basis-1/3">
-                <BlogCard article={blog} key={index} className="bg-white" />
+                <BlogCard
+                  article={blog}
+                  key={index}
+                  classes={{ root: "bg-white" }}
+                />
               </CarouselItem>
             ))}
+
+            {!loading && blogs?.length === 0 && (
+              <CarouselItem className="basis-full">
+                <h4 className="text-center self-center text-gray-9 text-lg font-semibold">
+                  No Blogs Found
+                </h4>
+              </CarouselItem>
+            )}
           </CarouselContent>
+
           <div className="mt-6 md:mt-12">
-            <CarouselDots />
+            {loading ? (
+              <div className="flex items-center justify-center gap-2">
+                {[...Array(3)].map((_, index) => (
+                  <Skeleton key={index} className="size-4 rounded-full" />
+                ))}
+              </div>
+            ) : (
+              <CarouselDots />
+            )}
           </div>
         </Carousel>
       </div>

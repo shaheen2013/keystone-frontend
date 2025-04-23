@@ -1,5 +1,6 @@
 "use client";
 
+import Cookies from "js-cookie";
 import Link from "next/link";
 import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
@@ -54,8 +55,9 @@ export default function SignupForm() {
       const res: any = await register(payload).unwrap();
 
       if (res.success) {
-        localStorage.setItem("key_stone_token", res.data.access_token);
-        router.push("/");
+        const token = res.data.access_token;
+        Cookies.set("key_stone_token", token, { expires: 7 });
+        router.push("/profile/overview");
       }
     } catch (error) {
       handleAuthError(error as SignUpError);
@@ -172,6 +174,7 @@ export default function SignupForm() {
                     fieldState: { error },
                   }) => (
                     <Input
+                    
                       classes={{ input: "bg-white" }}
                       placeholder="Enter email address"
                       onChange={onChange}
