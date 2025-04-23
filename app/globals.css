@@ -255,8 +255,8 @@
 }
 
 .current-speaking {
-  background: rgba(251, 251, 62, 0.633);
-  transition: background-color 0.1s ease;
+    background: rgba(251, 251, 62, 0.633);
+    transition: background 0.3s ease;
 }
 
 .skiptranslate {

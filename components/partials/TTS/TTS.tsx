@@ -11,12 +11,11 @@ const TTS: FC<TTSProps> = ({ isTTSActive }) => {
     const speakText = (text: string, element: HTMLElement) => {
       const words = text.trim().split(/\s+/);
       const utterance = new SpeechSynthesisUtterance(text);
-
       let charIndex = 0;
-
-      utterance.onstart = () => {};
-
+      let boundaryFired = false;
       utterance.onboundary = (event: SpeechSynthesisEvent) => {
+        boundaryFired = true;
+
         if (event.name === "word" || event.charIndex >= 0) {
           charIndex = event.charIndex;
 
@@ -24,8 +23,6 @@ const TTS: FC<TTSProps> = ({ isTTSActive }) => {
 
           const beforeWords = before.split(/\s+/);
           const wordIndex = beforeWords.length - 1;
-
-          // wrap each word in a span
           const spans = words.map((word, idx) => {
             const span = document.createElement("span");
             span.textContent = word + " ";
@@ -39,26 +36,49 @@ const TTS: FC<TTSProps> = ({ isTTSActive }) => {
       };
 
       utterance.onend = () => {
-        element.innerHTML = text;
-        const spans = element.querySelectorAll("span");
-        spans.forEach((span) => {
-          span.classList.remove("current-speaking");
+        document.querySelectorAll(".current-speaking").forEach((el) => {
+          el.classList.remove("current-speaking");
         });
       };
 
       window.speechSynthesis.speak(utterance);
+
+      const fallback = setTimeout(() => {
+        if (!boundaryFired) {
+          element.classList.add("current-speaking");
+        }
+        setTimeout(() => {
+          element.classList.remove("current-speaking");
+        }, words.length * 600);
+      }, 300);
+      return () => {
+        clearTimeout(fallback);
+      };
     };
+
     const handleClick = (event: MouseEvent) => {
-      window.speechSynthesis.cancel(); // stop any ongoing speech
-      if (!isTTSActive) return;
+      window.speechSynthesis.cancel();
+      if (!isTTSActive) {
+        return;
+      }
 
-      const target = event.target as HTMLElement;
-      if (!target) return;
+      const selector =
+        "p, h1, h2, h3, h4, h5, h6, a, li, blockquote, .tts-target";
+      const element = (event.target as HTMLElement).closest(
+        selector
+      ) as HTMLElement;
 
-      const text = target.innerText || target.textContent;
+      if (!element) {
+        document.querySelectorAll(".current-speaking").forEach((el) => {
+          el.classList.remove("current-speaking");
+        });
+        return;
+      }
+      const text = element.innerText || element.textContent;
       if (!text || text.trim() === "") return;
-      speakText(text, target);
+      speakText(text, element);
     };
+
     document.addEventListener("click", handleClick);
     return () => {
       document.removeEventListener("click", handleClick);

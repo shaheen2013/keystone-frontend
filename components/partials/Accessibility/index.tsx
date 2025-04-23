@@ -81,7 +81,7 @@ export default function Accessibility() {
     increaseContrast: false,
     textSize: [4],
     magnification: false,
-    textToSpeech: localStorage.getItem("textToSpeech") === "true",
+    textToSpeech: false,
     googleTranslate: "",
   });
 
@@ -130,7 +130,11 @@ export default function Accessibility() {
         saturationStatus: settings.saturationStatus,
       }));
     }
-
+    const textToSpeech = localStorage.getItem("textToSpeech") === "true";
+    setOptions((prev) => ({
+      ...prev,
+      textToSpeech: textToSpeech,
+    }));
     if (settings.saturation) {
       setOptions((prev) => ({ ...prev, saturation: settings.saturation }));
       const root = document.getElementById("root") as HTMLElement;
@@ -368,6 +372,7 @@ export default function Accessibility() {
 
   const handleReset = () => {
     localStorage.removeItem("accessibilitySettings");
+    localStorage.removeItem("textToSpeech");
 
     setOptions({
       colorBlind: false,
@@ -932,7 +937,7 @@ export default function Accessibility() {
 
           {/* bottom  */}
           <div className="mt-auto">
-            <Button variant="secondary" className="w-full" onClick={handleReset} translate="no">
+            <Button variant="secondary" className="w-full" onClick={handleReset}>
               <Image
                 src="/icons/arrow-rotate.svg"
                 width={50}
