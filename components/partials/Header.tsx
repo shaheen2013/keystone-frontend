@@ -29,6 +29,7 @@ import ProfileMenu from "./Profile-menu";
 import { Skeleton } from "../shadcn/skeleton";
 import { useGetServicesQuery } from "@/features/public/services";
 import Logo from "./logo";
+import { lowerCaseFirstLetter } from "@/lib/lowercaseFirstLetter";
 
 interface User {
   data: {
@@ -110,23 +111,41 @@ export default function Header() {
 
                   return (
                     <NavigationMenuItem key={index}>
-                      <NavigationMenuTrigger>
-                        <Link href="/services"> {menu.name}</Link>
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                          {menu.items &&
-                            menu.items.map((component: any) => (
-                              <ListItem
-                                key={component.name}
-                                title={component.name}
-                                href={`/services/${component.slug}`}
-                              >
-                                {component.short_brief}
-                              </ListItem>
-                            ))}
-                        </ul>
-                      </NavigationMenuContent>
+                      {menu.items && menu.items.length > 0 ? (
+                        <>
+                          <NavigationMenuTrigger>
+                            <Link href={`/${lowerCaseFirstLetter(menu.name)}`}>
+                              {menu.name}
+                            </Link>
+                          </NavigationMenuTrigger>
+                          <NavigationMenuContent>
+                            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                              {menu.items &&
+                                menu.items.map((component: any) => (
+                                  <ListItem
+                                    key={component.name}
+                                    title={component.name}
+                                    href={`/${lowerCaseFirstLetter(menu.name)}/${component.slug}`}
+                                  >
+                                    {component.short_brief}
+                                  </ListItem>
+                                ))}
+                            </ul>
+                          </NavigationMenuContent>
+                        </>
+                      ) : (
+                        <Link
+                          href={`/${lowerCaseFirstLetter(menu.name)}`}
+                          legacyBehavior
+                          passHref
+                        >
+                          <NavigationMenuLink
+                            className={navigationMenuTriggerStyle()}
+                          >
+                            {menu.name}
+                          </NavigationMenuLink>
+                        </Link>
+                      )}
                     </NavigationMenuItem>
                   );
                 })}
@@ -219,7 +238,9 @@ export default function Header() {
                     <Accordion type="single" collapsible key={index}>
                       <AccordionItem value="item-1" className="">
                         <AccordionTrigger className="text-md font-semibold px-6 py-3 text-gray-9">
-                          <Link href="/services">{menu?.name}</Link>
+                          <Link href={`/${lowerCaseFirstLetter(menu.name)}`}>
+                            {menu?.name}
+                          </Link>
                         </AccordionTrigger>
                         <AccordionContent>
                           {menu.items &&
@@ -230,7 +251,7 @@ export default function Header() {
                                   key={subIndex}
                                 >
                                   <Link
-                                    href={`/services/${submenu.slug}`}
+                                    href={`/${lowerCaseFirstLetter(menu.name)}/${submenu.slug}`}
                                     className="block py-4 pl-10 text-base font-semibold text-gray-9"
                                   >
                                     {submenu.name}
