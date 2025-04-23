@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { Menu, X } from "lucide-react";
-import { forwardRef, useState } from "react";
+import { forwardRef, useMemo, useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 
 import { cn } from "@/lib/utils";
@@ -28,8 +27,9 @@ import {
 import { Button } from "@/components/shadcn/button";
 import { useMeQuery } from "@/features/auth/authSlice";
 import ProfileMenu from "./Profile-menu";
-import { useGetHeaderQuery } from "@/features/public/headerSlice";
 import { Skeleton } from "../shadcn/skeleton";
+import { useGetServicesQuery } from "@/features/public/services";
+import Logo from "./logo";
 
 interface User {
   data: {
@@ -52,97 +52,106 @@ export default function Header() {
     isFetching: boolean;
   };
 
-  const { data: headerData }: any = useGetHeaderQuery({});
+  const {
+    data: servicesData,
+    isLoading: servicesLoading,
+    isFetching: servicesFetching,
+  }: any = useGetServicesQuery({
+    limit: 4,
+  });
 
-  console.log("headerData", headerData);
+  const loading =
+    isLoading || isFetching || servicesLoading || servicesFetching;
+
+  // Extract services with fallback
+  const services = useMemo(
+    () => servicesData?.data?.services || [],
+    [servicesData]
+  );
+
+  // Derive menus with injected services
+  const menus = useMemo(() => {
+    return menuOptions.map((menu) =>
+      menu.name === "Services" ? { ...menu, items: services } : menu
+    );
+  }, [services]);
 
   return (
     <header className="border-b sticky top-0 bg-white z-10">
       <div className="container flex h-24 items-center justify-between">
         {/* Left - Brand */}
         <div className="flex items-center gap-2">
-          <Link href="/">
-            {headerData?.data?.website_logo ? (
-              <Image
-                src={headerData?.data?.website_logo}
-                alt="logo"
-                width={100}
-                height={100}
-                className="h-12 w-[110px] flex-1"
-                priority
-              />
-            ) : (
-              <Skeleton className="w-[100px] h-12" />
-            )}
-          </Link>
+          <Logo />
         </div>
 
         {/* Center - Content (hidden on tablet) */}
         <nav className="hidden lg:flex items-center gap-6">
-          {}
-          <NavigationMenu>
-            <NavigationMenuList>
-              {headerData?.data?.menus?.length
-                ? headerData.data.menus.map((menu: any, index: number) => {
-                    if (menu.children.length === 0) {
-                      return (
-                        <NavigationMenuItem key={index}>
-                          <Link href={menu.url} legacyBehavior passHref>
-                            <NavigationMenuLink
-                              className={navigationMenuTriggerStyle()}
-                            >
-                              {menu.title}
-                            </NavigationMenuLink>
-                          </Link>
-                        </NavigationMenuItem>
-                      );
-                    }
-
+          {loading ? (
+            Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} className="px-3 flex gap-3">
+                <Skeleton className="w-16 h-9" />
+              </div>
+            ))
+          ) : (
+            <NavigationMenu>
+              <NavigationMenuList>
+                {menus.map((menu, index) => {
+                  if (menu.href) {
                     return (
                       <NavigationMenuItem key={index}>
-                        <NavigationMenuTrigger
-                          onClick={() => router.push(menu.url)}
-                        >
-                          {menu.title}
-                        </NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                            {menu?.children?.length > 0 &&
-                              menu.children.map((component: any) => (
-                                <ListItem
-                                  key={component.title}
-                                  title={component.title}
-                                  href={component.url}
-                                >
-                                  {component.subtitle}
-                                </ListItem>
-                              ))}
-                          </ul>
-                        </NavigationMenuContent>
+                        <Link href={menu.href} legacyBehavior passHref>
+                          <NavigationMenuLink
+                            className={navigationMenuTriggerStyle()}
+                          >
+                            {menu.name}
+                          </NavigationMenuLink>
+                        </Link>
                       </NavigationMenuItem>
                     );
-                  })
-                : Array.from({ length: 6 }).map((_, index) => (
-                    <div key={index} className="px-3 flex gap-3">
-                      <Skeleton className="w-16 h-9" />
-                    </div>
-                  ))}
-            </NavigationMenuList>
-          </NavigationMenu>
+                  }
+
+                  return (
+                    <NavigationMenuItem key={index}>
+                      <NavigationMenuTrigger
+                        onClick={() => router.push("/services")}
+                      >
+                        {menu.name}
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                          {menu.items &&
+                            menu.items.map((component: any) => (
+                              <ListItem
+                                key={component.name}
+                                title={component.name}
+                                href={`/services/${component.slug}`}
+                              >
+                                {component.short_brief}
+                              </ListItem>
+                            ))}
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  );
+                })}
+              </NavigationMenuList>
+            </NavigationMenu>
+          )}
         </nav>
 
         {/* Right - Login Button */}
         <div className="flex items-center">
-          {isLoading && isFetching && (
+          {loading && (
             <div className="hidden md:flex gap-3">
               <Skeleton className="w-16 h-9" />
               <Skeleton className="w-16 h-9" />
             </div>
           )}
-          {!isLoading && !isFetching && currentUser && (
+          {!loading && currentUser && (
             <>
               <ProfileMenu currentUser={currentUser} />
               <button
+                type="button"
                 onClick={() => setMobileMenuOpen(true)}
                 className="lg:hidden bg-gray-2 rounded-xl p-1.5"
               >
@@ -151,7 +160,7 @@ export default function Header() {
             </>
           )}
 
-          {!isLoading && !isFetching && !currentUser && (
+          {!loading && !currentUser && (
             <>
               <Button asChild variant="link" className="hidden lg:flex">
                 <Link href="/login" className="">
@@ -167,19 +176,20 @@ export default function Header() {
 
           {/* Mobile Menu */}
 
-          {isLoading && isFetching && (
+          {loading && (
             <div className="flex md:hidden gap-3">
               <Skeleton className="w-16 h-9" />
               <Skeleton className="w-16 h-9" />
             </div>
           )}
 
-          {!isLoading && !isFetching && !currentUser && (
+          {!loading && !currentUser && (
             <>
               <Button asChild className="lg:hidden mr-4" variant="secondary">
                 <Link href="/login">Login</Link>
               </Button>
               <button
+                type="button"
                 onClick={() => setMobileMenuOpen(true)}
                 className="lg:hidden bg-gray-2 rounded-xl p-1.5"
               >
@@ -196,7 +206,7 @@ export default function Header() {
             <div className="fixed inset-0 z-10" />
             <DialogPanel className="fixed inset-y-0 right-0 z-10 top-[98px] w-full overflow-y-auto bg-white">
               <div className="">
-                {menuOptions.map((menu, index) => {
+                {menus.map((menu, index) => {
                   if (menu.href) {
                     return (
                       <Link
@@ -217,17 +227,17 @@ export default function Header() {
                         </AccordionTrigger>
                         <AccordionContent>
                           {menu.items &&
-                            menu.items.map((submenu, subIndex) => {
+                            menu.items.map((submenu: any, subIndex: number) => {
                               return (
                                 <div
                                   className="border-b first:border-t last:border-0"
                                   key={subIndex}
                                 >
                                   <Link
-                                    href={submenu.href}
+                                    href={submenu.slug}
                                     className="block py-4 pl-10 text-base font-semibold text-gray-9"
                                   >
-                                    {submenu.title}
+                                    {submenu.name}
                                   </Link>
                                 </div>
                               );

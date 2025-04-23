@@ -11,10 +11,10 @@ const Logo = () => {
   return (
     <>
       {loading ? (
-        <Skeleton className="h-12 w-[110px] lg:mb-8 mb-6" />
+        <Skeleton className="h-12 w-[110px] " />
       ) : (
         logo && (
-          <Link href={"/"}>
+          <Link href={"/"} className="">
             <Image
               src={logo}
               alt="logo"
