@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Calendar } from "../icons";
 import { cn } from "@/lib/utils";
+import moment from "moment";
+import Link from "next/link";
 
 const EventCard = ({
   event,
@@ -16,27 +18,35 @@ const EventCard = ({
         className
       )}
     >
-      {event?.image && (
-        <div className="max-h-[314px] w-full overflow-hidden">
-          <Image
-            src={event.image}
-            width={1000}
-            height={760}
-            alt={event.title}
-            className="w-full h-full object-cover"
-          />
-        </div>
+      {event?.featured_image && (
+        <Link href={`/events/${event.slug}`}>
+          <div className="w-full overflow-hidden">
+            <Image
+              src={event?.featured_image?.path}
+              width={1000}
+              height={760}
+              alt={event.title}
+              className="w-full h-[230px] md:h-[314px] object-cover rounded-xl"
+            />
+          </div>
+        </Link>
       )}
 
       <div className="flex flex-col gap-3 md:gap-4">
         <div className="flex gap-2 text-secondary-6">
           <Calendar />
-          <span className="font-medium text-base">{event.time}</span>
+          <span className="font-medium text-base">
+            {moment(event.created_at).format("h:mm A, Do MMM YYYY")}
+          </span>
         </div>
-        <h3 className="text-gray-9 text-xl md:text-3xl font-bold">
-          {event.title}
-        </h3>
-        <p className="text-gray-9 text-sm md:text-lg">{event.description}</p>
+        <Link href={`/events/${event.slug}`}>
+          <h3 className="text-gray-9 text-xl md:text-3xl font-bold">
+            {event.name}
+          </h3>
+        </Link>
+        <p className="text-gray-9 text-sm md:text-lg line-clamp-3">
+          {event.short_brief}
+        </p>
       </div>
     </div>
   );

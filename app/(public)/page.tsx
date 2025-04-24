@@ -9,8 +9,6 @@ import WhyKeystoneSection from "@/components/partials/WhyKeystone";
 import InsightsAndStories from "@/components/partials/insights-and-stories";
 import KeyStoneAbilitySupport from "@/components/partials/keystone-ability-support";
 import Testimonials from "@/components/partials/testimonials";
-
-import { upcomingEventsData } from "@/static/homepage";
 import { useGetHomePageContentsQuery } from "@/features/public/homePageSlice";
 
 export default function Home() {
@@ -79,7 +77,7 @@ export default function Home() {
         <WhyKeystoneSection data={WhyKeystoneData} loading={loading} />
       )}
       {data?.data?.homepage?.event_show && (
-        <UpComingEvents data={upcomingEventsData} />
+        <UpComingEvents title="Join Us for Upcoming Events" />
       )}
 
       {data?.data?.homepage?.ability_supports_show && (
