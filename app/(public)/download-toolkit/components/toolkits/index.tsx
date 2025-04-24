@@ -57,7 +57,7 @@ const Toolkits = () => {
               <Toolkit key={index} data={toolkit} />
             ))
           ) : (
-            <div className="col-span-full">
+            <div className="col-span-full text-center text-gray-600">
               <p>No resources found</p>
             </div>
           )}
