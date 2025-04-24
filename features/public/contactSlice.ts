@@ -1,6 +1,6 @@
 import { apiSlice } from "../api/apiSlice";
 
-export const contactFormSlice = apiSlice.injectEndpoints({
+export const contactFormSlice = apiSlice?.injectEndpoints({
   endpoints: (builder: any) => ({
     contact: builder.mutation({
       query: (data: any) => ({

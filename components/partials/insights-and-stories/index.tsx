@@ -61,10 +61,14 @@ const InsightsAndStories = () => {
   return (
     <section className="container my-12 md:my-28 flex flex-col gap-6 md:gap-12">
       <div className="flex gap-6 justify-between items-center md:items-start">
-        <h3 className="text-2xl md:text-5xl font-bold text-gray-9 grow">
-          Insights & Stories
-        </h3>
-        {blogsData.length > 0 && (
+        {loading ? (
+          <Skeleton className="h-8 md:h-12 w-40" />
+        ) : (
+          <h3 className="text-2xl md:text-5xl font-bold text-gray-9 grow">
+            Insights & Stories
+          </h3>
+        )}
+        {blogsData?.length > 0 && (
           <Button variant="secondary" size="lg" className="shrink-0" asChild>
             <Link href="/blogs">See All</Link>
           </Button>
@@ -95,9 +99,9 @@ const InsightsAndStories = () => {
             </>
           ) : (
             <>
-              {blogsData.length > 0 ? (
+              {blogsData?.length > 0 ? (
                 <>
-                  {blogsData.map((article: any, index: any) => (
+                  {blogsData?.map((article: any, index: any) => (
                     <CarouselItem
                       key={index}
                       className="basis-full md:basis-1/3"

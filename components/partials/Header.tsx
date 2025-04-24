@@ -76,7 +76,7 @@ export default function Header() {
   }, [services]);
 
   return (
-    <header className="border-b sticky top-0 bg-white z-10">
+    <header className="border-b sticky top-0 bg-white z-20">
       <div className="container flex h-24 items-center justify-between">
         {/* Left - Brand */}
         <div className="flex items-center gap-2">

@@ -1,7 +1,7 @@
 import { queryFormat } from "@/lib/queryFormat";
 import { apiSlice } from "../api/apiSlice";
 
-export const blogSlice = apiSlice.injectEndpoints({
+export const blogSlice = apiSlice?.injectEndpoints({
   endpoints: (builder: any) => ({
     getblogs: builder.query({
       query: (q: any) => `/blogs${queryFormat(q)}`,
