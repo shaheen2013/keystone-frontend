@@ -13,7 +13,7 @@ export default function HeroSection({
   const { title, description, backgroundImage, buttons } = data;
 
   return (
-    <section className="relative w-full h-[520px] md:h-screen flex items-center justify-center bg-gray-200">
+    <section className="relative w-full h-[520px] md:h-screen flex items-center justify-center bg-white">
       {/* Background image with skeleton */}
       <div className="absolute inset-0 w-full h-full">
         {loading ? (

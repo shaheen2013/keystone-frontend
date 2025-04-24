@@ -68,24 +68,41 @@ export default function Home() {
   return (
     <>
       <HeroSection data={heroData} loading={loading} />
-      <ServiceSection
-        keyService
-        title="Our Key Services"
-        subtitle="Comprehensive Services for Families with Children with Special Needs"
-      />
-      <WhyKeystoneSection data={WhyKeystoneData} loading={loading} />
-      <UpComingEvents data={upcomingEventsData} />
-      <KeyStoneAbilitySupport
-        data={keystoneAbilitySupportData}
-        loading={loading}
-      />
-      <OurImpact data={impactsData} loading={loading} />
-      <Testimonials
-        title="Parents Are Saying"
-        subtitle="Real stories from families we've helped—because every child deserves the right support and opportunities to thrive."
-      />
-      <InsightsAndStories />
-      <Support data={supportSectionData} loading={loading} />
+      {data?.data?.homepage?.service_show && (
+        <ServiceSection
+          keyService
+          title="Our Key Services"
+          subtitle="Comprehensive Services for Families with Children with Special Needs"
+        />
+      )}
+      {data?.data?.homepage?.why_us_show && (
+        <WhyKeystoneSection data={WhyKeystoneData} loading={loading} />
+      )}
+      {data?.data?.homepage?.event_show && (
+        <UpComingEvents data={upcomingEventsData} />
+      )}
+
+      {data?.data?.homepage?.ability_supports_show && (
+        <KeyStoneAbilitySupport
+          data={keystoneAbilitySupportData}
+          loading={loading}
+        />
+      )}
+
+      {data?.data?.homepage?.our_impacts_show && (
+        <OurImpact data={impactsData} loading={loading} />
+      )}
+
+      {data?.data?.homepage?.testimonial_show && (
+        <Testimonials
+          title="Parents Are Saying"
+          subtitle="Real stories from families we've helped—because every child deserves the right support and opportunities to thrive."
+        />
+      )}
+      {data?.data?.homepage?.blog_show && <InsightsAndStories />}
+      {data?.data?.homepage?.contact_actions_show && (
+        <Support data={supportSectionData} loading={loading} />
+      )}
     </>
   );
 }
