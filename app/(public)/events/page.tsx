@@ -17,7 +17,7 @@ export default function Events() {
   return (
     <>
       <CenteredHero data={heroData} />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div className="h-3"></div>}>
         <EventsArea />
       </Suspense>
       <GetTouch />

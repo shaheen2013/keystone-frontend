@@ -9,7 +9,10 @@ export const eventsSlice = apiSlice?.injectEndpoints({
     getEventDetails: builder.query({
       query: ({ slug }: any) => `/events/${slug}`,
     }),
+    getEventTypes: builder.query({
+      query: () => `/event-types`,
+    })
   }),
 });
 
-export const { useGetEventsQuery, useGetEventDetailsQuery } = eventsSlice;
+export const { useGetEventsQuery, useGetEventDetailsQuery, useGetEventTypesQuery } = eventsSlice;

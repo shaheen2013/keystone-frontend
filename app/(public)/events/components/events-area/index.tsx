@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { EventContentArg } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { eventTypes, INITIAL_EVENTS, services } from "./constant";
+import {  INITIAL_EVENTS, services } from "./constant";
 import { Button } from "@/components/shadcn/button";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Label } from "@/components/shadcn/label";
@@ -20,6 +20,8 @@ import FilterDrawer from "./components/filter-drawer";
 import { useDebounceCallback } from "usehooks-ts";
 import { PAGINATION_LIMIT } from "@/lib/constants";
 import { useGetEventsQuery } from "@/features/public/eventSlice";
+import EventTypes from "./components/event-type";
+import Services from "./components/services";
 
 const EventsArea = () => {
   const searchParams = useSearchParams();
@@ -33,7 +35,7 @@ const EventsArea = () => {
   const [page, setPage] = useState(1);
 
   const isFiltered =
-    search || selectedServices.length || selectedEventTypes.length;
+    search || selectedServices?.length || selectedEventTypes?.length;
 
   // Debounce the search input with 500ms delay
   const debouncedSearch = useDebounceCallback(setSearch, 500);
@@ -48,12 +50,12 @@ const EventsArea = () => {
     event_type_ids: selectedEventTypes,
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const loading = isFetching || isLoading;
+   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   const loading = isFetching || isLoading;
 
-  const filteredEvents = data?.data?.events?.data;
-
-  const filteredEventsCount = data?.data?.events?.total;
+   const filteredEvents = data?.data?.events?.data || [];
+ 
+   const filteredEventsCount = data?.data?.events?.total || 0;
 
   // Debounced search value
   const handleSearch = (value: string) => {
@@ -68,7 +70,11 @@ const EventsArea = () => {
 
   const handleEvents = () => {};
 
-  const handleResetFilter = () => {};
+  const handleResetFilter = () => {
+    setSearch("");
+    setSelectedServices([]);
+    setSelectedEventTypes([]);
+  };
 
   const handleDateClick = (info: any) => {
     console.log("Date Clicked", info);
@@ -117,74 +123,8 @@ const EventsArea = () => {
                   Reset
                 </Button>
               </div>
-              <div className="m-6 bg-white rounded-xl">
-                <div className="flex flex-col">
-                  <h3 className="text-gray-9 text-lg font-semibold px-5 py-3">
-                    Event Type
-                  </h3>
-                  <hr className="border-gray-2" />
-                  {eventTypes.map((eventType, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center space-x-2 px-5 py-3"
-                    >
-                      <Checkbox
-                        id={eventType}
-                        checked={selectedEventTypes?.includes(eventType)}
-                        onCheckedChange={() =>
-                          setSelectedEventTypes((prev) => {
-                            if (prev.includes(eventType)) {
-                              return prev.filter((e) => e !== eventType);
-                            } else {
-                              return [...prev, eventType];
-                            }
-                          })
-                        }
-                        variant="secondary"
-                      />
-                      <Label
-                        htmlFor={eventType}
-                        className="text-lg text-gray-500"
-                      >
-                        {eventType}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="m-6 bg-white rounded-xl">
-                <div className="flex flex-col">
-                  <h3 className="text-gray-9 text-lg font-semibold px-5 py-3">
-                    Services
-                  </h3>
-                  <hr className="border-gray-2" />
-                  {services.map((service, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center space-x-2 px-5 py-3"
-                    >
-                      <Checkbox
-                        id={service}
-                        variant="secondary"
-                        checked={selectedServices?.includes(service)}
-                        onCheckedChange={() =>
-                          setSelectedServices((prev) => {
-                            if (prev.includes(service)) {
-                              return prev.filter((e) => e !== service);
-                            } else {
-                              return [...prev, service];
-                            }
-                          })
-                        }
-                      />
-                      <Label htmlFor={service} className="text-lg text-gray-5">
-                        {service}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
+               <EventTypes selectedEventTypes={selectedEventTypes} setSelectedEventTypes={setSelectedEventTypes}/>
+               <Services selectedServices={selectedServices} setSelectedServices={setSelectedServices}/>
             </div>
 
             {/* calender area */}
@@ -221,7 +161,7 @@ const EventsArea = () => {
             </div>
             {isFiltered && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                {filteredEvents.map((event: any, index: any) => (
+                {filteredEvents?.map((event: any, index: any) => (
                   <EventCard
                     event={event}
                     key={index}
