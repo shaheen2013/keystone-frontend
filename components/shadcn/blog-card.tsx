@@ -12,7 +12,7 @@ const BlogCard = ({
 }: {
   userPanel?: boolean;
   article: any;
-  handleToggle: (id: string) => void;
+  handleToggle: (slug: string) => void;
   classes?: {
     root?: string;
     image?: string;
@@ -43,7 +43,7 @@ const BlogCard = ({
         )}
         <div
           className="absolute top-4 right-4 rounded-xl py-2.5 px-6 flex gap-2 items-center cursor-pointer transition-all bg-white"
-          onClick={() => handleToggle(article.id)}
+          onClick={() => handleToggle(article.slug)}
         >
           {userPanel ? (
             <>

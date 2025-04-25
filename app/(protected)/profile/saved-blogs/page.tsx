@@ -25,17 +25,17 @@ export default function AccountSavedBlogs() {
 
   const totalBlogs = data?.data?.saved_blogs?.total || 0;
 
-  const handleToggle = async (id: string) => {
+  const handleToggle = async (slug: string) => {
     // Store the blog being removed in case we need to revert
-    const blogToRemove = savedBlogs.find((blog) => blog.id === id);
+    const blogToRemove = savedBlogs.find((blog) => blog.slug === slug);
     try {
       // Immediately update UI
       setSavedBlogs((prevBlogs: any) =>
-        prevBlogs.filter((blog: any) => blog.id !== id)
+        prevBlogs.filter((blog: any) => blog.slug !== slug)
       );
 
       // Send API request
-      await saveToggle({ blog_id: id }).unwrap();
+      await saveToggle({ blog_slug: slug }).unwrap();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       // Revert on error

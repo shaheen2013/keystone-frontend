@@ -17,8 +17,8 @@ export const blogSlice = apiSlice?.injectEndpoints({
       query: () => `/saved-blogs`,
     }),
     saveToggle: builder.mutation({
-      query: ({ blog_id }: any) => ({
-        url: `/saved-blogs/${blog_id}`,
+      query: ({ blog_slug }: any) => ({
+        url: `/saved-blogs/${blog_slug}`,
         method: "PATCH",
       }),
     }),

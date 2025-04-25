@@ -30,23 +30,23 @@ const InsightsAndStories = () => {
 
   const [saveToggle] = useSaveToggleMutation();
   const loading = isLoading || isFetching;
-  const handleToggle = async (id: string) => {
+  const handleToggle = async (slug: string) => {
     try {
       //  immediately update UI
       setBlogsData((prevBlogs: any) =>
         prevBlogs.map((blog: any) =>
-          blog.id === id ? { ...blog, is_saved: !blog.is_saved } : blog
+          blog.slug === slug ? { ...blog, is_saved: !blog.is_saved } : blog
         )
       );
 
       // Send API request
-      await saveToggle({ blog_id: id }).unwrap();
+      await saveToggle({ blog_slug: slug }).unwrap();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       // Revert on error
       setBlogsData((prevBlogs: any) =>
         prevBlogs.map((blog: any) =>
-          blog.id === id ? { ...blog, is_saved: !blog.is_saved } : blog
+          blog.slug === slug ? { ...blog, is_saved: !blog.is_saved } : blog
         )
       );
     }
