@@ -1,9 +1,14 @@
 "use client";
 
 import YoutubeVideoPlayer from "@/components/partials/youtube-player";
+import { AboutWorkshopSkeleton } from "./AboutWorkshopSkeleton";
 
-const AboutWorkshop = ({ data }: { data: any }) => {
-  const { vedioUrl, title, description, keyPoints } = data;
+const AboutWorkshop = ({ data, loading }: { data: any; loading: boolean }) => {
+  const { videoUrl, title, about } = data;
+
+  if (loading) {
+    return <AboutWorkshopSkeleton />;
+  }
   return (
     <section className="py-12 md:py-28 bg-white">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
@@ -11,21 +16,13 @@ const AboutWorkshop = ({ data }: { data: any }) => {
           <h3 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold">
             {title}
           </h3>
-          <p className="mb-6 md:mb-8 text-base md:text-xl">{description}</p>
-          <ul className="flex flex-col gap-4">
-            {keyPoints.map((point: string, index: number) => (
-              <li
-                key={index}
-                className="flex items-center gap-4 text-base md:text-xl font-semibold"
-              >
-                <span className="size-2 bg-gray-9 rounded-full shrink-0"></span>
-                <span className="text-gray-9">{point}</span>
-              </li>
-            ))}
-          </ul>
+          <div
+            className="prose mb-6 md:mb-8 text-base md:text-xl"
+            dangerouslySetInnerHTML={{ __html: about }}
+          />
         </div>
-        <div className="max-w-[776px] w-full min-h-60">
-          <YoutubeVideoPlayer url={vedioUrl} />
+        <div className="max-w-[776px] w-full h-60 md:h-[400px] rounded-xl overflow-hidden">
+          <YoutubeVideoPlayer url={videoUrl} />
         </div>
       </div>
     </section>

@@ -7,7 +7,7 @@ const Attend = ({ className }: { className?: string }) => (
     fill="none"
     className={className}
   >
-    <g clip-path="url(#clip0_1316_12731)">
+    <g clipPath="url(#clip0_1316_12731)">
       <mask
         id="mask0_1316_12731"
         style={{

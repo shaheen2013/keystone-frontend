@@ -67,7 +67,8 @@
 
   .cursor-big,
   .cursor-big * {
-    cursor: url("https://cdn.userway.org/widgetapp/images/arrow_w.svg"), auto !important;
+    cursor:
+      url("https://cdn.userway.org/widgetapp/images/arrow_w.svg"), auto !important;
   }
 
   .magnification {

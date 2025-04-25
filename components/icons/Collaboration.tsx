@@ -7,7 +7,7 @@ const Collaboration = ({ className }: { className?: string }) => (
     fill="none"
     className={className}
   >
-    <g clip-path="url(#clip0_356_1593)">
+    <g clipPath="url(#clip0_356_1593)">
       <path
         d="M11.7998 4.35156C11.7998 1.95211 9.8477 0 7.44825 0C1.67528 0.239062 1.67692 8.465 7.44825 8.70312C9.84778 8.70312 11.7998 6.75102 11.7998 4.35156Z"
         fill="currentColor"
