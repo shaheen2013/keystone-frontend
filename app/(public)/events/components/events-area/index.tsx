@@ -10,66 +10,56 @@ import { Checkbox } from "@/components/shadcn/checkbox";
 import { Label } from "@/components/shadcn/label";
 import { Input } from "@/components/shadcn/input";
 import { Search } from "@/components/icons";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
-import { allUpcomingEventsData, events } from "../../constant";
+import { events } from "../../constant";
 import EventCard from "@/components/shadcn/event-card";
 import ExploreEvents from "@/components/partials/explore-events";
 import AllUpComingEvents from "../all-upcoming-events";
 import SearchDrawer from "./components/search-drawer";
 import FilterDrawer from "./components/filter-drawer";
+import { useDebounceCallback } from "usehooks-ts";
+import { PAGINATION_LIMIT } from "@/lib/constants";
+import { useGetEventsQuery } from "@/features/public/eventSlice";
 
 const EventsArea = () => {
-  const pathname = usePathname();
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const [search, setSearch] = useState(searchParams.get("search") || "");
-  const [page, setPage] = useState(searchParams.get("page") || 1);
 
-  console.log(searchParams.get("type"));
+  const [inputValue, setInputValue] = useState("");
+
+  // State for filters
+  const [search, setSearch] = useState("");
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [selectedEventTypes, setSelectedEventTypes] = useState<string[]>([]);
+  const [page, setPage] = useState(1);
+
+  const isFiltered =
+    search || selectedServices.length || selectedEventTypes.length;
+
+  // Debounce the search input with 500ms delay
+  const debouncedSearch = useDebounceCallback(setSearch, 500);
+
+  // Fetch blogs data using state values
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { data, isLoading, isFetching }: any = useGetEventsQuery({
+    query: search,
+    page: page,
+    pagi_limit: PAGINATION_LIMIT,
+    service_ids: selectedServices,
+    event_type_ids: selectedEventTypes,
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const loading = isFetching || isLoading;
+
+  // const eventsData = data?.data;
 
   // Debounced search value
   const handleSearch = (value: string) => {
-    setSearch(value);
-    updateUrlParams("event", value);
+    setInputValue(value);
+    debouncedSearch(value);
+    // handlePageChange(1);
   };
-
-  // Function to update URL parameters
-  const updateUrlParams = (key: string, value: string | null) => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (value) {
-      params.set(key, value);
-    } else {
-      params.delete(key);
-    }
-
-    router.push(`?${params.toString()}`, { scroll: false });
-  };
-
-  function updateUrlsParamsFilter(key: string, value: string | null) {
-    const searchParams = new URLSearchParams(window.location.search);
-
-    if (!value) return; // Prevent null values
-
-    // Get existing values for the key
-    let values = searchParams.getAll(key);
-
-    if (values.includes(value)) {
-      // Remove value if already present (unchecked)
-      values = values.filter((v) => v !== value);
-    } else {
-      // Add value if not present (checked)
-      values.push(value);
-    }
-
-    // Reset the key and update with new values
-    searchParams.delete(key);
-    values.forEach((v) => searchParams.append(key, v));
-
-    // Push the updated URL
-    router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
-  }
 
   const handleEventClick = (clickInfo: any) => {
     console.log("Event Clicked", clickInfo.event.id);
@@ -77,16 +67,7 @@ const EventsArea = () => {
 
   const handleEvents = () => {};
 
-  const handleResetFilter = () => {
-    const searchParams = new URLSearchParams(window.location.search);
-
-    // Keep "page" and "event", remove "type" and "service"
-    searchParams.delete("type");
-    searchParams.delete("service");
-
-    // Push updated URL
-    router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
-  };
+  const handleResetFilter = () => {};
 
   const handleDateClick = (info: any) => {
     console.log("Date Clicked", info);
@@ -109,7 +90,7 @@ const EventsArea = () => {
               placeholder="Search by event name"
               classes={{ root: "hidden md:block w-7/12 justify-self-end" }}
               endIcon={<Search className="text-gray-7" />}
-              value={search}
+              value={inputValue}
               onChange={(event) => handleSearch(event.target.value)}
             />
             <div className="flex gap-2 md:hidden">
@@ -148,11 +129,15 @@ const EventsArea = () => {
                     >
                       <Checkbox
                         id={eventType}
-                        checked={searchParams
-                          .getAll("type")
-                          .includes(eventType)}
+                        checked={selectedEventTypes?.includes(eventType)}
                         onCheckedChange={() =>
-                          updateUrlsParamsFilter("type", eventType)
+                          setSelectedEventTypes((prev) => {
+                            if (prev.includes(eventType)) {
+                              return prev.filter((e) => e !== eventType);
+                            } else {
+                              return [...prev, eventType];
+                            }
+                          })
                         }
                         variant="secondary"
                       />
@@ -181,11 +166,15 @@ const EventsArea = () => {
                       <Checkbox
                         id={service}
                         variant="secondary"
-                        checked={searchParams
-                          .getAll("service")
-                          .includes(service)}
+                        checked={selectedServices?.includes(service)}
                         onCheckedChange={() =>
-                          updateUrlsParamsFilter("service", service)
+                          setSelectedServices((prev) => {
+                            if (prev.includes(service)) {
+                              return prev.filter((e) => e !== service);
+                            } else {
+                              return [...prev, service];
+                            }
+                          })
                         }
                       />
                       <Label htmlFor={service} className="text-lg text-gray-5">
@@ -198,7 +187,7 @@ const EventsArea = () => {
             </div>
 
             {/* calender area */}
-            {!search && (
+            {!isFiltered && (
               <FullCalendar
                 plugins={[dayGridPlugin]}
                 headerToolbar={{
@@ -218,6 +207,7 @@ const EventsArea = () => {
                 datesSet={handleDateClick}
               />
             )}
+            {/* mobile view */}
             <div className="block md:hidden">
               <div className="flex flex-col gap-3">
                 <span className="text-gray-9 font-semibold text-base">
@@ -248,10 +238,10 @@ const EventsArea = () => {
           </div>
         </div>
       </section>
-      {search && (
+      {isFiltered && (
         <ExploreEvents title="Explore Recommended Events" isRecommended />
       )}
-      {!search && <AllUpComingEvents data={allUpcomingEventsData} />}
+      {!isFiltered && <AllUpComingEvents />}
     </>
   );
 };
