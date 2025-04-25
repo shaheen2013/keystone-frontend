@@ -52,7 +52,7 @@ export default function EventDetails({
       {eventData?.event_type_id && (
         <ExploreEvents
           title="Explore Related Events"
-          isRecommended
+          isRelated
           eventTypeId={eventData?.event_type_id}
         />
       )}

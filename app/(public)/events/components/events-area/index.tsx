@@ -248,7 +248,9 @@ const EventsArea = () => {
           </div>
         </div>
       </section>
-      {search && <ExploreEvents title="Explore Recommended Events" />}
+      {search && (
+        <ExploreEvents title="Explore Recommended Events" isRecommended />
+      )}
       {!search && <AllUpComingEvents data={allUpcomingEventsData} />}
     </>
   );

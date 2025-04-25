@@ -17,6 +17,7 @@ import { Skeleton } from "@/components/shadcn/skeleton";
 const ExploreEvents = ({
   title,
   isRelated,
+  isRecommended,
   eventTypeId,
 }: {
   title: string;
@@ -24,9 +25,12 @@ const ExploreEvents = ({
   isRecommended?: boolean;
   eventTypeId?: number;
 }) => {
-  const restQuery = isRelated
-    ? { event_type_ids: [eventTypeId] }
-    : { recommended: true };
+  const restQuery = {
+    ...(isRelated && { event_type_ids: [eventTypeId] }),
+    ...(isRecommended && { recommended: 1 }),
+  };
+
+  console.log("restQuery", restQuery);
 
   const { data, isLoading, isFetching }: any = useGetEventsQuery({
     limit: CAROUSEL_LIMIT,
