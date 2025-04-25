@@ -67,8 +67,7 @@
 
   .cursor-big,
   .cursor-big * {
-    cursor:
-      url("https://cdn.userway.org/widgetapp/images/arrow_w.svg"), auto !important;
+    cursor: url("https://cdn.userway.org/widgetapp/images/arrow_w.svg"), auto !important;
   }
 
   .magnification {
@@ -250,4 +249,12 @@
   background-color: rgba(251, 251, 62, 0.633);
   transition: background-color 0.3s ease;
   transition: background 0.3s ease;
+}
+.skiptranslate {
+  display: none;
+}
+
+body:has(.skiptranslate) {
+  position: static !important;
+  top: 0 !important;
 }
