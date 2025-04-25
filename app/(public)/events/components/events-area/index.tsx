@@ -12,7 +12,6 @@ import { Input } from "@/components/shadcn/input";
 import { Search } from "@/components/icons";
 import { useSearchParams } from "next/navigation";
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
-import { events } from "../../constant";
 import EventCard from "@/components/shadcn/event-card";
 import ExploreEvents from "@/components/partials/explore-events";
 import AllUpComingEvents from "../all-upcoming-events";
@@ -40,7 +39,7 @@ const EventsArea = () => {
   const debouncedSearch = useDebounceCallback(setSearch, 500);
 
   // Fetch blogs data using state values
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const { data, isLoading, isFetching }: any = useGetEventsQuery({
     query: search,
     page: page,
@@ -52,7 +51,9 @@ const EventsArea = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loading = isFetching || isLoading;
 
-  // const eventsData = data?.data;
+  const filteredEvents = data?.data?.events?.data;
+
+  const filteredEventsCount = data?.data?.events?.total;
 
   // Debounced search value
   const handleSearch = (value: string) => {
@@ -84,7 +85,7 @@ const EventsArea = () => {
         <div className="container flex flex-col gap-6 md:gap-12">
           <div className="flex justify-between items-center gap-4 md:gap-8">
             <h3 className="text-2xl md:text-4xl font-semibold text-gray-9 ">
-              {search ? "Search Results" : "Upcoming Events"}
+              {isFiltered ? "Search Results" : "Upcoming Events"}
             </h3>
             <Input
               placeholder="Search by event name"
@@ -218,21 +219,24 @@ const EventsArea = () => {
                 </p>
               </div>
             </div>
-            {search && (
+            {isFiltered && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                {events.map((event: any, index: any) => (
+                {filteredEvents.map((event: any, index: any) => (
                   <EventCard
                     event={event}
                     key={index}
                     className="bg-primary-2"
                   />
                 ))}
-                <PaginationWrapper
-                  page={page}
-                  setPage={setPage}
-                  total={30}
-                  className="col-span-full"
-                />
+                {filteredEventsCount > PAGINATION_LIMIT && (
+                  <PaginationWrapper
+                    page={page}
+                    setPage={setPage}
+                    total={filteredEventsCount}
+                    limit={PAGINATION_LIMIT}
+                    className="col-span-full"
+                  />
+                )}
               </div>
             )}
           </div>
