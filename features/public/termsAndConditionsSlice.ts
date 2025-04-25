@@ -1,6 +1,6 @@
 import { apiSlice } from "../api/apiSlice";
 
-export const termsAndConditionsSlice = apiSlice.injectEndpoints({
+export const termsAndConditionsSlice = apiSlice?.injectEndpoints({
   endpoints: (builder: any) => ({
     getTermsAndConditions: builder.query({
       query: () => `/pages/terms-conditions`,

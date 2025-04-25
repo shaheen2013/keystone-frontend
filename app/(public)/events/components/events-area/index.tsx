@@ -14,7 +14,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
 import { allUpcomingEventsData, events } from "../../constant";
 import EventCard from "@/components/shadcn/event-card";
-import ExploreRecommendEvents from "@/components/partials/explore-recommend-events";
+import ExploreEvents from "@/components/partials/explore-events";
 import AllUpComingEvents from "../all-upcoming-events";
 import SearchDrawer from "./components/search-drawer";
 import FilterDrawer from "./components/filter-drawer";
@@ -248,7 +248,9 @@ const EventsArea = () => {
           </div>
         </div>
       </section>
-      {search && <ExploreRecommendEvents />}
+      {search && (
+        <ExploreEvents title="Explore Recommended Events" isRecommended />
+      )}
       {!search && <AllUpComingEvents data={allUpcomingEventsData} />}
     </>
   );

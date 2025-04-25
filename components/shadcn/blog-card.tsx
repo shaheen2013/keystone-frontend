@@ -27,8 +27,8 @@ const BlogCard = ({
       )}
     >
       <div className="relative w-full">
-        <Link href={`/blogs/${article.slug}`}>
-          {article?.feature_image?.path && (
+        {article?.feature_image?.path && (
+          <Link href={`/blogs/${article.slug}`}>
             <Image
               src={article?.feature_image?.path}
               width={1000}
@@ -39,8 +39,8 @@ const BlogCard = ({
                 classes?.image
               )}
             />
-          )}
-        </Link>
+          </Link>
+        )}
         <div
           className="absolute top-4 right-4 rounded-xl py-2.5 px-6 flex gap-2 items-center cursor-pointer transition-all bg-white"
           onClick={() => handleToggle(article.id)}

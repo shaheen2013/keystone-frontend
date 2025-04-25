@@ -14,7 +14,7 @@ import { CAROUSEL_LIMIT } from "@/lib/constants";
 import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useState } from "react";
 
-const ExploreOtherServices = () => {
+const ExploreOtherServices = ({ title }: { title: string }) => {
   const [services, setServices] = useState<any>([]);
   const { data, isLoading, isFetching }: any = useGetServicesQuery({
     limit: CAROUSEL_LIMIT,
@@ -35,7 +35,7 @@ const ExploreOtherServices = () => {
           <Skeleton className="mx-auto  h-8 md:h-14 w-3/4 md:w-1/2" />
         ) : (
           <h3 className="text-2xl md:text-5xl font-bold text-gray-9 text-center">
-            Explore Others Services
+            {title}
           </h3>
         )}
         <Carousel

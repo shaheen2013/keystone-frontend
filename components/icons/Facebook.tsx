@@ -7,7 +7,7 @@ const Facebook = ({ className }: { className?: string }) => (
     fill="none"
     className={className}
   >
-    <g clip-path="url(#clip0_654_9039)">
+    <g clipPath="url(#clip0_654_9039)">
       <rect width="40" height="40" rx="9" fill="#1976D2" />
       <path
         d="M35 0H5C2.2425 0 0 2.2425 0 5V35C0 37.7575 2.2425 40 5 40H35C37.7575 40 40 37.7575 40 35V5C40 2.2425 37.7575 0 35 0Z"

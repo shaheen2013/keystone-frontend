@@ -1,10 +1,18 @@
 export const queryFormat = (query: any): string => {
   const hasQuery = query && Object.keys(query).length > 0;
+  if (!hasQuery) return "";
 
-  if (!hasQuery) {
-    return "";
-  }
+  const params = new URLSearchParams();
 
-  const searchParams = new URLSearchParams(query).toString();
-  return `?${searchParams}`;
+  Object.entries(query).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach((item, index) => {
+        params.append(`${key}[${index}]`, String(item));
+      });
+    } else if (value !== undefined && value !== null) {
+      params.append(key, String(value));
+    }
+  });
+
+  return `?${params.toString()}`;
 };

@@ -1,40 +1,54 @@
-import Image from "next/image";
+import { Download, Link as LinkIcon } from "lucide-react";
+import Link from "next/link";
+import Preview from "./preview";
+import formatSize from "@/lib/formatSize";
 
-import image from "@/public/icons/download-toolkit.svg";
-import premium from "@/public/icons/premium.svg";
-import { Download } from "@/components/icons";
-import ResourcePurchase from "@/components/partials/resource-purchase";
+const Toolkit = ({ data }: any) => {
+  const { title, file, type, link } = data;
+  const fileType = type === "File" ? file.mime_type : "Link";
+  const actionIcon = type === "Link" ? <LinkIcon /> : <Download />;
 
-const Toolkit = ({ data }: { data: any }) => {
-  const { title, isPremium } = data;
-  return (
-    <div className="bg-primary-2 w-fit p-5 md:p-6 rounded-2xl relative flex flex-col gap-6 cursor-pointer">
-      {isPremium && (
-        <span className="absolute top-8 right-8">
-          <Image
-            src={premium}
-            alt="premium"
-            width={40}
-            height={40}
-            className="w-full h-full object-cover"
-          />
-        </span>
-      )}
-      <div>
-        <Image
-          src={image}
-          width={328}
-          height={264}
-          alt={title}
-          className="w-full h-full object-cover"
-        />
+  const Content = () => (
+    <div className="bg-primary-2 w-full p-5 md:p-6 rounded-2xl cursor-pointer group">
+      <div className="bg-gray-50 rounded-xl flex items-center justify-center h-48 w-full mb-4 overflow-hidden relative">
+        {type === "File" ? (
+          <div className="flex flex-col items-center gap-1">
+            <Preview type={fileType} />
+            <div className="mt-2 text-xs text-gray-500 font-mono truncate">
+              {formatSize(file.size)}
+            </div>
+          </div>
+        ) : (
+          <div className="text-center p-4">
+            <LinkIcon className="size-12 text-blue-500 mx-auto mb-2" />
+            <span className="text-sm text-gray-600">Visit Link</span>
+          </div>
+        )}
       </div>
-      <div className="flex justify-between items-center gap-4">
-        <span className="text-2xl font-semibold text-gray-9">{title}</span>
-        {isPremium && <ResourcePurchase />}
-        {!isPremium && <Download className="size-8 text-gray-9" />}
+      <div className="flex justify-between items-center gap-2">
+        <span className="text-lg font-semibold text-gray-9 line-clamp-1">
+          {title}
+        </span>
+        <div className="text-gray-500 group-hover:text-blue-500 transition-colors">
+          {actionIcon}
+        </div>
       </div>
     </div>
+  );
+
+  return type === "Link" ? (
+    <Link
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block"
+    >
+      <Content />
+    </Link>
+  ) : (
+    <a href={file.path} download className="block" title="Download">
+      <Content />
+    </a>
   );
 };
 

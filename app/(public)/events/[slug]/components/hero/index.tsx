@@ -1,20 +1,30 @@
 import { Calendar, Category, Location } from "@/components/icons";
 import { Button } from "@/components/shadcn/button";
 import EventConfirmation from "./EventConfirmation";
+import moment from "moment";
+import { HeroSkeleton } from "./HeroSkeleton";
 
-export default function Hero({ data }: { data: any }) {
-  const { title, description, backgroundImage, dateTime, location, type } =
+export default function Hero({
+  data,
+  loading,
+}: {
+  data: any;
+  loading: boolean;
+}) {
+  const { title, description, backgroundImage, startTime, location, type } =
     data;
+
+  if (loading) {
+    return <HeroSkeleton />;
+  }
 
   return (
     <section
-      className="relative w-full h-[788px] flex items-center justify-center bg-gray-200 bg-opacity-50"
+      className="relative w-full h-[788px] flex items-center justify-center"
       style={{
-        background: `linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), linear-gradient(90deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.90) 22.5%, rgba(0, 0, 0, 0.65) 36%), rgba(0, 0, 0, 0.00) 79.21%)`,
-        backgroundImage: `url(${backgroundImage?.src})`,
-        backgroundSize: "cover",
-        backgroundPosition: "90% center",
-        backgroundRepeat: "no-repeat",
+        background: `linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), 
+                   linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.80) 22.5%, rgba(0, 0, 0, 0.00) 79.21%), 
+                   url(${backgroundImage}) lightgray 50% / cover no-repeat`,
       }}
     >
       <div className="container">
@@ -28,9 +38,8 @@ export default function Hero({ data }: { data: any }) {
           <p className="text-base md:text-lg font-medium ">{description}</p>
           <div className="mt-6 p-6 flex flex-col gap-4 bg-primary-8 rounded-xl w-fit">
             <span className="text-white text-sm md:text-base font-medium inline-flex">
-              {/* fill-rule isseues arise here  */}
               <Calendar className="mr-2 size-6" />
-              {dateTime}
+              {moment(startTime).format("h:mm A, Do MMM YYYY")}
             </span>
             <span className="text-white text-sm md:text-base font-medium inline-flex">
               <Location className="mr-2 size-6" />

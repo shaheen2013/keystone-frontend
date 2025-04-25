@@ -1,6 +1,6 @@
 import { apiSlice } from "../api/apiSlice";
 
-export const faqsSlice = apiSlice.injectEndpoints({
+export const faqsSlice = apiSlice?.injectEndpoints({
   endpoints: (builder: any) => ({
     getFooter: builder.query({
       query: () => "/footer",

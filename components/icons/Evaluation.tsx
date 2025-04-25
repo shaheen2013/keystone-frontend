@@ -7,7 +7,7 @@ const Evaluation = ({ className }: { className?: string }) => (
     fill="none"
     className={className}
   >
-    <g clip-path="url(#clip0_356_1605)">
+    <g clipPath="url(#clip0_356_1605)">
       <path d="M7.5 8.75H10V11.25H7.5V8.75Z" fill="currentColor" />
       <path d="M7.5 18.75H10V21.25H7.5V18.75Z" fill="currentColor" />
       <path

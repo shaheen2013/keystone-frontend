@@ -12,7 +12,7 @@ import {
   useGetblogsQuery,
   useSaveToggleMutation,
 } from "@/features/public/blogSlice";
-import { PAGINATION_LIMIT } from "@/lib/constants";
+import { CAROUSEL_LIMIT } from "@/lib/constants";
 import { Skeleton } from "@/components/shadcn/skeleton";
 import { BlogCardSkeleton } from "@/components/skeletons";
 import { useEffect, useState } from "react";
@@ -20,8 +20,7 @@ import { useEffect, useState } from "react";
 const ExploreRecommendBlogs = () => {
   const [blogsData, saveBlogsData] = useState([]);
   const { data, isLoading, isFetching }: any = useGetblogsQuery({
-    page: 1,
-    pagi_limit: PAGINATION_LIMIT,
+    limit: CAROUSEL_LIMIT,
   });
   const [saveToggle] = useSaveToggleMutation();
 
@@ -50,8 +49,8 @@ const ExploreRecommendBlogs = () => {
   };
 
   useEffect(() => {
-    if (data?.data?.blogs?.data) {
-      saveBlogsData(data.data.blogs.data);
+    if (data?.data?.blogs) {
+      saveBlogsData(data.data.blogs);
     }
   }, [data]);
 

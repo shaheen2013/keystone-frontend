@@ -7,7 +7,7 @@ const Twitter = ({ className }: { className?: string }) => (
     fill="none"
     className={className}
   >
-    <g clip-path="url(#clip0_654_9042)">
+    <g clipPath="url(#clip0_654_9042)">
       <rect width="40" height="40" rx="9" fill="white" />
       <path
         d="M21.3378 19.3171L30.3392 32.1924H26.645L19.2996 21.6862V21.6855L18.2212 20.1432L9.64062 7.86938H13.3348L20.2594 17.7748L21.3378 19.3171Z"

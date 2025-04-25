@@ -1,6 +1,6 @@
 import { apiSlice } from "../api/apiSlice";
 
-export const pricingSlice = apiSlice.injectEndpoints({
+export const pricingSlice = apiSlice?.injectEndpoints({
   endpoints: (builder: any) => ({
     getBillingPrices: builder.query({
       query: () => ({
