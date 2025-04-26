@@ -1,13 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { EventContentArg } from "@fullcalendar/core";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import {  INITIAL_EVENTS, services } from "./constant";
 import { Button } from "@/components/shadcn/button";
-import { Checkbox } from "@/components/shadcn/checkbox";
-import { Label } from "@/components/shadcn/label";
 import { Input } from "@/components/shadcn/input";
 import { Search } from "@/components/icons";
 import { useSearchParams } from "next/navigation";
@@ -22,10 +16,9 @@ import { PAGINATION_LIMIT } from "@/lib/constants";
 import { useGetEventsQuery } from "@/features/public/eventSlice";
 import EventTypes from "./components/event-type";
 import Services from "./components/services";
+import CalenderView from "./components/calender-view";
 
 const EventsArea = () => {
-  const searchParams = useSearchParams();
-
   const [inputValue, setInputValue] = useState("");
 
   // State for filters
@@ -36,6 +29,8 @@ const EventsArea = () => {
 
   const isFiltered =
     search || selectedServices?.length || selectedEventTypes?.length;
+
+  console.log("isFiltered", isFiltered);  
 
   // Debounce the search input with 500ms delay
   const debouncedSearch = useDebounceCallback(setSearch, 500);
@@ -64,25 +59,10 @@ const EventsArea = () => {
     // handlePageChange(1);
   };
 
-  const handleEventClick = (clickInfo: any) => {
-    console.log("Event Clicked", clickInfo.event.id);
-  };
-
-  const handleEvents = () => {};
-
   const handleResetFilter = () => {
     setSearch("");
     setSelectedServices([]);
     setSelectedEventTypes([]);
-  };
-
-  const handleDateClick = (info: any) => {
-    console.log("Date Clicked", info);
-
-    // const selectedDate = info.dateStr;
-    // const eventsOnDate = INITIAL_EVENTS.filter((event) =>
-    //   event?.start?.includes(selectedDate)
-    // );
   };
 
   return (
@@ -102,11 +82,11 @@ const EventsArea = () => {
             />
             <div className="flex gap-2 md:hidden">
               <SearchDrawer
-                search={search}
-                setSearch={setSearch}
-                searchParams={searchParams}
+               setSearch={setSearch}
               />
-              <FilterDrawer />
+              <FilterDrawer selectedServices={selectedServices} setSelectedServices={setSelectedServices} selectedEventTypes={selectedEventTypes} setSelectedEventTypes={setSelectedEventTypes}
+              handleResetFilter={handleResetFilter}
+              />
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-8 items-start">
@@ -126,39 +106,8 @@ const EventsArea = () => {
                <EventTypes selectedEventTypes={selectedEventTypes} setSelectedEventTypes={setSelectedEventTypes}/>
                <Services selectedServices={selectedServices} setSelectedServices={setSelectedServices}/>
             </div>
-
-            {/* calender area */}
-            {!isFiltered && (
-              <FullCalendar
-                plugins={[dayGridPlugin]}
-                headerToolbar={{
-                  left: "prev",
-                  center: "title",
-                  right: "next",
-                }}
-                height="820px"
-                initialView="dayGridMonth"
-                selectable={true}
-                dayMaxEvents={true}
-                initialEvents={INITIAL_EVENTS}
-                eventContent={renderEventContent}
-                eventClick={handleEventClick}
-                eventsSet={handleEvents}
-                eventTextColor="#2B2B2B"
-                datesSet={handleDateClick}
-              />
-            )}
-            {/* mobile view */}
-            <div className="block md:hidden">
-              <div className="flex flex-col gap-3">
-                <span className="text-gray-9 font-semibold text-base">
-                  April 09 @ 5:30pm - 9:30pm
-                </span>
-                <p className="bg-secondary-4 rounded-md px-4 py-2 text-gray-9 text-sm font-medium text-center">
-                  Webminar
-                </p>
-              </div>
-            </div>
+             <CalenderView isFiltered={isFiltered} />
+           
             {isFiltered && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                 {filteredEvents?.map((event: any, index: any) => (
@@ -190,16 +139,6 @@ const EventsArea = () => {
   );
 };
 
-function renderEventContent(eventContent: EventContentArg) {
-  return (
-    <div className="hidden md:block">
-      <span>{eventContent.timeText}</span>
-      <span>{eventContent.event.title}</span>
-      {/* <span className="bg-secondary-4 rounded-md py-1 px-3 text-gray-9 text-sm font-semibold">
-        {eventContent.event.title}
-      </span> */}
-    </div>
-  );
-}
+
 
 export default EventsArea;

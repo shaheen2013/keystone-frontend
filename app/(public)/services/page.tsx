@@ -1,3 +1,4 @@
+
 import CenteredHero from "@/components/partials/Hero/centered-hero";
 import { Metadata } from "next";
 import { heroData, keystoneAbilitySupportData } from "./constant";

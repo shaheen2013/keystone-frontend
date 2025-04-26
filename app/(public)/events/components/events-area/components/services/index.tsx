@@ -10,16 +10,16 @@ const Services = ({ selectedServices, setSelectedServices }: { selectedServices:
   const servicesLoading = isServicesLoading || isServicesFetching
 
     return (
-        <div className="m-6 bg-white rounded-xl">
+        <div className="m-4 md:m-6 bg-white rounded-xl">
             <div className="flex flex-col">
-                <h3 className="text-gray-9 text-lg font-semibold px-5 py-3">
+                <h3 className="text-gray-9 text-base md:text-lg font-semibold px-4 md:px-5 py-3">
                     Services
                 </h3>
                 <hr className="border-gray-2" />
                 {servicesData?.map((service: any, index: number) => (
                     <div
                         key={index}
-                        className="flex items-center space-x-2 px-5 py-3"
+                        className="flex items-center space-x-2 px-4 md:px-5 py-3"
                     >
                         <Checkbox
                             id={service.slug}
@@ -35,7 +35,7 @@ const Services = ({ selectedServices, setSelectedServices }: { selectedServices:
                                 })
                             }
                         />
-                        <Label htmlFor={service.slug} className="text-lg text-gray-5">
+                        <Label htmlFor={service.slug} className="text-sm md:text-lg text-gray-5">
                             {service.name}
                         </Label>
                     </div>
