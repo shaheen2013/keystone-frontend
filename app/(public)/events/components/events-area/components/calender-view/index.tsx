@@ -2,7 +2,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { INITIAL_EVENTS } from "../../constant";
 import { EventContentArg } from "@fullcalendar/core";
-const CalenderView = ({isFiltered}:{isFiltered:any}) => {
+const CalenderView = () => {
     
   const handleEventClick = (clickInfo: any) => {
     console.log("Event Clicked", clickInfo.event.id);
@@ -19,9 +19,9 @@ const CalenderView = ({isFiltered}:{isFiltered:any}) => {
     // );
   };
     return (
-        <div>
+        <>
            {/* calender area */}
-           {!isFiltered && (
+          
               <FullCalendar
                 plugins={[dayGridPlugin]}
                 headerToolbar={{
@@ -40,7 +40,7 @@ const CalenderView = ({isFiltered}:{isFiltered:any}) => {
                 eventTextColor="#2B2B2B"
                 datesSet={handleDateClick}
               />
-            )}
+            
             {/* mobile view */}
             <div className="block md:hidden">
               <div className="flex flex-col gap-3">
@@ -52,7 +52,7 @@ const CalenderView = ({isFiltered}:{isFiltered:any}) => {
                 </p>
               </div>
             </div>
-        </div>
+        </>
     );
 }
 function renderEventContent(eventContent: EventContentArg) {

@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Button } from "@/components/shadcn/button";
 import { Input } from "@/components/shadcn/input";
 import { Search } from "@/components/icons";
-import { useSearchParams } from "next/navigation";
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
 import EventCard from "@/components/shadcn/event-card";
 import ExploreEvents from "@/components/partials/explore-events";
@@ -17,6 +16,7 @@ import { useGetEventsQuery } from "@/features/public/eventSlice";
 import EventTypes from "./components/event-type";
 import Services from "./components/services";
 import CalenderView from "./components/calender-view";
+import NotFound from "@/components/partials/not-found";
 
 const EventsArea = () => {
   const [inputValue, setInputValue] = useState("");
@@ -43,12 +43,17 @@ const EventsArea = () => {
     pagi_limit: PAGINATION_LIMIT,
     service_ids: selectedServices,
     event_type_ids: selectedEventTypes,
+  },{
+    skip: !isFiltered
   });
 
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const loading = isFetching || isLoading;
 
    const filteredEvents = data?.data?.events?.data || [];
+
+
+   console.log("filteredEvents", filteredEvents);
  
    const filteredEventsCount = data?.data?.events?.total || 0;
 
@@ -56,7 +61,7 @@ const EventsArea = () => {
   const handleSearch = (value: string) => {
     setInputValue(value);
     debouncedSearch(value);
-    // handlePageChange(1);
+    setPage(1);
   };
 
   const handleResetFilter = () => {
@@ -106,10 +111,21 @@ const EventsArea = () => {
                <EventTypes selectedEventTypes={selectedEventTypes} setSelectedEventTypes={setSelectedEventTypes}/>
                <Services selectedServices={selectedServices} setSelectedServices={setSelectedServices}/>
             </div>
-             <CalenderView isFiltered={isFiltered} />
+            {
+              !isFiltered && (
+                <CalenderView />
+              )
+            }
            
             {isFiltered && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                {
+                  filteredEvents.length === 0 && (
+                    <div className="col-span-full">
+                    <NotFound data={{title: "No Results Found", description: "No events found matching your search criteria."}} />
+                    </div>
+                  )
+                }
                 {filteredEvents?.map((event: any, index: any) => (
                   <EventCard
                     event={event}
