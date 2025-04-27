@@ -11,7 +11,7 @@ export default function Hero({
   data: any;
   loading: boolean;
 }) {
-  const { title, description, backgroundImage, startTime, location, type } =
+  const { title, description, backgroundImage, startTime, location, type, slug } =
     data;
 
   if (loading) {
@@ -50,7 +50,7 @@ export default function Hero({
               {type}
             </span>
           </div>
-          <EventConfirmation />
+          <EventConfirmation slug={slug} />
         </div>
       </div>
     </section>

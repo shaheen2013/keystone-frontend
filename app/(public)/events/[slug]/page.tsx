@@ -31,6 +31,7 @@ export default function EventDetails({
     startTime: eventData?.start_date,
     type: "test",
     location: eventData?.location,
+    slug: eventData?.slug,
   };
 
   const aboutWorkshop = {

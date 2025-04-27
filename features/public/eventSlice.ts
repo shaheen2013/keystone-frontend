@@ -11,8 +11,11 @@ export const eventsSlice = apiSlice?.injectEndpoints({
     }),
     getEventTypes: builder.query({
       query: () => `/event-types`,
+    }),
+    confirmAttendance: builder.mutation({
+      query: ({ slug }: any) => ({ url: `/joined-events/${slug}`, method: "POST" }),
     })
   }),
 });
 
-export const { useGetEventsQuery, useGetEventDetailsQuery, useGetEventTypesQuery } = eventsSlice;
+export const { useGetEventsQuery, useGetEventDetailsQuery, useGetEventTypesQuery, useConfirmAttendanceMutation } = eventsSlice;
