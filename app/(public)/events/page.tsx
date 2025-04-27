@@ -8,7 +8,7 @@ import CenteredHero from "@/components/partials/Hero/centered-hero";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Event Details | Keystone",
+  title: "Events | Keystone",
   description:
     "A platform for online communities, the Disability Platform, and Atypical Advantage",
 };
