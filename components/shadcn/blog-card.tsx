@@ -1,8 +1,11 @@
+import Cookies from "js-cookie";
 import Image from "next/image";
 import { Delete, Heart, HeartFilled } from "../icons";
 import { cn } from "@/lib/utils";
 import moment from "moment";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 
 const BlogCard = ({
   userPanel,
@@ -19,6 +22,23 @@ const BlogCard = ({
     title?: string;
   };
 }) => {
+  const router = useRouter();
+  const pathname = usePathname(); 
+  const searchParams = useSearchParams(); 
+
+  const handleClick = () => {
+    const token = Cookies.get("key_stone_token");
+
+    if (!token) {
+      // Get current URL with query parameters
+      const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+      // Encode it for safe URL passing
+      const returnUrl = encodeURIComponent(currentUrl);
+      router.replace(`/login?returnUrl=${returnUrl}`);
+    } else {
+      handleToggle(article.slug);
+    }
+  }
   return (
     <div
       className={cn(
@@ -43,7 +63,7 @@ const BlogCard = ({
         )}
         <div
           className="absolute top-4 right-4 rounded-xl py-2.5 px-6 flex gap-2 items-center cursor-pointer transition-all bg-white"
-          onClick={() => handleToggle(article.slug)}
+          onClick={handleClick}
         >
           {userPanel ? (
             <>
