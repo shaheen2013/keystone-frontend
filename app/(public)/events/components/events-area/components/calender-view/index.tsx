@@ -100,12 +100,14 @@ const CalendarView = () => {
 
   const renderEventContent = useCallback((eventContent: EventContentArg) => {
     return (
-      <div className="flex items-center justify-center">
-        <div className="hidden md:flex text-sm truncate bg-secondary-4 rounded-lg px-3 py-1.5 text-gray-9 text-center font-medium mx-2">
-          {eventContent.event.title}
+      <>
+        <div className="hidden md:flex text-sm  bg-secondary-4 rounded-lg px-1.5 py-1.5 text-gray-9 text-center font-medium mx-2">
+          <span className="w-20 md:w-32 truncate">
+            {eventContent.event.title}
+          </span>
         </div>
         <div className="flex md:hidden size-1.5 bg-secondary-5 rounded-full mx-2"></div>
-      </div>
+      </>
     );
   }, []);
 
