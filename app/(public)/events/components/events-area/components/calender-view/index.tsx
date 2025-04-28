@@ -9,6 +9,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import CalendarSkeleton from "./skeleton/calender";
 import MobileEventsSkeleton from "./skeleton/mobile-events";
+import { useMediaQuery } from "usehooks-ts";
 
 interface CalendarEvent {
   id: string;
@@ -27,6 +28,7 @@ interface CalendarEvent {
 
 const CalendarView = () => {
   const router = useRouter();
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const [eventsOnDate, setEventsOnDate] = useState<CalendarEvent[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>(
     moment().format("YYYY-MM-DD")
@@ -128,16 +130,16 @@ const CalendarView = () => {
             dayMaxEvents={true}
             events={formattedEvents}
             eventContent={renderEventContent}
-            eventClick={handleEventClick}
-            dateClick={handleDateClick}
+            eventClick={isMobile ? undefined : handleEventClick}
+            dateClick={isMobile ? handleDateClick : undefined}
           />
 
           {/* Events list for mobile */}
           <div className="block md:hidden space-y-4 mt-4">
             {loading ? (
               <div>Loading events...</div>
-            ) : eventsOnDate.length > 0 ? (
-              eventsOnDate.map((event) => (
+            ) : eventsOnDate?.length > 0 ? (
+              eventsOnDate?.map((event) => (
                 <div key={event.id} className="bg-white rounded-lg p-4 shadow">
                   <div className="flex md:hidden flex-col gap-3">
                     <span className="text-gray-9 font-semibold text-base">
