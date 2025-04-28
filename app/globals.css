@@ -67,7 +67,8 @@
 
   .cursor-big,
   .cursor-big * {
-    cursor: url("https://cdn.userway.org/widgetapp/images/arrow_w.svg"), auto !important;
+    cursor:
+      url("https://cdn.userway.org/widgetapp/images/arrow_w.svg"), auto !important;
   }
 
   .magnification {
@@ -147,22 +148,17 @@
 
 /* events calendar */
 
-.fc-day-today {
+.fc .fc-day-today {
   background-color: #dee9e7 !important;
   border-bottom: 2px solid #f06143 !important;
 }
 
 .fc .fc-daygrid-event {
-  border-radius: 8px !important;
-  background-color: #fdb3a4 !important;
-  color: #2b2b2b !important;
-  text-align: center !important;
-  border: none !important;
-  font-weight: 500 !important;
-  font-size: 14px !important;
+  background-color: transparent !important;
 }
+
 .fc .fc-highlight {
-  background-color: #f5f8f7 !important;
+  background-color: #dee9e7 !important;
 }
 .fc .fc-button-primary {
   height: 40px !important;
@@ -226,18 +222,18 @@
 
 @media screen and (max-width: 768px) {
   .fc-daygrid-day-events {
-    flex-direction: row !important;
+    /* flex-direction: row !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
     align-items: center !important;
     padding: 2px !important;
-    gap: 3px !important;
+    gap: 3px !important; */
   }
   .fc-daygrid-event-harness {
-    width: 6px !important;
+    /* width: 6px !important;
     height: 6px !important;
     background-color: #f06143 !important;
-    border-radius: 15px !important;
+    border-radius: 15px !important; */
   }
 
   .fc-header-toolbar.fc-toolbar .fc-toolbar-title {

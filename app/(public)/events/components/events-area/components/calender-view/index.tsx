@@ -1,187 +1,168 @@
-// import FullCalendar from "@fullcalendar/react";
-// import dayGridPlugin from "@fullcalendar/daygrid";
-// import { INITIAL_EVENTS } from "../../constant";
-// import { EventContentArg } from "@fullcalendar/core";
-// import { useGetEventsQuery } from "@/features/public/eventSlice";
-// const CalenderView = () => {
-
-//     const { data, isLoading, isFetching }: any = useGetEventsQuery({
-//      limit:12
-//     });
-
-//     const events = data?.data?.events || [];
-
-//     const loading = isLoading || isFetching;
-
-//   const handleEventClick = (clickInfo: any) => {
-//     console.log("Event Clicked", clickInfo.event.id);
-//   };
-
-//   const handleEvents = () => {};
-
-//   const handleDateClick = (info: any) => {
-//     console.log("Date Clicked", info);
-
-//     // const selectedDate = info.dateStr;
-//     // const eventsOnDate = INITIAL_EVENTS.filter((event) =>
-//     //   event?.start?.includes(selectedDate)
-//     // );
-//   };
-//     return (
-//         <>
-//            {/* calender area */}
-
-//               <FullCalendar
-//                 plugins={[dayGridPlugin]}
-//                 headerToolbar={{
-//                   left: "prev",
-//                   center: "title",
-//                   right: "next",
-//                 }}
-//                 height="820px"
-//                 initialView="dayGridMonth"
-//                 selectable={true}
-//                 dayMaxEvents={true}
-//                 initialEvents={INITIAL_EVENTS}
-//                 eventContent={renderEventContent}
-//                 eventClick={handleEventClick}
-//                 eventsSet={handleEvents}
-//                 eventTextColor="#2B2B2B"
-//                 datesSet={handleDateClick}
-//               />
-
-//             {/* mobile view */}
-//             <div className="block md:hidden">
-//               <div className="flex flex-col gap-3">
-//                 <span className="text-gray-9 font-semibold text-base">
-//                   April 09 @ 5:30pm - 9:30pm
-//                 </span>
-//                 <p className="bg-secondary-4 rounded-md px-4 py-2 text-gray-9 text-sm font-medium text-center">
-//                   Webminar
-//                 </p>
-//               </div>
-//             </div>
-//         </>
-//     );
-// }
-// function renderEventContent(eventContent: EventContentArg) {
-//   return (
-//     <div className="hidden md:block">
-//       <span>{eventContent.timeText}</span>
-//       <span>{eventContent.event.title}</span>
-//       {/* <span className="bg-secondary-4 rounded-md py-1 px-3 text-gray-9 text-sm font-semibold">
-//         {eventContent.event.title}
-//       </span> */}
-//     </div>
-//   );
-// }
-
-// export default CalenderView
-
-
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from "@fullcalendar/interaction"
+import interactionPlugin from "@fullcalendar/interaction";
 import { EventContentArg } from "@fullcalendar/core";
 import { useGetEventsQuery } from "@/features/public/eventSlice";
 import { useRouter } from "next/navigation";
 import moment from "moment";
-import { useCallback } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import CalendarSkeleton from "./skeleton/calender";
+import MobileEventsSkeleton from "./skeleton/mobile-events";
 
-const CalenderView = () => {
+interface CalendarEvent {
+  id: string;
+  title: string;
+  start: string;
+  end: string;
+  extendedProps: {
+    slug: string;
+    type: string;
+    location?: string;
+    meetingLink?: string;
+    description?: string;
+    image?: string;
+  };
+}
+
+const CalendarView = () => {
   const router = useRouter();
+  const [eventsOnDate, setEventsOnDate] = useState<CalendarEvent[]>([]);
+  const [selectedDate, setSelectedDate] = useState<string>(
+    moment().format("YYYY-MM-DD")
+  );
   const { data, isLoading, isFetching }: any = useGetEventsQuery({ limit: 12 });
-  const events = data?.data?.events || [];
+
+  // Memoize the raw events data
+  const events = useMemo(() => data?.data?.events || [], [data?.data?.events]);
   const loading = isLoading || isFetching;
 
-  // Transform API events to FullCalendar format
-  const formattedEvents = events.map((event: any) => ({
-    id: event.id.toString(),
-    title: event.name,
-    start: event.start_date,
-    end: event.end_date,
-    extendedProps: {
-      slug: event.slug,
-      type: event.event_type_id,
-      location: event.location,
-      meetingLink: event.meeting_link,
-      description: event.short_brief,
-      image: event.featured_image?.path
+  // Transform and memoize events
+  const formattedEvents = useMemo(() => {
+    return events.map(
+      (event: any): CalendarEvent => ({
+        id: event.id.toString(),
+        title: event.name,
+        start: event.start_date,
+        end: event.end_date,
+        extendedProps: {
+          slug: event.slug,
+          type: event.event_type_id,
+          location: event.location,
+          meetingLink: event.meeting_link,
+          description: event.short_brief,
+          image: event.featured_image?.path,
+        },
+      })
+    );
+  }, [events]);
+
+  // Event handlers
+  const handleEventClick = useCallback(
+    (clickInfo: any) => {
+      router.push(`/events/${clickInfo.event.extendedProps.slug}`);
+    },
+    [router]
+  );
+
+  // Load events for selected date
+  const loadEventsForDate = useCallback(
+    (date: string) => {
+      const filteredEvents = formattedEvents.filter((event: CalendarEvent) => {
+        const eventStart = moment(event.start).format("YYYY-MM-DD");
+        const eventEnd = moment(event.end).format("YYYY-MM-DD");
+        return date >= eventStart && date <= eventEnd;
+      });
+      setEventsOnDate(filteredEvents);
+    },
+    [formattedEvents]
+  );
+
+  // Initialize with today's events
+  useEffect(() => {
+    if (formattedEvents.length > 0) {
+      loadEventsForDate(selectedDate);
     }
-  }));
+  }, [formattedEvents, loadEventsForDate, selectedDate]);
 
-  // Properly typed event handlers
-  const handleEventClick = useCallback((clickInfo:any) => {
-    router.push(`/events/${clickInfo.event.extendedProps.slug}`);
-  }, []);
+  const handleDateClick = useCallback(
+    (info: any) => {
+      const clickedDate = info.dateStr;
+      setSelectedDate(clickedDate);
+      loadEventsForDate(clickedDate);
+    },
+    [loadEventsForDate]
+  );
 
-  const handleEvents = useCallback((events: any) => {
-    console.log("Events loaded", events);
-  }, []);
-
-  const handleDateClick = useCallback((info: any) => {
-    console.log("Date Clicked", info.dateStr);
-  }, []);
-
-  // Memoized event content renderer
   const renderEventContent = useCallback((eventContent: EventContentArg) => {
     return (
-      <div className="hidden md:block">
-        <span>{eventContent.event.title}</span>
+      <div className="flex items-center justify-center">
+        <div className="hidden md:flex text-sm truncate bg-secondary-4 rounded-lg px-3 py-1.5 text-gray-9 text-center font-medium mx-2">
+          {eventContent.event.title}
+        </div>
+        <div className="flex md:hidden size-1.5 bg-secondary-5 rounded-full mx-2"></div>
       </div>
     );
   }, []);
 
   return (
-    <>
-      {/* Calendar area */}
-     
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin]}
-          headerToolbar={{
-            left: "prev",
-            center: "title",
-            right: "next",
-          }}
-          height="820px"
-          initialView="dayGridMonth"
-          selectable={true}
-          dayMaxEvents={true}
-          events={formattedEvents}
-          eventContent={renderEventContent}
-          eventClick={handleEventClick}
-          eventTextColor="#2B2B2B"
-          dateClick={handleDateClick}
-        />
-    
+    <div className="calendar-container">
+      {loading ? (
+        <>
+          <CalendarSkeleton />
+          <MobileEventsSkeleton />
+        </>
+      ) : (
+        <>
+          <FullCalendar
+            plugins={[dayGridPlugin, interactionPlugin]}
+            initialDate={selectedDate}
+            headerToolbar={{
+              left: "prev",
+              center: "title",
+              right: "next",
+            }}
+            height="820px"
+            initialView="dayGridMonth"
+            selectable={true}
+            dayMaxEvents={true}
+            events={formattedEvents}
+            eventContent={renderEventContent}
+            eventClick={handleEventClick}
+            dateClick={handleDateClick}
+          />
 
-      {/* Mobile view */}
-      <div className="block md:hidden space-y-4">
-        {formattedEvents.map((event: any) => (
-          <div key={event.id} className="bg-white rounded-lg p-4 shadow">
-            <div className="flex flex-col gap-2">
-              <span className="text-gray-9 font-semibold text-base">
-                {moment(event.start).format('MMM DD @ h:mm a')} - {moment(event.end).format('h:mm a')}
-              </span>
-              <div className="bg-secondary-4 rounded-md px-4 py-2 text-gray-9 text-sm font-medium">
-                {event.title}
-              </div>
-              {event.extendedProps.location && (
-                <div className="text-gray-700 text-sm">
-                  Location: {event.extendedProps.location}
+          {/* Events list for mobile */}
+          <div className="block md:hidden space-y-4 mt-4">
+            {loading ? (
+              <div>Loading events...</div>
+            ) : eventsOnDate.length > 0 ? (
+              eventsOnDate.map((event) => (
+                <div key={event.id} className="bg-white rounded-lg p-4 shadow">
+                  <div className="flex md:hidden flex-col gap-3">
+                    <span className="text-gray-9 font-semibold text-base">
+                      {moment(event.start).format("MMM DD @ h:mm a")} -{" "}
+                      {moment(event.end).format("h:mm a")}
+                    </span>
+                    <Link
+                      className="bg-secondary-4 rounded-md px-4 py-2 text-gray-9 text-sm font-medium text-center"
+                      href={`/events/${event?.extendedProps?.slug}`}
+                    >
+                      {event.title}
+                    </Link>
+                  </div>
                 </div>
-              )}
-              {event.extendedProps.description && (
-                <p className="text-gray-600 text-sm mt-2">
-                  {event.extendedProps.description}
-                </p>
-              )}
-            </div>
+              ))
+            ) : (
+              <div className="text-gray-500 text-center">
+                No events scheduled for this date
+              </div>
+            )}
           </div>
-        ))}
-      </div>
-    </>
+        </>
+      )}
+    </div>
   );
 };
 
-export default CalenderView;
+export default CalendarView;

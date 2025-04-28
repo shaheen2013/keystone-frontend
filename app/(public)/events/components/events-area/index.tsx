@@ -17,6 +17,8 @@ import EventTypes from "./components/event-type";
 import Services from "./components/services";
 import CalenderView from "./components/calender-view";
 import NotFound from "@/components/partials/not-found";
+import EventCardSkeleton from "@/components/skeletons/event-card";
+import { PaginationSkeleton } from "@/components/skeletons";
 
 const EventsArea = () => {
   const [inputValue, setInputValue] = useState("");
@@ -30,32 +32,33 @@ const EventsArea = () => {
   const isFiltered =
     search || selectedServices?.length || selectedEventTypes?.length;
 
-  console.log("isFiltered", isFiltered);  
+  console.log("isFiltered", isFiltered);
 
   // Debounce the search input with 500ms delay
   const debouncedSearch = useDebounceCallback(setSearch, 500);
 
   // Fetch blogs data using state values
 
-  const { data, isLoading, isFetching }: any = useGetEventsQuery({
-    query: search,
-    page: page,
-    pagi_limit: PAGINATION_LIMIT,
-    service_ids: selectedServices,
-    event_type_ids: selectedEventTypes,
-  },{
-    skip: !isFiltered
-  });
+  const { data, isLoading, isFetching }: any = useGetEventsQuery(
+    {
+      query: search,
+      page: page,
+      pagi_limit: PAGINATION_LIMIT,
+      service_ids: selectedServices,
+      event_type_ids: selectedEventTypes,
+    },
+    {
+      skip: !isFiltered,
+    }
+  );
 
-   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-   const loading = isFetching || isLoading;
+  const loading = isFetching || isLoading;
 
-   const filteredEvents = data?.data?.events?.data || [];
+  const filteredEvents = data?.data?.events?.data || [];
 
+  console.log("filteredEvents", filteredEvents);
 
-   console.log("filteredEvents", filteredEvents);
- 
-   const filteredEventsCount = data?.data?.events?.total || 0;
+  const filteredEventsCount = data?.data?.events?.total || 0;
 
   // Debounced search value
   const handleSearch = (value: string) => {
@@ -75,7 +78,7 @@ const EventsArea = () => {
       <section className="py-12 md:py-28">
         <div className="container flex flex-col gap-6 md:gap-12">
           <div className="flex justify-between items-center gap-4 md:gap-8">
-            <h3 className="text-2xl md:text-4xl font-semibold text-gray-9 ">
+            <h3 className="text-2xl md:text-4xl font-semibold text-gray-9">
               {isFiltered ? "Search Results" : "Upcoming Events"}
             </h3>
             <Input
@@ -86,16 +89,17 @@ const EventsArea = () => {
               onChange={(event) => handleSearch(event.target.value)}
             />
             <div className="flex gap-2 md:hidden">
-              <SearchDrawer
-               setSearch={setSearch}
-              />
-              <FilterDrawer selectedServices={selectedServices} setSelectedServices={setSelectedServices} selectedEventTypes={selectedEventTypes} setSelectedEventTypes={setSelectedEventTypes}
-              handleResetFilter={handleResetFilter}
+              <SearchDrawer setSearch={setSearch} />
+              <FilterDrawer
+                selectedServices={selectedServices}
+                setSelectedServices={setSelectedServices}
+                selectedEventTypes={selectedEventTypes}
+                setSelectedEventTypes={setSelectedEventTypes}
+                handleResetFilter={handleResetFilter}
               />
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-8 items-start">
-            {/* {renderSidebar(weekendsVisible, handleWeekendsToggle, currentEvents)} */}
             {/* filter area */}
             <div className="hidden md:block bg-primary-1 rounded-xl overflow-hidden">
               <div className="p-6 bg-primary-2 flex items-center justify-between ">
@@ -108,39 +112,59 @@ const EventsArea = () => {
                   Reset
                 </Button>
               </div>
-               <EventTypes selectedEventTypes={selectedEventTypes} setSelectedEventTypes={setSelectedEventTypes}/>
-               <Services selectedServices={selectedServices} setSelectedServices={setSelectedServices}/>
+              <EventTypes
+                selectedEventTypes={selectedEventTypes}
+                setSelectedEventTypes={setSelectedEventTypes}
+              />
+              <Services
+                selectedServices={selectedServices}
+                setSelectedServices={setSelectedServices}
+              />
             </div>
-            {
-              !isFiltered && (
-                <CalenderView />
-              )
-            }
-           
+            {!isFiltered && <CalenderView />}
+
             {isFiltered && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                {
-                  filteredEvents.length === 0 && (
-                    <div className="col-span-full">
-                    <NotFound data={{title: "No Results Found", description: "No events found matching your search criteria."}} />
-                    </div>
-                  )
-                }
-                {filteredEvents?.map((event: any, index: any) => (
-                  <EventCard
-                    event={event}
-                    key={index}
-                    className="bg-primary-2"
-                  />
-                ))}
-                {filteredEventsCount > PAGINATION_LIMIT && (
-                  <PaginationWrapper
-                    page={page}
-                    setPage={setPage}
-                    total={filteredEventsCount}
-                    limit={PAGINATION_LIMIT}
-                    className="col-span-full"
-                  />
+                {loading ? (
+                  [...Array(8)].map((_, i) => <EventCardSkeleton key={i} />)
+                ) : (
+                  <>
+                    {filteredEvents.length === 0 && (
+                      <div className="col-span-full">
+                        <NotFound
+                          data={{
+                            title: "No Results Found",
+                            description:
+                              "No events found matching your search criteria.",
+                          }}
+                        />
+                      </div>
+                    )}
+                    {filteredEvents?.map((event: any, index: any) => (
+                      <EventCard
+                        event={event}
+                        key={index}
+                        className="bg-primary-2"
+                      />
+                    ))}
+                  </>
+                )}
+
+                {/* pagination area */}
+                {loading ? (
+                  <PaginationSkeleton className="mt-4 col-span-full text-center" />
+                ) : (
+                  <>
+                    {filteredEventsCount > PAGINATION_LIMIT && (
+                      <PaginationWrapper
+                        page={page}
+                        setPage={setPage}
+                        total={filteredEventsCount}
+                        limit={PAGINATION_LIMIT}
+                        className="col-span-full"
+                      />
+                    )}
+                  </>
                 )}
               </div>
             )}
@@ -154,7 +178,5 @@ const EventsArea = () => {
     </>
   );
 };
-
-
 
 export default EventsArea;
