@@ -13,7 +13,7 @@ import {
   DrawerTrigger,
 } from "@/components/shadcn/drawer";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -50,24 +50,7 @@ const EventConfirmation = ({ slug }: { slug: string }) => {
 
   const [open, setOpen] = useState(false);
 
-  const [confirmAttendance, { isError, error }] =
-    useConfirmAttendanceMutation();
-
-  useEffect(() => {
-    if (isError && error) {
-      const status = (error as any)?.status || (error as any)?.originalStatus;
-
-      console.log("status", status);
-
-      if (status === 401) {
-        // Get current URL with query parameters
-        const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
-        // Encode it for safe URL passing
-        const returnUrl = encodeURIComponent(currentUrl);
-        router.replace(`/login?returnUrl=${returnUrl}`);
-      }
-    }
-  }, [isError, error, router, pathname, searchParams]);
+  const [confirmAttendance] = useConfirmAttendanceMutation();
 
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -88,16 +71,30 @@ const EventConfirmation = ({ slug }: { slug: string }) => {
         setOpen(false);
       }
     } catch (error: any) {
-      if (error.status === 401) return;
-      const errorText =
-        error.data.message || "Something went wrong. Please try again later.";
-      toast({
-        title: "Error",
-        description: errorText,
-        variant: "destructive",
-      });
+      const status = (error as any)?.status || (error as any)?.originalStatus;
+      console.log("status", status);
+      if (status === 401) {
+        handleunAthorized();
+      } else {
+        const errorText =
+          error.data.message || "Something went wrong. Please try again later.";
+        toast({
+          title: "Error",
+          description: errorText,
+          variant: "destructive",
+        });
+      }
     }
   };
+
+  const handleunAthorized = () => {
+    // Get current URL with query parameters
+    const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
+    // Encode it for safe URL passing
+    const returnUrl = encodeURIComponent(currentUrl);
+    router.replace(`/login?returnUrl=${returnUrl}`);
+  };
+
   const FooterButtons = (
     <div className="flex flex-col md:flex-row w-full  gap-2">
       <DialogClose asChild>

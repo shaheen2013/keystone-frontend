@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import moment from "moment";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 import { useSaveToggleMutation } from "@/features/public/blogSlice";
 
 const BlogCard = ({
@@ -26,7 +25,7 @@ const BlogCard = ({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [saveToggle, { isError, error }] = useSaveToggleMutation();
+  const [saveToggle] = useSaveToggleMutation();
 
   const handleToggle = async (slug: string) => {
     try {
@@ -40,7 +39,13 @@ const BlogCard = ({
       // Send API request
       await saveToggle({ blog_slug: slug }).unwrap();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
+    } catch (error: any) {
+      console.log("err", error);
+
+      const status = (error as any)?.status || (error as any)?.originalStatus;
+      if (status === 401) {
+        handleunAthorized();
+      }
       // Revert on error
       setBlogsData((prevBlogs: any) =>
         prevBlogs.map((blog: any) =>
@@ -64,22 +69,13 @@ const BlogCard = ({
     }
   };
 
-  useEffect(() => {
-    if (isError && error) {
-      const status = (error as any)?.status || (error as any)?.originalStatus;
-
-      console.log("status", status);
-
-      if (status === 401) {
-        // Get current URL with query parameters
-        const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
-        // Encode it for safe URL passing
-        const returnUrl = encodeURIComponent(currentUrl);
-        router.replace(`/login?returnUrl=${returnUrl}`);
-      }
-    }
-  }, [isError, error, router, pathname, searchParams]);
-
+  const handleunAthorized = () => {
+    // Get current URL with query parameters
+    const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
+    // Encode it for safe URL passing
+    const returnUrl = encodeURIComponent(currentUrl);
+    router.replace(`/login?returnUrl=${returnUrl}`);
+  };
   return (
     <div
       className={cn(
