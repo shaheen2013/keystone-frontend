@@ -21,7 +21,6 @@ import PaginationWrapper from "@/components/partials/pagination-wrapper";
 import {
   useGetblogscategoriesQuery,
   useGetblogsQuery,
-  useSaveToggleMutation,
 } from "@/features/public/blogSlice";
 import BlogCardSkeleton from "@/components/skeletons/blog-card";
 import { PAGINATION_LIMIT } from "@/lib/constants";
@@ -63,8 +62,6 @@ const Blogs = () => {
 
   const { data: categoriesData }: any = useGetblogscategoriesQuery({});
 
-  const [saveToggle] = useSaveToggleMutation();
-
   const loading = isLoading || isFetching;
   const totalBlogs = data?.data?.blogs?.total || 0;
   const categories = categoriesData?.data.blog_categories || [];
@@ -102,27 +99,6 @@ const Blogs = () => {
     }
   }, [data]);
 
-  const handleToggle = async (slug: string) => {
-    try {
-      //  immediately update UI
-      setBlogsData((prevBlogs: any) =>
-        prevBlogs.map((blog: any) =>
-          blog.slug === slug? { ...blog, is_saved: !blog.is_saved } : blog
-        )
-      );
-
-      // Send API request
-      await saveToggle({ blog_slug: slug }).unwrap();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      // Revert on error
-      setBlogsData((prevBlogs: any) =>
-        prevBlogs.map((blog: any) =>
-          blog.slug === slug ? { ...blog, is_saved: !blog.is_saved } : blog
-        )
-      );
-    }
-  };
   return (
     <>
       <section className="py-12 md:py-28">
@@ -181,11 +157,7 @@ const Blogs = () => {
               ))
             ) : blogsData?.length > 0 ? (
               blogsData.map((blog: any) => (
-                <BlogCard
-                  key={blog.id}
-                  article={blog}
-                  handleToggle={handleToggle}
-                />
+                <BlogCard key={blog.id} article={blog} />
               ))
             ) : (
               <div className="col-span-full">

@@ -51,6 +51,8 @@ export default function Header() {
     isFetching: boolean;
   };
 
+  console.log("currentUser", currentUser);
+
   const {
     data: servicesData,
     isLoading: servicesLoading,

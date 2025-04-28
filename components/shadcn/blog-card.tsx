@@ -5,40 +5,81 @@ import { cn } from "@/lib/utils";
 import moment from "moment";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
+import { useEffect } from "react";
+import { useSaveToggleMutation } from "@/features/public/blogSlice";
 
 const BlogCard = ({
   userPanel,
   article,
   classes,
-  handleToggle,
+  setBlogsData,
 }: {
   userPanel?: boolean;
   article: any;
-  handleToggle: (slug: string) => void;
   classes?: {
     root?: string;
     image?: string;
     title?: string;
   };
+  setBlogsData?: any;
 }) => {
   const router = useRouter();
-  const pathname = usePathname(); 
-  const searchParams = useSearchParams(); 
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [saveToggle, { isError, error }] = useSaveToggleMutation();
+
+  const handleToggle = async (slug: string) => {
+    try {
+      //  immediately update UI
+      setBlogsData((prevBlogs: any) =>
+        prevBlogs.map((blog: any) =>
+          blog.slug === slug ? { ...blog, is_saved: !blog.is_saved } : blog
+        )
+      );
+
+      // Send API request
+      await saveToggle({ blog_slug: slug }).unwrap();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      // Revert on error
+      setBlogsData((prevBlogs: any) =>
+        prevBlogs.map((blog: any) =>
+          blog.slug === slug ? { ...blog, is_saved: !blog.is_saved } : blog
+        )
+      );
+    }
+  };
 
   const handleClick = () => {
     const token = Cookies.get("key_stone_token");
 
     if (!token) {
       // Get current URL with query parameters
-      const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+      const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
       // Encode it for safe URL passing
       const returnUrl = encodeURIComponent(currentUrl);
       router.replace(`/login?returnUrl=${returnUrl}`);
     } else {
       handleToggle(article.slug);
     }
-  }
+  };
+
+  useEffect(() => {
+    if (isError && error) {
+      const status = (error as any)?.status || (error as any)?.originalStatus;
+
+      console.log("status", status);
+
+      if (status === 401) {
+        // Get current URL with query parameters
+        const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
+        // Encode it for safe URL passing
+        const returnUrl = encodeURIComponent(currentUrl);
+        router.replace(`/login?returnUrl=${returnUrl}`);
+      }
+    }
+  }, [isError, error, router, pathname, searchParams]);
+
   return (
     <div
       className={cn(

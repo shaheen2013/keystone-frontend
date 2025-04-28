@@ -3,10 +3,7 @@
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
 import BlogCard from "@/components/shadcn/blog-card";
 import { BlogCardSkeleton, PaginationSkeleton } from "@/components/skeletons";
-import {
-  useGetSavedBlogsQuery,
-  useSaveToggleMutation,
-} from "@/features/public/blogSlice";
+import { useGetSavedBlogsQuery } from "@/features/public/blogSlice";
 import { PAGINATION_LIMIT } from "@/lib/constants";
 import React, { Suspense, useEffect, useState } from "react";
 
@@ -19,31 +16,9 @@ export default function AccountSavedBlogs() {
     pagi_limit: PAGINATION_LIMIT,
   });
 
-  const [saveToggle] = useSaveToggleMutation();
-
   const loading = isLoading || isFetching;
 
   const totalBlogs = data?.data?.saved_blogs?.total || 0;
-
-  const handleToggle = async (slug: string) => {
-    // Store the blog being removed in case we need to revert
-    const blogToRemove = savedBlogs.find((blog) => blog.slug === slug);
-    try {
-      // Immediately update UI
-      setSavedBlogs((prevBlogs: any) =>
-        prevBlogs.filter((blog: any) => blog.slug !== slug)
-      );
-
-      // Send API request
-      await saveToggle({ blog_slug: slug }).unwrap();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      // Revert on error
-      if (blogToRemove) {
-        setSavedBlogs((prevBlogs: any) => [...prevBlogs, blogToRemove]);
-      }
-    }
-  };
 
   useEffect(() => {
     if (data?.data?.saved_blogs?.data) {
@@ -75,7 +50,7 @@ export default function AccountSavedBlogs() {
                   image: "h-[230px] md:h-[214px]",
                   title: "text-xl md:text-xl font-semibold",
                 }}
-                handleToggle={handleToggle}
+                setBlogsData={setSavedBlogs}
               />
             ))
           ) : (

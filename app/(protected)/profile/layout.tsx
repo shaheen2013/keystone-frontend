@@ -33,6 +33,7 @@ export default function ProfileLayout({
 
   useEffect(() => {
     const token = Cookies.get("key_stone_token");
+    console.log("token", token);
 
     if (!token) {
       router.replace("/login");
