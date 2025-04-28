@@ -62,10 +62,13 @@ const EventConfirmation = ({ slug }: { slug: string }) => {
   const handleAttendance = async () => {
     try {
       const res: any = await confirmAttendance({ slug }).unwrap();
+      console.log("res", res);
       if (res.success) {
         toast({
           title: "Success",
-          description: res.data.message,
+          description:
+            res.data.message ||
+            "Thank you for your interest! We'll send the Zoom link to your email and contact shortly.",
           variant: "default",
         });
         setOpen(false);

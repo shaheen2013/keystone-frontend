@@ -95,7 +95,7 @@ const Blogs = () => {
 
   useEffect(() => {
     if (data?.data?.blogs?.data) {
-      setBlogsData(data.data.blogs.data);
+      setBlogsData?.(data?.data?.blogs?.data);
     }
   }, [data]);
 
@@ -157,7 +157,11 @@ const Blogs = () => {
               ))
             ) : blogsData?.length > 0 ? (
               blogsData.map((blog: any) => (
-                <BlogCard key={blog.id} article={blog} />
+                <BlogCard
+                  key={blog.id}
+                  article={blog}
+                  setBlogsData={setBlogsData}
+                />
               ))
             ) : (
               <div className="col-span-full">
