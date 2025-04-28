@@ -33,7 +33,9 @@ const CalendarView = () => {
   const [selectedDate, setSelectedDate] = useState<string>(
     moment().format("YYYY-MM-DD")
   );
-  const { data, isLoading, isFetching }: any = useGetEventsQuery({ limit: 12 });
+  const { data, isLoading, isFetching }: any = useGetEventsQuery({
+    getAll: true,
+  });
 
   // Memoize the raw events data
   const events = useMemo(() => data?.data?.events || [], [data?.data?.events]);
@@ -124,7 +126,7 @@ const CalendarView = () => {
               center: "title",
               right: "next",
             }}
-            height="820px"
+            height={isMobile ? "auto" : "912px"}
             initialView="dayGridMonth"
             selectable={true}
             dayMaxEvents={true}

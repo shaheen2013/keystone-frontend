@@ -25,39 +25,41 @@ const Services = ({
   }
 
   return (
-    <div className="m-4 md:m-6 bg-white rounded-xl">
+    <div className="m-4 md:m-6 bg-white rounded-xl ">
       <div className="flex flex-col">
         <h3 className="text-gray-9 text-base md:text-lg font-semibold px-4 md:px-5 py-3">
           Services
         </h3>
         <hr className="border-gray-2" />
-        {servicesData?.map((service: any, index: number) => (
-          <div
-            key={index}
-            className="flex items-center space-x-2 px-4 md:px-5 py-3"
-          >
-            <Checkbox
-              id={service.slug}
-              variant="secondary"
-              checked={selectedServices?.includes(service.id)}
-              onCheckedChange={() =>
-                setSelectedServices((prev) => {
-                  if (prev.includes(service.id)) {
-                    return prev.filter((e) => e !== service.id);
-                  } else {
-                    return [...prev, service.id];
-                  }
-                })
-              }
-            />
-            <Label
-              htmlFor={service.slug}
-              className="text-sm md:text-lg text-gray-5"
+        <div className="overflow-y-auto h-auto max-h-44 md:max-h-80">
+          {servicesData?.map((service: any, index: number) => (
+            <div
+              key={index}
+              className="flex items-center space-x-2 px-4 md:px-5 py-3 "
             >
-              {service.name}
-            </Label>
-          </div>
-        ))}
+              <Checkbox
+                id={service.slug}
+                variant="secondary"
+                checked={selectedServices?.includes(service.id)}
+                onCheckedChange={() =>
+                  setSelectedServices((prev) => {
+                    if (prev.includes(service.id)) {
+                      return prev.filter((e) => e !== service.id);
+                    } else {
+                      return [...prev, service.id];
+                    }
+                  })
+                }
+              />
+              <Label
+                htmlFor={service.slug}
+                className="text-sm md:text-lg text-gray-5"
+              >
+                {service.name}
+              </Label>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
