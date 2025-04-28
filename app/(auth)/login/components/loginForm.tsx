@@ -68,11 +68,17 @@ export default function LoginForm() {
 
       if (response.success) {
         const token = response.data.access_token;
-        Cookies.set("key_stone_token", token, { expires: 7 });
+        Cookies.set("key_stone_token", token, {
+          secure: true,
+          sameSite: "strict",
+          expires: 7,
+        });
 
-         // Get the returnUrl from query params or default to profile overview
-         const returnUrl = searchParams.get('returnUrl');
-         router.push(returnUrl ? decodeURIComponent(returnUrl) : "/profile/overview");
+        // Get the returnUrl from query params or default to profile overview
+        const returnUrl = searchParams.get("returnUrl");
+        router.push(
+          returnUrl ? decodeURIComponent(returnUrl) : "/profile/overview"
+        );
       }
     } catch (error) {
       handleAuthError(error as LoginError);
