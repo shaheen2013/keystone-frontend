@@ -123,7 +123,7 @@ const EventsArea = () => {
             </div>
             {!isFiltered && <CalenderView />}
 
-            {isFiltered && (
+            {isFiltered ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                 {loading ? (
                   [...Array(8)].map((_, i) => <EventCardSkeleton key={i} />)
@@ -167,12 +167,16 @@ const EventsArea = () => {
                   </>
                 )}
               </div>
+            ) : (
+              <></>
             )}
           </div>
         </div>
       </section>
-      {isFiltered && (
+      {isFiltered ? (
         <ExploreEvents title="Explore Recommended Events" isRecommended />
+      ) : (
+        <></>
       )}
       {!isFiltered && <AllUpComingEvents />}
     </>
