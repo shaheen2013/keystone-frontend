@@ -20,14 +20,20 @@ const ServiceCard = ({
         classes?.root
       )}
     >
-      {service?.icon && (
+      {service?.icon?.path && (
         <div
           className={cn(
             "p-4 rounded-xl bg-white text-secondary-6",
             classes?.icon
           )}
         >
-          <Image src={service.icon} width={40} height={40} alt="service" />
+          <Image
+            src={service.icon.path}
+            width={40}
+            height={40}
+            alt="service"
+            className="size-10 object-cover object-center"
+          />
         </div>
       )}
 
