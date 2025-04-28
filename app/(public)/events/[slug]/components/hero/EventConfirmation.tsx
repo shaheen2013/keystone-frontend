@@ -13,7 +13,7 @@ import {
   DrawerTrigger,
 } from "@/components/shadcn/drawer";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -41,15 +41,33 @@ const EventContent = () => (
   </div>
 );
 
-const EventConfirmation = ({slug}: {slug: string}) => {
+const EventConfirmation = ({ slug }: { slug: string }) => {
   console.log("slug", slug);
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const [open, setOpen] = useState(false);
 
-  const [confirmAttendance, { isLoading }] = useConfirmAttendanceMutation();
+  const [confirmAttendance, { isError, error }] =
+    useConfirmAttendanceMutation();
+
+  useEffect(() => {
+    if (isError && error) {
+      const status = (error as any)?.status || (error as any)?.originalStatus;
+
+      console.log("status", status);
+
+      if (status === 401) {
+        // Get current URL with query parameters
+        const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
+        // Encode it for safe URL passing
+        const returnUrl = encodeURIComponent(currentUrl);
+        router.replace(`/login?returnUrl=${returnUrl}`);
+      }
+    }
+  }, [isError, error, router, pathname, searchParams]);
 
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -58,28 +76,28 @@ const EventConfirmation = ({slug}: {slug: string}) => {
       Attend This Event
     </Button>
   );
-  const handleAttendance = async() => {
+  const handleAttendance = async () => {
     try {
-      const res: any =  await confirmAttendance({slug}).unwrap();
+      const res: any = await confirmAttendance({ slug }).unwrap();
       if (res.success) {
         toast({
           title: "Success",
           description: res.data.message,
           variant: "default",
-        })
-        setOpen(false)
+        });
+        setOpen(false);
       }
     } catch (error: any) {
-    
-      const errorText = error.data.message || "Something went wrong. Please try again later."
+      if (error.status === 401) return;
+      const errorText =
+        error.data.message || "Something went wrong. Please try again later.";
       toast({
         title: "Error",
         description: errorText,
         variant: "destructive",
-      })
+      });
     }
-   
-  }
+  };
   const FooterButtons = (
     <div className="flex flex-col md:flex-row w-full  gap-2">
       <DialogClose asChild>
@@ -89,7 +107,11 @@ const EventConfirmation = ({slug}: {slug: string}) => {
           </Button>
         </DrawerClose>
       </DialogClose>
-      <Button variant="secondary" className="w-full md:w-1/2" onClick={handleAttendance}>
+      <Button
+        variant="secondary"
+        className="w-full md:w-1/2"
+        onClick={handleAttendance}
+      >
         Confirm Attendance
       </Button>
     </div>
@@ -99,19 +121,19 @@ const EventConfirmation = ({slug}: {slug: string}) => {
 
     if (!token) {
       // Get current URL with query parameters
-      const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+      const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
       // Encode it for safe URL passing
       const returnUrl = encodeURIComponent(currentUrl);
       router.replace(`/login?returnUrl=${returnUrl}`);
     } else {
       setOpen(open);
     }
-  }
+  };
 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={handleOpen}>
-        <DialogTrigger asChild >{TriggerButton}</DialogTrigger>
+        <DialogTrigger asChild>{TriggerButton}</DialogTrigger>
         <DialogContent className="sm:max-w-[524px]">
           <DialogTitle className="sr-only">Attend This Event</DialogTitle>
           <EventContent />
@@ -121,7 +143,6 @@ const EventConfirmation = ({slug}: {slug: string}) => {
     );
   }
 
- 
   return (
     <Drawer open={open} onOpenChange={handleOpen}>
       <DrawerTrigger asChild>{TriggerButton}</DrawerTrigger>
