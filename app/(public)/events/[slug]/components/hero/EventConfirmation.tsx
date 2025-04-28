@@ -67,7 +67,7 @@ const EventConfirmation = ({ slug }: { slug: string }) => {
         toast({
           title: "Success",
           description:
-            res.data.message ||
+            res.message ||
             "Thank you for your interest! We'll send the Zoom link to your email and contact shortly.",
           variant: "default",
         });
