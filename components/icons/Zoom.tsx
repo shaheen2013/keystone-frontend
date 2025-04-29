@@ -16,8 +16,8 @@ const Zoom = ({ className }: { className?: string }) => (
       y2="44"
       gradientUnits="userSpaceOnUse"
     >
-      <stop offset="0" stop-color="#33bef0"></stop>
-      <stop offset="1" stop-color="#0a85d9"></stop>
+      <stop offset="0" stopColor="#33bef0"></stop>
+      <stop offset="1" stopColor="#0a85d9"></stop>
     </linearGradient>
     <circle
       cx="24"
