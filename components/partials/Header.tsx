@@ -61,8 +61,9 @@ export default function Header() {
     limit: 4,
   });
 
-  const loading =
-    isLoading || isFetching || servicesLoading || servicesFetching;
+  const loadingServices = servicesLoading || servicesFetching;
+
+  const loadingProfile = isLoading || isFetching;
 
   // Extract services with fallback
   const services = useMemo(
@@ -87,7 +88,7 @@ export default function Header() {
 
         {/* Center - Content (hidden on tablet) */}
         <nav className="hidden lg:flex items-center gap-6">
-          {loading ? (
+          {loadingServices ? (
             Array.from({ length: 6 }).map((_, index) => (
               <div key={index} className="px-3 flex gap-3">
                 <Skeleton className="w-16 h-9" />
@@ -158,13 +159,13 @@ export default function Header() {
 
         {/* Right - Login Button */}
         <div className="flex items-center">
-          {loading && (
+          {loadingProfile && (
             <div className="hidden md:flex gap-3">
               <Skeleton className="w-16 h-9" />
               <Skeleton className="w-16 h-9" />
             </div>
           )}
-          {!loading && currentUser && (
+          {!loadingProfile && currentUser && (
             <>
               <ProfileMenu currentUser={currentUser} />
               <button
@@ -177,7 +178,7 @@ export default function Header() {
             </>
           )}
 
-          {!loading && !currentUser && (
+          {!loadingProfile && !currentUser && (
             <>
               <Button asChild variant="link" className="hidden lg:flex">
                 <Link href="/login" className="">
@@ -193,14 +194,14 @@ export default function Header() {
 
           {/* Mobile Menu */}
 
-          {loading && (
+          {loadingProfile && (
             <div className="flex md:hidden gap-3">
               <Skeleton className="w-16 h-9" />
               <Skeleton className="w-16 h-9" />
             </div>
           )}
 
-          {!loading && !currentUser && (
+          {!loadingProfile && !currentUser && (
             <>
               <Button asChild className="lg:hidden mr-4" variant="secondary">
                 <Link href="/login">Login</Link>
