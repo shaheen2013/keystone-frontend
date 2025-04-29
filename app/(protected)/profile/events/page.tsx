@@ -24,6 +24,7 @@ import {
 } from "@/components/shadcn/tooltip";
 import { Badge } from "@/components/shadcn/badge";
 import { Calendar, MapPin, Clock, AlertCircle } from "lucide-react";
+import { Person } from "@/components/icons";
 
 export default function AccountEvents() {
   const [page, setPage] = useState(1);
@@ -94,14 +95,14 @@ export default function AccountEvents() {
               {joinedEvents.map((event: any) => {
                 const status = getEventStatus(event);
                 const isActive = status === "Active";
-                
+
                 return (
                   <AccordionItem
                     key={event.id}
                     value={event.id.toString()}
                     className="bg-white p-0 rounded-xl border border-primary-2 overflow-hidden hover:shadow-sm transition-shadow"
                   >
-                    <AccordionTrigger className="hover:no-underline px-6 py-4 [&[data-state=open]>svg]:rotate-180">
+                    <AccordionTrigger className="hover:no-underline px-6 py-4 [&[data-state=open]>svg]:rotate-180 items-start md:items-center">
                       <div className="w-full flex flex-col md:flex-row justify-between md:items-center gap-3 md:gap-8 mr-4">
                         <div className="flex items-center gap-3">
                           <h3
@@ -114,7 +115,7 @@ export default function AccountEvents() {
                           </h3>
                           {renderEventStatusBadge(status)}
                         </div>
-                        
+
                         <div className="shrink-0 flex items-center gap-4">
                           <p className={cn(
                             "text-sm md:text-base",
@@ -122,51 +123,76 @@ export default function AccountEvents() {
                           )}>
                             {formatEventDates(event.start_date, event.end_date)}
                           </p>
-                          
-                          {isActive && event.meeting_link && (
-                            <TooltipProvider>
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Link
-                                    href={event.meeting_link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={`Join ${event.name} Zoom meeting`}
-                                    className="hover:opacity-80 transition-opacity"
-                                  >
-                                    <Zoom className="w-5 h-5 cursor-pointer text-secondary-6" />
-                                  </Link>
-                                </TooltipTrigger>
-                                <TooltipContent className="bg-primary-8 text-primary-1">
-                                  <p>Join Zoom Meeting</p>
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
-                          )}
+
+
                         </div>
                       </div>
                     </AccordionTrigger>
 
                     <AccordionContent className="px-6 pb-6 pt-0 space-y-6">
                       <div className="grid md:grid-cols-2 gap-6 pt-4">
-                        <div className="space-y-4">
-                          <div>
-                            <h4 className="font-medium text-primary-8 mb-3 flex items-center gap-2">
-                              <MapPin className="w-4 h-4 text-primary-6" />
-                              Event Details
-                            </h4>
-                            <div className="space-y-3">
-                              <p className="text-sm text-primary-7">
-                                <span className="font-medium text-primary-8">Type:</span> {event.event_type || "N/A"}
-                              </p>
-                              <p className="text-sm text-primary-7">
-                                <span className="font-medium text-primary-8">Location:</span> {event.location || "Online"}
-                              </p>
-                              
-                            </div>
+
+                        <div>
+                          <h4 className="font-medium text-primary-8 mb-3 flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-primary-6" />
+                            Event Details
+                          </h4>
+                          <div className="space-y-3">
+                            <p className="text-sm text-primary-7">
+                              <span className="font-medium text-primary-8">Type:</span> {event.event_type || "N/A"}
+                            </p>
+                            <p className="text-sm text-primary-7">
+                              <span className="font-medium text-primary-8">Location:</span> {event.location || "Online"}
+                            </p>
+
                           </div>
                         </div>
 
+                        {isActive && event.meeting_link ? (
+                          <div>
+                            <div className="flex gap-2">
+                              <Zoom className="w-5 h-5 cursor-pointer text-secondary-6" />
+                              <h4 className="font-medium text-primary-8 mb-3 flex items-center gap-2">
+                                Zoom Link
+                              </h4>
+                            </div>
+                            <Link
+                              href={event.meeting_link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sm text-blue-600 hover:underline"
+                            >
+                              Join on Zoom
+                            </Link>
+                          </div>
+                        ) : <div></div>}
+
+
+                        <div>
+                          <h4 className="font-medium text-primary-8 mb-3 flex items-center gap-2">
+                            <Person className="w-4 h-4 text-primary-6" />
+                            Speakers
+                          </h4>
+                          {event.agenda?.length > 0 ? (
+                            <div className="space-y-3">
+                              {event.agenda.map((item: any, index: number) => (
+                                <div
+                                  key={index}
+                                  className="flex justify-between items-center p-3 bg-primary-2 rounded-lg border border-primary-3"
+                                >
+                                  <span className="font-medium text-sm text-primary-8">
+                                    {item.title}
+                                  </span>
+                                  <span className="text-xs text-primary-6">
+                                    {formatTime(item.start_time)} - {formatTime(item.end_time)}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="text-sm text-primary-6">No Speakers available</p>
+                          )}
+                        </div>
                         <div>
                           <h4 className="font-medium text-primary-8 mb-3 flex items-center gap-2">
                             <Clock className="w-4 h-4 text-primary-6" />
@@ -194,13 +220,10 @@ export default function AccountEvents() {
                         </div>
                       </div>
 
-                      {event.about && (
-                        <div className="pt-2">
-                          <h4 className="font-medium text-primary-8 mb-2">About This Event</h4>
-                          <p className="text-sm text-primary-7 whitespace-pre-line">
-                            {event.about}
+                      {event.short_brief && (
+                          <p className="pt-2 text-sm text-primary-7 whitespace-pre-line">
+                            {event.short_brief}
                           </p>
-                        </div>
                       )}
                     </AccordionContent>
                   </AccordionItem>
