@@ -56,7 +56,7 @@ const AllUpComingEvents = () => {
           )}
           {/* pagination area */}
           {loading ? (
-            <PaginationSkeleton className="mt-4" />
+            <PaginationSkeleton className="mt-4 col-span-full text-center" />
           ) : (
             <>
               {totalEvents > PAGINATION_LIMIT && (

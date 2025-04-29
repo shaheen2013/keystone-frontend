@@ -42,7 +42,7 @@ const Toolkits = () => {
             <Skeleton className="h-6 md:h-8 w-5/6 md:w-2/3" />
           ) : (
             <span className="text-gray-8 text-base md:text-xl">
-              Download PDF Recourse
+              Download Recourse
             </span>
           )}
         </div>
@@ -65,7 +65,7 @@ const Toolkits = () => {
 
         {/* pagination area */}
         {loading ? (
-          <PaginationSkeleton className="mt-4" />
+          <PaginationSkeleton className="mt-4 col-span-full text-center" />
         ) : (
           <>
             {totalResources > PAGINATION_LIMIT && (

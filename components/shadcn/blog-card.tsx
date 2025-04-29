@@ -131,7 +131,7 @@ const BlogCard = ({
         </div>
         <Link
           className={cn(
-            "text-gray-9 text-xl md:text-3xl font-bold",
+            "text-gray-9 text-xl md:text-3xl font-bold line-clamp-2",
             classes?.title
           )}
           href={`/blogs/${article.slug}`}

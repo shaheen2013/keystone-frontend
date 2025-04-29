@@ -14,7 +14,7 @@ const EventCard = ({
   return (
     <div
       className={cn(
-        "bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-4 md:gap-6 items-start h-full",
+        "bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-4 md:gap-6 items-start h-auto",
         className
       )}
     >
@@ -40,11 +40,11 @@ const EventCard = ({
           </span>
         </div>
         <Link href={`/events/${event.slug}`}>
-          <h3 className="text-gray-9 text-xl md:text-3xl font-bold">
+          <h3 className="text-gray-9 text-xl md:text-3xl font-bold line-clamp-2">
             {event.name}
           </h3>
         </Link>
-        <p className="text-gray-9 text-sm md:text-lg line-clamp-3">
+        <p className="text-gray-9 text-sm md:text-lg line-clamp-4">
           {event.short_brief}
         </p>
       </div>

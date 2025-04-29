@@ -43,7 +43,7 @@ const CalendarView = () => {
 
   // Transform and memoize events
   const formattedEvents = useMemo(() => {
-    return events.map(
+    return events?.map(
       (event: any): CalendarEvent => ({
         id: event.id.toString(),
         title: event.name,
