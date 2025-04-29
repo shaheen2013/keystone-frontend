@@ -52,7 +52,7 @@ export default function AccountEvents() {
   const isEventActive = (endDate: string) => moment(endDate).isAfter(moment());
 
   const getEventStatus = (event: any) => {
-    if (event.status !== "Published") return "Cancelled";
+    if (event.status === "Cancelled") return "Cancelled";
     if (!isEventActive(event.end_date)) return "Ended";
     return "Active";
   };
@@ -102,21 +102,18 @@ export default function AccountEvents() {
                     value={event.id.toString()}
                     className="bg-white p-0 rounded-xl border border-primary-2 overflow-hidden hover:shadow-sm transition-shadow"
                   >
-                    <AccordionTrigger className="hover:no-underline px-6 py-4 [&[data-state=open]>svg]:rotate-180 items-start md:items-center">
-                      <div className="w-full flex flex-col md:flex-row justify-between md:items-center gap-3 md:gap-8 mr-4">
-                        <div className="flex items-center gap-3">
-                          <h3
-                            className={cn(
-                              "lg:text-lg font-medium text-left line-clamp-1",
-                              isActive ? "text-primary-9" : "text-gray-6"
-                            )}
-                          >
-                            {event.name}
-                          </h3>
-                          {renderEventStatusBadge(status)}
-                        </div>
-
+                    <AccordionTrigger className="hover:no-underline px-6 py-4 [&[data-state=open]>svg]:rotate-180 items-start">
+                      <div className="w-full flex flex-col md:flex-row justify-between items-start gap-3 md:gap-8 mr-4">
+                        <h3
+                          className={cn(
+                            "lg:text-lg font-medium text-left",
+                            isActive ? "text-primary-9" : "text-gray-6"
+                          )}
+                        >
+                          {event.name}
+                        </h3>
                         <div className="shrink-0 flex items-center gap-4">
+                          {renderEventStatusBadge(status)}
                           <p className={cn(
                             "text-sm md:text-base",
                             isActive ? "text-primary-7" : "text-gray-5"
@@ -221,9 +218,9 @@ export default function AccountEvents() {
                       </div>
 
                       {event.short_brief && (
-                          <p className="pt-2 text-sm text-primary-7 whitespace-pre-line">
-                            {event.short_brief}
-                          </p>
+                        <p className="pt-2 text-sm text-primary-7 whitespace-pre-line">
+                          {event.short_brief}
+                        </p>
                       )}
                     </AccordionContent>
                   </AccordionItem>
