@@ -70,6 +70,16 @@ export const authSlice = apiSlice?.injectEndpoints({
 
     me: builder.query({
       query: () => "/user",
+      providesTags: ["Me"],
+    }),
+
+    updateMe: builder.mutation({
+      query: (data: any) => ({
+        url: "/user",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Me"],
     }),
   }),
 });
@@ -80,6 +90,7 @@ export const {
   useGoogleCallbackMutation,
   useRegisterMutation,
   useMeQuery,
+  useUpdateMeMutation,
   useForgotPasswordMutation,
   useVerifyOtpMutation,
   useResetPasswordMutation,
