@@ -1,6 +1,7 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import Cookies from "js-cookie";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import moment from "moment";
 import { cn } from "@/lib/utils";
@@ -21,13 +22,16 @@ import { Badge } from "@/components/shadcn/badge";
 import { MapPin, Clock, AlertCircle } from "lucide-react";
 import { Person } from "@/components/icons";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function AccountEvents() {
+  const router = useRouter();
   const [page, setPage] = useState(1);
-  const { data, isFetching, isLoading, error }: any = useGetJoinedEventsQuery({
-    page,
-    pagi_limit: PAGINATION_LIMIT,
-  });
+  const { data, isFetching, isLoading, isError, error }: any =
+    useGetJoinedEventsQuery({
+      page,
+      pagi_limit: PAGINATION_LIMIT,
+    });
 
   const loading = isLoading || isFetching;
   const joinedEvents = data?.data?.joined_events?.data || [];
@@ -69,6 +73,14 @@ export default function AccountEvents() {
         return <Badge className="bg-gray-2 text-gray-8">Unknown</Badge>;
     }
   };
+
+  useEffect(() => {
+    if (isError && error.status === 401) {
+      console.log("error", error);
+      Cookies.remove("key_stone_token");
+      router.push("/login");
+    }
+  }, [router, isError, error]);
 
   return (
     <div className="bg-primary-1 rounded-2xl border border-primary-2">

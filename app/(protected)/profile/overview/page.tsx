@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Cookies from "js-cookie";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useEffect, useRef, useState } from "react";
 
@@ -8,6 +9,7 @@ import { Button } from "@/components/shadcn/button";
 import { Input } from "@/components/shadcn/input";
 import { useMeQuery, useUpdateMeMutation } from "@/features/auth/authSlice";
 import { AccountOverviewSkeleton } from "./skeletons";
+import { useRouter } from "next/navigation";
 
 type FormValues = {
   name: string;
@@ -18,11 +20,15 @@ type FormValues = {
 };
 
 export default function AccountOverview() {
+  const router = useRouter();
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { data, isLoading, isFetching }: any = useMeQuery({});
-  const [updateMe, { isLoading: isUpdating }] = useUpdateMeMutation();
+  const { data, isLoading, isFetching, isError, error }: any = useMeQuery({});
+  const [
+    updateMe,
+    { isLoading: isUpdating, isError: isUpdatingError, error: updateError },
+  ]: any = useUpdateMeMutation();
 
   const loading = isLoading || isFetching;
 
@@ -130,8 +136,19 @@ export default function AccountOverview() {
       }
     }
   };
+  useEffect(() => {
+    if (
+      (isError && error.status === 401) ||
+      (isUpdatingError && updateError.status === 401)
+    ) {
+      console.log("error", error);
+      Cookies.remove("key_stone_token");
+      router.push("/login");
+    }
+  }, [router, isError, error, isUpdatingError, updateError]);
 
   if (loading) return <AccountOverviewSkeleton />;
+
   return (
     <div className="bg-primary-1 rounded-2xl">
       <div className="font-semibold lg:text-2xl text-lg lg:py-6 lg:px-8 p-4  bg-primary-2 rounded-t-2xl">

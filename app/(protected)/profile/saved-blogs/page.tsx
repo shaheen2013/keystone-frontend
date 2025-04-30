@@ -1,20 +1,24 @@
 "use client";
 
+import Cookies from "js-cookie";
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
 import BlogCard from "@/components/shadcn/blog-card";
 import { BlogCardSkeleton, PaginationSkeleton } from "@/components/skeletons";
 import { useGetSavedBlogsQuery } from "@/features/public/blogSlice";
 import { PAGINATION_LIMIT } from "@/lib/constants";
+import { useRouter } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 
 export default function AccountSavedBlogs() {
+  const router = useRouter();
   const [page, setPage] = useState(1);
   const [savedBlogs, setSavedBlogs] = useState<any[]>([]);
 
-  const { data, isFetching, isLoading }: any = useGetSavedBlogsQuery({
-    page: page,
-    pagi_limit: PAGINATION_LIMIT,
-  });
+  const { data, isFetching, isLoading, isError, error }: any =
+    useGetSavedBlogsQuery({
+      page: page,
+      pagi_limit: PAGINATION_LIMIT,
+    });
 
   const loading = isLoading || isFetching;
 
@@ -25,6 +29,14 @@ export default function AccountSavedBlogs() {
       setSavedBlogs(data.data.saved_blogs.data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (isError && error.status === 401) {
+      console.log("error", error);
+      Cookies.remove("key_stone_token");
+      router.push("/login");
+    }
+  }, [router, isError, error]);
 
   return (
     <div className="bg-primary-1 rounded-2xl">

@@ -9,6 +9,7 @@ export const authSlice = apiSlice?.injectEndpoints({
         body: data,
         formData: true,
       }),
+      invalidatesTags: ["Me"],
     }),
 
     register: builder.mutation({
@@ -17,6 +18,7 @@ export const authSlice = apiSlice?.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Me"],
     }),
 
     googleRedirectUrl: builder.query({
@@ -66,6 +68,7 @@ export const authSlice = apiSlice?.injectEndpoints({
         url: "/logout",
         method: "POST",
       }),
+      invalidatesTags: ["Me"],
     }),
 
     me: builder.query({
