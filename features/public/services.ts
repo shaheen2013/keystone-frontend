@@ -6,7 +6,10 @@ export const headerSlice = apiSlice?.injectEndpoints({
     getServices: builder.query({
       query: (q: any) => `/services${queryFormat(q)}`,
     }),
+    getServiceDetails: builder.query({
+      query: ({ slug }: any) => `/services/${slug}`,
+    }),
   }),
 });
 
-export const { useGetServicesQuery } = headerSlice;
+export const { useGetServicesQuery, useGetServiceDetailsQuery } = headerSlice;

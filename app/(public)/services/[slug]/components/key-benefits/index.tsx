@@ -1,4 +1,6 @@
-const KeyBenefits = ({ data }: { data: any }) => {
+import Image from "next/image";
+
+const KeyBenefits = ({ data, loading }: { data: any; loading: boolean }) => {
   const { title, benefits } = data;
   return (
     <section className="py-12 md:py-28 bg-primary-2">
@@ -7,19 +9,25 @@ const KeyBenefits = ({ data }: { data: any }) => {
           {title}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-          {benefits.map((benefit:any, index:any) => (
+          {benefits?.map((benefit: any, index: any) => (
             <div
               key={index}
               className="flex flex-col gap-4 md:gap-6 p-4 md:p-8 rounded-2xl border border-primary-7 bg-white"
             >
-              <div className="flex items-center justify-center bg-secondary-2 size-12 md:size-[72px] rounded-lg">
-                {
-                  <benefit.icon className="text-secondary-6 size-6 md:size-10" />
-                }
-              </div>
+              {benefit?.icon?.path && (
+                <div className="p-4 rounded-xl bg-white text-secondary-6">
+                  <Image
+                    src={benefit.icon.path}
+                    width={40}
+                    height={40}
+                    alt="benefit"
+                    className="size-10 object-cover object-center"
+                  />
+                </div>
+              )}
               <div className="flex flex-col gap-3 md:gap-4">
                 <h3 className="text-xl md:text-3xl font-bold text-gray-9">
-                  {benefit.title}
+                  {benefit.name}
                 </h3>
                 <p className="text-sm md:text-lg text-gray-9">
                   {benefit.description}

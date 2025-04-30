@@ -1,6 +1,12 @@
 import Image from "next/image";
 
-const WhyChooseKeystoneAbilitySupport = ({ data }: { data: any }) => {
+const WhyChooseKeystoneAbilitySupport = ({
+  data,
+  loading,
+}: {
+  data: any;
+  loading: boolean;
+}) => {
   const { title, reasons, image } = data;
   return (
     <section className="py-12 md:py-28 bg-white">
@@ -10,13 +16,13 @@ const WhyChooseKeystoneAbilitySupport = ({ data }: { data: any }) => {
             {title}
           </h3>
           <div className="flex flex-col gap-4">
-            {reasons.map((reason: any, index: any) => (
+            {reasons?.map((reason: any, index: any) => (
               <div
                 key={index}
                 className="p-4 md:p-8 flex flex-col gap-3 md:gap-4 bg-primary-2 rounded-2xl"
               >
                 <h4 className="text-xl md:text-2xl font-bold text-gray-9">
-                  {reason.title}
+                  {reason.name}
                 </h4>
                 <p className="text-sm md:text-lg text-gray-9">
                   {reason.description}

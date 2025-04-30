@@ -1,6 +1,14 @@
 import { cn } from "@/lib/utils";
 
-const OurProcess = ({ classes, data }: { classes?: any; data: any }) => {
+const OurProcess = ({
+  classes,
+  data,
+  loading,
+}: {
+  classes?: any;
+  data: any;
+  loading: boolean;
+}) => {
   const { title, steps } = data;
   return (
     <section className="py-12 md:py-28 bg-primary-2">
@@ -14,19 +22,19 @@ const OurProcess = ({ classes, data }: { classes?: any; data: any }) => {
             classes?.cards
           )}
         >
-          {steps.map((step: any, index: any) => (
+          {steps?.map((step: any, index: any) => (
             <div
               key={index}
               className="flex flex-col gap-4 md:gap-6 p-4 md:p-8 rounded-2xl border border-primary-7 bg-white"
             >
               <div className="flex items-center justify-center bg-secondary-2 size-12 md:size-[72px] rounded-lg">
                 <span className="text-secondary-6 font-bold text-2xl">
-                  {step.step}
+                  {index + 1}
                 </span>
               </div>
               <div className="flex flex-col gap-3 md:gap-4">
                 <h3 className="text-xl md:text-2xl font-bold text-gray-9">
-                  {step.title}
+                  {step.name}
                 </h3>
                 <p className="text-sm md:text-lg text-gray-9">
                   {step.description}
