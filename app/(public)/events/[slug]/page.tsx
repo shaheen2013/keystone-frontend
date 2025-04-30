@@ -31,9 +31,10 @@ export default function EventDetails({
     description: eventData?.short_brief,
     backgroundImage: eventData?.background_image?.path,
     startTime: eventData?.start_date,
-    type: "test",
+    type: eventData?.event_type?.name,
     location: eventData?.location,
     slug: eventData?.slug,
+    isJoined: eventData?.joined,
   };
 
   const aboutWorkshop = {

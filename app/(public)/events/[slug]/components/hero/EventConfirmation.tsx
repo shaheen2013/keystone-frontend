@@ -41,7 +41,13 @@ const EventContent = () => (
   </div>
 );
 
-const EventConfirmation = ({ slug }: { slug: string }) => {
+const EventConfirmation = ({
+  slug,
+  isJoined,
+}: {
+  slug: string;
+  isJoined: boolean;
+}) => {
   console.log("slug", slug);
 
   const router = useRouter();
@@ -130,7 +136,7 @@ const EventConfirmation = ({ slug }: { slug: string }) => {
     }
   };
 
-  if (isDesktop) {
+  if (isDesktop && !isJoined) {
     return (
       <Dialog open={open} onOpenChange={handleOpen}>
         <DialogTrigger asChild>{TriggerButton}</DialogTrigger>
@@ -144,14 +150,22 @@ const EventConfirmation = ({ slug }: { slug: string }) => {
   }
 
   return (
-    <Drawer open={open} onOpenChange={handleOpen}>
-      <DrawerTrigger asChild>{TriggerButton}</DrawerTrigger>
-      <DrawerContent className="sm:max-w-[425px] p-8 md:p-10">
-        <DialogTitle className="sr-only">Attend This Event</DialogTitle>
-        <EventContent />
-        <DrawerFooter className="p-0">{FooterButtons}</DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+    <>
+      {isJoined ? (
+        <Button variant="primary" className="w-full md:w-fit">
+          Attendance Confirmed
+        </Button>
+      ) : (
+        <Drawer open={open} onOpenChange={handleOpen}>
+          <DrawerTrigger asChild>{TriggerButton}</DrawerTrigger>
+          <DrawerContent className="sm:max-w-[425px] p-8 md:p-10">
+            <DialogTitle className="sr-only">Attend This Event</DialogTitle>
+            <EventContent />
+            <DrawerFooter className="p-0">{FooterButtons}</DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      )}
+    </>
   );
 };
 

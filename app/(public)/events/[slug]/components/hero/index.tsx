@@ -19,6 +19,7 @@ export default function Hero({
     location,
     type,
     slug,
+    isJoined,
   } = data;
 
   if (loading) {
@@ -57,7 +58,7 @@ export default function Hero({
               {type}
             </span>
           </div>
-          <EventConfirmation slug={slug} />
+          <EventConfirmation slug={slug} isJoined={isJoined} />
         </div>
       </div>
     </section>
