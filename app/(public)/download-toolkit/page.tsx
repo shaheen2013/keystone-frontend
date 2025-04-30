@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import GetTouch from "@/components/partials/get-touch";
 import Toolkits from "./components/toolkits";
 import { Suspense } from "react";
-import ExploreOtherServices from "@/components/partials/explore-other-services";
+import ExploreServices from "@/components/partials/explore-other-services";
 
 export const metadata: Metadata = {
   title: "Download Toolkits | Keystone",
@@ -16,7 +16,7 @@ export default function DownloadToolkitsPage() {
       <Suspense fallback={<div className="h-3"></div>}>
         <Toolkits />
       </Suspense>
-      <ExploreOtherServices title="Explore Recommended Services" />
+      <ExploreServices title="Explore Recommended Services" recommended />
       <GetTouch />
     </>
   );

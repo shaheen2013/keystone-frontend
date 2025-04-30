@@ -12,8 +12,8 @@ import KeyBenefits from "./components/key-benefits";
 import WhyChooseKeystoneAbilitySupport from "./components/why-choose-keystone-ability-support";
 import Testimonials from "@/components/partials/testimonials";
 import GetTouch from "@/components/partials/get-touch";
-import ExploreOtherServices from "@/components/partials/explore-other-services";
 import OurProcess from "@/components/partials/our-process";
+import ExploreServices from "@/components/partials/explore-other-services";
 
 export const metadata: Metadata = {
   title: "Service Details | Keystone",
@@ -36,7 +36,7 @@ export default function ServiceDetails() {
         subtitle="Real stories from families we've helped—because every child deserves the right support and opportunities to thrive."
         classes={{ root: "bg-white", card: "bg-primary-1" }}
       />
-      <ExploreOtherServices title="Explore Other Services" />
+      <ExploreServices title="Explore Other Services" />
       <GetTouch />
     </>
   );

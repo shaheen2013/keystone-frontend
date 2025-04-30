@@ -227,3 +227,12 @@ export const faqsData = {
     },
   ],
 };
+
+export const contactUSSectionData = {
+  title: "Can’t Find Your Answer?",
+  description: "Our team is here to help. Reach out to us with your questions.",
+  cta: {
+    text: "Contact Us",
+    link: "/contact-us",
+  },
+};

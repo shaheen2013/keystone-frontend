@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { heroData } from "../events/constant";
 import CenteredHero from "@/components/partials/Hero/centered-hero";
 import Support from "@/components/partials/support";
-import { supportSectionData } from "@/static/homepage";
 import Faqs from "./components/faqs";
+import { contactUSSectionData } from "./constant";
 
 export const metadata: Metadata = {
   title: "FAQs | Keystone",
@@ -16,7 +16,7 @@ export default function FaqsPage() {
     <>
       <CenteredHero data={heroData} />
       <Faqs />
-      <Support data={supportSectionData} />
+      <Support data={contactUSSectionData} loading={false} />
     </>
   );
 }

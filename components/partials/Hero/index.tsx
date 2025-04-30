@@ -50,7 +50,7 @@ export default function HeroSection({
               <div
                 className={cn(
                   "flex flex-col md:flex-row gap-4 mt-8 md:mt-12",
-                  buttons.length === 1 && "items-start"
+                  buttons?.length === 1 && "items-start"
                 )}
               >
                 {buttons?.map((item: any, index: number) => (

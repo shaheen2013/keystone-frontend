@@ -18,6 +18,7 @@ const ExploreRecommendBlogs = () => {
   const [blogsData, saveBlogsData] = useState([]);
   const { data, isLoading, isFetching }: any = useGetblogsQuery({
     limit: CAROUSEL_LIMIT,
+    recommended: true,
   });
 
   const loading = isLoading || isFetching;

@@ -3,12 +3,14 @@ import { HeroData } from "./types";
 export default function CenteredHero({ data }: { data: HeroData }) {
   const { title, subtitle, banner } = data;
 
+  console.log("banner", banner);
+
   return (
     <section
       className="relative w-full h-[480px] flex items-center justify-center"
       style={{
         background: `linear-gradient(0deg, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.70) 100%))`,
-        backgroundImage: `url(${banner})`,
+        backgroundImage: `url(${typeof banner === "string" ? banner : banner.src})`,
         backgroundSize: "cover",
         backgroundPosition: "90% center",
         backgroundRepeat: "no-repeat",

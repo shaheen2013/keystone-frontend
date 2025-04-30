@@ -16,7 +16,7 @@ const ServiceCard = ({
   return (
     <div
       className={cn(
-        "bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start max-w-[512px] w-full",
+        "bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start max-w-[512px] w-full h-full",
         classes?.root
       )}
     >
