@@ -220,6 +220,10 @@
   gap: 6px;
 }
 
+.fc-h-event {
+  border: none !important;
+}
+
 @media screen and (max-width: 768px) {
   .fc-daygrid-day-events {
     /* flex-direction: row !important;
