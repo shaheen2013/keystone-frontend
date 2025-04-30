@@ -8,6 +8,7 @@ import MeetOurSpeaker from "../components/meet-our-speaker";
 import ExploreEvents from "@/components/partials/explore-events";
 import GetTouch from "@/components/partials/get-touch";
 import { useGetEventDetailsQuery } from "@/features/public/eventSlice";
+import NotFound from "@/components/partials/dynamic-page-not-found";
 
 export default function EventDetails({
   params,
@@ -16,9 +17,10 @@ export default function EventDetails({
 }) {
   const { slug } = use(params);
 
-  const { data, isLoading, isFetching }: any = useGetEventDetailsQuery({
-    slug,
-  });
+  const { data, isLoading, isFetching, isError, error }: any =
+    useGetEventDetailsQuery({
+      slug,
+    });
   // Show skeletons while loading
   const loading = isLoading || isFetching;
 
@@ -43,6 +45,11 @@ export default function EventDetails({
   const eventAgenda = eventData?.agenda || [];
 
   const speakers = eventData?.event_speakers || [];
+
+  // Handle 404 errors using your custom component
+  if (isError && error?.status === 404) {
+    return <NotFound />;
+  }
 
   return (
     <>

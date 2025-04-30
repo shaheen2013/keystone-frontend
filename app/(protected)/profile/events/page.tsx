@@ -16,15 +16,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/shadcn/accordion";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/shadcn/tooltip";
+
 import { Badge } from "@/components/shadcn/badge";
-import { Calendar, MapPin, Clock, AlertCircle } from "lucide-react";
+import { MapPin, Clock, AlertCircle } from "lucide-react";
 import { Person } from "@/components/icons";
+import Image from "next/image";
 
 export default function AccountEvents() {
   const [page, setPage] = useState(1);
@@ -42,9 +38,13 @@ export default function AccountEvents() {
     const endMoment = moment(end);
 
     if (startMoment.isSame(endMoment, "day")) {
-      return `${startMoment.format("ddd, MMM D [at] h:mm A")} - ${endMoment.format("h:mm A")}`;
+      return `${startMoment.format(
+        "ddd, MMM D [at] h:mm A"
+      )} - ${endMoment.format("h:mm A")}`;
     }
-    return `${startMoment.format("ddd, MMM D [at] h:mm A")} - ${endMoment.format("ddd, MMM D [at] h:mm A")}`;
+    return `${startMoment.format(
+      "ddd, MMM D [at] h:mm A"
+    )} - ${endMoment.format("ddd, MMM D [at] h:mm A")}`;
   };
 
   const formatTime = (date: string) => moment(date).format("h:mm A");
@@ -62,9 +62,9 @@ export default function AccountEvents() {
       case "Active":
         return <Badge className="bg-primary-3 text-primary-9">Active</Badge>;
       case "Cancelled":
-        return <Badge variant="secondary" >Cancelled</Badge>;
+        return <Badge variant="secondary">Cancelled</Badge>;
       case "Ended":
-        return <Badge variant="secondary" >Cancelled</Badge>;
+        return <Badge variant="secondary">Cancelled</Badge>;
       default:
         return <Badge className="bg-gray-2 text-gray-8">Unknown</Badge>;
     }
@@ -114,21 +114,21 @@ export default function AccountEvents() {
                         </h3>
                         <div className="shrink-0 flex items-center gap-4">
                           {renderEventStatusBadge(status)}
-                          <p className={cn(
-                            "text-sm md:text-base",
-                            isActive ? "text-primary-7" : "text-gray-5"
-                          )}>
+                          <p
+                            className={cn(
+                              "text-sm md:text-base",
+                              isActive ? "text-primary-7" : "text-gray-5"
+                            )}
+                          >
                             {formatEventDates(event.start_date, event.end_date)}
                           </p>
-
-
                         </div>
                       </div>
                     </AccordionTrigger>
 
                     <AccordionContent className="px-6 pb-6 pt-0 space-y-6">
+                      <hr />
                       <div className="grid md:grid-cols-2 gap-6 pt-4">
-
                         <div>
                           <h4 className="font-medium text-primary-8 mb-3 flex items-center gap-2">
                             <MapPin className="w-4 h-4 text-primary-6" />
@@ -136,12 +136,17 @@ export default function AccountEvents() {
                           </h4>
                           <div className="space-y-3">
                             <p className="text-sm text-primary-7">
-                              <span className="font-medium text-primary-8">Type:</span> {event.event_type || "N/A"}
+                              <span className="font-medium text-primary-8">
+                                Type:
+                              </span>{" "}
+                              {event.event_type.name || "N/A"}
                             </p>
                             <p className="text-sm text-primary-7">
-                              <span className="font-medium text-primary-8">Location:</span> {event.location || "Online"}
+                              <span className="font-medium text-primary-8">
+                                Location:
+                              </span>{" "}
+                              {event.location || "Online"}
                             </p>
-
                           </div>
                         </div>
 
@@ -162,38 +167,50 @@ export default function AccountEvents() {
                               Join on Zoom
                             </Link>
                           </div>
-                        ) : <div></div>}
-
+                        ) : (
+                          <div></div>
+                        )}
 
                         <div>
                           <h4 className="font-medium text-primary-8 mb-3 flex items-center gap-2">
                             <Person className="w-4 h-4 text-primary-6" />
                             Speakers
                           </h4>
-                          {event.agenda?.length > 0 ? (
+                          {event?.event_speakers?.length > 0 ? (
                             <div className="space-y-3">
-                              {event.agenda.map((item: any, index: number) => (
-                                <div
-                                  key={index}
-                                  className="flex justify-between items-center p-3 bg-primary-2 rounded-lg border border-primary-3"
-                                >
-                                  <span className="font-medium text-sm text-primary-8">
-                                    {item.title}
-                                  </span>
-                                  <span className="text-xs text-primary-6">
-                                    {formatTime(item.start_time)} - {formatTime(item.end_time)}
-                                  </span>
-                                </div>
-                              ))}
+                              {event?.event_speakers?.map(
+                                (speaker: any, index: number) => (
+                                  <div
+                                    key={index}
+                                    className="flex justify-between items-center p-3 bg-primary-2 rounded-lg border border-primary-3"
+                                  >
+                                    <Image
+                                      src={
+                                        speaker?.profile_picture?.path ||
+                                        "/icons/user.png"
+                                      }
+                                      alt={speaker?.name}
+                                      width={20}
+                                      height={20}
+                                      className="size-5 rounded-full object-cover object-center bg-transparent"
+                                    />
+                                    <span className="font-medium text-sm text-primary-8">
+                                      {speaker.name}
+                                    </span>
+                                  </div>
+                                )
+                              )}
                             </div>
                           ) : (
-                            <p className="text-sm text-primary-6">No Speakers available</p>
+                            <p className="text-sm text-primary-6">
+                              No Speakers available
+                            </p>
                           )}
                         </div>
                         <div>
                           <h4 className="font-medium text-primary-8 mb-3 flex items-center gap-2">
                             <Clock className="w-4 h-4 text-primary-6" />
-                            Schedule
+                            Agenda
                           </h4>
                           {event.agenda?.length > 0 ? (
                             <div className="space-y-3">
@@ -206,13 +223,16 @@ export default function AccountEvents() {
                                     {item.title}
                                   </span>
                                   <span className="text-xs text-primary-6">
-                                    {formatTime(item.start_time)} - {formatTime(item.end_time)}
+                                    {formatTime(item.start_time)} -{" "}
+                                    {formatTime(item.end_time)}
                                   </span>
                                 </div>
                               ))}
                             </div>
                           ) : (
-                            <p className="text-sm text-primary-6">No agenda items available</p>
+                            <p className="text-sm text-primary-6">
+                              No agenda items available
+                            </p>
                           )}
                         </div>
                       </div>
@@ -229,7 +249,7 @@ export default function AccountEvents() {
             </Accordion>
           ) : (
             <div className="col-span-full text-center py-12 text-gray-5">
-              You haven't joined any events yet
+              You haven&#39;t not confirmed any events
             </div>
           )}
         </div>
