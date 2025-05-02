@@ -22,6 +22,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "keystoneability.com",
       },
+      {
+        hostname: "admin-staging.keystoneability.com",
+      },
     ],
   },
 };

@@ -30,7 +30,7 @@ const OurProcess = ({
           )}
         >
           {steps?.length === 0 ? (
-            <p className="col-span-full text-center">Not found</p>
+            <p className="col-span-full text-center">Not Found</p>
           ) : (
             <>
               {steps?.map((step: any, index: any) => (

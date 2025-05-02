@@ -14,6 +14,9 @@ const KeyBenefits = ({ data, loading }: { data: any; loading: boolean }) => {
           {title}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+          {benefits?.length === 0 && (
+            <div className="col-span-3 text-center">No Benefits Found</div>
+          )}
           {benefits?.map((benefit: any, index: any) => (
             <div
               key={index}

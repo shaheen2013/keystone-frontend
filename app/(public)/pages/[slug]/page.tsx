@@ -43,13 +43,8 @@ export default function DynamicPage({
   return (
     <>
       {/* Hero Section Skeleton */}
-      {loading ? (
-        <div className="w-full h-[400px] relative">
-          <Skeleton className="absolute inset-0 w-full h-full" />
-        </div>
-      ) : (
-        <CenteredHero data={heroData} />
-      )}
+
+      <CenteredHero data={heroData} loading={loading} />
 
       <div className="container py-12 md:py-28">
         <div className="grid grid-cols-1 md:grid-cols-[512px_1fr] gap-8">
