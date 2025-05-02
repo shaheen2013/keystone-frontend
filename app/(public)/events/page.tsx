@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 export default function Events() {
   return (
     <>
-      <CenteredHero data={heroData} />
-      <Suspense fallback={<div className="h-3"></div>}>
+      <CenteredHero data={heroData} loading={false} />
+      <Suspense>
         <EventsArea />
       </Suspense>
       <GetTouch />

@@ -47,6 +47,16 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
 
   return (
     <div className={clx}>
+      {testimonials?.length === 0 && (
+        <div className="w-full h-screen">
+          <Image
+            src="/assets/auth/carousel/welcome.svg"
+            alt="welcome"
+            fill
+            className="object-cover object-top h-full w-full"
+          />
+        </div>
+      )}
       <Carousel setApi={setApi} className="w-full h-screen">
         <CarouselContent>
           {testimonials?.map((carouselData: any, index: number) => (
