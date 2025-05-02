@@ -53,9 +53,9 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
             <CarouselItem key={index} className="relative h-screen">
               {
                 // Testimonial Image
-                carouselData?.image && (
+                carouselData?.background_image?.path && (
                   <Image
-                    src={carouselData.image}
+                    src={carouselData?.background_image?.path}
                     alt={`Testimonial ${index + 1}`}
                     fill
                     className="object-cover object-center h-full w-full"
