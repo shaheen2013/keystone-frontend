@@ -11,8 +11,16 @@ export default function Hero({
   data: any;
   loading: boolean;
 }) {
-  const { title, description, backgroundImage, startTime, location, type } =
-    data;
+  const {
+    title,
+    description,
+    backgroundImage,
+    startTime,
+    location,
+    type,
+    slug,
+    isJoined,
+  } = data;
 
   if (loading) {
     return <HeroSkeleton />;
@@ -20,7 +28,7 @@ export default function Hero({
 
   return (
     <section
-      className="relative w-full h-[788px] flex items-center justify-center"
+      className="relative w-full min-h-[788px] h-auto py-8 flex items-center justify-center"
       style={{
         background: `linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), 
                    linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.80) 22.5%, rgba(0, 0, 0, 0.00) 79.21%), 
@@ -50,7 +58,7 @@ export default function Hero({
               {type}
             </span>
           </div>
-          <EventConfirmation />
+          <EventConfirmation slug={slug} isJoined={isJoined} />
         </div>
       </div>
     </section>

@@ -1,55 +1,42 @@
 "use client";
 
+import Cookies from "js-cookie";
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
 import BlogCard from "@/components/shadcn/blog-card";
 import { BlogCardSkeleton, PaginationSkeleton } from "@/components/skeletons";
-import {
-  useGetSavedBlogsQuery,
-  useSaveToggleMutation,
-} from "@/features/public/blogSlice";
+import { useGetSavedBlogsQuery } from "@/features/public/blogSlice";
 import { PAGINATION_LIMIT } from "@/lib/constants";
+import { useRouter } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 
 export default function AccountSavedBlogs() {
+  const router = useRouter();
   const [page, setPage] = useState(1);
   const [savedBlogs, setSavedBlogs] = useState<any[]>([]);
 
-  const { data, isFetching, isLoading }: any = useGetSavedBlogsQuery({
-    page: page,
-    pagi_limit: PAGINATION_LIMIT,
-  });
-
-  const [saveToggle] = useSaveToggleMutation();
+  const { data, isFetching, isLoading, isError, error }: any =
+    useGetSavedBlogsQuery({
+      page: page,
+      pagi_limit: PAGINATION_LIMIT,
+    });
 
   const loading = isLoading || isFetching;
 
   const totalBlogs = data?.data?.saved_blogs?.total || 0;
-
-  const handleToggle = async (id: string) => {
-    // Store the blog being removed in case we need to revert
-    const blogToRemove = savedBlogs.find((blog) => blog.id === id);
-    try {
-      // Immediately update UI
-      setSavedBlogs((prevBlogs: any) =>
-        prevBlogs.filter((blog: any) => blog.id !== id)
-      );
-
-      // Send API request
-      await saveToggle({ blog_id: id }).unwrap();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      // Revert on error
-      if (blogToRemove) {
-        setSavedBlogs((prevBlogs: any) => [...prevBlogs, blogToRemove]);
-      }
-    }
-  };
 
   useEffect(() => {
     if (data?.data?.saved_blogs?.data) {
       setSavedBlogs(data.data.saved_blogs.data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (isError && error.status === 401) {
+      console.log("error", error);
+      Cookies.remove("key_stone_token");
+      router.push("/login");
+    }
+  }, [router, isError, error]);
 
   return (
     <div className="bg-primary-1 rounded-2xl">
@@ -75,7 +62,7 @@ export default function AccountSavedBlogs() {
                   image: "h-[230px] md:h-[214px]",
                   title: "text-xl md:text-xl font-semibold",
                 }}
-                handleToggle={handleToggle}
+                setBlogsData={setSavedBlogs}
               />
             ))
           ) : (
@@ -87,7 +74,7 @@ export default function AccountSavedBlogs() {
         <Suspense fallback={<div className="h-10" />}>
           {/* pagination area */}
           {loading ? (
-            <PaginationSkeleton className="mt-4" />
+            <PaginationSkeleton className="mt-4 col-span-full text-center" />
           ) : (
             <>
               {totalBlogs > PAGINATION_LIMIT && (

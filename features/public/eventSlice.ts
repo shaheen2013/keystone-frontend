@@ -9,7 +9,25 @@ export const eventsSlice = apiSlice?.injectEndpoints({
     getEventDetails: builder.query({
       query: ({ slug }: any) => `/events/${slug}`,
     }),
+    getEventTypes: builder.query({
+      query: () => `/event-types`,
+    }),
+    getJoinedEvents: builder.query({
+      query: (q: any) => `/joined-events${queryFormat(q)}`,
+    }),
+    confirmAttendance: builder.mutation({
+      query: ({ slug }: any) => ({
+        url: `/joined-events/${slug}`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useGetEventsQuery, useGetEventDetailsQuery } = eventsSlice;
+export const {
+  useGetEventsQuery,
+  useGetEventDetailsQuery,
+  useGetEventTypesQuery,
+  useConfirmAttendanceMutation,
+  useGetJoinedEventsQuery,
+} = eventsSlice;

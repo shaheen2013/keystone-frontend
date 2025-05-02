@@ -1,33 +1,153 @@
 "use client";
 
 import Image from "next/image";
+import Cookies from "js-cookie";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/shadcn/button";
 import { Input } from "@/components/shadcn/input";
+import { useMeQuery, useUpdateMeMutation } from "@/features/auth/authSlice";
+import { AccountOverviewSkeleton } from "./skeletons";
+import { useRouter } from "next/navigation";
+
+type FormValues = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  avatar?: File;
+};
 
 export default function AccountOverview() {
-  type FormValues = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    address: string;
-  };
+  const router = useRouter();
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { data, isLoading, isFetching, isError, error }: any = useMeQuery({});
+  const [
+    updateMe,
+    { isLoading: isUpdating, isError: isUpdatingError, error: updateError },
+  ]: any = useUpdateMeMutation();
 
-  const { handleSubmit, control } = useForm<FormValues>({
+  const loading = isLoading || isFetching;
+
+  const { handleSubmit, control, reset, setError } = useForm<FormValues>({
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
       phone: "",
       address: "",
     },
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+  useEffect(() => {
+    if (data) {
+      reset({
+        name: data?.name || "",
+        email: data?.email || "",
+        phone: data?.phone || "",
+        address: data?.address || "",
+      });
+      if (data?.avatar) {
+        setPreviewImage(data.avatar);
+      }
+    }
+  }, [data, reset]);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Check file size (2MB = 2 * 1024 * 1024 bytes)
+    const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
+    if (file.size > MAX_FILE_SIZE) {
+      setFileError(
+        "File size exceeds 2MB limit. Please choose a smaller file."
+      );
+      e.target.value = ""; // Clear the file input
+      return;
+    }
+
+    setFileError(null);
+
+    // Create preview URL if file is acceptable size
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewImage(reader.result as string);
+    };
+    reader.readAsDataURL(file);
   };
+
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
+
+  const onSubmit: SubmitHandler<FormValues> = async (formData) => {
+    const formPayload = new FormData();
+
+    // Append all form fields
+    formPayload.append("name", formData.name);
+    formPayload.append("email", formData.email);
+    formPayload.append("phone", formData.phone);
+    formPayload.append("address", formData.address);
+
+    // Append the image file if it exists
+    if (fileInputRef.current?.files?.[0]) {
+      formPayload.append("avatar", fileInputRef.current.files[0]);
+    }
+    // Log FormData contents properly
+    console.log("Form submitted with data:");
+    for (const [key, value] of formPayload.entries()) {
+      console.log(key, value);
+    }
+
+    try {
+      const res = await updateMe(formPayload).unwrap();
+      console.log("res", res);
+    } catch (error: any) {
+      const errors = error?.data?.errors;
+      if (errors.name?.length) {
+        setError("name", {
+          type: "manual",
+          message: errors.name.join(", "),
+        });
+      }
+      if (errors.email?.length) {
+        setError("email", {
+          type: "manual",
+          message: errors.email.join(", "),
+        });
+      }
+      if (errors.phone?.length) {
+        setError("phone", {
+          type: "manual",
+          message: errors.phone.join(", "),
+        });
+      }
+      if (errors.address?.length) {
+        setError("address", {
+          type: "manual",
+          message: errors.address.join(", "),
+        });
+      }
+      if (errors.avatar?.length) {
+        setFileError(errors.avatar.join(", "));
+      }
+    }
+  };
+  useEffect(() => {
+    if (
+      (isError && error.status === 401) ||
+      (isUpdatingError && updateError.status === 401)
+    ) {
+      console.log("error", error);
+      Cookies.remove("key_stone_token");
+      router.push("/login");
+    }
+  }, [router, isError, error, isUpdatingError, updateError]);
+
+  if (loading) return <AccountOverviewSkeleton />;
 
   return (
     <div className="bg-primary-1 rounded-2xl">
@@ -37,67 +157,67 @@ export default function AccountOverview() {
 
       {/* profile/upload */}
       <div className="lg:p-8 p-4">
-        {/* image/button */}
-        <div className="flex gap-6 items-end lg:mb-12 mb-6">
-          <Image
-            src="https://dummyimage.com/140x140"
-            alt="profile picture"
-            height={140}
-            width={140}
-            className="rounded-lg"
-          />
+        {/* Hidden file input */}
 
-          <Button variant="secondary">
-            <span>Upload</span>
-            <Image
-              src="/assets/profile/upload.svg"
-              alt="upload icon"
-              height={24}
-              width={24}
-            />
-          </Button>
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleImageChange}
+          accept="image/*"
+          className="hidden"
+          title="Upload your profile picture"
+        />
+
+        {/* image/button */}
+        <div className="lg:mb-12 mb-6">
+          <div className="flex gap-6 items-end ">
+            {(previewImage || data?.avatar) && (
+              <Image
+                src={previewImage || data.avatar}
+                alt="profile picture"
+                height={140}
+                width={140}
+                className="rounded-lg object-cover h-36 w-36 aspect-square"
+              />
+            )}
+
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={triggerFileInput}
+            >
+              <span>Upload</span>
+              <Image
+                src="/assets/profile/upload.svg"
+                alt="upload icon"
+                height={24}
+                width={24}
+              />
+            </Button>
+          </div>
+          {fileError && (
+            <p className="text-red-500 text-sm mt-3">{fileError}</p>
+          )}
         </div>
 
         {/* form */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-2 gap-x-6 gap-y-4 lg:mb-12 mb-6">
-            {/* first name */}
-            <div className="lg:col-span-1 col-span-2">
-              <label className="mb-1 block">First Name</label>
+            {/*  name */}
+            <div className="col-span-2">
+              <label className="mb-1 block">Name</label>
               <Controller
                 control={control}
-                name="firstName"
-                rules={{ required: "First name is required" }}
+                name="name"
+                rules={{ required: "name is required" }}
                 render={({
                   field: { onChange, value, onBlur },
                   fieldState: { error },
                 }) => (
                   <Input
+                    type="text"
                     className="bg-white"
-                    placeholder="Enter first name"
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
-                    errorText={error?.message}
-                  />
-                )}
-              />
-            </div>
-
-            {/* last name */}
-            <div className="lg:col-span-1 col-span-2">
-              <label className="mb-1 block">Last Name</label>
-              <Controller
-                control={control}
-                name="lastName"
-                rules={{ required: "Last name is required" }}
-                render={({
-                  field: { onChange, value, onBlur },
-                  fieldState: { error },
-                }) => (
-                  <Input
-                    className="bg-white"
-                    placeholder="Enter last name"
+                    placeholder="Enter name"
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
@@ -127,6 +247,7 @@ export default function AccountOverview() {
                   fieldState: { error },
                 }) => (
                   <Input
+                    type="email"
                     className="bg-white"
                     placeholder="Enter email address"
                     onChange={onChange}
@@ -144,14 +265,14 @@ export default function AccountOverview() {
               <Controller
                 control={control}
                 name="phone"
-                rules={{ required: "Phone number is required" }}
                 render={({
                   field: { onChange, value, onBlur },
                   fieldState: { error },
                 }) => (
                   <Input
+                    type="tel"
                     className="bg-white"
-                    placeholder="(123) 456-7890"
+                    placeholder="Enter your phone number"
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
@@ -167,14 +288,14 @@ export default function AccountOverview() {
               <Controller
                 control={control}
                 name="address"
-                rules={{ required: "Address is required" }}
                 render={({
                   field: { onChange, value, onBlur },
                   fieldState: { error },
                 }) => (
                   <Input
+                    type="text"
                     className="bg-white"
-                    placeholder="(123) 456-7890"
+                    placeholder="Enter your address"
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
@@ -184,7 +305,36 @@ export default function AccountOverview() {
               />
             </div>
           </div>
-          <Button variant="secondary">Save Changes</Button>
+
+          <Button variant="secondary" type="submit" disabled={isUpdating}>
+            {isUpdating ? (
+              <span className="flex items-center justify-center">
+                <svg
+                  className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Updating...
+              </span>
+            ) : (
+              "Update"
+            )}
+          </Button>
         </form>
       </div>
     </div>

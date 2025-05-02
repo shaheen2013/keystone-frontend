@@ -5,7 +5,7 @@ export const contactFormSlice = apiSlice?.injectEndpoints({
     contact: builder.mutation({
       query: (data: any) => ({
         method: "POST",
-        url: `/contuct-us`,
+        url: `/contact-us`,
         body: data,
       }),
       // transformErrorResponse: (response: any) => {

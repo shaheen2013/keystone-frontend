@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import Cookies from "js-cookie";
 
 import { cn } from "@/lib/utils";
 import {
@@ -22,7 +21,6 @@ export default function ProfileLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [allowed, setAllowed] = useState(false);
 
   const menuItems = [
     { name: "Profile Overview", path: "/profile/overview" },
@@ -30,18 +28,6 @@ export default function ProfileLayout({
     { name: "Saved Blogs", path: "/profile/saved-blogs" },
     { name: "Password", path: "/profile/password" },
   ];
-
-  useEffect(() => {
-    const token = Cookies.get("key_stone_token");
-
-    if (!token) {
-      router.replace("/login");
-    } else {
-      setAllowed(true);
-    }
-  }, [router]);
-
-  if (!allowed) return null;
 
   return (
     <PublicLayout>

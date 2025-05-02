@@ -1,24 +1,81 @@
+import Cookies from "js-cookie";
 import Image from "next/image";
 import { Delete, Heart, HeartFilled } from "../icons";
 import { cn } from "@/lib/utils";
 import moment from "moment";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSaveToggleMutation } from "@/features/public/blogSlice";
 
 const BlogCard = ({
   userPanel,
   article,
   classes,
-  handleToggle,
+  setBlogsData,
 }: {
   userPanel?: boolean;
   article: any;
-  handleToggle: (id: string) => void;
   classes?: {
     root?: string;
     image?: string;
     title?: string;
   };
+  setBlogsData?: any;
 }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [saveToggle] = useSaveToggleMutation();
+
+  const handleToggle = async (slug: string) => {
+    try {
+      //  immediately update UI
+      setBlogsData((prevBlogs: any) =>
+        prevBlogs.map((blog: any) =>
+          blog.slug === slug ? { ...blog, is_saved: !blog.is_saved } : blog
+        )
+      );
+
+      // Send API request
+      await saveToggle({ blog_slug: slug }).unwrap();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error: any) {
+      console.log("err", error);
+
+      const status = (error as any)?.status || (error as any)?.originalStatus;
+      if (status === 401) {
+        handleunAthorized();
+      }
+      // Revert on error
+      setBlogsData((prevBlogs: any) =>
+        prevBlogs.map((blog: any) =>
+          blog.slug === slug ? { ...blog, is_saved: !blog.is_saved } : blog
+        )
+      );
+    }
+  };
+
+  const handleClick = () => {
+    const token = Cookies.get("key_stone_token");
+
+    if (!token) {
+      // Get current URL with query parameters
+      const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
+      // Encode it for safe URL passing
+      const returnUrl = encodeURIComponent(currentUrl);
+      router.replace(`/login?returnUrl=${returnUrl}`);
+    } else {
+      handleToggle(article.slug);
+    }
+  };
+
+  const handleunAthorized = () => {
+    // Get current URL with query parameters
+    const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
+    // Encode it for safe URL passing
+    const returnUrl = encodeURIComponent(currentUrl);
+    router.replace(`/login?returnUrl=${returnUrl}`);
+  };
   return (
     <div
       className={cn(
@@ -43,7 +100,7 @@ const BlogCard = ({
         )}
         <div
           className="absolute top-4 right-4 rounded-xl py-2.5 px-6 flex gap-2 items-center cursor-pointer transition-all bg-white"
-          onClick={() => handleToggle(article.id)}
+          onClick={handleClick}
         >
           {userPanel ? (
             <>
@@ -74,7 +131,7 @@ const BlogCard = ({
         </div>
         <Link
           className={cn(
-            "text-gray-9 text-xl md:text-3xl font-bold",
+            "text-gray-9 text-xl md:text-3xl font-bold line-clamp-2",
             classes?.title
           )}
           href={`/blogs/${article.slug}`}

@@ -1,18 +1,25 @@
+import { CenteredHeroSkeleton } from "./skeletons";
 import { HeroData } from "./types";
 
-export default function CenteredHero({ data }: { data: HeroData }) {
+export default function CenteredHero({
+  data,
+  loading,
+}: {
+  data: HeroData;
+  loading: boolean;
+}) {
   const { title, subtitle, banner } = data;
+
+  if (loading) {
+    return <CenteredHeroSkeleton />;
+  }
 
   return (
     <section
-      className="relative w-full h-[480px] flex items-center justify-center"
+      className="relative w-full min-h-[480px] py-4 flex items-center justify-center"
       style={{
-        background: `linear-gradient(0deg, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.70) 100%))`,
-        backgroundImage: `url(${banner})`,
-        backgroundSize: "cover",
-        backgroundPosition: "90% center",
-        backgroundRepeat: "no-repeat",
-        backgroundColor: "#000",
+        background: `linear-gradient(0deg, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.70) 100%), 
+                   url(${typeof banner === "string" ? banner : banner.src}) lightgray 50% / cover no-repeat`,
       }}
     >
       <div className="container">

@@ -8,7 +8,7 @@ import CenteredHero from "@/components/partials/Hero/centered-hero";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Service Details | Keystone",
+  title: "Events | Keystone",
   description:
     "A platform for online communities, the Disability Platform, and Atypical Advantage",
 };
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 export default function Events() {
   return (
     <>
-      <CenteredHero data={heroData} />
-      <Suspense fallback={<div>Loading...</div>}>
+      <CenteredHero data={heroData} loading={false} />
+      <Suspense>
         <EventsArea />
       </Suspense>
       <GetTouch />

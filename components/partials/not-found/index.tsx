@@ -14,7 +14,7 @@ const NotFound = ({ data }: any) => {
         />
       </div>
       <h4
-        className="text-gray-9 text-2xl md:text-5xl font-bold mb-6"
+        className=" text-gray-9 text-2xl md:text-5xl font-bold mb-6"
         dangerouslySetInnerHTML={{ __html: data.title }}
       />
       {data.description && (

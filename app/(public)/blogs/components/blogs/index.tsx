@@ -21,7 +21,6 @@ import PaginationWrapper from "@/components/partials/pagination-wrapper";
 import {
   useGetblogscategoriesQuery,
   useGetblogsQuery,
-  useSaveToggleMutation,
 } from "@/features/public/blogSlice";
 import BlogCardSkeleton from "@/components/skeletons/blog-card";
 import { PAGINATION_LIMIT } from "@/lib/constants";
@@ -63,8 +62,6 @@ const Blogs = () => {
 
   const { data: categoriesData }: any = useGetblogscategoriesQuery({});
 
-  const [saveToggle] = useSaveToggleMutation();
-
   const loading = isLoading || isFetching;
   const totalBlogs = data?.data?.blogs?.total || 0;
   const categories = categoriesData?.data.blog_categories || [];
@@ -98,31 +95,10 @@ const Blogs = () => {
 
   useEffect(() => {
     if (data?.data?.blogs?.data) {
-      setBlogsData(data.data.blogs.data);
+      setBlogsData?.(data?.data?.blogs?.data);
     }
   }, [data]);
 
-  const handleToggle = async (id: string) => {
-    try {
-      //  immediately update UI
-      setBlogsData((prevBlogs: any) =>
-        prevBlogs.map((blog: any) =>
-          blog.id === id ? { ...blog, is_saved: !blog.is_saved } : blog
-        )
-      );
-
-      // Send API request
-      await saveToggle({ blog_id: id }).unwrap();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      // Revert on error
-      setBlogsData((prevBlogs: any) =>
-        prevBlogs.map((blog: any) =>
-          blog.id === id ? { ...blog, is_saved: !blog.is_saved } : blog
-        )
-      );
-    }
-  };
   return (
     <>
       <section className="py-12 md:py-28">
@@ -184,7 +160,7 @@ const Blogs = () => {
                 <BlogCard
                   key={blog.id}
                   article={blog}
-                  handleToggle={handleToggle}
+                  setBlogsData={setBlogsData}
                 />
               ))
             ) : (
@@ -198,7 +174,7 @@ const Blogs = () => {
 
           {/* pagination area */}
           {loading ? (
-            <PaginationSkeleton className="mt-4" />
+            <PaginationSkeleton className="mt-4 col-span-full text-center" />
           ) : (
             <>
               {totalBlogs > PAGINATION_LIMIT && (

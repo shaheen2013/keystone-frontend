@@ -1,7 +1,19 @@
 import YoutubeVideoPlayer from "@/components/partials/youtube-player";
+import { AboutOurServiceSkeleton } from "./skeletons/AboutOurServiceSkeleton";
 
-const AboutOurService = ({ data }: { data: any }) => {
-  const { url, title, description } = data;
+const AboutOurService = ({
+  data,
+  loading,
+}: {
+  data: any;
+  loading: boolean;
+}) => {
+  const { videoUrl, title, about } = data;
+
+  if (loading) {
+    return <AboutOurServiceSkeleton />;
+  }
+
   return (
     <section className="py-12 md:py-28 bg-white">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
@@ -9,10 +21,13 @@ const AboutOurService = ({ data }: { data: any }) => {
           <h3 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold">
             {title}
           </h3>
-          <p className="mb-8 md:mb-12 text-base md:text-xl">{description}</p>
+          <div
+            className="prose mb-6 md:mb-8"
+            dangerouslySetInnerHTML={{ __html: about }}
+          />
         </div>
-        <div className="max-w-[776px] w-full min-h-60">
-          <YoutubeVideoPlayer url={url} />
+        <div className="max-w-[776px] w-full h-60 md:h-[400px] rounded-xl overflow-hidden">
+          <YoutubeVideoPlayer url={videoUrl} />
         </div>
       </div>
     </section>

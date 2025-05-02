@@ -1,11 +1,23 @@
-import { KeystoneAbilitySupportDataType } from "./types";
+"use client";
 
-const KeyStoneAbilitySupport = ({
-  data,
-}: {
-  data: KeystoneAbilitySupportDataType;
-}) => {
-  const { title, description, features } = data;
+import { useGetAbilitySupportsQuery } from "@/features/public/abilitySupport";
+import { KeyStoneAbilitySupportSkeleton } from "./skeletons";
+
+const KeyStoneAbilitySupport = () => {
+  const { data, isLoading, isFetching }: any = useGetAbilitySupportsQuery({});
+  const loading = isLoading || isFetching;
+
+  const abilityData = data?.data?.ability_supports;
+
+  if (loading) {
+    return <KeyStoneAbilitySupportSkeleton />;
+  }
+
+  if (!abilityData) {
+    return null;
+  }
+
+  const { title, description, ability_supports } = abilityData;
 
   return (
     <section className="py-12 md:py-28 bg-primary-2">
@@ -19,16 +31,16 @@ const KeyStoneAbilitySupport = ({
           </p>
         </div>
         <div className="grid  grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          {features.map((feature, index) => (
+          {ability_supports.map((ability: any, index: number) => (
             <div
               key={index}
               className="bg-white p-4 md:p-8 rounded-2xl border border-primary-7 flex flex-col gap-4"
             >
               <h4 className="text-gray-9 text-xl md:text-2xl font-bold">
-                {feature.title}
+                {ability.name}
               </h4>
               <p className="text-gray-7 text-sm md:text-lg line-clamp-3">
-                {feature.description}
+                {ability.description}
               </p>
             </div>
           ))}

@@ -11,14 +11,12 @@ export const apiSlice = createApi({
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
-
-      headers.set("Content-Type", "application/json");
       headers.set("accept", "application/json");
 
       return headers;
     },
     credentials: "include",
   }),
-  tagTypes: [],
+  tagTypes: ["Me"],
   endpoints: () => ({}),
 });

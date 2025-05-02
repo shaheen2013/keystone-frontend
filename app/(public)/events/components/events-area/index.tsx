@@ -1,100 +1,76 @@
 "use client";
 
 import React, { useState } from "react";
-import { EventContentArg } from "@fullcalendar/core";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import { eventTypes, INITIAL_EVENTS, services } from "./constant";
 import { Button } from "@/components/shadcn/button";
-import { Checkbox } from "@/components/shadcn/checkbox";
-import { Label } from "@/components/shadcn/label";
 import { Input } from "@/components/shadcn/input";
 import { Search } from "@/components/icons";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import PaginationWrapper from "@/components/partials/pagination-wrapper";
-import { allUpcomingEventsData, events } from "../../constant";
 import EventCard from "@/components/shadcn/event-card";
 import ExploreEvents from "@/components/partials/explore-events";
 import AllUpComingEvents from "../all-upcoming-events";
 import SearchDrawer from "./components/search-drawer";
 import FilterDrawer from "./components/filter-drawer";
+import { useDebounceCallback } from "usehooks-ts";
+import { PAGINATION_LIMIT } from "@/lib/constants";
+import { useGetEventsQuery } from "@/features/public/eventSlice";
+import EventTypes from "./components/event-type";
+import Services from "./components/services";
+import CalenderView from "./components/calender-view";
+import NotFound from "@/components/partials/not-found";
+import EventCardSkeleton from "@/components/skeletons/event-card";
+import { PaginationSkeleton } from "@/components/skeletons";
 
 const EventsArea = () => {
-  const pathname = usePathname();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [search, setSearch] = useState(searchParams.get("search") || "");
-  const [page, setPage] = useState(searchParams.get("page") || 1);
+  const [inputValue, setInputValue] = useState("");
 
-  console.log(searchParams.get("type"));
+  // State for filters
+  const [search, setSearch] = useState("");
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [selectedEventTypes, setSelectedEventTypes] = useState<string[]>([]);
+  const [page, setPage] = useState(1);
+
+  const isFiltered =
+    search || selectedServices?.length || selectedEventTypes?.length;
+
+  console.log("isFiltered", isFiltered);
+
+  // Debounce the search input with 500ms delay
+  const debouncedSearch = useDebounceCallback(setSearch, 500);
+
+  // Fetch blogs data using state values
+
+  const { data, isLoading, isFetching }: any = useGetEventsQuery(
+    {
+      query: search,
+      page: page,
+      pagi_limit: PAGINATION_LIMIT,
+      service_ids: selectedServices,
+      event_type_ids: selectedEventTypes,
+    },
+    {
+      skip: !isFiltered,
+    }
+  );
+
+  const loading = isFetching || isLoading;
+
+  const filteredEvents = data?.data?.events?.data || [];
+
+  console.log("filteredEvents", filteredEvents);
+
+  const filteredEventsCount = data?.data?.events?.total || 0;
 
   // Debounced search value
   const handleSearch = (value: string) => {
-    setSearch(value);
-    updateUrlParams("event", value);
+    setInputValue(value);
+    debouncedSearch(value);
+    setPage(1);
   };
-
-  // Function to update URL parameters
-  const updateUrlParams = (key: string, value: string | null) => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (value) {
-      params.set(key, value);
-    } else {
-      params.delete(key);
-    }
-
-    router.push(`?${params.toString()}`, { scroll: false });
-  };
-
-  function updateUrlsParamsFilter(key: string, value: string | null) {
-    const searchParams = new URLSearchParams(window.location.search);
-
-    if (!value) return; // Prevent null values
-
-    // Get existing values for the key
-    let values = searchParams.getAll(key);
-
-    if (values.includes(value)) {
-      // Remove value if already present (unchecked)
-      values = values.filter((v) => v !== value);
-    } else {
-      // Add value if not present (checked)
-      values.push(value);
-    }
-
-    // Reset the key and update with new values
-    searchParams.delete(key);
-    values.forEach((v) => searchParams.append(key, v));
-
-    // Push the updated URL
-    router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
-  }
-
-  const handleEventClick = (clickInfo: any) => {
-    console.log("Event Clicked", clickInfo.event.id);
-  };
-
-  const handleEvents = () => {};
 
   const handleResetFilter = () => {
-    const searchParams = new URLSearchParams(window.location.search);
-
-    // Keep "page" and "event", remove "type" and "service"
-    searchParams.delete("type");
-    searchParams.delete("service");
-
-    // Push updated URL
-    router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
-  };
-
-  const handleDateClick = (info: any) => {
-    console.log("Date Clicked", info);
-
-    // const selectedDate = info.dateStr;
-    // const eventsOnDate = INITIAL_EVENTS.filter((event) =>
-    //   event?.start?.includes(selectedDate)
-    // );
+    setSearch("");
+    setSelectedServices([]);
+    setSelectedEventTypes([]);
   };
 
   return (
@@ -102,27 +78,28 @@ const EventsArea = () => {
       <section className="py-12 md:py-28">
         <div className="container flex flex-col gap-6 md:gap-12">
           <div className="flex justify-between items-center gap-4 md:gap-8">
-            <h3 className="text-2xl md:text-4xl font-semibold text-gray-9 ">
-              {search ? "Search Results" : "Upcoming Events"}
+            <h3 className="text-2xl md:text-4xl font-semibold text-gray-9">
+              {isFiltered ? "Search Results" : "Upcoming Events"}
             </h3>
             <Input
               placeholder="Search by event name"
               classes={{ root: "hidden md:block w-7/12 justify-self-end" }}
               endIcon={<Search className="text-gray-7" />}
-              value={search}
+              value={inputValue}
               onChange={(event) => handleSearch(event.target.value)}
             />
             <div className="flex gap-2 md:hidden">
-              <SearchDrawer
-                search={search}
-                setSearch={setSearch}
-                searchParams={searchParams}
+              <SearchDrawer setSearch={setSearch} />
+              <FilterDrawer
+                selectedServices={selectedServices}
+                setSelectedServices={setSelectedServices}
+                selectedEventTypes={selectedEventTypes}
+                setSelectedEventTypes={setSelectedEventTypes}
+                handleResetFilter={handleResetFilter}
               />
-              <FilterDrawer />
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-8 items-start">
-            {/* {renderSidebar(weekendsVisible, handleWeekendsToggle, currentEvents)} */}
             {/* filter area */}
             <div className="hidden md:block bg-primary-1 rounded-xl overflow-hidden">
               <div className="p-6 bg-primary-2 flex items-center justify-between ">
@@ -135,137 +112,75 @@ const EventsArea = () => {
                   Reset
                 </Button>
               </div>
-              <div className="m-6 bg-white rounded-xl">
-                <div className="flex flex-col">
-                  <h3 className="text-gray-9 text-lg font-semibold px-5 py-3">
-                    Event Type
-                  </h3>
-                  <hr className="border-gray-2" />
-                  {eventTypes.map((eventType, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center space-x-2 px-5 py-3"
-                    >
-                      <Checkbox
-                        id={eventType}
-                        checked={searchParams
-                          .getAll("type")
-                          .includes(eventType)}
-                        onCheckedChange={() =>
-                          updateUrlsParamsFilter("type", eventType)
-                        }
-                        variant="secondary"
-                      />
-                      <Label
-                        htmlFor={eventType}
-                        className="text-lg text-gray-500"
-                      >
-                        {eventType}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="m-6 bg-white rounded-xl">
-                <div className="flex flex-col">
-                  <h3 className="text-gray-9 text-lg font-semibold px-5 py-3">
-                    Services
-                  </h3>
-                  <hr className="border-gray-2" />
-                  {services.map((service, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center space-x-2 px-5 py-3"
-                    >
-                      <Checkbox
-                        id={service}
-                        variant="secondary"
-                        checked={searchParams
-                          .getAll("service")
-                          .includes(service)}
-                        onCheckedChange={() =>
-                          updateUrlsParamsFilter("service", service)
-                        }
-                      />
-                      <Label htmlFor={service} className="text-lg text-gray-5">
-                        {service}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* calender area */}
-            {!search && (
-              <FullCalendar
-                plugins={[dayGridPlugin]}
-                headerToolbar={{
-                  left: "prev",
-                  center: "title",
-                  right: "next",
-                }}
-                height="820px"
-                initialView="dayGridMonth"
-                selectable={true}
-                dayMaxEvents={true}
-                initialEvents={INITIAL_EVENTS}
-                eventContent={renderEventContent}
-                eventClick={handleEventClick}
-                eventsSet={handleEvents}
-                eventTextColor="#2B2B2B"
-                datesSet={handleDateClick}
+              <EventTypes
+                selectedEventTypes={selectedEventTypes}
+                setSelectedEventTypes={setSelectedEventTypes}
               />
-            )}
-            <div className="block md:hidden">
-              <div className="flex flex-col gap-3">
-                <span className="text-gray-9 font-semibold text-base">
-                  April 09 @ 5:30pm - 9:30pm
-                </span>
-                <p className="bg-secondary-4 rounded-md px-4 py-2 text-gray-9 text-sm font-medium text-center">
-                  Webminar
-                </p>
-              </div>
+              <Services
+                selectedServices={selectedServices}
+                setSelectedServices={setSelectedServices}
+              />
             </div>
-            {search && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                {events.map((event: any, index: any) => (
-                  <EventCard
-                    event={event}
-                    key={index}
-                    className="bg-primary-2"
-                  />
-                ))}
-                <PaginationWrapper
-                  page={page}
-                  setPage={setPage}
-                  total={30}
-                  className="col-span-full"
-                />
+            {!isFiltered && <CalenderView />}
+
+            {isFiltered ? (
+              <div className="grid grid-cols-1 md:grid-cols-2  gap-x-8 gap-y-6">
+                {loading ? (
+                  [...Array(8)].map((_, i) => <EventCardSkeleton key={i} />)
+                ) : (
+                  <>
+                    {filteredEvents.length === 0 && (
+                      <div className="col-span-full">
+                        <NotFound
+                          data={{
+                            title: "No Results Found",
+                            description:
+                              "No events found matching your search criteria.",
+                          }}
+                        />
+                      </div>
+                    )}
+                    {filteredEvents?.map((event: any, index: any) => (
+                      <EventCard
+                        event={event}
+                        key={index}
+                        className="bg-primary-2"
+                      />
+                    ))}
+                  </>
+                )}
+
+                {/* pagination area */}
+                {loading ? (
+                  <PaginationSkeleton className="mt-4 col-span-full text-center" />
+                ) : (
+                  <>
+                    {filteredEventsCount > PAGINATION_LIMIT && (
+                      <PaginationWrapper
+                        page={page}
+                        setPage={setPage}
+                        total={filteredEventsCount}
+                        limit={PAGINATION_LIMIT}
+                        className="col-span-full"
+                      />
+                    )}
+                  </>
+                )}
               </div>
+            ) : (
+              <></>
             )}
           </div>
         </div>
       </section>
-      {search && (
+      {isFiltered ? (
         <ExploreEvents title="Explore Recommended Events" isRecommended />
+      ) : (
+        <></>
       )}
-      {!search && <AllUpComingEvents data={allUpcomingEventsData} />}
+      {!isFiltered && <AllUpComingEvents />}
     </>
   );
 };
-
-function renderEventContent(eventContent: EventContentArg) {
-  return (
-    <div className="hidden md:block">
-      <span>{eventContent.timeText}</span>
-      <span>{eventContent.event.title}</span>
-      {/* <span className="bg-secondary-4 rounded-md py-1 px-3 text-gray-9 text-sm font-semibold">
-        {eventContent.event.title}
-      </span> */}
-    </div>
-  );
-}
 
 export default EventsArea;

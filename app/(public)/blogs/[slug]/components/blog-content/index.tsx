@@ -79,7 +79,7 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
                   {item.title}
                 </h2>
                 <div
-                  className="text-gray-8 text-base md:text-lg font-medium"
+                  className="prose"
                   dangerouslySetInnerHTML={{ __html: item.content }}
                 ></div>
               </section>

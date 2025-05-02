@@ -5,14 +5,17 @@ import { useState } from "react";
 import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
+import Cookies from "js-cookie";
 import Modal from "@/components/partials/Modal";
 import { Button } from "@/components/shadcn/button";
 import { InputPassword } from "@/components/shadcn/input";
 import { useUpdatePasswordMutation } from "@/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 
 export default function AccountPassword() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [updatePassword, { isLoading }] = useUpdatePasswordMutation();
+  const [updatePassword, { isLoading }]: any = useUpdatePasswordMutation();
 
   type FormValues = {
     oldPassword: string;
@@ -50,8 +53,14 @@ export default function AccountPassword() {
       await updatePassword(payload).unwrap();
       setOpen(false);
       reset();
-    } catch (error) {
-      handleError(error as updatePasswordError);
+    } catch (error: any) {
+      if (error.status === 401) {
+        router.push("/login");
+        Cookies.remove("key_stone_token");
+      } else {
+        console.log("error => ", error);
+        handleError(error as updatePasswordError);
+      }
     }
   };
 

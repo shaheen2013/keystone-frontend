@@ -13,7 +13,7 @@ export default function HeroSection({
   const { title, description, backgroundImage, buttons } = data;
 
   return (
-    <section className="relative w-full h-[520px] md:h-screen flex items-center justify-center bg-white">
+    <section className="relative w-full min-h-[520px] md:min-h-screen h-full flex items-center justify-center bg-white">
       {/* Background image with skeleton */}
       <div className="absolute inset-0 w-full h-full">
         {loading ? (
@@ -50,7 +50,7 @@ export default function HeroSection({
               <div
                 className={cn(
                   "flex flex-col md:flex-row gap-4 mt-8 md:mt-12",
-                  buttons.length === 1 && "items-start"
+                  buttons?.length === 1 && "items-start"
                 )}
               >
                 {buttons?.map((item: any, index: number) => (

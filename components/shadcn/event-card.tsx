@@ -20,13 +20,13 @@ const EventCard = ({
     >
       {event?.featured_image && (
         <Link href={`/events/${event.slug}`}>
-          <div className="w-full overflow-hidden">
+          <div className="w-full overflow-hidden h-[230px] md:h-[314px] rounded-xl">
             <Image
               src={event?.featured_image?.path}
               width={1000}
               height={760}
               alt={event.title}
-              className="w-full h-[230px] md:h-[314px] object-cover rounded-xl"
+              className="w-full h-full object-cover rounded-xl"
             />
           </div>
         </Link>
@@ -40,11 +40,11 @@ const EventCard = ({
           </span>
         </div>
         <Link href={`/events/${event.slug}`}>
-          <h3 className="text-gray-9 text-xl md:text-3xl font-bold">
+          <h3 className="text-gray-9 text-xl md:text-3xl font-bold line-clamp-2">
             {event.name}
           </h3>
         </Link>
-        <p className="text-gray-9 text-sm md:text-lg line-clamp-3">
+        <p className="text-gray-9 text-sm md:text-lg line-clamp-4">
           {event.short_brief}
         </p>
       </div>

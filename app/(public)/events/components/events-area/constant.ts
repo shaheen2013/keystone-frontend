@@ -6,7 +6,7 @@ const todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of 
 export const INITIAL_EVENTS: EventInput[] = [
   {
     id: createEventId(),
-    title: "All-day event",
+    title: "All-day event long title",
     start: todayStr,
   },
   {

@@ -8,10 +8,7 @@ import {
   CarouselDots,
   CarouselItem,
 } from "@/components/shadcn/carousel";
-import {
-  useGetblogsQuery,
-  useSaveToggleMutation,
-} from "@/features/public/blogSlice";
+import { useGetblogsQuery } from "@/features/public/blogSlice";
 import { CAROUSEL_LIMIT } from "@/lib/constants";
 import { Skeleton } from "@/components/shadcn/skeleton";
 import { BlogCardSkeleton } from "@/components/skeletons";
@@ -21,32 +18,10 @@ const ExploreRecommendBlogs = () => {
   const [blogsData, saveBlogsData] = useState([]);
   const { data, isLoading, isFetching }: any = useGetblogsQuery({
     limit: CAROUSEL_LIMIT,
+    recommended: true,
   });
-  const [saveToggle] = useSaveToggleMutation();
 
   const loading = isLoading || isFetching;
-
-  const handleToggle = async (id: string) => {
-    try {
-      //  immediately update UI
-      saveBlogsData((prevBlogs: any) =>
-        prevBlogs.map((blog: any) =>
-          blog.id === id ? { ...blog, is_saved: !blog.is_saved } : blog
-        )
-      );
-
-      // Send API request
-      await saveToggle({ blog_id: id }).unwrap();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      // Revert on error
-      saveBlogsData((prevBlogs: any) =>
-        prevBlogs.map((blog: any) =>
-          blog.id === id ? { ...blog, is_saved: !blog.is_saved } : blog
-        )
-      );
-    }
-  };
 
   useEffect(() => {
     if (data?.data?.blogs) {
@@ -94,7 +69,6 @@ const ExploreRecommendBlogs = () => {
                   article={blog}
                   key={index}
                   classes={{ root: "bg-white" }}
-                  handleToggle={handleToggle}
                 />
               </CarouselItem>
             ))}

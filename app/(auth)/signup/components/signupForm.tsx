@@ -57,7 +57,11 @@ export default function SignupForm() {
 
       if (res.success) {
         const token = res.data.access_token;
-        Cookies.set("key_stone_token", token, { expires: 7 });
+        Cookies.set("key_stone_token", token, {
+          secure: true,
+          sameSite: "strict",
+          expires: 7,
+        });
         router.push("/profile/overview");
       }
     } catch (error) {

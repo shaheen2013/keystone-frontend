@@ -2,7 +2,7 @@
 
 import Cookies from "js-cookie";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
 // components
@@ -14,43 +14,44 @@ import { Input, InputPassword } from "@/components/shadcn/input";
 import Logo from "@/components/partials/logo";
 import CopyRight from "@/components/partials/copy-right";
 
+type FormValues = {
+  email: string;
+  password: string;
+  remember: boolean;
+};
+
+interface LoginPayload {
+  email: string;
+  password: string;
+  remember: boolean;
+}
+
+interface LoginError {
+  data?: {
+    errors?: {
+      email?: string[];
+      password?: string[];
+    };
+  };
+}
+interface LoginError {
+  data?: {
+    errors?: {
+      email?: string[];
+      password?: string[];
+    };
+  };
+}
+
 export default function LoginForm() {
   const router = useRouter();
   const [login, { isLoading }] = useLoginMutation();
-
-  type FormValues = {
-    email: string;
-    password: string;
-    remember: boolean;
-  };
-
-  interface LoginPayload {
-    email: string;
-    password: string;
-    remember: boolean;
-  }
-
-  interface LoginError {
-    data?: {
-      errors?: {
-        email?: string[];
-        password?: string[];
-      };
-    };
-  }
-  interface LoginError {
-    data?: {
-      errors?: {
-        email?: string[];
-        password?: string[];
-      };
-    };
-  }
+  const searchParams = useSearchParams();
 
   const { handleSubmit, control, setError } = useForm<FormValues>({
     defaultValues: {
-      email: "test@example.com",
-      password: "password",
+      email: "",
+      password: "",
       remember: false,
     },
   });
@@ -67,8 +68,17 @@ export default function LoginForm() {
 
       if (response.success) {
         const token = response.data.access_token;
-        Cookies.set("key_stone_token", token, { expires: 7 });
-        router.push("/profile/overview");
+        Cookies.set("key_stone_token", token, {
+          secure: true,
+          sameSite: "strict",
+          expires: 7,
+        });
+
+        // Get the returnUrl from query params or default to profile overview
+        const returnUrl = searchParams.get("returnUrl");
+        router.push(
+          returnUrl ? decodeURIComponent(returnUrl) : "/profile/overview"
+        );
       }
     } catch (error) {
       handleAuthError(error as LoginError);

@@ -19,6 +19,15 @@ const nextConfig: NextConfig = {
       {
         hostname: "plus.unsplash.com",
       },
+      {
+        hostname: "keystoneability.com",
+      },
+      {
+        hostname: "admin-staging.keystoneability.com",
+      },
+      {
+        hostname: "admin.keystoneability.com",
+      },
     ],
   },
 };

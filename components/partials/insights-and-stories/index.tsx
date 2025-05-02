@@ -12,10 +12,7 @@ import {
   CarouselItem,
 } from "@/components/shadcn/carousel";
 import { useEffect, useState } from "react";
-import {
-  useGetblogsQuery,
-  useSaveToggleMutation,
-} from "@/features/public/blogSlice";
+import { useGetblogsQuery } from "@/features/public/blogSlice";
 import { CAROUSEL_LIMIT } from "@/lib/constants";
 import { Skeleton } from "@/components/shadcn/skeleton";
 import { BlogCardSkeleton } from "@/components/skeletons";
@@ -28,29 +25,7 @@ const InsightsAndStories = () => {
     limit: CAROUSEL_LIMIT,
   });
 
-  const [saveToggle] = useSaveToggleMutation();
   const loading = isLoading || isFetching;
-  const handleToggle = async (id: string) => {
-    try {
-      //  immediately update UI
-      setBlogsData((prevBlogs: any) =>
-        prevBlogs.map((blog: any) =>
-          blog.id === id ? { ...blog, is_saved: !blog.is_saved } : blog
-        )
-      );
-
-      // Send API request
-      await saveToggle({ blog_id: id }).unwrap();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      // Revert on error
-      setBlogsData((prevBlogs: any) =>
-        prevBlogs.map((blog: any) =>
-          blog.id === id ? { ...blog, is_saved: !blog.is_saved } : blog
-        )
-      );
-    }
-  };
 
   useEffect(() => {
     if (data?.data?.blogs) {
@@ -106,7 +81,7 @@ const InsightsAndStories = () => {
                       key={index}
                       className="basis-full md:basis-1/3"
                     >
-                      <BlogCard article={article} handleToggle={handleToggle} />
+                      <BlogCard article={article} setBlogsData={setBlogsData} />
                     </CarouselItem>
                   ))}
                 </>

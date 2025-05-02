@@ -10,25 +10,23 @@ const ServiceCard = ({
   service: any;
   classes?: {
     root?: string;
-    icon?: string;
   };
 }) => {
   return (
     <div
       className={cn(
-        "bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start max-w-[512px] w-full",
+        "bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start max-w-[512px] w-full h-full",
         classes?.root
       )}
     >
-      {service?.icon && (
-        <div
-          className={cn(
-            "p-4 rounded-xl bg-white text-secondary-6",
-            classes?.icon
-          )}
-        >
-          <Image src={service.icon} width={40} height={40} alt="service" />
-        </div>
+      {service?.icon?.path && (
+        <Image
+          src={service.icon.path}
+          width={56}
+          height={56}
+          alt="service"
+          className="size-14 object-cover object-center rounded-md"
+        />
       )}
 
       <div className="flex flex-col gap-4">

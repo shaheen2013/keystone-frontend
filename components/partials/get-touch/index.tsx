@@ -27,7 +27,7 @@ const GetTouch = ({ classes }: { classes?: any }) => {
 
   const getContactInfo = data?.data?.get_in_touch;
 
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, setError, reset } = useForm({
     defaultValues: {
       first_name: "",
       last_name: "",
@@ -42,18 +42,54 @@ const GetTouch = ({ classes }: { classes?: any }) => {
     console.log(data);
 
     try {
-      const response = await contact(data).unwrap();
-      if (response) {
+      const response: any = await contact(data).unwrap();
+      if (response?.success) {
         toast({
           description: "Successfully submitted your message.",
         });
+        reset();
       }
-    } catch (error) {
-      console.log(error);
-      toast({
-        variant: "destructive",
-        description: "Something went wrong. Please try again later.",
-      });
+    } catch (error: any) {
+      const errors = error?.data?.errors;
+
+      if (errors.first_name?.length) {
+        setError("first_name", {
+          type: "manual",
+          message: errors.first_name.join(", "),
+        });
+      }
+      if (errors.last_name?.length) {
+        setError("last_name", {
+          type: "manual",
+          message: errors.last_name.join(", "),
+        });
+      }
+      if (errors.email?.length) {
+        setError("email", {
+          type: "manual",
+          message: errors.email.join(", "),
+        });
+      }
+
+      if (errors.subject?.length) {
+        setError("subject", {
+          type: "manual",
+          message: errors.subject.join(", "),
+        });
+      }
+
+      if (errors.phone?.length) {
+        setError("phone", {
+          type: "manual",
+          message: errors.phone.join(", "),
+        });
+      }
+      if (errors.message?.length) {
+        setError("message", {
+          type: "manual",
+          message: errors.message.join(", "),
+        });
+      }
     }
   };
 

@@ -14,10 +14,17 @@ import { CAROUSEL_LIMIT } from "@/lib/constants";
 import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useState } from "react";
 
-const ExploreOtherServices = ({ title }: { title: string }) => {
+const ExploreServices = ({
+  title,
+  recommended,
+}: {
+  title: string;
+  recommended?: boolean;
+}) => {
   const [services, setServices] = useState<any>([]);
   const { data, isLoading, isFetching }: any = useGetServicesQuery({
     limit: CAROUSEL_LIMIT,
+    recommended,
   });
 
   const loading = isLoading || isFetching;
@@ -73,7 +80,6 @@ const ExploreOtherServices = ({ title }: { title: string }) => {
                       service={service}
                       classes={{
                         root: "bg-white",
-                        icon: "bg-secondary-2",
                       }}
                     />
                   </CarouselItem>
@@ -103,4 +109,4 @@ const ExploreOtherServices = ({ title }: { title: string }) => {
   );
 };
 
-export default ExploreOtherServices;
+export default ExploreServices;

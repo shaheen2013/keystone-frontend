@@ -1,9 +1,10 @@
 import moment from "moment";
 import Image from "next/image";
+import Link from "next/link";
 const RecentPostCard = ({ data }: { data: any }) => {
-  const { title, subtitle, reading_time, created_at, feature_image } = data;
+  const { title, subtitle, slug, reading_time, created_at, feature_image } = data;
   return (
-    <div className="grid grid-cols-[124px_1fr] md:grid-cols-[144px_1fr] rounded-2xl overflow-hidden">
+    <Link href={`/blogs/${slug}`} className="cursor-pointer grid grid-cols-[124px_1fr] md:grid-cols-[144px_1fr] rounded-2xl overflow-hidden">
       {feature_image?.path && (
         <Image
           src={feature_image?.path}
@@ -30,7 +31,7 @@ const RecentPostCard = ({ data }: { data: any }) => {
           {subtitle}
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
