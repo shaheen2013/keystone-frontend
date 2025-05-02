@@ -15,15 +15,13 @@ const KeyBenefits = ({ data, loading }: { data: any; loading: boolean }) => {
               className="flex flex-col gap-4 md:gap-6 p-4 md:p-8 rounded-2xl border border-primary-7 bg-white"
             >
               {benefit?.icon?.path && (
-                <div className="p-4 rounded-xl bg-white text-secondary-6">
-                  <Image
-                    src={benefit.icon.path}
-                    width={40}
-                    height={40}
-                    alt="benefit"
-                    className="size-10 object-cover object-center"
-                  />
-                </div>
+                <Image
+                  src={benefit.icon.path}
+                  width={56}
+                  height={56}
+                  alt="benefit"
+                  className="size-14 object-cover object-center rounded-xl"
+                />
               )}
               <div className="flex flex-col gap-3 md:gap-4">
                 <h3 className="text-xl md:text-3xl font-bold text-gray-9">

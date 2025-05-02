@@ -80,7 +80,6 @@ const ExploreServices = ({
                       service={service}
                       classes={{
                         root: "bg-white",
-                        icon: "bg-secondary-2",
                       }}
                     />
                   </CarouselItem>
