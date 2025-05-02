@@ -25,7 +25,7 @@ const ServiceCard = ({
           width={56}
           height={56}
           alt="service"
-          className="size-14 object-cover object-center rounded-xl"
+          className="size-14 object-cover object-center rounded-md"
         />
       )}
 

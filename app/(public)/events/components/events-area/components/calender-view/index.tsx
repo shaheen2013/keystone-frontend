@@ -34,7 +34,7 @@ const CalendarView = () => {
     moment().format("YYYY-MM-DD")
   );
   const { data, isLoading, isFetching }: any = useGetEventsQuery({
-    getAll: true,
+    get_all: true,
   });
 
   // Memoize the raw events data
