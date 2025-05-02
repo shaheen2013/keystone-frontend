@@ -1,7 +1,12 @@
 import Image from "next/image";
+import KeyBenefitsSkeleton from "./skeletons";
 
 const KeyBenefits = ({ data, loading }: { data: any; loading: boolean }) => {
   const { title, benefits } = data;
+
+  if (loading) {
+    return <KeyBenefitsSkeleton />;
+  }
   return (
     <section className="py-12 md:py-28 bg-primary-2">
       <div className="container flex flex-col gap-6 md:gap-12">

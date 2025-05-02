@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import OurProcessSkeleton from "./skeletons";
 
 const OurProcess = ({
   classes,
@@ -10,6 +11,10 @@ const OurProcess = ({
   loading: boolean;
 }) => {
   const { title, steps } = data;
+
+  if (loading) {
+    return <OurProcessSkeleton />;
+  }
   return (
     <section className="py-12 md:py-28 bg-primary-2">
       <div className="container flex flex-col gap-6 md:gap-12">

@@ -1,11 +1,6 @@
 "use client";
 
 import HeroSection from "@/components/partials/Hero";
-import {
-  keyBenefitsData,
-  ourProcessData,
-  whyChooseKeystoneAbilitySupportData,
-} from "./constant";
 import AboutOurService from "./components/about-our-service";
 import KeyBenefits from "./components/key-benefits";
 import WhyChooseKeystoneAbilitySupport from "./components/why-choose-keystone-ability-support";

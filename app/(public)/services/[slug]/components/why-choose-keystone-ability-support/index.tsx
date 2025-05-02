@@ -1,4 +1,5 @@
 import Image from "next/image";
+import WhyChooseKeystoneAbilitySupportSkeleton from "./skeletons";
 
 const WhyChooseKeystoneAbilitySupport = ({
   data,
@@ -8,6 +9,10 @@ const WhyChooseKeystoneAbilitySupport = ({
   loading: boolean;
 }) => {
   const { title, reasons, image } = data;
+
+  if (loading) {
+    return <WhyChooseKeystoneAbilitySupportSkeleton />;
+  }
   return (
     <section className="py-12 md:py-28 bg-white">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
