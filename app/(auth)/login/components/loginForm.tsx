@@ -50,8 +50,8 @@ export default function LoginForm() {
 
   const { handleSubmit, control, setError } = useForm<FormValues>({
     defaultValues: {
-      email: "test@example.com",
-      password: "password",
+      email: "",
+      password: "",
       remember: false,
     },
   });

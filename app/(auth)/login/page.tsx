@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 
 import LoginForm from "@/app/(auth)/login/components/loginForm";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Login | Keystone | A Place for Connection & Support",
@@ -10,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function Login() {
   return (
-    <div>
+    <Suspense>
       <LoginForm />
-    </div>
+    </Suspense>
   );
 }
