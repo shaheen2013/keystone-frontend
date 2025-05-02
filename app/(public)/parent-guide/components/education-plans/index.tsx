@@ -1,8 +1,14 @@
+import YoutubeVideoPlayer from "@/components/partials/youtube-player";
 import { Button } from "@/components/shadcn/button";
-import Image from "next/image";
+import Link from "next/link";
+import EducationPlansSkeleton from "./skeletons";
 
-const EducationPlans = ({ data }: { data: any }) => {
-  const { title, description, keyPoints, image, btn } = data;
+const EducationPlans = ({ data, loading }: { data: any; loading: boolean }) => {
+  const { title, subtitle, btns, youtube_url } = data;
+
+  if (loading) {
+    return <EducationPlansSkeleton />;
+  }
   return (
     <section className="py-12 md:py-28 bg-primary-2">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
@@ -10,30 +16,18 @@ const EducationPlans = ({ data }: { data: any }) => {
           <h3 className="mb-4 md:mb-6 text-2xl md:text-5xl font-bold">
             {title}
           </h3>
-          <p className="mb-6 md:mb-8 text-base md:text-xl">{description}</p>
-          <ul className="flex flex-col gap-4 mb-8 md:mb-12">
-            {keyPoints.map((point: string, index: number) => (
-              <li
-                key={index}
-                className="flex items-center gap-4 text-base md:text-xl font-semibold"
-              >
-                <span className="size-2 bg-gray-9 rounded-full shrink-0"></span>
-                <span className="text-gray-9">{point}</span>
-              </li>
-            ))}
-          </ul>
-          <Button variant="secondary" size="lg">
-            {btn.text}
-          </Button>
+          <div
+            className="prose mb-8 md:mb-12"
+            dangerouslySetInnerHTML={{ __html: subtitle }}
+          />
+          {btns?.map((btn: any, index: number) => (
+            <Button key={index} variant="secondary" size="lg" asChild>
+              <Link href={btn.url}>{btn.text}</Link>
+            </Button>
+          ))}
         </div>
-        <div className="max-w-[776px] w-full !h-60 md:!h-auto rounded-xl shadow-lg">
-          {image && (
-            <Image
-              src={image}
-              alt="image"
-              className="w-full h-full object-cover"
-            />
-          )}
+        <div className="max-w-[776px] w-full h-60 md:h-[400px] rounded-xl overflow-hidden">
+          <YoutubeVideoPlayer url={youtube_url} />
         </div>
       </div>
     </section>

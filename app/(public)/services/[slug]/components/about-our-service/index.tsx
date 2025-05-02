@@ -22,7 +22,7 @@ const AboutOurService = ({
             {title}
           </h3>
           <div
-            className="prose mb-6 md:mb-8 text-base md:text-xl"
+            className="prose mb-6 md:mb-8"
             dangerouslySetInnerHTML={{ __html: about }}
           />
         </div>
