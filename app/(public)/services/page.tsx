@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function Services() {
   return (
     <>
-      <CenteredHero data={heroData} />
+      <CenteredHero data={heroData} loading={false} />
       <ServiceSection
         title="Our Services"
         subtitle="Comprehensive Services for Families with Children with Special Needs"

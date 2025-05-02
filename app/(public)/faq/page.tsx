@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function FaqsPage() {
   return (
     <>
-      <CenteredHero data={heroData} />
+      <CenteredHero data={heroData} loading={false} />
       <Faqs />
       <Support data={contactUSSectionData} loading={false} />
     </>

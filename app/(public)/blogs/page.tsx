@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <>
-      <CenteredHero data={heroData} />
+      <CenteredHero data={heroData} loading={false} />
       <Suspense fallback={<div className="h-3"></div>}>
         <Blogs />
       </Suspense>
