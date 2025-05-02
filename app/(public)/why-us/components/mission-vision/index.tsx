@@ -1,33 +1,36 @@
-import sectionImg from "@/public/assets/why-us/mission-vision/Image.png";
-import Image from "next/image";
+import YoutubeVideoPlayer from "@/components/partials/youtube-player";
+import MissionAndVisionSkeleton from "./skeletons";
 
-const MissionAndVision = () => {
+const MissionAndVision = ({
+  data,
+  loading,
+}: {
+  data: any;
+  loading: boolean;
+}) => {
+  const { mission, vision, videoUrl } = data;
+
+  if (loading) {
+    return <MissionAndVisionSkeleton />;
+  }
   return (
     <section className="py-12 md:py-28 bg-white">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
-        {sectionImg && (
-          <Image src={sectionImg} alt="Image" width={776} height={450} />
-        )}
+        <div className="max-w-[776px] w-full h-60 md:h-[400px] rounded-xl overflow-hidden">
+          <YoutubeVideoPlayer url={videoUrl} />
+        </div>
         <div className="flex flex-col gap-4 md:gap-8">
           <div className="flex flex-col gap-4">
             <h2 className="text-gray-9 text-xl md:text-5xl font-bold">
               Mission
             </h2>
-            <p className="text-gray-9 text-base md:text-xl">
-              To provide families with the tools, resources, and community
-              support they need to nurture their children with special needs,
-              empowering them to lead fulfilling lives.
-            </p>
+            <p className="text-gray-9 text-base md:text-xl">{mission}</p>
           </div>
           <div className="flex flex-col gap-4">
             <h2 className="text-gray-9 text-xl md:text-5xl font-bold">
               Vision
             </h2>
-            <p className="text-gray-9 text-base md:text-xl">
-              A world where every child with special needs can thrive and reach
-              their full potential with the unwavering support of their family
-              and community.
-            </p>
+            <p className="text-gray-9 text-base md:text-xl">{vision}</p>
           </div>
         </div>
       </div>

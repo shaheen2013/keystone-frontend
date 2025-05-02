@@ -1,7 +1,13 @@
 import { Skeleton } from "@/components/shadcn/skeleton";
 import { cn } from "@/lib/utils";
 
-const OurProcessSkeleton = ({ classes }: { classes?: any }) => {
+const OurProcessSkeleton = ({
+  classes,
+  stepsCount,
+}: {
+  classes?: any;
+  stepsCount: number;
+}) => {
   return (
     <section className="py-12 md:py-28 bg-primary-2">
       <div className="container flex flex-col gap-6 md:gap-12">
@@ -14,7 +20,7 @@ const OurProcessSkeleton = ({ classes }: { classes?: any }) => {
             classes?.cards
           )}
         >
-          {[...Array(4)].map((_, index) => (
+          {[...Array(stepsCount)].map((_, index) => (
             <div
               key={index}
               className="flex flex-col gap-4 md:gap-6 p-4 md:p-8 rounded-2xl bg-white"

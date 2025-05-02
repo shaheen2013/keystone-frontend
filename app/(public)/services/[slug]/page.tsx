@@ -79,7 +79,7 @@ export default function ServiceDetails({
         data={whyChooseKeystoneAbilitySupportData}
         loading={loading}
       />
-      <OurProcess data={ourProcessData} loading={loading} />
+      <OurProcess data={ourProcessData} loading={loading} stepsCount={4} />
       <Testimonials
         title="Parents Are Saying"
         subtitle="Real stories from families we've helped—because every child deserves the right support and opportunities to thrive."
