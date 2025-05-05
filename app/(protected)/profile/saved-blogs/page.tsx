@@ -32,7 +32,6 @@ export default function AccountSavedBlogs() {
 
   useEffect(() => {
     if (isError && error.status === 401) {
-      console.log("error", error);
       Cookies.remove("key_stone_token");
       router.push("/login");
     }

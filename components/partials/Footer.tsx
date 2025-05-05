@@ -12,7 +12,6 @@ import {
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "@/hooks/use-toast";
 import { FooterSkeleton } from "../skeletons";
-import { useSelector } from "react-redux";
 import Logo from "./logo";
 import { quickLinks, supportAndLegal } from "@/static/footer";
 
@@ -22,14 +21,10 @@ type FormValues = {
 
 export default function Footer() {
   const { data, isLoading, isFetching }: any = useGetFooterQuery({});
-  const logo = useSelector((state: any) => state.logoUrl);
 
-  console.log("logo", logo);
   const [subscribe] = useSubscribeMutation();
 
   const footerData = data?.data;
-
-  console.log("data", data);
 
   const loading = isLoading || isFetching;
 
@@ -45,15 +40,15 @@ export default function Footer() {
     },
   });
 
-  console.log("error", errors);
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const response: any = await subscribe(data).unwrap();
-      console.log("response", response);
-      toast({
-        description: "Thank you for subscribing",
-      });
-      reset();
+      if (response?.success) {
+        toast({
+          description: "Thank you for subscribing",
+        });
+        reset();
+      }
     } catch (error: any) {
       const emailErrors = error?.data?.errors?.email;
       setError("email", {

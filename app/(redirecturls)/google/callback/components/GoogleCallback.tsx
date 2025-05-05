@@ -50,8 +50,8 @@ const GoogleCallback = () => {
             returnUrl ? decodeURIComponent(returnUrl) : "/profile/overview"
           );
         }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
-        console.error("Google callback error:", error);
         toast({
           description: "Failed to authenticate with Google",
           variant: "destructive",

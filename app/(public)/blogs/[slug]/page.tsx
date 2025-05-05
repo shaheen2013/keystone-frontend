@@ -22,8 +22,6 @@ export default function BlogDetails({
     slug,
   });
 
-  console.log(slug);
-
   // Show skeletons while loading
   const loading = isLoading || isFetching;
 

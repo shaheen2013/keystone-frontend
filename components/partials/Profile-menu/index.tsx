@@ -21,7 +21,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
-  console.log("currentUser", currentUser);
   const router = useRouter();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -35,7 +34,6 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
   const handleLogout = async () => {
     try {
       const res: any = await logout({}).unwrap();
-      console.log("res", res);
 
       if (res?.success) {
         Cookies.remove("key_stone_token");
@@ -43,9 +41,8 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
         router.push("/");
         dispatch(apiSlice.util.resetApiState());
       }
-    } catch (error) {
-      console.log(error);
-    }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {}
   };
 
   return (

@@ -96,15 +96,9 @@ export default function AccountOverview() {
     if (fileInputRef.current?.files?.[0]) {
       formPayload.append("avatar", fileInputRef.current.files[0]);
     }
-    // Log FormData contents properly
-    console.log("Form submitted with data:");
-    for (const [key, value] of formPayload.entries()) {
-      console.log(key, value);
-    }
 
     try {
-      const res = await updateMe(formPayload).unwrap();
-      console.log("res", res);
+      await updateMe(formPayload).unwrap();
     } catch (error: any) {
       const errors = error?.data?.errors;
       if (errors.name?.length) {
@@ -141,7 +135,6 @@ export default function AccountOverview() {
       (isError && error.status === 401) ||
       (isUpdatingError && updateError.status === 401)
     ) {
-      console.log("error", error);
       Cookies.remove("key_stone_token");
       router.push("/login");
     }

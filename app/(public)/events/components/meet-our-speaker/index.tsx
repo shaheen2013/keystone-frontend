@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { MeetOurSpeakerSkeleton } from "./MeetOurSpeakerSkeleton";
 const MeetOurSpeaker = ({ data, loading }: { data: any; loading: boolean }) => {
-  console.log("data", data);
   if (loading) {
     return <MeetOurSpeakerSkeleton />;
   }

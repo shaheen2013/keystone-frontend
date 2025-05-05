@@ -36,8 +36,8 @@ export function saveAccessibilifySetting(
       "accessibilitySettings",
       JSON.stringify({ ...JSON.parse(settings || "{}"), [name]: value })
     );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error: any) {
-    console.log(error);
     localStorage.removeItem("accessibilitySettings");
   }
 }
@@ -51,8 +51,8 @@ export function getAccessibilifySettings(name?: string) {
 
     const settings = localStorage.getItem("accessibilitySettings");
     return settings ? JSON.parse(settings) : {};
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error: any) {
-    console.log(error);
     localStorage.removeItem("accessibilitySettings");
     return {};
   }

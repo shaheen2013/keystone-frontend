@@ -76,7 +76,6 @@ export default function AccountEvents() {
 
   useEffect(() => {
     if (isError && error.status === 401) {
-      console.log("error", error);
       Cookies.remove("key_stone_token");
       router.push("/login");
     }

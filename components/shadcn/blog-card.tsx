@@ -40,7 +40,6 @@ const BlogCard = ({
       await saveToggle({ blog_slug: slug }).unwrap();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error: any) {
-      console.log("err", error);
 
       const status = (error as any)?.status || (error as any)?.originalStatus;
       if (status === 401) {

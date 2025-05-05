@@ -29,8 +29,6 @@ export default function ServiceDetails({
 
   const serviceData = data?.data?.service || {};
 
-  console.log("serviceData", serviceData);
-
   const heroData = {
     title: serviceData?.name,
     description: serviceData?.short_brief,

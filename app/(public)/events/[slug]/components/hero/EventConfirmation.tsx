@@ -48,7 +48,6 @@ const EventConfirmation = ({
   slug: string;
   isJoined: boolean;
 }) => {
-  console.log("slug", slug);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -68,7 +67,6 @@ const EventConfirmation = ({
   const handleAttendance = async () => {
     try {
       const res: any = await confirmAttendance({ slug }).unwrap();
-      console.log("res", res);
       if (res.success) {
         toast({
           title: "Success",
@@ -81,7 +79,6 @@ const EventConfirmation = ({
       }
     } catch (error: any) {
       const status = (error as any)?.status || (error as any)?.originalStatus;
-      console.log("status", status);
       if (status === 401) {
         handleunAthorized();
       } else {

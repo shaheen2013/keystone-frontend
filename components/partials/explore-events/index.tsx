@@ -30,8 +30,6 @@ const ExploreEvents = ({
     ...(isRecommended && { recommended: 1 }),
   };
 
-  console.log("restQuery", restQuery);
-
   const { data, isLoading, isFetching }: any = useGetEventsQuery({
     limit: CAROUSEL_LIMIT,
     ...restQuery,

@@ -39,7 +39,6 @@ const GetTouch = ({ classes }: { classes?: any }) => {
   });
 
   const onSubmit = async (data: any) => {
-    console.log(data);
 
     try {
       const response: any = await contact(data).unwrap();

@@ -16,7 +16,6 @@ import { useGetTestimonialQuery } from "@/features/public/testimonialSlice";
 export default function AuthLeftSidebar({ className }: { className: string }) {
   const { data, isLoading, isFetching }: any = useGetTestimonialQuery({});
   const testimonials = data?.data?.parent_reviews || [];
-  console.log("testimonials", testimonials);
   const loading = isLoading || isFetching;
 
   const [api, setApi] = useState<CarouselApi>();

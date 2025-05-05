@@ -22,7 +22,7 @@ export default function OTPForm({ className }: { className?: string }) {
   };
 
   // const [isDisabled, setIsDisabled] = useState(true);
-  // console.log("isDisabled", isDisabled);
+
 
   const dispatch = useDispatch();
 
@@ -44,11 +44,9 @@ export default function OTPForm({ className }: { className?: string }) {
   });
 
   const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
-  console.log("verifyOtp", verifyOtp);
   const [forgotPassword] = useForgotPasswordMutation();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log(data);
     const payload = { ...data, email };
     try {
       const response: any = await verifyOtp(payload).unwrap();

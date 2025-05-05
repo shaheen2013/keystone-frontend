@@ -23,8 +23,6 @@ export default function ResetPasswordForm({
   const router = useRouter();
   const otpToken = useSelector((state: any) => state.otpToken);
 
-  console.log("otpToken", otpToken);
-
   const email = searchParams.get("email");
 
   const [open, setOpen] = useState(false);
@@ -60,7 +58,6 @@ export default function ResetPasswordForm({
       token: otpToken,
       email,
     };
-    console.log("payload", payload);
     try {
       const response: any = await resetPassword(payload).unwrap();
 

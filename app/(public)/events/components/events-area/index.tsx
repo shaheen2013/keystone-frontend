@@ -32,8 +32,6 @@ const EventsArea = () => {
   const isFiltered =
     search || selectedServices?.length || selectedEventTypes?.length;
 
-  console.log("isFiltered", isFiltered);
-
   // Debounce the search input with 500ms delay
   const debouncedSearch = useDebounceCallback(setSearch, 500);
 
@@ -55,8 +53,6 @@ const EventsArea = () => {
   const loading = isFetching || isLoading;
 
   const filteredEvents = data?.data?.events?.data || [];
-
-  console.log("filteredEvents", filteredEvents);
 
   const filteredEventsCount = data?.data?.events?.total || 0;
 

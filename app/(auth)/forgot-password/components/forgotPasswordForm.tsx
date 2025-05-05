@@ -31,7 +31,6 @@ export default function ForgotPasswordForm({
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const response: any = await forgotPassword(data).unwrap();
-      console.log("response", response);
 
       if (response?.success) {
         router.push(

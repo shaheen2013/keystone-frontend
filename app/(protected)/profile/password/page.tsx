@@ -43,7 +43,6 @@ export default function AccountPassword() {
     });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log("data => ", data);
     const payload = {
       current_password: data.oldPassword,
       password: data.newPassword,
@@ -58,7 +57,6 @@ export default function AccountPassword() {
         router.push("/login");
         Cookies.remove("key_stone_token");
       } else {
-        console.log("error => ", error);
         handleError(error as updatePasswordError);
       }
     }
