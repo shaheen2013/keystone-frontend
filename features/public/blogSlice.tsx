@@ -14,7 +14,7 @@ export const blogSlice = apiSlice?.injectEndpoints({
       query: ({ slug }: any) => `/blogs/${slug}`,
     }),
     getSavedBlogs: builder.query({
-      query: () => `/saved-blogs`,
+      query: (q: any) => `/saved-blogs${queryFormat(q)}`,
     }),
     saveToggle: builder.mutation({
       query: ({ blog_slug }: any) => ({

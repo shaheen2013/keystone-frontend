@@ -94,7 +94,7 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
 
         <DropdownMenuItem
           className="text-base flex items-center gap-2 px-3 py-2 hover:bg-accent hover:text-accent-foreground cursor-pointer transition"
-          onClick={() => handleNavigate("/profile/events?page=1")}
+          onClick={() => handleNavigate("/profile/events")}
         >
           <CalendarDays className="h-4 w-4" />
           Events
@@ -102,7 +102,7 @@ const ProfileMenu = ({ currentUser }: { currentUser: any }) => {
 
         <DropdownMenuItem
           className="text-base flex items-center gap-2 px-3 py-2 hover:bg-accent hover:text-accent-foreground cursor-pointer transition"
-          onClick={() => handleNavigate("/profile/saved-blogs?page=1")}
+          onClick={() => handleNavigate("/profile/saved-blogs")}
         >
           <Bookmark className="h-4 w-4" />
           Saved Blogs

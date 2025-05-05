@@ -11,13 +11,7 @@ import { cn } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
-const PaginationWrapper = ({
-  className,
-  page,
-  setPage,
-  total = 200,
-  limit = 6,
-}: any) => {
+const PaginationWrapper = ({ className, page, setPage, total, limit }: any) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const totalPages = Math.ceil(total / limit);
@@ -47,7 +41,11 @@ const PaginationWrapper = ({
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
-    updateUrlParams("page", newPage.toString());
+    if (newPage === 1) {
+      updateUrlParams("page", null);
+    } else {
+      updateUrlParams("page", newPage.toString());
+    }
   };
 
   useEffect(() => {
