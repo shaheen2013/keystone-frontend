@@ -52,7 +52,9 @@ const AllUpComingEvents = () => {
               <EventCard event={event} key={index} className="bg-white" />
             ))
           ) : (
-            <div className="col-span-full text-center">Event not found</div>
+            <div className="col-span-full text-center text-gray-5">
+              Not found
+            </div>
           )}
           {/* pagination area */}
           {loading ? (

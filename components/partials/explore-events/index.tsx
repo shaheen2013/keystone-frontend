@@ -83,9 +83,9 @@ const ExploreEvents = ({
 
             {!loading && events?.length === 0 && (
               <CarouselItem className="basis-full">
-                <h4 className="text-center self-center text-gray-9 text-lg font-semibold">
+                <div className="text-center self-center text-gray-5 text-lg font-semibold">
                   No Events Found
-                </h4>
+                </div>
               </CarouselItem>
             )}
           </CarouselContent>

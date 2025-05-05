@@ -29,7 +29,9 @@ const Testimonials2 = ({
     card?: string;
   };
 }) => {
-  const { data, isLoading, isFetching }: any = useGetTestimonialQuery({});
+  const { data, isLoading, isFetching, error }: any = useGetTestimonialQuery(
+    {}
+  );
 
   const testimonials = data?.data.parent_reviews || [];
 
@@ -47,6 +49,10 @@ const Testimonials2 = ({
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
+
+  if (error) {
+    return <div>Error loading testimonials</div>;
+  }
   return (
     <section className={cn("py-12 md:py-28 bg-primary-2", classes.root)}>
       <div className="container ">
@@ -135,6 +141,7 @@ const Testimonials2 = ({
                             <div className="size-16 rounded-full">
                               {testimonial?.parent_avatar.path && (
                                 <Image
+                                  priority={index === current}
                                   height={620}
                                   width={560}
                                   src={testimonial?.parent_avatar.path}
@@ -164,7 +171,7 @@ const Testimonials2 = ({
                     ))}
                   </>
                 ) : (
-                  <CarouselItem className="basis-full text-center">
+                  <CarouselItem className="basis-full text-center text-gray-5">
                     Not found
                   </CarouselItem>
                 )}

@@ -77,11 +77,9 @@ const UpComingEvents = ({ title }: { title: string }) => {
                   ))}
                 </>
               ) : (
-                <>
-                  <CarouselItem className="basis-full text-center">
-                    Not found
-                  </CarouselItem>
-                </>
+                <CarouselItem className="basis-full text-center text-gray-5">
+                  Not found
+                </CarouselItem>
               )}
             </>
           )}

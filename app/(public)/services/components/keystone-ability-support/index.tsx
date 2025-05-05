@@ -31,7 +31,12 @@ const KeyStoneAbilitySupport = () => {
           </p>
         </div>
         <div className="grid  grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          {ability_supports.map((ability: any, index: number) => (
+          {!loading && ability_supports.length === 0 && (
+            <div className="col-span-3 text-center text-gray-5">
+              No Ability Supports Found
+            </div>
+          )}
+          {ability_supports?.map((ability: any, index: number) => (
             <div
               key={index}
               className="bg-white p-4 md:p-8 rounded-2xl border border-primary-7 flex flex-col gap-4"

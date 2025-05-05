@@ -86,7 +86,7 @@ const ExploreServices = ({
                 ))}
               </>
             ) : (
-              <CarouselItem className="basis-full text-center">
+              <CarouselItem className="basis-full text-center text-gray-5">
                 Not found
               </CarouselItem>
             )}

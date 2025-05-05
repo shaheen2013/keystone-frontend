@@ -40,6 +40,9 @@ const WhyChooseKeystoneAbilitySupport = ({
           <Image src={image.src} alt="Image" width={776} height={450} />
         )}
       </div>
+      {!loading && reasons?.length === 0 && (
+        <div className="text-gray-5 text-center">Not Found</div>
+      )}
     </section>
   );
 };
