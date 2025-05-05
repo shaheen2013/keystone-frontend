@@ -6,31 +6,9 @@ import RecentPosts from "./components/recent-posts";
 import ExploreRecommendBlogs from "@/components/partials/explore-recommend-blogs";
 import NotFound from "@/components/partials/dynamic-page-not-found";
 
-interface BlogData {
-  id: string;
-  title: string;
-  subtitle?: string;
-  seo_title?: string;
-  seo_description?: string;
-  banner?: {
-    path: string;
-  };
-  reading_time: string;
-  created_at: string;
-  content: string;
-  tags?: string[];
-  slug: string;
-}
-
-interface ApiResponse {
-  data: {
-    blog: BlogData;
-  };
-}
-
-async function getBlogBySlug(slug: string): Promise<ApiResponse> {
+async function getBlogBySlug(slug: any) {
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const response = await fetch(`${apiUrl}/blogs/${slug}`, {
+  const response: any = await fetch(`${apiUrl}/blogs/${slug}`, {
     next: { revalidate: 60 },
   });
 
@@ -54,7 +32,6 @@ export async function generateMetadata({
     const blog = data.data.blog;
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
     const shareUrl = `${siteUrl}/blog/${slug}`;
-    // const defaultImage = `${siteUrl}/default-social-image.jpg`;
     const defaultImage = "https://dummyimage.com/600x400/000/fff";
 
     return {
@@ -72,9 +49,7 @@ export async function generateMetadata({
         publishedTime: blog.created_at,
         images: [
           {
-            url: blog.banner?.path
-              ? absoluteUrl(blog.banner.path)
-              : defaultImage,
+            url: blog.banner?.path ? blog.banner.path : defaultImage,
             width: 1200,
             height: 630,
             alt: blog.title || "Post image",
@@ -86,7 +61,7 @@ export async function generateMetadata({
         title: blog.seo_title || blog.title || "Loading...",
         description: blog.seo_description || blog.subtitle || "",
         images: {
-          url: blog.banner?.path ? absoluteUrl(blog.banner.path) : defaultImage,
+          url: blog.banner?.path ? blog.banner.path : defaultImage,
           alt: blog.title || "Post image",
         },
       },
@@ -104,22 +79,17 @@ export async function generateMetadata({
   }
 }
 
-function absoluteUrl(path: string): string {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
-  return path.startsWith("http")
-    ? path
-    : `${baseUrl}${path.startsWith("/") ? "" : "/"}${path}`;
-}
-
-export default async function BlogDetails({
+// The key fix is to properly type the component with NextPage
+export default async function Page({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  let blogData: BlogData | null = null;
+  let blogData: any = null;
 
   try {
-    const data = await getBlogBySlug(params.slug);
+    const resolvedParams = await params;
+    const data = await getBlogBySlug(resolvedParams.slug);
     blogData = data.data.blog;
   } catch (error: any) {
     if (error.status === 404) {
