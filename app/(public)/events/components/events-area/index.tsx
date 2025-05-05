@@ -173,11 +173,9 @@ const EventsArea = () => {
           </div>
         </div>
       </section>
-      {isFiltered ? (
-        <ExploreEvents title="Explore Recommended Events" isRecommended />
-      ) : (
-        <></>
-      )}
+
+      <ExploreEvents title="Explore Recommended Events" isRecommended />
+
       {!isFiltered && <AllUpComingEvents />}
     </>
   );
