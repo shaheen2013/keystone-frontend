@@ -12,6 +12,11 @@ const MeetOurSpeaker = ({ data, loading }: { data: any; loading: boolean }) => {
           Meet our Speaker
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3  gap-4 md:gap-8">
+          {data?.length === 0 && (
+            <div className="col-span-full text-center text-gray-5">
+              No Speaker Found
+            </div>
+          )}
           {data?.map((item: any, index: number) => (
             <div
               key={index}

@@ -66,10 +66,15 @@ export default function AccountSavedBlogs() {
               />
             ))
           ) : (
-            <div className="col-span-full text-center">No Saved Blogs</div>
+            <div className="col-span-full text-center py-12 text-gray-5">
+              You haven&#39;t not saved any blog
+            </div>
           )}
         </div>
-        <hr className="bg-primary-2 mb-4 md:mb-7" />
+        {totalBlogs > PAGINATION_LIMIT && (
+          <hr className="bg-primary-2 mb-4 md:mb-7" />
+        )}
+
         {/* pagination area */}
         <Suspense fallback={<div className="h-10" />}>
           {/* pagination area */}

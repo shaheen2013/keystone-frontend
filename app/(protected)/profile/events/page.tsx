@@ -83,8 +83,8 @@ export default function AccountEvents() {
   }, [router, isError, error]);
 
   return (
-    <div className="bg-primary-1 rounded-2xl border border-primary-2">
-      <div className="font-semibold lg:text-2xl text-lg lg:py-6 lg:px-8 p-4 bg-primary-2 rounded-t-2xl border-b border-primary-3">
+    <div className="bg-primary-1 rounded-2xl">
+      <div className="font-semibold lg:text-2xl text-lg lg:py-6 lg:px-8 p-4 bg-primary-2 rounded-t-2xl">
         <h2 className="flex items-center gap-2 text-primary-9">
           {/* <Calendar className="w-5 h-5 text-primary-7" /> */}
           My Events
