@@ -1,26 +1,34 @@
 import { Button } from "@/components/shadcn/button";
 import { useLazyGoogleRedirectUrlQuery } from "@/features/auth/authSlice";
-
+import { toast } from "@/hooks/use-toast";
 import Image from "next/image";
 
 const GoogleSignIn = () => {
-  const [googleRedirectUrl, { isLoading }] = useLazyGoogleRedirectUrlQuery();
+  const [googleRedirectUrl, { isLoading, isFetching }] =
+    useLazyGoogleRedirectUrlQuery();
+
+  const loading = isLoading || isFetching;
   const handleGoogleSignIn = async () => {
-    if (isLoading) return;
+    if (isLoading || isFetching) return;
     try {
       const data: any = await googleRedirectUrl({}).unwrap();
-      console.log("data", data);
-      console.log("url", data.url);
-      window.open(data.data.url, "_blank", "height=500,width=500");
+      // Redirect directly instead of opening in new window
+      window.location.href = data.data.url;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      console.log(error);
+      toast({
+        description: "Failed to sign in with Google",
+        variant: "destructive",
+      });
     }
   };
+
   return (
     <Button
       className="w-full bg-white border border-primary-3 mb-4"
       variant="ghost"
       onClick={handleGoogleSignIn}
+      disabled={loading}
     >
       <Image
         src="/assets/auth/google.svg"
@@ -29,7 +37,7 @@ const GoogleSignIn = () => {
         height={24}
         className="h-6 w-6"
       />
-      Sign in with Google
+      {loading ? "Processing..." : "Sign in with Google"}
     </Button>
   );
 };
