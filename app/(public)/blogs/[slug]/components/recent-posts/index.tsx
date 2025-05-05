@@ -34,7 +34,7 @@ const RecentPosts = () => {
           </>
         )}
         {!loading && recentPost?.length === 0 && (
-          <div className="p-4 text-gray-9 font-semibold text-sm text-center">
+          <div className="p-4 text-gray-5 font-semibold text-sm text-center">
             No recent posts found
           </div>
         )}
