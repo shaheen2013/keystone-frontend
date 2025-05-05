@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function ResetPassword() {
   return (
-    <div className="flex flex-col justify-between items-center h-screen px-4 lg:pt-5 pt-20">
-      <div className=" flex justify-center items-center lg:h-full">
+    <div className="flex flex-col justify-between items-center h-screen px-4 pt-12">
+      <div className="flex justify-center items-center">
         <Suspense>
           <ResetForm />
         </Suspense>

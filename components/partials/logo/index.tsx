@@ -11,7 +11,7 @@ const Logo = () => {
   return (
     <>
       {loading ? (
-        <Skeleton className="h-12 w-[110px] " />
+        <Skeleton className="lg:w-[150px] w-[120px] lg:h-[65px] h-[50px] " />
       ) : (
         logo && (
           <Link href={"/"} className="">

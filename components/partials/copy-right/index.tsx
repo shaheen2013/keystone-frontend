@@ -11,9 +11,9 @@ const CopyRight = () => {
   return (
     <>
       {loading ? (
-        <Skeleton className="h-6 w-full md:w-1/2 lg:mt-0 mt-8" />
+        <Skeleton className="w-full md:w-1/2 py-2.5 my-5" />
       ) : (
-        <p className="text-gray-9 lg:text-base text-xs font-medium py-6 lg:mt-0 mt-8">
+        <p className="text-gray-9 lg:text-base text-xs font-medium py-6">
           {copyRightText}
         </p>
       )}

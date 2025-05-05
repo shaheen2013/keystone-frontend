@@ -50,7 +50,7 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
       {testimonials?.length === 0 && (
         <div className="w-full h-screen">
           <Image
-            src="/assets/auth/carousel/welcome.svg"
+            src="/assets/auth/carousel/welcome.webp"
             alt="welcome"
             fill
             className="object-cover object-top h-full w-full"
@@ -131,6 +131,8 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
             onClick={() => api?.scrollPrev()}
             disabled={current === 1}
             aria-label="Previous testimonial"
+            title="Previous testimonial"
+            type="button"
           >
             <ArrowLeft size={24} stroke="#fff" />
           </button>
@@ -143,6 +145,8 @@ export default function AuthLeftSidebar({ className }: { className: string }) {
             onClick={() => api?.scrollNext()}
             disabled={current === count}
             aria-label="Next testimonial"
+            title="Next testimonial"
+            type="button"
           >
             <ArrowRight size={24} stroke="#fff" />
           </button>
