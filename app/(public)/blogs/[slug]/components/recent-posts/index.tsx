@@ -1,3 +1,5 @@
+"use client";
+
 import { useGetblogsQuery } from "@/features/public/blogSlice";
 import RecentPostCard from "./components/recent-post-card";
 import { PAGINATION_LIMIT } from "@/lib/constants";

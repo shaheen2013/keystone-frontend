@@ -1,9 +1,10 @@
+"use client";
+
 import { Facebook, Share, Twitter } from "@/components/icons";
 import { Button } from "@/components/shadcn/button";
 import { Skeleton } from "@/components/shadcn/skeleton";
 import { toast } from "@/hooks/use-toast";
 import { Copy } from "lucide-react";
-import Head from "next/head";
 import { useEffect, useState } from "react";
 import { FacebookShareButton, TwitterShareButton } from "next-share";
 
@@ -37,41 +38,6 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
 
   return (
     <>
-      <Head>
-        <title>{data?.title || "Loading..."}</title>
-        <meta property="og:title" content={data?.title || "Loading..."} />
-        <meta property="og:description" content={data?.subtitle || ""} />
-        <meta
-          property="og:image"
-          content={
-            data?.banner?.path
-              ? `${data.banner.path}`
-              : "https://dummyimage.com/1200x630/000/fff"
-          }
-        />
-        <meta
-          property="og:url"
-          content={shareUrl || process.env.NEXT_PUBLIC_APP_URL}
-        />
-        <meta property="og:type" content="article" />
-        <meta property="og:site_name" content="Your Site Name" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content={data?.title || "Post image"} />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={data?.title || "Loading..."} />
-        <meta name="twitter:description" content={data?.subtitle || ""} />
-        <meta
-          name="twitter:image"
-          content={
-            data?.banner?.path
-              ? `${data.banner.path}`
-              : "https://dummyimage.com/1200x630/000/fff"
-          }
-        />
-        <meta name="twitter:image:alt" content={data?.title || "Post image"} />
-      </Head>
       <section className="flex flex-col">
         <div className="container flex flex-col gap-8 md:gap-16">
           {loading ? (
@@ -141,7 +107,7 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
                 <FacebookShareButton
                   url={shareUrl}
                   quote={data?.title || "Check out this article"}
-                  hashtag="#yourhashtag"
+                  hashtag="#blog"
                   blankTarget
                 >
                   <Facebook className="size-10 rounded-lg" />
