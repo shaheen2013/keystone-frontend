@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { FacebookShareButton, TwitterShareButton } from "next-share";
 
 const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
+  console.log("data", data);
   const [copied, setCopied] = useState(false);
   const [shareUrl, setShareUrl] = useState("");
   console.log("share  url", shareUrl);
@@ -36,24 +37,41 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
 
   return (
     <>
-      {!loading && data && (
-        <Head>
-          <title>{data?.title}</title>
-          <meta property="og:title" content={data?.title} />
-          <meta property="og:description" content={data?.subtitle} />
-          <meta property="og:image" content={data?.banner?.path} />
-          <meta
-            property="og:url"
-            content={`https://yourdomain.com/blogs/${data?.id}`}
-          />
-          <meta property="og:type" content="article" />
+      <Head>
+        <title>{data?.title || "Loading..."}</title>
+        <meta property="og:title" content={data?.title || "Loading..."} />
+        <meta property="og:description" content={data?.subtitle || ""} />
+        <meta
+          property="og:image"
+          content={
+            data?.banner?.path
+              ? `${data.banner.path}`
+              : "https://dummyimage.com/1200x630/000/fff"
+          }
+        />
+        <meta
+          property="og:url"
+          content={shareUrl || process.env.NEXT_PUBLIC_APP_URL}
+        />
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Your Site Name" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={data?.title || "Post image"} />
 
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={data?.title} />
-          <meta name="twitter:description" content={data?.subtitle} />
-          <meta name="twitter:image" content={data?.banner?.path} />
-        </Head>
-      )}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={data?.title || "Loading..."} />
+        <meta name="twitter:description" content={data?.subtitle || ""} />
+        <meta
+          name="twitter:image"
+          content={
+            data?.banner?.path
+              ? `${data.banner.path}`
+              : "https://dummyimage.com/1200x630/000/fff"
+          }
+        />
+        <meta name="twitter:image:alt" content={data?.title || "Post image"} />
+      </Head>
       <section className="flex flex-col">
         <div className="container flex flex-col gap-8 md:gap-16">
           {loading ? (
@@ -121,20 +139,17 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
                 </Button>
 
                 <FacebookShareButton
-                  url={"https://github.com/next-share"}
-                  quote={
-                    "next-share is a social share buttons for your next React apps."
-                  }
+                  url={shareUrl}
+                  quote={data?.title || "Check out this article"}
+                  hashtag="#yourhashtag"
                   blankTarget
                 >
                   <Facebook className="size-10 rounded-lg" />
                 </FacebookShareButton>
 
                 <TwitterShareButton
-                  url={"https://github.com/next-share"}
-                  title={
-                    "next-share is a social share buttons for your next React apps."
-                  }
+                  url={shareUrl}
+                  title={data?.title || "Check out this article"}
                   blankTarget
                 >
                   <Twitter className="size-10 rounded-lg" />
