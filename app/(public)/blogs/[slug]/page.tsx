@@ -27,8 +27,10 @@ async function getBlogBySlug(slug: any) {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const SITE_NAME = "KeyStone";
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL;
+  const SITE_NAME = "KeyStone Ability Support";
+  const SITE_URL =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://admin-staging.keystoneability.com/api";
 
   try {
     const { slug } = await params;
@@ -45,14 +47,18 @@ export async function generateMetadata({ params }: PageProps) {
     const shareUrl = `${SITE_URL}/blog/${slug}`;
 
     // Only process image if it exists
-    const images = [
-      {
-        url: `${blog.banner.path}`,
-        width: 1200,
-        height: 630,
-        alt: blog.title || "Blog post thumbnail",
-      },
-    ];
+    const images = blog.banner?.path
+      ? [
+          {
+            url: blog.banner.path.startsWith("http")
+              ? blog.banner.path
+              : `${SITE_URL}${blog.banner.path}`,
+            width: 1200,
+            height: 630,
+            alt: blog.title || "Blog post thumbnail",
+          },
+        ]
+      : undefined;
 
     return {
       title: blog.title || `${SITE_NAME} Blog`,
