@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { FacebookShareButton, TwitterShareButton } from "next-share";
 
 const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
-  console.log("data", data);
   const [copied, setCopied] = useState(false);
   const [shareUrl, setShareUrl] = useState("");
   console.log("share  url", shareUrl);
