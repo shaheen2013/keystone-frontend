@@ -4,6 +4,7 @@ import "./globals.css";
 
 import ReduxProvider from "@/components/partials/ReduxProvider";
 import { Toaster } from "@/components/shadcn/toaster";
+import GoogleAnalytics from "@/components/partials/google-analytics";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <ReduxProvider>{children}</ReduxProvider>
+        <GoogleAnalytics />
         <Toaster />
       </body>
     </html>
