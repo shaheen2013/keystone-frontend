@@ -4,16 +4,18 @@ import BlogContent from "./components/blog-content";
 import RecentPosts from "./components/recent-posts";
 import ExploreRecommendBlogs from "@/components/partials/explore-recommend-blogs";
 import NotFound from "@/components/partials/dynamic-page-not-found";
+import { SITE_NAME, SITE_URL } from "@/lib/constants";
+import ErrorComponent from "@/components/partials/errorPage";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-async function getBlogBySlug(slug: any) {
+async function getBlogBySlug(slug: string) {
   const response: any = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/blogs/${slug}`,
     {
-      next: { revalidate: 60 },
+      cache: "no-store",
     }
   );
 
@@ -27,11 +29,6 @@ async function getBlogBySlug(slug: any) {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const SITE_NAME = "KeyStone Ability Support";
-  const SITE_URL =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "https://admin-staging.keystoneability.com/api";
-
   try {
     const { slug } = await params;
     const data = await getBlogBySlug(slug);
@@ -46,7 +43,6 @@ export async function generateMetadata({ params }: PageProps) {
 
     const shareUrl = `${SITE_URL}/blog/${slug}`;
 
-    // Only process image if it exists
     const images = blog.banner?.path
       ? [
           {
@@ -92,40 +88,45 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function Page({ params }: PageProps) {
-  let blogData: any = null;
-  const { slug } = await params;
-  console.log("slug", slug);
   try {
+    const { slug } = await params;
     const data = await getBlogBySlug(slug);
-    blogData = data.data.blog;
+    const blogData = data.data.blog;
+
+    if (!blogData) {
+      return <NotFound />;
+    }
+
+    const heroData = {
+      title: blogData.title,
+      subtitle: blogData.subtitle,
+      banner: blogData.banner?.path || "",
+      readTime: blogData.reading_time,
+      dateTime: blogData.created_at,
+    };
+
+    return (
+      <>
+        <Hero data={heroData} loading={false} />
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_512px] py-12 md:py-28 container gap-8">
+          <BlogContent data={blogData} loading={false} />
+          <RecentPosts />
+        </div>
+        <ExploreRecommendBlogs />
+        <GetTouch />
+      </>
+    );
   } catch (error: any) {
     if (error.status === 404) {
       return <NotFound />;
     }
-    throw error;
+
+    // For other errors, show a generic error page
+    return (
+      <ErrorComponent
+        title="Error Loading Blog Post"
+        message="We encountered an issue while loading this blog post. Please try again later."
+      />
+    );
   }
-
-  if (!blogData) {
-    return <NotFound />;
-  }
-
-  const heroData = {
-    title: blogData.title,
-    subtitle: blogData.subtitle,
-    banner: blogData.banner?.path || "",
-    readTime: blogData.reading_time,
-    dateTime: blogData.created_at,
-  };
-
-  return (
-    <>
-      <Hero data={heroData} loading={false} />
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_512px] py-12 md:py-28 container gap-8">
-        <BlogContent data={blogData} loading={false} />
-        <RecentPosts />
-      </div>
-      <ExploreRecommendBlogs />
-      <GetTouch />
-    </>
-  );
 }
