@@ -7,11 +7,11 @@ import { toast } from "@/hooks/use-toast";
 import { Copy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { FacebookShareButton, TwitterShareButton } from "next-share";
+import Image from "next/image";
 
 const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
   const [copied, setCopied] = useState(false);
   const [shareUrl, setShareUrl] = useState("");
-  console.log("share  url", shareUrl);
 
   const handleCopyLink = () => {
     const currentUrl = window.location.href;
@@ -55,18 +55,27 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
               ))}
             </>
           ) : (
-            // Actual content
-            data?.sections?.map((item: any, index: number) => (
-              <section key={index} className="flex flex-col gap-6">
-                <h2 className="text-gray-9 text-2xl md:text-3xl font-semibold">
-                  {item.title}
-                </h2>
-                <div
-                  className="prose"
-                  dangerouslySetInnerHTML={{ __html: item.content }}
-                ></div>
-              </section>
-            ))
+            <>
+              <Image
+                src={data?.feature_image?.path}
+                width={1000}
+                height={760}
+                alt="feature image"
+                className="w-full object-cover object-center rounded-2xl max-w-full max-h-[640px] h-auto"
+              />
+
+              {data?.sections?.map((item: any, index: number) => (
+                <section key={index} className="flex flex-col gap-6">
+                  <h2 className="text-gray-9 text-2xl md:text-3xl font-semibold">
+                    {item.title}
+                  </h2>
+                  <div
+                    className="prose"
+                    dangerouslySetInnerHTML={{ __html: item.content }}
+                  ></div>
+                </section>
+              ))}
+            </>
           )}
         </div>
 
@@ -83,7 +92,7 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
             </>
           ) : (
             // Actual footer content
-            <>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 w-full">
               <div className="flex items-center gap-3">
                 <Share className="size-6 text-[#2B2B2B]" />
                 <span className="text-gray-9 text-lg font-medium">
@@ -120,7 +129,7 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
                   <Twitter className="size-10 rounded-lg" />
                 </TwitterShareButton>
               </div>
-            </>
+            </div>
           )}
         </div>
       </section>

@@ -43,12 +43,12 @@ export async function generateMetadata({ params }: PageProps) {
 
     const shareUrl = `${SITE_URL}/blog/${slug}`;
 
-    const images = blog.banner?.path
+    const images = blog.feature_image?.path
       ? [
           {
-            url: blog.banner.path.startsWith("http")
-              ? blog.banner.path
-              : `${SITE_URL}${blog.banner.path}`,
+            url: blog.feature_image.path.startsWith("http")
+              ? blog.feature_image.path
+              : `${SITE_URL}${blog.feature_image.path}`,
             width: 1200,
             height: 630,
             alt: blog.title || "Blog post thumbnail",

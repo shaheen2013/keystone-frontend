@@ -15,7 +15,7 @@ export default function Hero({
 
   return (
     <section
-      className="relative w-full h-[788px] flex items-center justify-center bg-gray-200 bg-opacity-50"
+      className="relative w-full min-h-[448px] md:min-h-[788px] py-4 flex items-center justify-center bg-gray-200 bg-opacity-50"
       style={
         !loading
           ? {
