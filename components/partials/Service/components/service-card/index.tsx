@@ -15,7 +15,7 @@ const ServiceCard = ({
   return (
     <div
       className={cn(
-        "bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start max-w-[512px] w-full h-full",
+        "bg-primary-2 p-4 md:p-8 rounded-2xl flex flex-col gap-6 items-start max-w-[512px] w-full",
         classes?.root
       )}
     >
@@ -31,12 +31,12 @@ const ServiceCard = ({
 
       <div className="flex flex-col gap-4">
         <Link
-          className="text-xl md:text-3xl font-bold text-gray-9"
+          className="text-xl md:text-3xl font-bold text-gray-9 line-clamp-3"
           href={`/services/${service.slug}`}
         >
           {service.name}
         </Link>
-        <p className="text-sm md:text-lg text-gray-9 line-clamp-3">
+        <p className="text-sm md:text-lg text-gray-9 line-clamp-4">
           {service.short_brief}
         </p>
       </div>
