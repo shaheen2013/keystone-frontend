@@ -26,6 +26,13 @@ export default function Footer() {
 
   const footerData = data?.data;
 
+  const customPages = (footerData?.custom_pages ?? []).map((item: any) => ({
+    name: item.title,
+    href: `/pages/${item.slug}`,
+  }));
+
+  const supportAndLegalData = [...customPages, ...supportAndLegal];
+
   const loading = isLoading || isFetching;
 
   const {
@@ -69,7 +76,12 @@ export default function Footer() {
 
         <div className="xl:w-80 lg:w-60">
           <div className="flex items-center  lg:mb-8 mb-6">
-            <Logo />
+            <Logo
+              classes={{
+                root: "w-24 md:w-28 h-auto",
+                skeleton: "w-24 md:w-28 md:h-14 h-12",
+              }}
+            />
           </div>
           <p className="text-base text-gray-9 mb-8">{footerData?.about}</p>
 
@@ -153,7 +165,7 @@ export default function Footer() {
               Support & Legal
             </h2>
             <nav className="lg:mb-10 mb-4">
-              {supportAndLegal?.map((link, index) => {
+              {supportAndLegalData?.map((link, index) => {
                 return (
                   <Link
                     key={index}
