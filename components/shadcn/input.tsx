@@ -39,10 +39,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <input
             type={type}
             className={cn(
-              "flex h-12 w-full rounded-xl border bg-transparent px-4 py-3 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-gray-6 focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50",
-              hasError
-                ? "border-red-500 focus-visible:ring-red-500"
-                : "border-gray-300  focus-visible:ring-secondary-5",
+              "flex h-12 w-full rounded-xl border bg-transparent px-4 py-3 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-gray-6 focus-visible:outline-none focus-visible:border-primary-4 disabled:cursor-not-allowed disabled:opacity-50",
+              hasError && "border-red-500",
+
               startIcon && "pl-12",
               endIcon && "pr-12",
               className || classes?.input
@@ -87,10 +86,8 @@ const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
           <input
             type={showPassword ? "text" : "password"}
             className={cn(
-              "flex h-12 w-full rounded-xl border bg-transparent px-4 py-3 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-gray-6 focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50",
-              hasError
-                ? "border-red-500 focus-visible:ring-red-500"
-                : "border-gray-300  focus-visible:ring-secondary-5",
+              "flex h-12 w-full rounded-xl border bg-transparent px-4 py-3 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-gray-6 focus-visible:outline-none focus-visible:border-primary-4 disabled:cursor-not-allowed disabled:opacity-50",
+              hasError && "border-red-500 focus-visible:ring-red-500",
               startIcon && "pl-12",
               endIcon && "pr-12",
               className

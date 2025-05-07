@@ -31,7 +31,7 @@ export default function Footer() {
     href: `/pages/${item.slug}`,
   }));
 
-  const supportAndLegalData = [...customPages, ...supportAndLegal];
+  const supportAndLegalData = [...supportAndLegal, ...customPages];
 
   const loading = isLoading || isFetching;
 
