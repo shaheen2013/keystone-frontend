@@ -11,6 +11,4 @@ export const supportAndLegal = [
   { name: "FAQ", href: "/faq" },
   { name: "Parent Guide", href: "/parent-guide" },
   { name: "Download Toolkit", href: "/download-toolkit" },
-  { name: "Privacy Policy", href: "/pages/privacy-policy" },
-  { name: "Terms & Condition", href: "/pages/terms-conditions" },
 ];
