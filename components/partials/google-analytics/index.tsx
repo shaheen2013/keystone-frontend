@@ -17,6 +17,9 @@ export default function GoogleAnalytics() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const isGAEnabled =
+    process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ENABLED === "true";
+
   useEffect(() => {
     if (!GA_ID) return;
 
@@ -29,18 +32,22 @@ export default function GoogleAnalytics() {
 
   return (
     <>
-      <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
+      {isGAEnabled && (
+        <>
+          <Script
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', '${GA_ID}');
         `}
-      </Script>
+          </Script>
+        </>
+      )}
     </>
   );
 }
