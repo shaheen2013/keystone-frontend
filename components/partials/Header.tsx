@@ -87,7 +87,7 @@ export default function Header() {
         {/* Center - Content (hidden on tablet) */}
         <nav className="hidden lg:flex items-center gap-6">
           {loadingServices ? (
-            Array.from({ length: 6 }).map((_, index) => (
+            Array.from({ length: 7 }).map((_, index) => (
               <div key={index} className="px-3 flex gap-3">
                 <Skeleton className="w-16 h-9" />
               </div>

@@ -13,18 +13,20 @@ const Logo = () => {
       {loading ? (
         <Skeleton className="lg:w-[150px] w-[120px] lg:h-[65px] h-[50px] " />
       ) : (
-        logo && (
-          <Link href={"/"} className="">
-            <Image
-              src={logo}
-              alt="logo"
-              width={150}
-              height={65}
-              className="lg:w-[150px] w-[120px] lg:h-[65px] h-[50px]"
-              priority
-            />
-          </Link>
-        )
+        <div className="lg:w-[150px] w-[120px] lg:h-[65px] h-[50px]">
+          {logo && (
+            <Link href={"/"} className="">
+              <Image
+                src={logo}
+                alt="logo"
+                width={1000}
+                height={760}
+                className="w-full h-full object-cover"
+                priority
+              />
+            </Link>
+          )}
+        </div>
       )}
     </>
   );
