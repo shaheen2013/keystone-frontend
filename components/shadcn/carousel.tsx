@@ -288,11 +288,11 @@ const CarouselDots = React.forwardRef<HTMLDivElement>(
             <Button
               key={i}
               className={cn(
-                "mx-4 w-12 md:w-16 h-4 rounded-full p-0 transition-all duration-300 ease-in-out",
+                "mx-1 md:mx-2.5 w-6 md:w-8 h-2 md:h-3 rounded-full p-0 transition-all duration-300 ease-in-out",
                 props.btnClass,
                 i === currentSlide
                   ? "bg-secondary-6 hover:bg-secondary-6"
-                  : "w-4 md:w-4 transform rounded-3xl bg-secondary-4 hover:bg-secondary-6",
+                  : "w-2 md:w-3 transform rounded-3xl bg-secondary-4 hover:bg-secondary-6",
                 i === currentSlide && props.activeClass
               )}
               aria-label={`Go to slide ${i + 1}`}
