@@ -162,7 +162,7 @@ export default function ResetPasswordForm({
                 }) => (
                   <InputPassword
                     className="bg-white"
-                    placeholder="********"
+                    placeholder="Enter new password"
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
@@ -197,7 +197,7 @@ export default function ResetPasswordForm({
                   </label>
                   <InputPassword
                     className="bg-white"
-                    placeholder="********"
+                    placeholder="Enter confirm password"
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}

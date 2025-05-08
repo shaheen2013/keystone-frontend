@@ -208,7 +208,7 @@ export default function SignupForm() {
                     </label>
                     <InputPassword
                       className="bg-white"
-                      placeholder="********"
+                      placeholder="Enter password"
                       onChange={onChange}
                       onBlur={onBlur}
                       value={value}
@@ -242,7 +242,7 @@ export default function SignupForm() {
                     </label>
                     <InputPassword
                       className="bg-white"
-                      placeholder="********"
+                      placeholder="Enter confirm password"
                       onChange={onChange}
                       onBlur={onBlur}
                       value={value}
