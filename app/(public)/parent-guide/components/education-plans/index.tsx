@@ -17,7 +17,7 @@ const EducationPlans = ({ data, loading }: { data: any; loading: boolean }) => {
             {title}
           </h3>
           <div
-            className="prose mb-8 md:mb-12"
+            className="prose mb-8 md:mb-12 !max-w-full"
             dangerouslySetInnerHTML={{ __html: subtitle }}
           />
           {btns?.map((btn: any, index: number) => (

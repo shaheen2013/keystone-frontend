@@ -79,7 +79,7 @@ const ExploreServices = ({
                     <ServiceCard
                       service={service}
                       classes={{
-                        root: "bg-white",
+                        root: "bg-white h-full",
                       }}
                     />
                   </CarouselItem>

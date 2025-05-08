@@ -106,7 +106,7 @@ const CalendarView = () => {
             {eventContent.event.title}
           </span>
         </div>
-        <div className="flex md:hidden size-1.5 bg-secondary-5 rounded-full mx-2"></div>
+        <div className="flex md:hidden size-1.5 bg-secondary-5 rounded-full mx-1.5"></div>
       </>
     );
   }, []);
