@@ -131,7 +131,7 @@ export default function LoginForm() {
             <div className="mb-4">
               <div>
                 <label htmlFor="email" className="text-base text-gray-9 mb-2">
-                  Email
+                  Email <span className="text-orange-500">*</span>
                 </label>
 
                 <Controller
@@ -181,11 +181,11 @@ export default function LoginForm() {
                       htmlFor="password"
                       className="text-base text-gray-9 mb-2"
                     >
-                      Password
+                      Password <span className="text-orange-500">*</span>
                     </label>
                     <InputPassword
                       className="bg-white"
-                      placeholder="********"
+                      placeholder="Enter password"
                       onChange={onChange}
                       onBlur={onBlur}
                       value={value}

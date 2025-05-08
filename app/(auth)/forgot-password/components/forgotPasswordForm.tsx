@@ -82,7 +82,7 @@ export default function ForgotPasswordForm({
         <div className="mb-6">
           <div>
             <label htmlFor="email" className="text-base text-gray-9 mb-2">
-              Email
+              Email <span className="text-orange-500">*</span>
             </label>
 
             <Controller

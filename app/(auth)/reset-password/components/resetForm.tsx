@@ -145,7 +145,7 @@ export default function ResetPasswordForm({
           <div className="mb-4">
             <div>
               <label htmlFor="email" className="text-base text-gray-9 mb-2">
-                New Password
+                New Password <span className="text-orange-500">*</span>
               </label>
 
               <Controller
@@ -192,7 +192,8 @@ export default function ResetPasswordForm({
                     htmlFor="confirm_password"
                     className="text-base text-gray-9 mb-2"
                   >
-                    Confirm New Password
+                    Confirm New Password{" "}
+                    <span className="text-orange-500">*</span>
                   </label>
                   <InputPassword
                     className="bg-white"

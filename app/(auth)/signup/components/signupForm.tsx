@@ -122,7 +122,7 @@ export default function SignupForm() {
             <div className="mb-4">
               <div>
                 <label htmlFor="name" className="text-base text-gray-9 mb-2">
-                  Name
+                  Name <span className="text-orange-500">*</span>
                 </label>
 
                 <Controller
@@ -154,7 +154,7 @@ export default function SignupForm() {
             <div className="mb-4">
               <div>
                 <label htmlFor="email" className="text-base text-gray-9 mb-2">
-                  Email
+                  Email <span className="text-orange-500">*</span>
                 </label>
 
                 <Controller
@@ -204,7 +204,7 @@ export default function SignupForm() {
                       htmlFor="password"
                       className="text-base text-gray-9 mb-2"
                     >
-                      Password
+                      Password <span className="text-orange-500">*</span>
                     </label>
                     <InputPassword
                       className="bg-white"
@@ -237,7 +237,8 @@ export default function SignupForm() {
                       htmlFor="confirmPassword"
                       className="text-base text-gray-9 mb-2"
                     >
-                      Confirm Password
+                      Confirm Password{" "}
+                      <span className="text-orange-500">*</span>
                     </label>
                     <InputPassword
                       className="bg-white"
