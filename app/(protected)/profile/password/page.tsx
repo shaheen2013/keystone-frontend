@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
@@ -251,19 +250,6 @@ export default function AccountPassword() {
               Change
             </Button>
           </div>
-
-          <p className="text-center mb-1 text-gray-700">
-            If you don&apos;t remember your password, forget it.
-          </p>
-
-          <Button
-            asChild
-            className="block h-auto text-center text-sm"
-            variant="link-secondary"
-            type="button"
-          >
-            <Link href="/forgot-password">Forgot Password</Link>
-          </Button>
         </form>
       </Modal>
     </div>
