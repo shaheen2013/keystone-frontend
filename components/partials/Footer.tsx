@@ -52,7 +52,7 @@ export default function Footer() {
       const response: any = await subscribe(data).unwrap();
       if (response?.success) {
         toast({
-          description: "Thank you for subscribing",
+          description: response.message || "You have successfully subscribed",
         });
         reset();
       }

@@ -28,7 +28,7 @@ const MeetOurSpeaker = ({ data, loading }: { data: any; loading: boolean }) => {
                     width={1000}
                     height={760}
                     alt={item.name}
-                    className="w-full h-80 md:h-[400px] object-cover object-center rounded-xl"
+                    className="w-full h-auto max-h-80 md:max-h-[400px] object-cover object-center rounded-xl"
                   />
                 )}
               </div>

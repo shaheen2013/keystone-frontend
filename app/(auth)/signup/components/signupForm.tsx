@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import GoogleSignIn from "@/components/partials/social-signin/google";
 import Logo from "@/components/partials/logo";
 import CopyRight from "@/components/partials/copy-right";
+import { toast } from "@/hooks/use-toast";
 
 export default function SignupForm() {
   const router = useRouter();
@@ -56,6 +57,9 @@ export default function SignupForm() {
       const res: any = await register(payload).unwrap();
 
       if (res.success) {
+        toast({
+          description: "You have successfully signed up",
+        });
         const token = res.data.access_token;
         Cookies.set("key_stone_token", token, {
           secure: true,

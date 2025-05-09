@@ -14,12 +14,19 @@ export default function CenteredHero({
     return <CenteredHeroSkeleton />;
   }
 
+  const backgroundImage = banner
+    ? `${
+        typeof banner === "string"
+          ? "linear-gradient(0deg, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.70) 100%), "
+          : ""
+      }url(${typeof banner === "string" ? banner : banner.src}) lightgray 50% / cover no-repeat`
+    : "none";
+
   return (
     <section
       className="relative w-full min-h-[480px] py-4 flex items-center justify-center"
       style={{
-        background: `linear-gradient(0deg, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.70) 100%), 
-                   url(${typeof banner === "string" ? banner : banner.src}) lightgray 50% / cover no-repeat`,
+        background: backgroundImage,
       }}
     >
       <div className="container">
