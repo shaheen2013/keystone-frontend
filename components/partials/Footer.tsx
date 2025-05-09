@@ -228,50 +228,53 @@ export default function Footer() {
         </div>
 
         {/* right */}
-        <div className="xl:w-80 lg:w-60">
-          <h2 className="font-bold text-gray-9 text-lg mb-6">Subscribe</h2>
+        {footerData?.is_subscribe_active && (
+          <div className="xl:w-80 lg:w-60">
+            <h2 className="font-bold text-gray-9 text-lg mb-6">Subscribe</h2>
 
-          <p className="text-base text-gray-9 mb-6">
-            Stay informed with the latest resources, events, and support tools.
-          </p>
-
-          <form className="flex gap-3" onSubmit={handleSubmit(onSubmit)}>
-            <Controller
-              control={control}
-              name="email"
-              rules={{
-                required: "Email is required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Invalid email address",
-                },
-              }}
-              render={({ field: { onChange, value, onBlur } }) => (
-                <Input
-                  classes={{ input: "bg-white" }}
-                  placeholder="Enter email address"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                />
-              )}
-            />
-
-            <Button
-              variant="secondary"
-              size="sm"
-              className="h-12"
-              type="submit"
-            >
-              Sign Up
-            </Button>
-          </form>
-          {errors && (
-            <p className="text-red-500  text-sm mt-1 ml-1">
-              {errors.email?.message}
+            <p className="text-base text-gray-9 mb-6">
+              Stay informed with the latest resources, events, and support
+              tools.
             </p>
-          )}
-        </div>
+
+            <form className="flex gap-3" onSubmit={handleSubmit(onSubmit)}>
+              <Controller
+                control={control}
+                name="email"
+                rules={{
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Invalid email address",
+                  },
+                }}
+                render={({ field: { onChange, value, onBlur } }) => (
+                  <Input
+                    classes={{ input: "bg-white" }}
+                    placeholder="Enter email address"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                  />
+                )}
+              />
+
+              <Button
+                variant="secondary"
+                size="sm"
+                className="h-12"
+                type="submit"
+              >
+                Sign Up
+              </Button>
+            </form>
+            {errors && (
+              <p className="text-red-500  text-sm mt-1 ml-1">
+                {errors.email?.message}
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* copyright */}

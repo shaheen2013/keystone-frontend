@@ -17,7 +17,7 @@ const AboutWorkshop = ({ data, loading }: { data: any; loading: boolean }) => {
             {title}
           </h3>
           <div
-            className="prose mb-6 md:mb-8"
+            className="prose mb-6 md:mb-8 !max-w-full"
             dangerouslySetInnerHTML={{ __html: about }}
           />
         </div>

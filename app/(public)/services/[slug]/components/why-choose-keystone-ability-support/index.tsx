@@ -37,7 +37,13 @@ const WhyChooseKeystoneAbilitySupport = ({
           </div>
         </div>
         {image?.src && (
-          <Image src={image.src} alt="Image" width={776} height={450} />
+          <Image
+            src={image.src}
+            alt="why choose keystone ability support"
+            width={1000}
+            height={760}
+            className="max-w-[776px] h-auto rounded-xl object-cover object-center "
+          />
         )}
       </div>
       {!loading && reasons?.length === 0 && (

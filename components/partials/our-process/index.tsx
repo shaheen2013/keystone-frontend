@@ -45,7 +45,7 @@ const OurProcess = ({
                   </div>
                   <div className="flex flex-col gap-3 md:gap-4">
                     <h3 className="text-xl md:text-2xl font-bold text-gray-9">
-                      {step.name}
+                      {step.name || step.label}
                     </h3>
                     <p className="text-sm md:text-lg text-gray-9">
                       {step.description}

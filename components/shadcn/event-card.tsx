@@ -36,7 +36,7 @@ const EventCard = ({
         <div className="flex gap-2 text-secondary-6">
           <Calendar />
           <span className="font-medium text-base">
-            {moment(event.created_at).format("h:mm A, Do MMM YYYY")}
+            {moment(event.start_date).format("h:mm A, Do MMM YYYY")}
           </span>
         </div>
         <Link href={`/events/${event.slug}`}>

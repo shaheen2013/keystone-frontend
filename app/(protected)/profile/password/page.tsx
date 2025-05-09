@@ -141,11 +141,11 @@ export default function AccountPassword() {
                     htmlFor="password"
                     className="text-base text-gray-9 mb-1 block"
                   >
-                    Old Password
+                    Old Password <span className="text-orange-500">*</span>
                   </label>
                   <InputPassword
                     className="bg-white"
-                    placeholder="********"
+                    placeholder="Enter your old password"
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
@@ -175,11 +175,11 @@ export default function AccountPassword() {
                     htmlFor="password"
                     className="text-base text-gray-9 mb-1 block"
                   >
-                    New Password
+                    New Password <span className="text-orange-500">*</span>
                   </label>
                   <InputPassword
                     className="bg-white"
-                    placeholder="********"
+                    placeholder="Enter new password"
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
@@ -215,11 +215,12 @@ export default function AccountPassword() {
                     htmlFor="password"
                     className="text-base text-gray-9 mb-1 block"
                   >
-                    Confirm New Password
+                    Confirm New Password{" "}
+                    <span className="text-orange-500">*</span>
                   </label>
                   <InputPassword
                     className="bg-white"
-                    placeholder="********"
+                    placeholder="Enter confirm new password"
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}

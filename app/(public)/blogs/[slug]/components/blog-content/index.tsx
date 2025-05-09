@@ -61,7 +61,7 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
                 width={1000}
                 height={760}
                 alt="feature image"
-                className="w-full object-cover object-center rounded-2xl max-w-full max-h-[640px] h-auto"
+                className="object-cover object-center rounded-2xl w-full h-auto"
               />
 
               {data?.sections?.map((item: any, index: number) => (
@@ -70,7 +70,7 @@ const BlogContent = ({ data, loading }: { data: any; loading: boolean }) => {
                     {item.title}
                   </h2>
                   <div
-                    className="prose"
+                    className="prose !max-w-full"
                     dangerouslySetInnerHTML={{ __html: item.content }}
                   ></div>
                 </section>

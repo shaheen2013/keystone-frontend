@@ -204,12 +204,6 @@
   color: white !important;
 }
 
-.fc-daygrid-day-events {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 6px !important;
-}
-
 .fc-daygrid-event-harness {
   cursor: pointer;
 }
@@ -225,21 +219,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .fc-daygrid-day-events {
-    /* flex-direction: row !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    padding: 2px !important;
-    gap: 3px !important; */
-  }
-  .fc-daygrid-event-harness {
-    /* width: 6px !important;
-    height: 6px !important;
-    background-color: #f06143 !important;
-    border-radius: 15px !important; */
-  }
-
   .fc-header-toolbar.fc-toolbar .fc-toolbar-title {
     font-size: 16px !important;
   }

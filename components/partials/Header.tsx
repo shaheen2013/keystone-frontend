@@ -291,9 +291,9 @@ const ListItem = forwardRef<React.ElementRef<"li">, ListItemProps>(
           )}
           {...props}
         >
-          <Link href={href}>
-            <div className="text-sm font-medium leading-none">{title}</div>
-            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <Link href={href} className="flex flex-col gap-2">
+            <h3 className="text-base font-medium  line-clamp-2">{title}</h3>
+            <p className="line-clamp-3 text-sm text-muted-foreground">
               {children}
             </p>
           </Link>
