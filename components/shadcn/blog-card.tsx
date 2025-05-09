@@ -40,7 +40,6 @@ const BlogCard = ({
       await saveToggle({ blog_slug: slug }).unwrap();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error: any) {
-
       const status = (error as any)?.status || (error as any)?.originalStatus;
       if (status === 401) {
         handleunAthorized();
@@ -91,7 +90,7 @@ const BlogCard = ({
               height={760}
               alt={article.title}
               className={cn(
-                "w-full h-[230px] md:h-[314px] object-cover rounded-xl",
+                "w-full h-[230px] md:h-[314px] object-cover object-center rounded-xl",
                 classes?.image
               )}
             />

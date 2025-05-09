@@ -19,14 +19,14 @@ const EducationPlans = ({ data, loading }: { data: any; loading: boolean }) => {
           <div
             className="prose mb-8 md:mb-12 !max-w-full"
             dangerouslySetInnerHTML={{ __html: subtitle }}
-          />
+          ></div>
           {btns?.map((btn: any, index: number) => (
             <Button key={index} variant="secondary" size="lg" asChild>
               <Link href={btn.url}>{btn.text}</Link>
             </Button>
           ))}
         </div>
-        <div className="max-w-[776px] w-full h-60 md:h-[400px] rounded-xl overflow-hidden">
+        <div className="max-w-[776px] w-full h-auto max-h-60 md:max-h-[450px] rounded-xl overflow-hidden">
           <YoutubeVideoPlayer url={youtube_url} />
         </div>
       </div>

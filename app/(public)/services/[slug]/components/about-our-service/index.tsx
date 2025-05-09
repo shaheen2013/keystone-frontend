@@ -24,9 +24,9 @@ const AboutOurService = ({
           <div
             className="prose mb-6 md:mb-8 !max-w-full"
             dangerouslySetInnerHTML={{ __html: about }}
-          />
+          ></div>
         </div>
-        <div className="max-w-[776px] w-full h-60 md:h-[400px] rounded-xl overflow-hidden">
+        <div className="max-w-[776px] w-full h-auto max-h-60 md:max-h-[450px] rounded-xl overflow-hidden">
           <YoutubeVideoPlayer url={videoUrl} />
         </div>
       </div>

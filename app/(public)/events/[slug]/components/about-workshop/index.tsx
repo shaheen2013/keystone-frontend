@@ -19,7 +19,7 @@ const AboutWorkshop = ({ data, loading }: { data: any; loading: boolean }) => {
           <div
             className="prose mb-6 md:mb-8 !max-w-full"
             dangerouslySetInnerHTML={{ __html: about }}
-          />
+          ></div>
         </div>
         <div className="max-w-[776px] w-full h-60 md:h-[400px] rounded-xl overflow-hidden">
           <YoutubeVideoPlayer url={videoUrl} />

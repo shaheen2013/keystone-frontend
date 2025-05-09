@@ -18,7 +18,7 @@ const WhyKeystoneSection = ({
     <section className="py-12 md:py-28 bg-primary-2">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
         {/* Video Column */}
-        <div className="max-w-[776px] w-full h-60 md:h-[400px] rounded-xl overflow-hidden">
+        <div className="max-w-[776px] w-full h-auto max-h-60 md:max-h-[450px] rounded-xl overflow-hidden">
           {loading ? (
             <Skeleton className="w-full h-60 md:h-[400px]" />
           ) : (

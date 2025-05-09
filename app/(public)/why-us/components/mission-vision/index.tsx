@@ -16,7 +16,7 @@ const MissionAndVision = ({
   return (
     <section className="py-12 md:py-28 bg-white">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
-        <div className="max-w-[776px] w-full h-60 md:h-[400px] rounded-xl overflow-hidden">
+        <div className="max-w-[776px] w-full h-auto max-h-60 md:max-h-[450px] rounded-xl overflow-hidden">
           <YoutubeVideoPlayer url={videoUrl} />
         </div>
         <div className="flex flex-col gap-4 md:gap-8">

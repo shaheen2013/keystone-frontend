@@ -42,7 +42,7 @@ const WhyChooseKeystoneAbilitySupport = ({
             alt="why choose keystone ability support"
             width={1000}
             height={760}
-            className="max-w-[776px] h-auto rounded-xl object-cover object-center "
+            className="w-full max-w-[776px] h-auto rounded-xl object-cover object-center"
           />
         )}
       </div>

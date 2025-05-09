@@ -26,7 +26,7 @@ const EventCard = ({
               width={1000}
               height={760}
               alt={event.title}
-              className="w-full h-full object-cover rounded-xl"
+              className="w-full h-[230px] md:h-[314px] object-cover object-center rounded-xl"
             />
           </div>
         </Link>

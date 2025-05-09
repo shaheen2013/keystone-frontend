@@ -37,7 +37,7 @@ export default function DynamicPage({
   const heroData = {
     title: pageData?.title,
     subtitle: pageData?.subtitle,
-    banner: pageData?.banner || "",
+    banner: pageData?.banner?.path || "",
   };
 
   return (
@@ -107,10 +107,10 @@ export default function DynamicPage({
                     <h3 className="text-2xl md:text-4xl font-bold text-gray-9">
                       {item.title}
                     </h3>
-                    <p
-                      className="text-gray-8 text-base md:text-xl font-normal"
+                    <div
+                      className="prose !max-w-full"
                       dangerouslySetInnerHTML={{ __html: item.content }}
-                    ></p>
+                    ></div>
                   </section>
                 ))}
           </div>
